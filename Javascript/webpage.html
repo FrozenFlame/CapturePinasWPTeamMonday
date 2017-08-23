@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Reymark webpage</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+<div class="container">
+    <h3>My Webpage</h3>
+    <p id="p1">Reymark</p>
+    <button type="button" class="btn btn-default" onclick=createFile()>Click me</button>
+    <p id="p2"></p>
+</div>
+
+<script language="JScript">
+    <!--
+    function createFile()
+    {
+        var myObject, newfile;
+        myObject = new ActiveXObject("Scripting.FileSystemObject");
+        newfile = myObject.CreateTextFile("c:\\testing.txt", false);
+    }
+    -->
+    </script>
+    Create Text file "testing.txt"
+    <form name="myForm">
+    <input type="Button" value="Click to Create New File" onClick='createFile()'>
+    </form>
+
+</body>
+
+</html>
+
