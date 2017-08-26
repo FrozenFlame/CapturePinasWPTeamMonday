@@ -35,7 +35,8 @@
             else
                 $successful = FALSE; #the credentials were wrong.
             
-            return ($successful) ? 'TRUE' : 'FALSE';
+           // return ($successful) ? 'TRUE' : 'FALSE';
+           return $successful;
         }
        
     }

@@ -6,7 +6,7 @@
     <!-- Bootstrap -->
     <link rel="stylesheet" href="css/bootstrap.min.css"> <!-- changed to local files -->
     <script src = "js/jquery-3.2.1.js"></script>
-    <script src="js/bootstrap/js/bootstrap.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
     <link href="css/home-out.css" rel="stylesheet">
 
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -173,6 +173,7 @@
       
       <!-- Login script -->
       <script>
+        var attemptsRem = 5;
         $(document).ready(function()
         {
           $("#bloginmdl").click(function()
@@ -184,8 +185,17 @@
             { 
               $.post('ajax/login_process.php', {usern: user, passw: pass}, function(data)  //user is what we're passing in, and usern is what php will reference it with.
               {                                                               //data there is what php will return or "echo"
-                
-                $('label#wrongusr').text(data);                                                  
+                if(data)
+                {  
+                  $('label#wrongusr').text("");
+                  window.location.href = 'home-in.html'; //moves us in
+                }
+                else
+                {
+                  $('label#wrongusr').css("color","red");
+                  $('label#wrongusr').text("Incorrect login details.");
+                  attemptsRem--;
+                }                         
               });         
             }
             
