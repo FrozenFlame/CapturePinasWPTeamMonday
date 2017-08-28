@@ -1,7 +1,9 @@
 <?php 
     # login_process.php's job is to verify the input of the user to the database if such a user exists.
     include_once('../php/connection.php');
-   
+
+    session_start();
+
     $user = $_POST['usern'];
     $pass = $_POST['passw'];
     if(isset($user) === TRUE && empty($user) === FALSE 
@@ -11,8 +13,7 @@
         echo $attempt->login($user, $pass);
     } 
 
-
-    class Login
+    class Login #inner class
     {
         private $db;
         private $successful;
@@ -24,21 +25,28 @@
 
         public function login($username, $password) #this is the database logic
         {
-            
-            $query = $this->db->prepare("SELECT * FROM users2 WHERE usrName = ? AND password = ?");
+            $query = $this->db->prepare("SELECT * FROM users2 WHERE usrName = ? AND BINARY password = ?"); #BINARY makes the password search case-sensitive.
             $query->bindparam(1, $username);
             $query->bindparam(2, $password);
             $query->execute();
-
-            if($query->rowcount() == 1) #checks if it at least found a user with such credentials.
-                $successful = TRUE;
-            else
-                $successful = FALSE; #the credentials were wrong.
             
-           // return ($successful) ? 'TRUE' : 'FALSE';
+            if($query->rowcount() == 1) #checks if it at least found a user with such credentials.
+            {    
+                $successful = TRUE;
+                
+                while($id = $db->fetch(PDO::FETCH_NUM))
+                {
+                    $_SESSION['id'] = $id['id'];   #since it's a result set, we must loop through it 
+                                                #to get the value regardless if it only has one item.
+                }
+            }
+            else
+            {
+                 $successful = FALSE; #the credentials were wrong.
+            }
+               
+            
            return $successful;
         }
-       
     }
-
 ?>

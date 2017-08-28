@@ -53,3 +53,6 @@ Now if there's some kind of way to separate this functionality to keep the html 
 Because it's client side.
 
 --DD
+
+** 28-AUG-17
+It seems we have little choice.
