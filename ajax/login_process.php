@@ -33,12 +33,7 @@
             if($query->rowcount() == 1) #checks if it at least found a user with such credentials.
             {    
                 $successful = TRUE;
-                
-                while($id = $db->fetch(PDO::FETCH_NUM))
-                {
-                    $_SESSION['id'] = $id['id'];   #since it's a result set, we must loop through it 
-                                                #to get the value regardless if it only has one item.
-                }
+                $_SESSION['id'] = $query->fetch()['id'];  //this will give us the id
             }
             else
             {

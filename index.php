@@ -1,4 +1,10 @@
-<!DOCTYPE html>
+<?php
+session_start();
+if(isset($_SESSION['id'])) # if user is already logged in, redirect to logged in page.
+{
+  header('Location: home-in.php');
+}
+?>
 <html>
   <head>
     <title>CapturePinas</title>
@@ -189,7 +195,7 @@
                 if(data)
                 {  
                   $('label#wrongusr').text("");
-                  window.location.href = 'home-in.html'; //moves us in
+                  window.location.href = 'home-in.php'; //moves us in
                 }
                 else
                 {

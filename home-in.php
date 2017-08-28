@@ -1,5 +1,13 @@
 <!-- Team Monday -->
-<!DOCTYPE html>
+<?php
+session_start();
+
+if(!isset($_SESSION['id'])) #if user is logged out, they'll be redirected home. Logic for other tabs.
+{
+  header('Location: index.php');
+}
+
+?>
 <html>
   <head>
     <title>CapturePinas</title>
