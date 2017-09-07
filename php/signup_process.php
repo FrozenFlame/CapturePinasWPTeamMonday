@@ -1,27 +1,85 @@
-<?php
-  
-   
-?>
+<?php 
+    # login_process.php's job is to verify the input of the user to the database if such a user exists.
+    include_once('../php/connection.php');
 
-<!-- // $gabe = $_REQUEST['gimme'];
-    $fullName = $_GET['fullName']; //these are found in signup.html
-    /* $usrName = $_GET['usrName'];
-    $email = $_GET['email'];
-    $password = $_GET['password'];*/
+    session_start();
 
-    echo '<script>console.log("hey");</script>';
-    /*  print_r();
-    echo 'lol';*/
-    /* mysql_connect("localhost:8080","root","");
-    mysql_select_db("signuptest");
-    // mysql_select_db("signuptest");
-    mysql_query("insert into users2 values('$fullName', '$usrName', '$email', '$password'");*/
-
+    // create a variable
+    $username=$_POST['username'];
+    $fullname=$_POST['fullname'];
+    $email=$_POST['email'];
+    $password=$_POST['password'];
+ 
     
-    //  echo("Gaben: " . $gabe);
-    /*echo("Full Name: " . $fullName); // the dot is the + sign to concatenate
-    echo("<br/>Username: " . $usrName);
-    echo("<br/>Email: " . $email);
-    echo("<br/>Password: " . $password);
-    echo("<br/> End of Echo");*/
-    -->
+    if(isset($user) === TRUE && empty($user) === FALSE 
+    && isset($pass) === TRUE && empty($pass) === FALSE) #this is to check if our reference is valid.
+    {
+        $attempt = new Signup();
+        echo $attempt->signup($username, $password,$email, $fullname);
+    } 
+
+    class Signup #inner class
+    {
+        private $db;
+        private $successful;
+        public function __construct()
+        {
+            $this->db = new Connection();
+            $this->db = $this->db->dbConnect(); #being extremely explicit here just in case. 
+        }
+        
+        public function signup($user, $pass, $e_mail, $full_name)
+        {
+            $query = $this->db->prepare("INSERT INTO users VALUES(?,?,?,?)");
+            $query->bindparam(1,$user);
+            $query->bindparam(2,$full_name);
+            $query->bindparam(3,$e_mail);
+            $query->bindparam(4,$pass);
+            $result = $query->execute();
+            
+            if($result)
+            {
+                $successful = TRUE;
+                
+            } else
+            {
+                $successful = FALSE; #the credentials were wrong.
+            }
+            
+        }
+    }
+
+    class Login #inner class
+    {
+        private $db;
+        private $successful;
+        public function __construct() 
+        {
+            $this->db = new Connection();
+            $this->db = $this->db->dbConnect(); #being extremely explicit here just in case.      
+        }
+
+        public function login($username, $password) #this is the database logic
+        {
+            $query = $this->db->prepare("SELECT * FROM users WHERE username = ? AND BINARY password = ?"); #BINARY makes the password search case-sensitive.
+            $query->bindparam(1, $username);
+            $query->bindparam(2, $password);
+            $result = $query->execute();
+            
+            
+            
+            /*if($query->rowcount() == 1) #checks if it at least found a user with such credentials.
+            {    
+                $successful = TRUE;
+                $_SESSION['id'] = $query->fetch()['id'];  //this will give us the id
+            }
+            else
+            {
+                 $successful = FALSE; #the credentials were wrong.
+            }*/
+               
+            
+           return $successful;
+        }
+    }
+?>

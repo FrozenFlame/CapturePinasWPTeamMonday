@@ -90,7 +90,8 @@ if(isset($_SESSION['id'])) # if user is already logged in, redirect to logged in
         </div>
     </nav>
     <!-- End of Nav bar -->
-      <!--<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo">Open modal for @mdo</button>-->
+      
+      <!-- Start of Modal -->
       <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
@@ -179,7 +180,12 @@ if(isset($_SESSION['id'])) # if user is already logged in, redirect to logged in
       
       <!-- Login script -->
       <script>
+       /*window.onload = load();
         
+           function load() {
+           alert("fake");
+       }*/
+          
         var attemptsRem = 5;
         $(document).ready(function()
         {

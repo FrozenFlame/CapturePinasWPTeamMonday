@@ -28,6 +28,9 @@
     background-color: #F8F8F8;
     border-color: #E7E7E7;
 }
+#profile-dropdown {
+    padding-right: 10px;
+}
 .features-container{
     padding-left: 40px;
   padding-right: 40px;
@@ -90,6 +93,10 @@
 .navbar-default .navbar-toggle .icon-bar {
     background-color: #CCC;
 }
+/*#navbar-search {
+    width: 100px;
+}*/
+
 @media (max-width: 767px) {
     .navbar-default .navbar-nav .open .dropdown-menu > li > a {
         color: #777;

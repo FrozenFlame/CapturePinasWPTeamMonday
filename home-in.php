@@ -2,10 +2,12 @@
 <?php
 session_start();
 
-if(!isset($_SESSION['id'])) #if user is logged out, they'll be redirected home. Logic for other tabs.
+if(!isset($_SESSION['id'])) # if user is already logged in, redirect to logged in page.
 {
   header('Location: index.php');
-}
+} 
+
+
 
 ?>
 <html>
@@ -16,7 +18,7 @@ if(!isset($_SESSION['id'])) #if user is logged out, they'll be redirected home. 
     <link rel="stylesheet" href="css/bootstrap.min.css"> <!-- changed to local files -->
     <script src = "js/jquery-3.2.1.js"></script>
     <script src="js/bootstrap.min.js"></script>
-    <link href="css/home-out.css" rel="stylesheet">
+    <link href="css/home-in.css" rel="stylesheet">
 
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
@@ -24,12 +26,6 @@ if(!isset($_SESSION['id'])) #if user is logged out, they'll be redirected home. 
       <script src="js/respond.min.js"></script>
     <![endif]-->
 
-    <script>
-    window.onload = function() 
-    {
-      window.location.href = ('php/prefield.php');
-    }
-    </script>
   </head>
   <body>
     <!-- Nav bar -->
@@ -87,15 +83,30 @@ if(!isset($_SESSION['id'])) #if user is logged out, they'll be redirected home. 
                             
                         </ul>
                     </li>
-                    
-                    <li><a href="#">Forums</a></li>
                     <li><a href="#">About Us</a></li>
                  
                 </ul> 
+                
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a href="signup.html"><span class="glyphicon glyphicon-user" ></span> Sign Up</a></li>
-                    <li><a href="#" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
-                </ul>
+                    <li>
+                        <div class="col-lg-12">
+                         <form class="navbar-form" role="search">
+                            <div class="input-group">
+                                <input type="text" class="form-control" placeholder="Search" id="navbar-search">
+                                <div class="input-group-btn">
+                                <button class="btn btn-default" type="submit"><i class="glyphicon glyphicon-search"></i></button>
+                                </div>
+                            </div>
+                        </form>
+                        </div>
+                    </li>
+                    <li class="dropdown" id="profile-dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Profile <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                        <li><a href="#">Profile</a></li>
+                        <li><a href="out.php">Logout</a></li>
+                    </ul>
+                    </li>
             </div>
         </div>
     </nav>

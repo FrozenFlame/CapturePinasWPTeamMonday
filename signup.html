@@ -4,74 +4,16 @@
     <title>CapturePinas</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- Bootstrap -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="css/bootstrap.min.css"> <!-- changed to local files -->
+    <script src = "js/jquery-3.2.1.js"></script>
+    <script src="js/bootstrap.min.js"></script>
     <link href="css/signup.css" rel="stylesheet">
 
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
       <script src="js/html5shiv.js"></script>
       <script src="js/respond.min.js"></script>
-    <![endif]-->
-        <script src="js/jquery.csv.js"></script>
-      
-       <script>
-           var csv = new File([""], "people.csv", {type: "text/csv", lastModified: 01/01/2017})
-           var input = $.csv.fromArrays(csv);
-           console.log(csv);
-           
-           
-           function message()
-           {
-               /*var username = document.getElementById('Username').value;
-               var password = document.getElementById('Password').value;*/
-               alert("FAKE");
-           }
-           
-          
-           
-      
-           
-           /*var username = document.getElementById('Username').value;
-           var password = document.getElementById('Password').value;
-           var fullname = document.getElementById('Full Name').value;
-           var email = document.getElementById('Email').value;*/
-           
-           
-           var data = [
-               ['Rm', 'Jarvs' , 'Fake', 'Meow'],
-               
-           ];
-           console.log(data);
-           //data[0]=document.getElementById('Full Name').value;
-           /*data[0][1]=document.getElementById('Username').value;
-           data[0][2]=document.getElementById('Email').value;
-           data[0][3]=document.getElementById('Password').value;*/
-           //message(data[0]);
-           
-           
- 
-           function download_csv() {
-                data[0][0]=document.getElementById('Full Name').value;
-               data[0][1]=document.getElementById('Username').value;
-               data[0][2]=document.getElementById('Email').value;
-               data[0][3]=document.getElementById('Password').value;
-               var csv = 'Full Name,Username,Email,Password \n';
-                data.forEach(function(row) {
-                csv += row.join(',');
-                csv += "\n";
-                });
- 
-            console.log(csv);
-            var hiddenElement = document.createElement('a');
-            hiddenElement.href = 'data:text/csv;charset=utf-8,' + encodeURI(csv);
-            hiddenElement.target = '_blank';
-            hiddenElement.download = 'people.csv';
-            hiddenElement.click();
-            }
-           
-      </script>
+    <![endif]-->      
     
   </head>
   <body>
@@ -187,7 +129,7 @@
                     <label for = "Fullname" class = "col-sm-5 control-label">Full Name</label>
 
                     <div class = "col-sm-4 col-md-3 col-lg-3">
-                        <input type = "text" class = "form-control" id = "Full Name" placeholder = "Enter Name">
+                        <input type = "text" class = "form-control" id = "Fullname" placeholder = "Enter Name">
                     </div>
                 </div>
                 
@@ -213,21 +155,83 @@
 
                     <div class = "col-sm-4 col-md-3 col-lg-3">
                         <div class="input-group">
-                            <input type = "password" class = "form-control" id = "Password" placeholder = "Enter Password">
+                            <input type = "password" class = "form-control" id = "Password" placeholder = "Enter Password" autocomplete="new-password">
                             <span class = "input-group-btn">
-                                <button class = "btn btn-default" type = "button"><span class="glyphicon glyphicon-eye-close"</span></button>
+                                <button class = "btn btn-default" type = "button"><span class="glyphicon glyphicon-eye-close"></span></button>
                         </div> 
+                            <label id="wrongusrSignup"></label>
                     </div>
                 </div>
+                    
 
                 <div class = "form-group">
                     <div class = "col-xs-offset-8 col-sm-offset-7 col-md-offset-6 col-lg-offset-7 col-sm-2 col-md-2 col-lg-1 col-xs-4">
-                        <button type = "submit" class = "btn btn-default btn-block" onclick="">Sign Up</button>
+                        <button type = "button" class = "btn btn-default btn-block" id="bSignUp">Sign Up</button>
                     </div>
                 </div>
 
             </form>
           </div>
       </div> 
+          
+          <!-- Sign Up script -->
+      <script>
+        
+        
+        $(document).ready(function()
+        {
+          $("#bSignUp").click(function()
+          {
+            console.log("You clicked me");
+            var username = $('input#Username').val();
+            var password = $('input#Password').val();
+            var email = $('input#Email').val();
+            var fullname = $('input#Fullname').val();
+              
+                if($.trim(username)=='' || $.trim(password)=='' || $.trim(email) == '' 
+                   || fullname == '')
+                {
+                    $('label#wrongusrSignup').css("color","red");
+                    $('label#wrongusrSignup').text("Please fill up all fields.");
+                } else{
+                   
+                    $.post('ajax/signup_process.php', {username: username, password: password,email:email,fullname:fullname}, function(data)  //user is what we're passing in, and usern is what php will reference it with.
+                    {             //data there is what php will return or "echo"
+                        if(data) // is true
+                        {  
+                            alert("Successful");
+                            window.location.href = 'home-in.php'; //moves us in
+                        }
+                        else
+                        {
+                           alert("Failed");
+                        }                         
+                    });      
+                }
+                
+            /*var user = $('input#Username').val(); // $ jquery. input from id 'Username', then the method val() for its value.
+            var pass = $('input#Password').val();
+            if($.trim(user) != '' && pass != '') //ignores empty fields
+            { 
+              $.post('ajax/login_process.php', {usern: user, passw: pass}, function(data)  //user is what we're passing in, and usern is what php will reference it with.
+              {                                                               //data there is what php will return or "echo"
+                if(data)
+                {  
+                  $('label#wrongusr').text("");
+                  window.location.href = 'home-in.php'; //moves us in
+                }
+                else
+                {
+                  $('label#wrongusr').css("color","red");
+                  $('label#wrongusr').text("Incorrect login details.");
+                  attemptsRem--;
+                }                         
+              });         
+            }*/
+            
+          });
+        });
+        
+      </script>
   </body>
 </html>
