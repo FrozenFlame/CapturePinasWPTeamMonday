@@ -44,7 +44,7 @@ if(!isset($_SESSION['id'])) # if user is already logged in, redirect to logged i
                     <li class="active"><a href="home-out.html">Home</a></li>
                     
                     <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Places <b class="caret"></b></a>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Places <span class="glyphicon glyphicon-triangle-bottom" aria-hidden="true"></span></a>
                         <ul class="dropdown-menu">
                             <li><a href="#">Albay</a></li>
                             <li><a href="#">Bataan</a></li>
@@ -94,108 +94,42 @@ if(!isset($_SESSION['id'])) # if user is already logged in, redirect to logged i
                             <div class="input-group">
                                 <input type="text" class="form-control" placeholder="Search" id="navbar-search">
                                 <div class="input-group-btn">
-                                <button class="btn btn-default" type="submit"><i class="glyphicon glyphicon-search"></i></button>
+                                <button class="btn btn-default" type="submit"><span class="glyphicon glyphicon-search" aria-hidden="true"></span> </button>
                                 </div>
                             </div>
                         </form>
                         </div>
                     </li>
                     <li class="dropdown" id="profile-dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Profile <b class="caret"></b></a>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" id="nav_name_user"></a>
                         <ul class="dropdown-menu">
                         <li><a href="#">Profile</a></li>
                         <li><a href="out.php">Logout</a></li>
-                    </ul>
+                        </ul>
                     </li>
             </div>
         </div>
     </nav>
     <!-- End of Nav bar -->
-      <!-- Start of Modal -->
-      <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h2 class="modal-title" id="exampleModalLabel">Login</h2>
-        <!--<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>-->
-      </div>
-      <div class="modal-body">
-        <form>
-          <div class="form-group">
-            <label for="Username" class="form-control-label">Username</label>
-            <input type="text" class="form-control" id="Username" placeholder="Enter Username">
-          </div>
-          <div class="form-group">
-            <label for="Password" class="form-control-label">Password</label>
-            <input class="form-control" id="Password" placeholder="Enter Password"></input>
-          </div>
-            
-        </form>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-        <button type="button" class="btn btn-primary">Login</button>
-      </div>
-    </div>
-  </div>
-</div>
-    <!-- End of Modal -->
       
-    <div class="intro-block">
-      
-        <div class="row">
-          <div class="col-xs-12">
-                <img class="img-responsive CapPinas1" src="images/CapturePinas2.jpg">
-            </div>
-          </div>
+      <script>
+        window.onload = doSet();
+        
+           function doSet()
+          {
+              var passed = 'getId';
+              
+              $.post('ajax/set.php', {passed: passed}, function(data)  //user is what we're passing in, and usern is what php will reference it with.
+              {                                                               //data there is what php will return or "echo"
+                 
+                  $('a#nav_name_user').text(data+' ');
+              $('a#nav_name_user').append('<span class="glyphicon glyphicon-triangle-bottom" aria-hidden="true"></span>');
+              });        
+          }
+       
           
-        </div>
-      
-      
-      <div class="features-container">
-        <div class="row">
-          <div class="col-lg-12"><h2>FEATURES</h2></div>
-          </div>
-          <div class="row">
-          <div class="col-sm-6 col-md-3">
-                <img class="img-circle img-responsive" src="images/1.jpg">
-                <h3>Share</h3>
-                <p>Bla baiosdjasiodj absd nafaiodg basyudgsayu niofhyusbd basyudgasdaugd adsaydv v
-              asdasbd dsad nifuhaygbf bbasgduho joiyibjdu bidgaybfdh ufhuvb hjfab js bkjgh erkavf stfskjd hdbdk'
-              asjbfas dshgbusdf hj jkbjhdsjv dgfnrtfhajnf lkghnoi bKNFDFU</p>
-                <p><a class="btn btn-default" href="#">View Details &raquo;</a></p>
-              </div>    
-              
-              <div class="col-sm-6 col-md-3">
-                <img class="img-circle img-responsive" src="images/2.jpg">
-                <h3>Explore</h3>
-                <p>Bla baiosdjasiodj absd nafaiodg basyudgsayu niofhyusbd basyudgasdaugd adsaydv v
-              asdasbd dsad nifuhaygbf bbasgduho joiyibjdu bidgaybfdh ufhuvb hjfab js bkjgh erkavf stfskjd hdbdk'
-              asjbfas dshgbusdf hj jkbjhdsjv dgfnrtfhajnf lkghnoi bKNFDFU</p>
-                <p><a class="btn btn-default" href="#">View Details &raquo;</a></p>
-              </div>
-              
-              <div class="col-sm-6 col-md-3">
-                <img class="img-circle img-responsive" src="images/3.jpg">
-                <h3>Socialize</h3>
-                <p>Bla baiosdjasiodj absd nafaiodg basyudgsayu niofhyusbd basyudgasdaugd adsaydv v
-              asdasbd dsad nifuhaygbf bbasgduho joiyibjdu bidgaybfdh ufhuvb hjfab js bkjgh erkavf stfskjd hdbdk'
-              asjbfas dshgbusdf hj jkbjhdsjv dgfnrtfhajnf lkghnoi bKNFDFU</p>
-                <p><a class="btn btn-default" href="#">View Details &raquo;</a></p>
-              </div>
-              
-              <div class="col-sm-6 col-md-3">
-                <img class="img-circle img-responsive" src="images/4.jpg">
-                <h3>Experience</h3>
-                <p>Bla baiosdjasiodj absd nafaiodg basyudgsayu niofhyusbd basyudgasdaugd adsaydv v
-              asdasbd dsad nifuhaygbf bbasgduho joiyibjdu bidgaybfdh ufhuvb hjfab js bkjgh erkavf stfskjd hdbdk'
-              asjbfas dshgbusdf hj jkbjhdsjv dgfnrtfhajnf lkghnoi bKNFDFU</p>
-                <p><a class="btn btn-default" href="#">View Details &raquo;</a></p>
-              </div>
-          </div>
-      </div>
+          
+        </script>
       
   </body>
 </html>

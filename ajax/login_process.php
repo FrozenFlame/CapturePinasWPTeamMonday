@@ -35,7 +35,8 @@
             {    
                 $successful = TRUE;
                 
-                $_SESSION['id'] = $query->fetch()['id'];  //this will give us the id
+                $_SESSION['id'] = $query->fetch()['id'];
+                
             }
             else
             {
