@@ -4,5 +4,5 @@ session_start();
 session_unset();
 session_destroy();
 
-header('Location: ../home-out.php');
+header('Location: ../index.php');
 ?>

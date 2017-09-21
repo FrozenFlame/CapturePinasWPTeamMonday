@@ -180,12 +180,7 @@ if(isset($_SESSION['id'])) # if user is already logged in, redirect to logged in
       
       <!-- Login script -->
       <script>
-       /*window.onload = load();
-        
-           function load() {
-           alert("fake");
-       }*/
-          
+              
         var attemptsRem = 5;
         $(document).ready(function()
         {

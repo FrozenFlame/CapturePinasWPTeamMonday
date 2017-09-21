@@ -104,7 +104,7 @@ if(!isset($_SESSION['id'])) # if user is already logged in, redirect to logged i
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" id="nav_name_user"></a>
                         <ul class="dropdown-menu">
                         <li><a href="#">Profile</a></li>
-                        <li><a href="out.php">Logout</a></li>
+                        <li><a href="ajax/logout_process.php">Logout</a></li>
                         </ul>
                     </li>
             </div>
