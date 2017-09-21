@@ -1,10 +1,10 @@
 <?php 
-    # login_process.php's job is to verify the input of the user to the database if such a user exists.
+    # signup_process.php's job is to allow users to create an account.
     include_once('../php/connection.php');
 
     session_start();
 
-    // create a variable
+    // initialize variables (from POST in signup.html)
     $username=$_POST['username'];
     $fullname=$_POST['fullname'];
     $email=$_POST['email'];
@@ -30,7 +30,7 @@
         
         public function signup($user, $pass, $e_mail, $full_name)
         {
-            $query = $this->db->prepare("INSERT INTO users VALUES(NULL,?,?,?,?,0)");
+            $query = $this->db->prepare("INSERT INTO users VALUES(NULL,?,?,?,?,0)"); #value 0 is for the account email verif thing.
             $query->bindparam(1,$user);
             $query->bindparam(2,$full_name);
             $query->bindparam(3,$pass);
@@ -48,7 +48,7 @@
         
         function getUserId($username)
         {
-            $query = $this->db->prepare("SELECT * FROM users WHERE username = ? "); #BINARY makes the password search case-sensitive.
+            $query = $this->db->prepare("SELECT * FROM users WHERE username = ? "); #gets table data
             $query->bindparam(1, $username);
             $query->execute();
             
