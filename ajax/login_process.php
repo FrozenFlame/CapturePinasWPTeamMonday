@@ -27,8 +27,7 @@
         public function login($username, $password) #this is the database logic
         {
 
-            $query = $this->db->prepare("SELECT * FROM users2 WHERE username = ? AND BINARY password = ?"); #BINARY makes the password search case-sensitive.
-
+            $query = $this->db->prepare("SELECT * FROM users WHERE username = ? AND BINARY password = ?"); #BINARY makes the password search case-sensitive.
             $query->bindparam(1, $username);
             $query->bindparam(2, $password);
             $query->execute();
@@ -38,7 +37,6 @@
                 $successful = TRUE;
                 
                 $_SESSION['id'] = $query->fetch()['id'];
-                
             }
             else
             {
