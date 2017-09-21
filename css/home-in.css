@@ -9,6 +9,9 @@
 .modal-header {
     height: auto;
 }
+.glyphicon glyphicon-triangle-bottom{
+    padding-top: 10px;
+}
 .dropdown-menu {
      display: none;/*This is the default state.*/
     z-index: 9999;
@@ -27,6 +30,10 @@
 .navbar-default {
     background-color: #F8F8F8;
     border-color: #E7E7E7;
+    
+}
+#profile-dropdown {
+    padding-right: 10px;
 }
 .features-container{
     padding-left: 40px;
@@ -90,6 +97,10 @@
 .navbar-default .navbar-toggle .icon-bar {
     background-color: #CCC;
 }
+/*#navbar-search {
+    width: 100px;
+}*/
+
 @media (max-width: 767px) {
     .navbar-default .navbar-nav .open .dropdown-menu > li > a {
         color: #777;
