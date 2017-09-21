@@ -201,7 +201,7 @@ if(isset($_SESSION['id'])) # if user is already logged in, redirect to logged in
                 if(data)
                 {  
                   $('label#wrongusr').text("");
-                  window.location.href = 'home-in.php'; //moves us in
+                  window.location.href = 'home-in.php'; //moves us in as an example page.
                 }
                 else
                 {
