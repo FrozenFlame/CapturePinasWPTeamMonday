@@ -31,11 +31,11 @@ if(isset($_SESSION['id'])) # if user is already logged in, redirect to logged in
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="home-out.html">Capture Pinas</a>
+                <a class="navbar-brand" href="index.php">Capture Pinas</a>
             </div>
             <div class="collapse navbar-collapse" id="myNavbar">
                 <ul class="nav navbar-nav">
-                    <li class="active"><a href="home-out.html">Home</a></li>
+                    <li class="active"><a href="index.php">Home</a></li>
                     
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">Places <b class="caret"></b></a>

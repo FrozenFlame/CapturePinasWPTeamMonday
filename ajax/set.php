@@ -23,10 +23,10 @@
         {
             if($commandReceived==='getId')
             {
-                $query = $this->db->prepare("SELECT fullname FROM users WHERE id = ?"); #BINARY makes the password search case-sensitive.
+                $query = $this->db->prepare("SELECT fullName FROM users2 WHERE id = ?"); #BINARY makes the password search case-sensitive.
                 $query->bindparam(1, $_SESSION['id']);
                 $query->execute();
-                $result = $query->fetch()['fullname'];
+                $result = $query->fetch()['fullName'];
                 return $result;
             }
         }
