@@ -1,5 +1,5 @@
 <?php 
-    # login_process.php's job is to verify the input of the user to the database if such a user exists.
+    # set.php is to prepare the SESSION and Cookies for use throughout the website.
     include_once('../php/connection.php');
 
     session_start();
@@ -23,7 +23,7 @@
         {
             if($commandReceived==='getId')
             {
-                $query = $this->db->prepare("SELECT fullName FROM users WHERE id = ?"); #BINARY makes the password search case-sensitive.
+                $query = $this->db->prepare("SELECT fullName FROM users WHERE id = ?"); #retrieves fullname and other info based on users
                 $query->bindparam(1, $_SESSION['id']);
                 $query->execute();
                 $result = $query->fetch()['fullName'];

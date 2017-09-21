@@ -43,7 +43,6 @@
                  $successful = FALSE; #the credentials were wrong.
             }
                
-            
            return $successful;
         }
     }
