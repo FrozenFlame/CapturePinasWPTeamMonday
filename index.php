@@ -181,11 +181,8 @@ if(isset($_SESSION['id'])) # if user is already logged in, redirect to logged in
       
       
       <script>
-<<<<<<< HEAD
+
           //LOGIN CODE
-=======
-              
->>>>>>> 12aeb693275795f730ec4d39fbeae1b270efc751
         var attemptsRem = 5;
         $(document).ready(function()
         {

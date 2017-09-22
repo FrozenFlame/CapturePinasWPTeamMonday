@@ -123,6 +123,7 @@
   </div>
 </div>
     <!-- End of Modal -->
+      
     
       <div class="login-block" >
           <div class="form-block">
@@ -260,7 +261,7 @@
                     $('label#wrongusrSignup').text("Please fill up all fields.");
                 } else{
                    
-                    $.post('ajax/signup_process.php', {username: username, password: password,email:email,fullname:fullname}, function(data)  
+                    $.post('ajax/signup_process.php', {username: username, password: password,email:email,fullname:fullname}, function(data)  //user is what we're passing in, and usern is what php will reference it with.
                     {             //data there is what php will return or "echo"
                         if(data) // is true
                         {  
