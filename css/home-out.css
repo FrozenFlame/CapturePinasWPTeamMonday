@@ -94,7 +94,7 @@
 .navbar-default .navbar-toggle .icon-bar {
     background-color: #CCC;
 }
-@media (max-width: 767px) {
+@media (max-width: 767px) { 
     .navbar-default .navbar-nav .open .dropdown-menu > li > a {
         color: #777;
     }

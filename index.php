@@ -77,8 +77,6 @@ if(isset($_SESSION['id'])) # if user is already logged in, redirect to logged in
                             
                         </ul>
                     </li>
-                    
-                    <li><a href="#">Forums</a></li>
                     <li><a href="#">About Us</a></li>
                  
                 </ul> 
@@ -105,15 +103,19 @@ if(isset($_SESSION['id'])) # if user is already logged in, redirect to logged in
         <form action = "php/login_process.php" method="post"> <!--php functionality inserted in form tag-->
           <div class="form-group">
             <label for="Username" class="form-control-label">Username</label>
-            <input type="text" class="form-control" name="usrname" id="Username" placeholder="Enter Username">
+            <input type="text" class="form-control" name="usrname" id="Username-modal" placeholder="Enter Username">
             <!--name="usrname" is what php will use to reference this-->
           </div>
+            
           <div class="form-group">
             <label for="Password" class="form-control-label">Password</label>
-            <input class="form-control" name="password" id="Password" placeholder="Enter Password"></input>
+                <div class="input-group">
+                  <input type="password" class="form-control" name="password" id="Password-modal" placeholder="Enter Password" autocomplete="new-password"></input>
+                    <span class = "input-group-btn">
+                    <button class = "btn btn-default" type = "button" id="seePwdBtnModal"><span class="glyphicon glyphicon-eye-close"></span></button>
+                </div>
           </div>
           <label id="wrongusr"></label> <!--ajax will change this label if user enters invalid data -->
-            
         </form>
       </div>
       <div class="modal-footer">
@@ -132,7 +134,6 @@ if(isset($_SESSION['id'])) # if user is already logged in, redirect to logged in
                 <img class="img-responsive CapPinas1" src="images/CapturePinas2.jpg">
             </div>
           </div>
-          
         </div>
       
       <div class="features-container">
@@ -178,22 +179,31 @@ if(isset($_SESSION['id'])) # if user is already logged in, redirect to logged in
           </div>
       </div>
       
-      <!-- Login script -->
+      
       <script>
-       /*window.onload = load();
-        
-           function load() {
-           alert("fake");
-       }*/
-          
+          //LOGIN CODE
         var attemptsRem = 5;
         $(document).ready(function()
         {
+            $("#seePwdBtnModal").click(function()
+            {
+                var password = document.getElementById('Password-modal');
+                var seePwdBtn = document.getElementById('seePwdBtnModal');
+                if(password.type=='password')
+                    {
+                        password.type='text';
+                        $(seePwdBtn).find(".glyphicon").removeClass("glyphicon-eye-close").addClass("glyphicon-eye-open");
+                    }
+                else{
+                    password.type='password';
+                    $(seePwdBtn).find(".glyphicon").removeClass("glyphicon-eye-open").addClass("glyphicon-eye-close");
+                }
+            })
           $("#bloginmdl").click(function()
           {
             console.log("You clicked me");
-            var user = $('input#Username').val(); // $ jquery. input from id 'Username', then the method val() for its value.
-            var pass = $('input#Password').val();
+            var user = $('input#Username-modal').val(); // $ jquery. input from id 'Username', then the method val() for its value.
+            var pass = $('input#Password-modal').val();
             if($.trim(user) != '' && pass != '') //ignores empty fields
             { 
               $.post('ajax/login_process.php', {usern: user, passw: pass}, function(data)  //user is what we're passing in, and usern is what php will reference it with.

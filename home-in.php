@@ -86,15 +86,15 @@ if(!isset($_SESSION['id'])) # if user is already logged in, redirect to logged i
                     <li><a href="#">About Us</a></li>
                  
                 </ul> 
-                
                 <ul class="nav navbar-nav navbar-right">
                     <li>
                         <div class="col-lg-12">
                          <form class="navbar-form" role="search">
                             <div class="input-group">
+                                
                                 <input type="text" class="form-control" placeholder="Search" id="navbar-search">
                                 <div class="input-group-btn">
-                                <button class="btn btn-default" type="submit"><span class="glyphicon glyphicon-search" aria-hidden="true"></span> </button>
+                                <button class="btn btn-default" type="submit"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
                                 </div>
                             </div>
                         </form>
@@ -107,10 +107,13 @@ if(!isset($_SESSION['id'])) # if user is already logged in, redirect to logged i
                         <li><a href="out.php">Logout</a></li>
                         </ul>
                     </li>
+                </ul>   
             </div>
         </div>
     </nav>
     <!-- End of Nav bar -->
+      
+      
       
       <script>
         window.onload = doSet();

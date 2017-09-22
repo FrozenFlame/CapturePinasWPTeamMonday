@@ -33,8 +33,8 @@
             $query = $this->db->prepare("INSERT INTO users VALUES(NULL,?,?,?,?,0)");
             $query->bindparam(1,$user);
             $query->bindparam(2,$full_name);
-            $query->bindparam(3,$pass);
-            $query->bindparam(4,$e_mail);
+            $query->bindparam(3,$e_mail);
+            $query->bindparam(4,$pass);
             $result = $query->execute();
         
             if($result)
