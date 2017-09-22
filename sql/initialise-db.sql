@@ -16,6 +16,7 @@ CREATE TABLE users (
 CREATE TABLE post(
     postid INTEGER NOT NULL AUTO_INCREMENT,
     userid INTEGER NOT NULL REFERENCES users,
+    posttitle VARCHAR(30),
     place VARCHAR(30) NOT NULL,
     isMedia VARCHAR(5) NOT NULL,
     description VARCHAR(200),

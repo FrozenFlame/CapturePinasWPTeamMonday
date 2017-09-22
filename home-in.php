@@ -1,15 +1,16 @@
 <!-- Team Monday -->
+<!-- test commit push comment ignore me senpai wink wink-->
 <?php
 session_start();
 
 if(!isset($_SESSION['id'])) # if user is already logged in, redirect to logged in page.
 {
-  header('Location: index.php');
+    header('Location: index.php');
 } 
 
 
-
 ?>
+
 <html>
   <head>
     <title>CapturePinas</title>
@@ -104,7 +105,7 @@ if(!isset($_SESSION['id'])) # if user is already logged in, redirect to logged i
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" id="nav_name_user"></a>
                         <ul class="dropdown-menu">
                         <li><a href="#">Profile</a></li>
-                        <li><a href="out.php">Logout</a></li>
+                        <li><a href="ajax/logout_process.php">Logout</a></li>
                         </ul>
                     </li>
                 </ul>   
@@ -118,20 +119,17 @@ if(!isset($_SESSION['id'])) # if user is already logged in, redirect to logged i
       <script>
         window.onload = doSet();
         
-           function doSet()
-          {
-              var passed = 'getId';
-              
-              $.post('ajax/set.php', {passed: passed}, function(data)  //user is what we're passing in, and usern is what php will reference it with.
-              {                                                               //data there is what php will return or "echo"
-                 
-                  $('a#nav_name_user').text(data+' ');
-              $('a#nav_name_user').append('<span class="glyphicon glyphicon-triangle-bottom" aria-hidden="true"></span>');
-              });        
-          }
-       
-          
-          
+        function doSet()
+        {
+            var passed = 'getId';
+            
+            $.post('ajax/set.php', {passed: passed}, function(data) //passed is the userID which set.php will use in order to prepare the fullname
+            {                                                               //data there is what php will return or "echo"
+                $('a#nav_name_user').text(data+' ');
+                $('a#nav_name_user').append('<span class="glyphicon glyphicon-triangle-bottom" aria-hidden="true"></span>');
+            });        
+        }
+    
         </script>
       
   </body>

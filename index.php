@@ -181,7 +181,11 @@ if(isset($_SESSION['id'])) # if user is already logged in, redirect to logged in
       
       
       <script>
+<<<<<<< HEAD
           //LOGIN CODE
+=======
+              
+>>>>>>> 12aeb693275795f730ec4d39fbeae1b270efc751
         var attemptsRem = 5;
         $(document).ready(function()
         {
@@ -218,6 +222,7 @@ if(isset($_SESSION['id'])) # if user is already logged in, redirect to logged in
                   $('label#wrongusr').css("color","red");
                   $('label#wrongusr').text("Incorrect login details.");
                   attemptsRem--;
+                  alert('ez dog' + attemptsRem);
                 }                         
               });         
             }
