@@ -2,6 +2,7 @@ body{
     color:white;
 }
 
+
 .login-block {
     padding-top: 100px;
     //background-color:bisque ;
@@ -111,9 +112,16 @@ body{
     }
     
 }
+/* large */
+@media(min-width:1200px){ 
+    #EmailSelect{
+        width: 120px;
+    } 
+}
 
 
-@media (max-width: 950px) {
+@media (max-width: 990px) {
+    
     .navbar-header {
         float: none;
     }
@@ -159,5 +167,4 @@ body{
         
         padding-top: 150px;
     }
-    
 }

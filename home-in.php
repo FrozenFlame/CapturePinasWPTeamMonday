@@ -1,16 +1,15 @@
 <!-- Team Monday -->
-<!-- test commit push comment ignore me senpai wink wink-->
 <?php
 session_start();
 
 if(!isset($_SESSION['id'])) # if user is already logged in, redirect to logged in page.
 {
-    header('Location: index.php');
+  header('Location: index.php');
 } 
 
 
-?>
 
+?>
 <html>
   <head>
     <title>CapturePinas</title>
@@ -87,15 +86,15 @@ if(!isset($_SESSION['id'])) # if user is already logged in, redirect to logged i
                     <li><a href="#">About Us</a></li>
                  
                 </ul> 
-                
                 <ul class="nav navbar-nav navbar-right">
                     <li>
                         <div class="col-lg-12">
                          <form class="navbar-form" role="search">
                             <div class="input-group">
+                                
                                 <input type="text" class="form-control" placeholder="Search" id="navbar-search">
                                 <div class="input-group-btn">
-                                <button class="btn btn-default" type="submit"><span class="glyphicon glyphicon-search" aria-hidden="true"></span> </button>
+                                <button class="btn btn-default" type="submit"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
                                 </div>
                             </div>
                         </form>
@@ -108,25 +107,36 @@ if(!isset($_SESSION['id'])) # if user is already logged in, redirect to logged i
                         <li><a href="ajax/logout_process.php">Logout</a></li>
                         </ul>
                     </li>
+                </ul>   
             </div>
         </div>
     </nav>
     <!-- End of Nav bar -->
+      <div class="container-fluid">
+        <div class=""
+      </div>
+      
       
       <script>
         window.onload = doSet();
         
-        function doSet()
-        {
-            var passed = 'getId';
-            
-            $.post('ajax/set.php', {passed: passed}, function(data) //passed is the userID which set.php will use in order to prepare the fullname
-            {                                                               //data there is what php will return or "echo"
-                $('a#nav_name_user').text(data+' ');
-                $('a#nav_name_user').append('<span class="glyphicon glyphicon-triangle-bottom" aria-hidden="true"></span>');
-            });        
-        }
-    
+           function doSet()
+          {
+              var passed = 'getId';
+              
+              $.post('ajax/set.php', {passed: passed}, function(data)  //user is what we're passing in, and usern is what php will reference it with.
+              {                                                               //data there is what php will return or "echo"
+                 
+                  $('a#nav_name_user').text(data+' ');
+              $('a#nav_name_user').append('<span class="glyphicon glyphicon-triangle-bottom" aria-hidden="true"></span>');
+              });        
+          }
+          
+          
+          
+       
+          
+          
         </script>
       
   </body>

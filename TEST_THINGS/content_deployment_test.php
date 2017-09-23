@@ -45,6 +45,7 @@
                 //    $("div#list").append('<b id="post' +a '"> fake</b>');
                 });
             });
+
             $("button#button2").click(function()
             {
                 $("b#post"+b++).text('faker');
@@ -54,6 +55,7 @@
                         
         
         // id = "post"+a
+
         /*
             $.post("getinfo.php", {postid: "cor r", index: i}, function(data)
             {
