@@ -1,6 +1,6 @@
 <!--* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * 
-*       Created by Denzel
-*       21-SEP-17
+*       Created by Denzel                                                             /
+*       21-SEP-17                                                                     /
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
 
 <html>
@@ -12,7 +12,6 @@
 
 <!-- SCRIPTS -->
 <script>
-
         
         var content = new Array(4); // where we storin our goods
         var ez = "chill";
@@ -26,32 +25,47 @@
             {
                 alert('jQuery is not loaded');
             }
-        
         }*/
+        
          var pos = 0;
+         var a = 0;
+         var b = 0;
         $(document).ready(function()
         {
-            $("button").click(function()
+           
+            $("button#button").click(function()
             {
+                
                 $.get("content.txt", function(data, status)
                 {
-                    $("#content"+pos++).html(data);
-                }); 
+                    // $("#content"+pos++).html(data);
+                    
+                  // $("div#list").append('<b id="post' +a++  +'"> fake</b>');
+                   
+                //    $("div#list").append('<b id="post' +a '"> fake</b>');
+                });
+            });
+            $("button#button2").click(function()
+            {
+                $("b#post"+b++).text('faker');
+                alert("fake");
             });
         });
-
+                        
+        
+        // id = "post"+a
         /*
             $.post("getinfo.php", {postid: "cor r", index: i}, function(data)
             {
                 var tryx = data;
                 document.getElementById('content'+i).innerHTML = tryx;
             });
+            
         */
         
         //document.write(ez);
            
         //document.getElementById('content1').innerHTML = ;
-        
     </script>
 
 </head>
@@ -77,8 +91,7 @@
 
     <!-- apply content script -->
     <button type="submit" class="btn btn-primary" id="button">Login</button>
-
-    <div id="gitgud"></div>
+    <button type="submit" class="btn btn-primary" id="button2">Login2</button>
     
 </body>
 
