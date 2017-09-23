@@ -56,3 +56,9 @@ Because it's client side.
 
 ** 28-AUG-17
 It seems we have little choice.
+
+** 23-SEP-17
+
+lol more and more apparently I find out that jQuery is harmful for the industry. Whatever our code is a mess right now anyway.
+
+-DD
