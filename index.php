@@ -219,7 +219,6 @@ if(isset($_SESSION['id'])) # if user is already logged in, redirect to logged in
                   $('label#wrongusr').css("color","red");
                   $('label#wrongusr').text("Incorrect login details.");
                   attemptsRem--;
-                  alert('ez dog' + attemptsRem);
                 }                         
               });         
             }

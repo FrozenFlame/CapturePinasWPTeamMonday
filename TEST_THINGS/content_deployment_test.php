@@ -32,49 +32,26 @@
          var b = 0;
         $(document).ready(function()
         {
-           
             $("button#button").click(function()
             {
-                
                 $.get("content.txt", function(data, status)
                 {
-                    // $("#content"+pos++).html(data);
-                    
-                  // $("div#list").append('<b id="post' +a++  +'"> fake</b>');
-                   
-                //    $("div#list").append('<b id="post' +a '"> fake</b>');
+                    $("div#list").append('<b id="post' +a++  +'"> fake</b>');
                 });
             });
 
             $("button#button2").click(function()
             {
                 $("b#post"+b++).text('faker');
-                alert("fake");
             });
         });
-                        
-        
-        // id = "post"+a
-
-        /*
-            $.post("getinfo.php", {postid: "cor r", index: i}, function(data)
-            {
-                var tryx = data;
-                document.getElementById('content'+i).innerHTML = tryx;
-            });
-            
-        */
-        
-        //document.write(ez);
-           
-        //document.getElementById('content1').innerHTML = ;
+  
     </script>
 
 </head>
 
 <body>
     <h>Hello world. Content will now appear below: </h>
-    
    
     <div class="container-fluid" id ="list"> 
         <ul id ="table">

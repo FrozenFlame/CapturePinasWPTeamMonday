@@ -1,4 +1,8 @@
 <!-- Team Monday -->
+<!--* * * * * * * * * * * * * * * * *
+*   Created by Jarvs                *
+*    22-SEP-17                      *
+* * * * * * * * * * * * * * * * * -->
 <?php
 session_start();
 
@@ -6,8 +10,6 @@ if(!isset($_SESSION['id'])) # if user is already logged in, redirect to logged i
 {
   header('Location: index.php');
 } 
-
-
 
 ?>
 <html>
@@ -60,8 +62,6 @@ function change()
 </script>
     <!-- End of Nav bar -->
       
-      
-      
       <script>
         window.onload = doSet();
         
@@ -76,8 +76,6 @@ function change()
               });        
           }
        
-          
-          
         </script>
       
   </body>
