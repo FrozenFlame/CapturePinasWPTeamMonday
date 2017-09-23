@@ -31,16 +31,12 @@
          var pos = 0;
         $(document).ready(function()
         {
-           
             $("button").click(function()
             {
-                
                 $.get("content.txt", function(data, status)
                 {
-                    
                     $("#content"+pos++).html(data);
-                   
-                });
+                }); 
             });
         });
 
@@ -50,15 +46,13 @@
                 var tryx = data;
                 document.getElementById('content'+i).innerHTML = tryx;
             });
-            
         */
         
         //document.write(ez);
            
         //document.getElementById('content1').innerHTML = ;
-
+        
     </script>
-
 
 </head>
 
@@ -83,6 +77,8 @@
 
     <!-- apply content script -->
     <button type="submit" class="btn btn-primary" id="button">Login</button>
+
+    <div id="gitgud"></div>
     
 </body>
 
