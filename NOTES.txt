@@ -62,3 +62,61 @@ It seems we have little choice.
 lol more and more apparently I find out that jQuery is harmful for the industry. Whatever our code is a mess right now anyway.
 
 -DD
+
+**24-SEP-17
+Sample of more than one data return from php
+
+<?php 
+     include('db_connection.php'); 
+     $c_id = $_POST['c_id'];
+     $result = mysql_query("SELECT * FROM course WHERE c_id = '$c_id'"); 
+     $all_course_data = mysql_fetch_array($result);
+     $c_name = $all_course_data['c_name'];
+     $c_credit = $all_course_data['c_credit']; 
+     echo $c_name.",".$c_credit;
+     exit();   
+?>
+
+here's another:
+
+php:
+
+$data = array(
+    'name' => $c_name,
+    'credit' => $c_credit,
+);
+echo json_encode($data);
+
+javascript:
+
+success: function(data) {
+    var result = $.parseJSON(data);
+    $('#course_name').val(result.name);
+    $('#course_credit').val(result.credit);
+}
+
+-DD
+
+Gonna start checking out some JSON action.
+
+Javascript: 
+$.getJSON( "ajax/test.json", function( data ) {
+  var items = [];
+  $.each( data, function( key, val ) {
+    items.push( "<li id='" + key + "'>" + val + "</li>" );
+  });
+ 
+  $( "<ul/>", {
+    "class": "my-new-list",
+    html: items.join( "" )
+  }).appendTo( "body" );
+});
+
+JSON:
+{
+  "one": "Singular sensation",  
+  "two": "Beady little eyes",
+  "three": "Little birds pitch by my doorstep"
+}
+-DD
+

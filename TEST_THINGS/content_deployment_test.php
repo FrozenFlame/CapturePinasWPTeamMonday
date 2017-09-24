@@ -18,7 +18,7 @@
         var _postIndex;
 
         // postid, auth, place, isMedia, desc, likes, dislikes, favnum, timestamp
-        var ex = new post(0001, "TheAuthor", "Albay", false, "The description", 2, 30, 1, "13-SomeMonth-99");
+        var ex = new Post(0001, "TheAuthor", "Albay", false, "The description", 2, 30, 1, "13-SomeMonth-99");
         
         var content = new Array(4); // where we storin our goods
         var ez = "chill";
@@ -27,7 +27,7 @@
         var a = 0;
         var b = 0;
         var c = 0;
-        $(document).ready(function()
+        $(document).ready(function() //heavy amounts of playing
         {
             
             $("button#button").click(function()
@@ -94,16 +94,6 @@
             //ex has been instantiated above. We have all the power in our hands now boys.
 
             //stuff below is proof that the logic is usable multiple times:
-            divv.appendChild(document.createElement("br"));
-            ex.spawnPost(document, divv);
-            divv.appendChild(document.createElement("br"));
-            ex.spawnPost(document, divv);
-            divv.appendChild(document.createElement("br"));
-            ex.spawnPost(document, divv);
-            divv.appendChild(document.createElement("br"));
-            ex.spawnPost(document, divv);
-            divv.appendChild(document.createElement("br"));
-            ex.spawnPost(document, divv);
             divv.appendChild(document.createElement("br"));
             ex.spawnPost(document, divv);
             divv.appendChild(document.createElement("br"));

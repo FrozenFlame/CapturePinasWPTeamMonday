@@ -45,7 +45,6 @@
             }            
             return $successful;
         }              
-        
         function getUserId($username)
         {
             $query = $this->db->prepare("SELECT * FROM users WHERE username = ? "); #gets table data
@@ -60,4 +59,5 @@
             }
         }
     }
+    die(0);
 ?>
