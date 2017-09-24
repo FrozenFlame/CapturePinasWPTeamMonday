@@ -46,5 +46,4 @@
            return $successful;
         }
     }
-    die(0);
 ?>
