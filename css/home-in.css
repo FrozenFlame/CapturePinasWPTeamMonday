@@ -1,12 +1,22 @@
-.thumbnail img {
-    object-fit: cover;
+.container {
+        padding: 60px;
+    }
+.post {
+    border-radius: 5px;
+    padding-left: 30px;
+    padding-top: 5px;
+    border-style: solid;
+    border-color: darkgray;
+    border-width: 1px;
+   
+}
+#myCarousel {
+    width: 96%;
+}
+img {
+    width: 100%;
 }
 
-.intro-block {
-    padding-top: 50px;
-    background-color: #FFFFFF ;
-    
-}
 .modal-footer {
     height: 65px;
 }
@@ -99,25 +109,6 @@
     width: 100px;
 }*/
 
-@media (max-width: 767px) {
-    .navbar-default .navbar-nav .open .dropdown-menu > li > a {
-        color: #777;
-    }
-    .navbar-default .navbar-nav .open .dropdown-menu > li > a:hover,
-    .navbar-default .navbar-nav .open .dropdown-menu > li > a:focus {
-        color: #333;
-    }
-}
-
-
-@media(min-width:991px){ 
-    .dropdown-menu {
-        max-height: 350px;
-        max-width: 100px;
-        padding-left:0px;
-    }
-    
-}
 
 @media (max-width: 950px) {
     .navbar-header {
@@ -155,9 +146,51 @@
         overflow: hidden!important;
     }
 }
-@media (max-width: 480px) {
-    .CapturePinas1 {
-        
-        padding-top: 0px;
+/* Small devices (landscape phones, 576px and up) */
+@media (min-width: 576px) {
+    .navbar-default .navbar-nav .open .dropdown-menu > li > a {
+        color: #777;
     }
+    .navbar-default .navbar-nav .open .dropdown-menu > li > a:hover,
+    .navbar-default .navbar-nav .open .dropdown-menu > li > a:focus {
+        color: #333;
+    }
+    
+    
+    
+    .post {
+    padding-left: 20px;
+    }
+    #myCarousel {
+    width: 90%;
+    }
+}
+
+/* Medium devices (tablets, 768px and up) */
+@media (min-width: 768px) { 
+    
+    
+    .nav { margin-bottom: 0; }
+    .nav > li.dropdown.open .dropdown-menu {display:block; width: 100%;  }
+    .post {
+    padding-left: 26px;
+    }
+    #myCarousel {
+    width: 94%;
+    }
+    
+}
+
+/* Large devices (desktops, 992px and up) */
+@media (min-width: 992px) { 
+    padding-left: 26px;
+    }
+    #myCarousel {
+    width: 96%;
+    }
+}
+
+/* Extra large devices (large desktops, 1200px and up) */
+@media (min-width: 1200px) { 
+    
 }

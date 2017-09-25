@@ -7,8 +7,6 @@ if(!isset($_SESSION['id'])) # if user is already logged in, redirect to logged i
   header('Location: index.php');
 } 
 
-
-
 ?>
 <html>
   <head>
@@ -112,29 +110,53 @@ if(!isset($_SESSION['id'])) # if user is already logged in, redirect to logged i
         </div>
     </nav>
     <!-- End of Nav bar -->
-      <div class="post">
-          <div class="post col-sm-offset-2 col-sm-8">
-              <div class="row">
-                  <img class="img-responsive" src="images/1.jpg">
-              </div>
-              <div class="row">
-                  <div class="col-xs-2">
-                      <div class="thumbnail">
-                        <a href="images/4.jpg">
-                          <img src="images/4.jpg" alt="1st image">
+    <div class="container">
+        <div class="col-sm-offset-2 col-sm-8 post-container">
+            <div class="post">
+                <div class="row">
+                    <p><b>Reymark Arsenio</b></p>
+                </div>
+                <div class="row">
+                    <div id="myCarousel" class="carousel slide" data-ride="carousel">
+                        <!-- Indicators -->
+                        <ol class="carousel-indicators">
+                          <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+                          <li data-target="#myCarousel" data-slide-to="1"></li>
+                          <li data-target="#myCarousel" data-slide-to="2"></li>
+                        </ol>
+
+                        <!-- Wrapper for slides -->
+                        <div class="carousel-inner">
+                          <div class="item active">
+                            <img src="images/1.jpg" alt="Los Angeles">
+                          </div>
+
+                          <div class="item">
+                            <img src="images/2.jpg" alt="Chicago">
+                          </div>
+
+                          <div class="item">
+                            <img src="images/3.jpg" alt="New york">
+                          </div>
+                        </div>
+
+                        <!-- Left and right controls -->
+                        <a class="left carousel-control" href="#myCarousel" data-slide="prev">
+                          <span class="glyphicon glyphicon-chevron-left"></span>
+                          <span class="sr-only">Previous</span>
+                        </a>
+                        <a class="right carousel-control" href="#myCarousel" data-slide="next">
+                          <span class="glyphicon glyphicon-chevron-right"></span>
+                          <span class="sr-only">Next</span>
                         </a>
                       </div>
-                  </div>
-                  <div class="col-xs-2">
-                      <div class="thumbnail">
-                        <a href="images/3.jpg">
-                          <img src="images/3.jpg" alt="1st image">
-                        </a>
-                      </div>
-                  </div>
-              </div>
-          </div>
-      </div>
+                </div>
+                <div class="row">
+                </div>
+            </div>
+        </div>
+      </div>       
+              
       
       <script>
         window.onload = doSet();
