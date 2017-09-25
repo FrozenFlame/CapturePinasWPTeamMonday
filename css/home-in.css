@@ -1,3 +1,7 @@
+.thumbnail img {
+    object-fit: cover;
+}
+
 .intro-block {
     padding-top: 50px;
     background-color: #FFFFFF ;
@@ -35,16 +39,10 @@
 #profile-dropdown {
     padding-right: 10px;
 }
-.features-container{
-    padding-left: 40px;
-  padding-right: 40px;
-    padding-top: 15px;
-  margin-left: auto;
-  margin-right: auto;
-}
+
 /* title */
 .navbar-default .navbar-brand {
-    color: #777;
+    color: #006400;
 }
 .navbar-default .navbar-brand:hover,
 .navbar-default .navbar-brand:focus {

@@ -112,10 +112,29 @@ if(!isset($_SESSION['id'])) # if user is already logged in, redirect to logged i
         </div>
     </nav>
     <!-- End of Nav bar -->
-      <div class="container-fluid">
-        <div class=""
+      <div class="post">
+          <div class="post col-sm-offset-2 col-sm-8">
+              <div class="row">
+                  <img class="img-responsive" src="images/1.jpg">
+              </div>
+              <div class="row">
+                  <div class="col-xs-2">
+                      <div class="thumbnail">
+                        <a href="images/4.jpg">
+                          <img src="images/4.jpg" alt="1st image">
+                        </a>
+                      </div>
+                  </div>
+                  <div class="col-xs-2">
+                      <div class="thumbnail">
+                        <a href="images/3.jpg">
+                          <img src="images/3.jpg" alt="1st image">
+                        </a>
+                      </div>
+                  </div>
+              </div>
+          </div>
       </div>
-      
       
       <script>
         window.onload = doSet();
