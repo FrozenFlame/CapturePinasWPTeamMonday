@@ -2,9 +2,12 @@
 
 include_once('../php/connection.php');
 
-$postID = $_POST['postid'];
-$index = $_POST['index'];
+$db = new Connection();
+$db = $db->dbConnect();
 
-echo "<b>$postID with ind $index</b>";
+$postID = $_POST['postid'];
+
+
+
 
 ?>

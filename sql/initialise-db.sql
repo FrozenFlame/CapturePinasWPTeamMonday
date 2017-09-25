@@ -30,11 +30,13 @@ CREATE TABLE post(
 
 CREATE TABLE postcomments(
     postid INTEGER NOT NULL REFERENCES post,
+    commentid INTEGER NOT NULL AUTO_INCREMENT,
     userid INTEGER NOT NULL REFERENCES post,
     content VARCHAR(200) NOT NULL,
     likes INTEGER NOT NULL,
     dislikes INTEGER NOT NULL,
-    timestamp VARCHAR(30) NOT NULL
+    timestamp VARCHAR(30) NOT NULL,
+    PRIMARY KEY(commentid)
 )   ENGINE=InnoDB;
 
 CREATE TABLE postmedia(
