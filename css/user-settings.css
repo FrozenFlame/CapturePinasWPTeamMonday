@@ -1,0 +1,17 @@
+.settings_section {
+    color: black;
+}
+.settings_section h2{
+    text-align: center;
+}
+
+.settings_section li{
+    display: block;
+    padding-bottom: 10px;
+    font-size: 24px;
+}
+
+.settings_section li fullname{
+    margin-left: 200px;
+}
+

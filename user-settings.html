@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+    <html>
+        <head>
+            <meta charset="UTF-8">
+            <link href="css/user-settings.css" rel="stylesheet">
+            <link href="css/signup.css" rel="stylesheet">
+            <link rel="stylesheet" href="css/bootstrap.min.css"> <!-- changed to local files -->
+
+            
+            <!--[if lt IE 9]>
+                <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+                <script src="scripts/html5shiv-printshiv.js"></script>
+            <![endif]-->
+            
+            
+            <title>User Settings
+            </title>
+        </head>
+        
+        <body>
+            <div class="form-block">
+              <div class="row" style="padding: 0px 50px 20px">
+                  <div class="col-lg-offset-4 col-md-offset-4 col-xs-offset-4 col-lg-12"><h2>User Settings</h2></div>
+            
+              </div>
+<!-- alpha squad waypoint ------------------------------------------------------------------------------------------------------------------------------------------------>
+            <form class = "form-horizontal" role = "form">
+                <div class = "form-group">
+                    <label for = "Username" class = "col-sm-4 col-lg-5 control-label">Username</label>
+                    <div class = "col-sm-6 col-md-6 col-lg-3">
+                        <input type = "text" class = "form-control" id = "Username" placeholder = "this should be uneditable(?) + display current username">
+                    </div>
+                </div>
+<!------------------------------------------------------------------------------------------------------------------------------------------------------------------------->
+                
+                <div class = "form-group">
+                    <label for = "Fullname" class = "col-sm-4 col-lg-5 control-label">Full Name</label>
+
+                    <div class = "col-sm-6 col-md-6 col-lg-3">
+                        <input type = "text" class = "form-control" id = "Fullname" style="text-transform: capitalize;" placeholder = "Current Name">
+                    </div>
+                </div>
+                
+                
+                 <div class = "form-group">
+                    <label for = "Email" class = "col-sm-4 col-lg-5 control-label">Email</label>
+                    <div class = "col-sm-6 col-md-6 col-lg-3">
+                        <div class="input-group">
+                            <input type = "text" class = "form-control" id = "Email" placeholder = "Current Email">
+                            <div class="input-group-addon">@</div> 
+                            <select id="EmailSelect" class="selectpicker form-control">
+                                <option selected>gmail.com</option>
+                                <option>yahoo.com</option>
+                            </select> 
+                        </div>
+                    </div>
+                </div>  
+               
+                
+               
+                
+                 <div class = "form-group">
+                        <label for = "Password" class = "col-sm-4 col-lg-5 control-label">Password</label>
+                    
+                    <div class = "col-sm-6 col-md-6 col-lg-3">
+                        <div class="input-group">
+                            <input type = "password" class = "form-control" id = "Password" placeholder = "Enter New Password" autocomplete="new-password">
+                            <span class = "input-group-btn">
+                                <button class = "btn btn-default" type = "button" id="seePwdBtn"><span class="glyphicon glyphicon-eye-close"></span></button>
+                        </div> 
+                            <label id="wrongusrSignup"></label>
+                    </div>
+                </div>
+<!-- RE-ENTER PASSWORD eksdi---------------------------------------------------------------------------------------------------------------------------------------->
+                <div class = "form-group">
+                        <label for = "Password" class = "col-sm-4 col-lg-5 control-label">Re-enter password</label>
+                    
+                    <div class = "col-sm-6 col-md-6 col-lg-3">
+                        <div class="input-group">
+                            <input type = "password" class = "form-control" id = "Password" placeholder = "Re-enter New Password" autocomplete="new-password">
+                            <span class = "input-group-btn">
+                                <button class = "btn btn-default" type = "button" id="seePwdBtn"><span class="glyphicon glyphicon-eye-close"></span></button>
+                        </div> 
+                            <label id="wrongusrSignup"></label>
+                    </div>
+                </div>
+<!-------------------------------------------------------------------------------------------------------------------------------------------------------------------->
+
+                
+                    
+
+                <div class = "form-group">
+                    <div class = "col-xs-offset-8 col-sm-offset-8 col-md-offset-8 col-lg-offset-7 col-sm-2 col-md-2 col-lg-1 col-xs-4">
+                        <button type = "button" class = "btn btn-default btn-block" id="bSignUp">Save Changes</button>
+                    </div>
+                </div>
+
+            </form>
+          </div>
+            <!--<section class="settings_section">
+                    <h2>Hi, (username will appear here)</h2>
+                    <br>
+                    <form action="user-settings.php" method="post">
+                        <ul>
+                            <li class="fullname">
+                                    Fullname  <input type="text" name="fullname"><br>
+                            </li>
+                            <li>
+                                <div id="input"></div>
+                                    E-mail  <input type="text" name="email"><br>
+                            </li>
+                            <li>
+                                <div id="input"></div>
+                                    Password  <input type="text" name="password"><br>
+                            </li>
+                            <li>
+                                <div id="input"></div>
+                                    Re-enter your password  <input type="text" name="password2"><br>
+                            </li>
+                        </ul>
+                        <button type="submit">Submit</button>
+                        
+                    </form>
+                   
+             </section>-->  
+        </body>   
+    </html>
