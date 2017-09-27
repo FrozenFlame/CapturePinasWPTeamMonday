@@ -1,3 +1,12 @@
+<?php
+session_start();
+
+if(!isset($_SESSION['id'])) # if user is already logged in, redirect to logged in page.
+{
+  header('Location: index.php');
+}
+
+?>
 <!DOCTYPE html>
 <html>
   <head>
@@ -8,16 +17,8 @@
     <link rel="stylesheet" href="css/bootstrap.min.css"> <!-- changed to local files -->
     <script src = "js/jquery-3.2.1.js"></script>
     <script src="js/bootstrap.min.js"></script>
-    <link href="css/signup.css" rel="stylesheet">
+    <link href="css/user-settings2.css" rel="stylesheet">
 
-
-    <script>
-window.onload = function getUsrnm(){
-  var usrnm = document.getElementById("Username");
-
-  usrnm.innerhtml = "LALAA";
-}
-    </script>
 
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
@@ -155,18 +156,24 @@ window.onload = function getUsrnm(){
       <?php
       include_once('connection.php');
       $db = new Connection();
-      echo "<script> alert('asfsadfsadf');</script>";
+      $db = $db->dbConnect();
 
-
-  //    $this->db = $this->db->dbConnect();
-    //   function getUsername(){
-            $currentUsrName = "";
-            $query = $db->prepare("SELECT username FROM users WHERE id = ?"); #BINARY makes the password search case-sensitive.
+            $currentUsrName;
+            $currentFName;
+            $currentEmail;
+            
+            $query = $db->prepare("SELECT * FROM users WHERE id = ?"); #BINARY makes the password search case-sensitive.
             $query->bindparam(1, $_SESSION['id']);
+            
             $query->execute();
             $currentUsrName = $query->fetch()['username'];
-    //        return $currentUsrName;
-  //    }
+            
+            $query->execute();
+            $currentFName = $query->fetch()['fullname'];
+            
+            $query->execute();
+            $currentEmail = $query->fetch()['email'];
+
       ?>
 <!------------------------------------------------------------------------------------------------------------------------------------------------------->
 
@@ -184,7 +191,7 @@ window.onload = function getUsrnm(){
 <!------------------------------------------------------------------------------------------------------------------------------------------------------->
                     <?php
 
-                     echo  "<input type = \"text\" class = \"form-control\" id = \"Username\" placeholder = $currentUsrName + make uneditable(?)>"; ?>
+                     echo  "<input type = \"text\" class = \"form-control\" id = \"Username\" placeholder = ".$currentUsrName." disabled>"; ?> <!-- disabled can also be readonly, open for discussion chuchu-->
 <!------------------------------------------------------------------------------------------------------------------------------------------------------->
                     </div>
                 </div>
@@ -193,7 +200,9 @@ window.onload = function getUsrnm(){
                     <label for = "Fullname" class = "col-sm-4 col-lg-5 control-label">Full Name</label>
 
                     <div class = "col-sm-6 col-md-6 col-lg-3">
-                        <input type = "text" class = "form-control" id = "Fullname" style="text-transform: capitalize;" placeholder = "Current Name (editable ba dapat or no?)">
+                      
+                      <?php
+                        echo "<input type = \"text\" class = \"form-control\" id = \"Fullname\" style= \"text-transform: capitalize;\" placeholder = ".$currentFName." disabled>"; ?>
                     </div>
                 </div>
 
@@ -201,7 +210,9 @@ window.onload = function getUsrnm(){
                     <label for = "Email" class = "col-sm-4 col-lg-5 control-label">Email</label>
                     <div class = "col-sm-6 col-md-6 col-lg-3">
                         <div class="input-group">
-                            <input type = "text" class = "form-control" id = "Email" placeholder = "Current Email">
+                          
+                          <?php
+                            echo "<input type = \"text\" class = \"form-control\" id = \"Email\" placeholder = ".$currentEmail." >"; ?>
                             <div class="input-group-addon">@</div>
                             <select id="EmailSelect" class="selectpicker form-control">
                                 <option selected>gmail.com</option>
@@ -242,7 +253,7 @@ window.onload = function getUsrnm(){
 
                 <div class = "form-group">
                     <div class = "col-xs-offset-8 col-sm-offset-8 col-md-offset-8 col-lg-offset-7 col-sm-2 col-md-2 col-lg-1 col-xs-4">
-                        <button type = "button" class = "btn btn-default btn-block" id="bSignUp">Save Changes</button>
+                        <button type = "button" class = "btn btn-default btn-block" id="bSignUp">Change Password</button>
                     </div>
                 </div>
 
