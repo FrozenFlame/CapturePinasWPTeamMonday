@@ -7,8 +7,6 @@ if(!isset($_SESSION['id'])) # if user is already logged in, redirect to logged i
   header('Location: index.php');
 }
 
-
-
 ?>
 <html>
   <head>
@@ -17,6 +15,7 @@ if(!isset($_SESSION['id'])) # if user is already logged in, redirect to logged i
     <!-- Bootstrap -->
     <link rel="stylesheet" href="css/bootstrap.min.css"> <!-- changed to local files -->
     <script src = "js/jquery-3.2.1.js"></script>
+    <script src="js/bootstrap.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <link href="css/home-in.css" rel="stylesheet">
 
@@ -113,8 +112,10 @@ if(!isset($_SESSION['id'])) # if user is already logged in, redirect to logged i
         </div>
     </nav>
     <!-- End of Nav bar -->
-      <div class="container-fluid">
-        <div class=""
+      <div class="container">
+          <?php
+            include("post/post.php");
+          ?>
       </div>
 
 
@@ -132,13 +133,9 @@ if(!isset($_SESSION['id'])) # if user is already logged in, redirect to logged i
               $('a#nav_name_user').append('<span class="glyphicon glyphicon-triangle-bottom" aria-hidden="true"></span>');
               });
           }
-
-
-
-
-
-
         </script>
+
+  </script>
 
   </body>
 </html>

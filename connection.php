@@ -7,5 +7,4 @@
             return new PDO('mysql:host=localhost; dbname=capturepinas', 'root', ''); #this is where we may have differences (db username and password)
         }
     }
-            
 ?>

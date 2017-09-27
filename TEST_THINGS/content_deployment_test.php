@@ -128,6 +128,7 @@
     <button type="submit" class="btn btn-primary" id="button2">Login2</button>
 
     <div id="contentdiv">
+        <b>foxtrot</b>
         <?php
             include('template.html'); 
         ?>
