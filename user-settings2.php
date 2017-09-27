@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
+
     <title>CapturePinas</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- Bootstrap -->
@@ -9,12 +10,21 @@
     <script src="js/bootstrap.min.js"></script>
     <link href="css/signup.css" rel="stylesheet">
 
+
+    <script>
+window.onload = function getUsrnm(){
+  var usrnm = document.getElementById("Username");
+
+  usrnm.innerhtml = "LALAA";
+}
+    </script>
+
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
       <script src="js/html5shiv.js"></script>
       <script src="js/respond.min.js"></script>
-    <![endif]-->      
-    
+    <![endif]-->
+
   </head>
   <body>
     <!-- Nav bar -->
@@ -31,7 +41,7 @@
             <div class="collapse navbar-collapse" id="myNavbar">
                 <ul class="nav navbar-nav">
                     <li class="active"><a href="index.php">Home</a></li>
-                    
+
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">Places <b class="caret"></b></a>
                         <ul class="dropdown-menu">
@@ -68,24 +78,42 @@
                             <li><a href="#">Tawi tawi</a></li>
                             <li><a href="#">Zambales</a></li>
                             <li><a href="#">Zamboanga</a></li>
-                      
-                            
+
+
                         </ul>
                     </li>
-                    
-                    <li><a href="#">Forums</a></li>
+
                     <li><a href="#">About Us</a></li>
-                 
-                </ul> 
+
+                </ul>
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a href="signup.html"><span class="glyphicon glyphicon-user" ></span> Sign Up</a></li>
-                    <li><a href="#" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+                    <li>
+                        <div class="col-lg-12">
+                         <form class="navbar-form" role="search">
+                            <div class="input-group">
+
+                                <input type="text" class="form-control" placeholder="Search" id="navbar-search">
+                                <div class="input-group-btn">
+                                <button class="btn btn-default" type="submit"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
+                                </div>
+                            </div>
+                        </form>
+                        </div>
+                    </li>
+                    <li class="dropdown" id="profile-dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" id="nav_name_user"></a>
+                        <ul class="dropdown-menu">
+                        <li><a href="#">Profile</a></li>
+                        <li><a href="user-settings2.php">User Settings</a></li>
+                        <li><a href="ajax/logout_process.php">Logout</a></li>
+                        </ul>
+                    </li>
                 </ul>
             </div>
         </div>
     </nav>
     <!-- End of Nav bar -->
-      
+
       <!-- Start of Modal -->
       <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
   <div class="modal-dialog" role="document">
@@ -103,7 +131,7 @@
             <input type="text" class="form-control" name="usrname" id="Username-modal" placeholder="Enter Username">
             <!--name="usrname" is what php will use to reference this-->
           </div>
-            
+
           <div class="form-group">
             <label for="Password" class="form-control-label">Password</label>
                 <div class="input-group">
@@ -125,86 +153,93 @@
     <!-- End of Modal -->
 <!-------------------------------------------------------------------------------------------------------------------------------------------------->
       <?php
-      require_once('../php/connection.php');
-       function getUsername(){
-            $currentUsrName;
-            $query = $this->db->prepare("SELECT username FROM users WHERE id = ?"); #BINARY makes the password search case-sensitive.
+      include_once('connection.php');
+      $db = new Connection();
+      echo "<script> alert('asfsadfsadf');</script>";
+
+
+  //    $this->db = $this->db->dbConnect();
+    //   function getUsername(){
+            $currentUsrName = "";
+            $query = $db->prepare("SELECT username FROM users WHERE id = ?"); #BINARY makes the password search case-sensitive.
             $query->bindparam(1, $_SESSION['id']);
             $query->execute();
             $currentUsrName = $query->fetch()['username'];
-            return $currentUsrName;
-      }
+    //        return $currentUsrName;
+  //    }
       ?>
-<!------------------------------------------------------------------------------------------------------------------------------------------------------->      
-      
-    
+<!------------------------------------------------------------------------------------------------------------------------------------------------------->
+
+
       <div class="login-block" >
           <div class="form-block">
               <div class="row" style="padding: 0px 50px 20px">
                   <div class="col-lg-offset-4 col-md-offset-4 col-xs-offset-4 col-lg-12"><h2>User Settings</h2></div>
-            
+
               </div>
             <form class = "form-horizontal" role = "form">
                 <div class = "form-group">
                     <label for = "Username" class = "col-sm-4 col-lg-5 control-label">Username</label>
                     <div class = "col-sm-6 col-md-6 col-lg-3">
-<!------------------------------------------------------------------------------------------------------------------------------------------------------->                      
-                      <input type = "text" class = "form-control" id = "Username" placeholder = " + make uneditable(?)">
-<!------------------------------------------------------------------------------------------------------------------------------------------------------->                      
+<!------------------------------------------------------------------------------------------------------------------------------------------------------->
+                    <?php
+
+                     echo  "<input type = \"text\" class = \"form-control\" id = \"Username\" placeholder = $currentUsrName + make uneditable(?)>"; ?>
+<!------------------------------------------------------------------------------------------------------------------------------------------------------->
                     </div>
                 </div>
-                
+
                 <div class = "form-group">
                     <label for = "Fullname" class = "col-sm-4 col-lg-5 control-label">Full Name</label>
 
                     <div class = "col-sm-6 col-md-6 col-lg-3">
                         <input type = "text" class = "form-control" id = "Fullname" style="text-transform: capitalize;" placeholder = "Current Name (editable ba dapat or no?)">
                     </div>
-                </div>            
-                
+                </div>
+
                 <div class = "form-group">
                     <label for = "Email" class = "col-sm-4 col-lg-5 control-label">Email</label>
                     <div class = "col-sm-6 col-md-6 col-lg-3">
                         <div class="input-group">
                             <input type = "text" class = "form-control" id = "Email" placeholder = "Current Email">
-                            <div class="input-group-addon">@</div> 
+                            <div class="input-group-addon">@</div>
                             <select id="EmailSelect" class="selectpicker form-control">
                                 <option selected>gmail.com</option>
                                 <option>yahoo.com</option>
-                            </select> 
+                            </select>
                         </div>
                     </div>
-                </div>  
-               
-                
-               
-                
+                </div>
+
+
+
+
                  <div class = "form-group">
                         <label for = "Password" class = "col-sm-4 col-lg-5 control-label">Password</label>
-                    
+
                     <div class = "col-sm-6 col-md-6 col-lg-3">
                         <div class="input-group">
                             <input type = "password" class = "form-control" id = "Password" placeholder = "Enter New Password" autocomplete="new-password">
                             <span class = "input-group-btn">
                                 <button class = "btn btn-default" type = "button" id="seePwdBtn"><span class="glyphicon glyphicon-eye-close"></span></button>
-                        </div> 
+                        </div>
                             <label id="wrongusrSignup"></label>
                     </div>
-                    
+
                     <label for = "Password" class = "col-sm-4 col-lg-5 control-label">Re-enter New Password</label>
-                    
+
                     <div class = "col-sm-6 col-md-6 col-lg-3">
                         <div class="input-group">
                             <input type = "password" class = "form-control" id = "Password2" placeholder = "Re-enter New Password" autocomplete="new-password">
                             <span class = "input-group-btn">
                                 <button class = "btn btn-default" type = "button" id="seePwdBtn"><span class="glyphicon glyphicon-eye-close"></span></button>
-                        </div> 
+                        </div>
                             <label id="wrongusrSignup"></label>
                     </div>
                 </div>
-                 
-                 
-                    
+
+
+
                 <div class = "form-group">
                     <div class = "col-xs-offset-8 col-sm-offset-8 col-md-offset-8 col-lg-offset-7 col-sm-2 col-md-2 col-lg-1 col-xs-4">
                         <button type = "button" class = "btn btn-default btn-block" id="bSignUp">Save Changes</button>
@@ -214,21 +249,21 @@
             </form>
           </div>
       </div>
-          
+
           <!-- Sign Up script -->
       <script>
-          
-           function capitalize(str) 
-          { // string with alteast one character 
-               if (str && str.length >= 1) 
-               { 
-                   var firstChar = str.charAt(0); 
-                   var remainingStr = str.slice(1); 
-                   str = firstChar.toUpperCase() + remainingStr; 
-               } 
+
+           function capitalize(str)
+          { // string with alteast one character
+               if (str && str.length >= 1)
+               {
+                   var firstChar = str.charAt(0);
+                   var remainingStr = str.slice(1);
+                   str = firstChar.toUpperCase() + remainingStr;
+               }
               return str;
            }
-          
+
         $(document).ready(function()
         {
             $("#seePwdBtnModal").click(function()
@@ -263,12 +298,12 @@
           {
             var username = $('input#Username').val();
             var password = $('input#Password').val();
-              
+
               //Combining email
             var email = $('input#Email').val();
               var email2 = $('select#EmailSelect').val();
               email = email + '@' + email2;
-              
+
               //Makes the first letters of fullname to capital letters.
             var fullnameArray = $('input#Fullname').val().split(' ');
               var fullname = '';
@@ -277,29 +312,29 @@
                       fullname = fullname + ' '+ capitalize(fullnameArray[i]);
                   }
               //end of making 1st letters capital
-              
-                if($.trim(username)=='' || $.trim(password)=='' || $.trim(email) == '' 
+
+                if($.trim(username)=='' || $.trim(password)=='' || $.trim(email) == ''
                    || fullname == '')
                 {
                     $('label#wrongusrSignup').css("color","red");
                     $('label#wrongusrSignup').text("Please fill up all fields.");
                 } else{
-                   
+
                     $.post('ajax/signup_process.php', {username: username, password: password,email:email,fullname:fullname}, function(data)  //user is what we're passing in, and usern is what php will reference it with.
                     {             //data there is what php will return or "echo"
                         if(data) // is true
-                        {  
+                        {
                             alert("Successful");
                             window.location.href = 'home-in.php'; //moves us in
                         }
                         else
                         {
                            alert("Failed");
-                        }                         
-                    });      
+                        }
+                    });
                 }
             });
-            
+
             //Login Code
             $("#bloginmdl").click(function()
           {
@@ -307,11 +342,11 @@
             var user = $('input#Username-modal').val(); // $ jquery. input from id 'Username', then the method val() for its value.
             var pass = $('input#Password-modal').val();
             if($.trim(user) != '' && pass != '') //ignores empty fields
-            { 
+            {
               $.post('ajax/login_process.php', {usern: user, passw: pass}, function(data)  //user is what we're passing in, and usern is what php will reference it with.
               {                                                               //data there is what php will return or "echo"
                 if(data)
-                {  
+                {
                   $('label#wrongusr').text("");
                   window.location.href = 'home-in.php'; //moves us in as an example page.
                 }
@@ -320,16 +355,15 @@
                   $('label#wrongusr').css("color","red");
                   $('label#wrongusr').text("Incorrect login details.");
                   attemptsRem--;
-                }                         
-              });         
+                }
+              });
             }
-            
+
           });
-            
-            
+
+
         });
-        
+
       </script>
   </body>
 </html>
-

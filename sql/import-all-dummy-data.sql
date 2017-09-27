@@ -8,7 +8,7 @@ INSERT INTO users (id, username, fullname, email, password, activated) VALUES
 (NULL, 'deogracias', 'Denzel Deogracias', 'deogracias@gmail.com', 'deogracias123', 'TRUE')
 ;
 
-INSERT INTO post (postid, userid, title, place, isMedia, description, likes, dislikes, favnum, timestamp) VALUES 
+INSERT INTO post (postid, userid, title, place, isMedia, description, likes, dislikes, favnum, timestamp) VALUES
     (NULL, 1, "Adversario title", "adversario place", "TRUE", "description ni greg", 3, 1 , 1 , "13:01 8/11/2011"),
     (NULL, 2, "Arsenio title", "arsenio place", "FALSE", "arsenio no description", 1, 2, 3, "6:56 10/11/2012"),
     (NULL, 3, "Cabangon title", "cabangon place", "FALSE", "The FitnessGram Pacer Test
@@ -22,7 +22,7 @@ INSERT INTO post (postid, userid, title, place, isMedia, description, likes, dis
     (NULL, 4, "Catalan post2", "catalan place2", "TRUE", "mercedes bench", 3, 2, 1, "1:23 1/2/2003")
 ;
 
-INSERT INTO postcomments (postid, userid, content, likes, dislikes, timestamp) VALUES 
+INSERT INTO postcomments (postid, userid, content, likes, dislikes, timestamp) VALUES
     (1, 1, "userid1 comments on postid1", 1 , 1, "13:01 8/11/2011"),
     (3, 2, "userid2 comments on postid3", 2, 3, "6:56 10/11/2012"),
     (3, 3, "userid3 comments on postid3", 0, 5, "23:24 3/2/2001"),
@@ -30,21 +30,21 @@ INSERT INTO postcomments (postid, userid, content, likes, dislikes, timestamp) V
     (5, 4, "userid4 comments on postid5", 2, 1, "1:23 1/2/2003")
 ;
 
-INSERT INTO postmedia (postid, filepath) VALUES 
+INSERT INTO postmedia (postid, filepath) VALUES
     (1, "/CapturePinasWPTeamMonday/postimages/p1img"),
     (4, "/CapturePinasWPTeamMonday/postimages/p4img"),
     (5, "/CapturePinasWPTeamMonday/postimages/p5img")
 ;
 
-INSERT INTO userinfo (id, filepath, bio) VALUES 
+INSERT INTO userinfo (id, filepath, bio) VALUES
     (1, "/CapturePinasWPTeamMonday/userimages/default", "Hi im greg"),
     (2, "/CapturePinasWPTeamMonday/userimages/u2img3", "jarvs is here"),
-    (3, "/CapturePinasWPTeamMonday/userimages/u3img1", "plus ultra!"),    
+    (3, "/CapturePinasWPTeamMonday/userimages/u3img1", "plus ultra!"),
     (4, "/CapturePinasWPTeamMonday/userimages/default", "eksdi"),
     (5, "/CapturePinasWPTeamMonday/userimages/u5img6", "ez dogs")
 ;
 
-INSERT INTO userfav (id, postid) VALUES 
+INSERT INTO userfav (id, postid) VALUES
     (1, 2),
     (1, 4),
     (1, 3),

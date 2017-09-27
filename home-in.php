@@ -5,7 +5,7 @@ session_start();
 if(!isset($_SESSION['id'])) # if user is already logged in, redirect to logged in page.
 {
   header('Location: index.php');
-} 
+}
 
 
 
@@ -42,7 +42,7 @@ if(!isset($_SESSION['id'])) # if user is already logged in, redirect to logged i
             <div class="collapse navbar-collapse" id="myNavbar">
                 <ul class="nav navbar-nav">
                     <li class="active"><a href="index.php">Home</a></li>
-                    
+
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">Places <span class="glyphicon glyphicon-triangle-bottom" aria-hidden="true"></span></a>
                         <ul class="dropdown-menu">
@@ -79,19 +79,19 @@ if(!isset($_SESSION['id'])) # if user is already logged in, redirect to logged i
                             <li><a href="#">Tawi tawi</a></li>
                             <li><a href="#">Zambales</a></li>
                             <li><a href="#">Zamboanga</a></li>
-                      
-                            
+
+
                         </ul>
                     </li>
                     <li><a href="#">About Us</a></li>
-                 
-                </ul> 
+
+                </ul>
                 <ul class="nav navbar-nav navbar-right">
                     <li>
                         <div class="col-lg-12">
                          <form class="navbar-form" role="search">
                             <div class="input-group">
-                                
+
                                 <input type="text" class="form-control" placeholder="Search" id="navbar-search">
                                 <div class="input-group-btn">
                                 <button class="btn btn-default" type="submit"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
@@ -103,11 +103,12 @@ if(!isset($_SESSION['id'])) # if user is already logged in, redirect to logged i
                     <li class="dropdown" id="profile-dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" id="nav_name_user"></a>
                         <ul class="dropdown-menu">
-                        <li><a href="user-settings2.php">Profile</a></li>
+                        <li><a href="#">Profile</a></li>
+                        <li><a href="user-settings2.php">User Settings</a></li>
                         <li><a href="ajax/logout_process.php">Logout</a></li>
                         </ul>
                     </li>
-                </ul>   
+                </ul>
             </div>
         </div>
     </nav>
@@ -115,29 +116,29 @@ if(!isset($_SESSION['id'])) # if user is already logged in, redirect to logged i
       <div class="container-fluid">
         <div class=""
       </div>
-      
-      
+
+
       <script>
         window.onload = doSet();
-        
+
            function doSet()
           {
               var passed = 'getId';
-              
+
               $.post('ajax/set.php', {passed: passed}, function(data)  //user is what we're passing in, and usern is what php will reference it with.
               {                                                               //data there is what php will return or "echo"
-                 
+
                   $('a#nav_name_user').text(data+' ');
               $('a#nav_name_user').append('<span class="glyphicon glyphicon-triangle-bottom" aria-hidden="true"></span>');
-              });        
+              });
           }
-          
-          
-          
-       
-          
-          
+
+
+
+
+
+
         </script>
-      
+
   </body>
 </html>
