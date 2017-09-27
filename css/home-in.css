@@ -1,22 +1,59 @@
+body {
+    background-color: ghostwhite;
+}
+/* for post */
 .container {
-        padding: 60px;
+        padding: 50px;
     }
 .post {
+    margin: auto;
+    margin-top: 10px;
     border-radius: 5px;
     padding-left: 30px;
     padding-top: 5px;
     border-style: solid;
     border-color: darkgray;
     border-width: 1px;
+    background-color: whitesmoke;
    
 }
-#myCarousel {
+#post-description{
     width: 96%;
+}
+#post-carousel {
+    width: 96%;
+    margin-bottom: 5px;
 }
 img {
     width: 100%;
 }
 
+#line{
+    padding-top: 10px;
+    width: 95%;
+    border-width: 1px;
+    border-bottom: solid;
+    border-bottom-width: thin;
+    border-color: lightgray;
+}
+.textarea-div{
+    width: 95%;
+    display:inline-block;
+    position:relative;
+    padding-bottom: 15px;
+}
+textarea{
+    resize: none;
+    box-sizing:border-box; 
+    width: 90%;
+    display:block;
+}
+#textarea-button{
+    position:absolute;
+  bottom:23px;
+  right:20px;
+}
+/* end of for post */
 .modal-footer {
     height: 65px;
 }
@@ -42,7 +79,7 @@ img {
     background-color:burlywood;
 }
 .navbar-default {
-    background-color: #F8F8F8;
+    background-color: #205628;
     border-color: #E7E7E7;
     
 }
@@ -51,8 +88,11 @@ img {
 }
 
 /* title */
+.navbar-default {
+    box-shadow: 5px;
+}
 .navbar-default .navbar-brand {
-    color: #006400;
+    color: #FFFFFF;
 }
 .navbar-default .navbar-brand:hover,
 .navbar-default .navbar-brand:focus {
@@ -60,23 +100,23 @@ img {
 }
 /* link */
 .navbar-default .navbar-nav > li > a {
-    color: #777;
+    color: #FFFFFF;
 }
 .navbar-default .navbar-nav > li > a:hover,
 .navbar-default .navbar-nav > li > a:focus {
-    color: #333;
+    color: #FFFFFF;
 }
 .navbar-default .navbar-nav > .active > a, 
 .navbar-default .navbar-nav > .active > a:hover, 
 .navbar-default .navbar-nav > .active > a:focus {
-    color: #555;
-    background-color: #E7E7E7;
+    color: #FFFFFF;
+    background-color: #0b2b10;
 }
 .navbar-default .navbar-nav > .open > a, 
 .navbar-default .navbar-nav > .open > a:hover, 
 .navbar-default .navbar-nav > .open > a:focus {
-    color: #555;
-    background-color: #D5D5D5;
+    color: #FFFFFF;
+    background-color: #0b2b10;
 }
 /* caret */
 .navbar-default .navbar-nav > .dropdown > a .caret {

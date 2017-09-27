@@ -19,8 +19,41 @@
             $this->db = $this->db->dbConnect(); #being extremely explicit here just in case.      
         }
         
+        
         public function getData($commandReceived)
         {
+            if($commandReceived==='getPostImages')
+            {
+                $query = ("SELECT title, place FROM post");
+                $query->execute();
+                
+                $post = array();
+                
+                if($query->rowcount() != 0) 
+                {
+                foreach($query as $result)
+                {
+                    $comment = new Comment
+                    (
+                        $result['postid'],
+                        $result['commentid'],
+                        $result['userid'],
+                        $result['content'],
+                        $result['likes'],
+                        $result['dislikes']
+                    );
+                    array_push($comments, $comment->toArray());
+                }
+                return json_encode($comments);
+                } else
+                    return "false";
+                
+                
+                
+                
+                return $result;
+                //return $output;
+            }
             if($commandReceived==='getId')
             {
                 $query = $this->db->prepare("SELECT fullName FROM users WHERE id = ?"); #retrieves fullname and other info based on users
@@ -30,6 +63,9 @@
                 return $result;
             }
         }
+        
+        function debug() {
+            echo "<script>alert( 'Fake' );</script>";
+        }
     }
-    die(0);
 ?>

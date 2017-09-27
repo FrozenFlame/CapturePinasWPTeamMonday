@@ -102,16 +102,24 @@ if(isset($_SESSION['id'])) # if user is already logged in, redirect to logged in
         <form action = "php/login_process.php" method="post"> <!--php functionality inserted in form tag-->
           <div class="form-group">
             <label for="Username" class="form-control-label">Username</label>
-            <input type="text" class="form-control" name="usrname" id="Username-modal" placeholder="Enter Username">
+              <div class="input-group">
+                  <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                  <input type="text" class="form-control" name="usrname" id="Username-modal" placeholder="Enter Username">
             <!--name="usrname" is what php will use to reference this-->
+              </div>
+            
           </div>
             
           <div class="form-group">
             <label for="Password" class="form-control-label">Password</label>
                 <div class="input-group">
-                  <input type="password" class="form-control" name="password" id="Password-modal" placeholder="Enter Password" autocomplete="new-password"></input>
-                    <span class = "input-group-btn">
-                    <button class = "btn btn-default" type = "button" id="seePwdBtnModal"><span class="glyphicon glyphicon-eye-close"></span></button>
+                     <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+                    <input type="password" class="form-control" name="password" id="Password-modal" placeholder="Enter Password" autocomplete="new-password"></input>
+                    <div class="input-group-btn">
+                      <button class="btn btn-default" type="button" id="seePwdBtnModal">
+                        <i class="glyphicon glyphicon-eye-close"></i>
+                      </button>
+                    </div>
                 </div>
           </div>
           <label id="wrongusr"></label> <!--ajax will change this label if user enters invalid data -->
