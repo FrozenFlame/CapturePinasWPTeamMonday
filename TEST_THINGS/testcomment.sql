@@ -1,3 +1,4 @@
+USE capturepinas;
 INSERT INTO `postcomments`(`postid`, `commentid`, `userid`, `content`, `likes`, `dislikes`) VALUES (1,1,1,"I frankly disagree",3,30);
 INSERT INTO `postcomments`(`postid`, `commentid`, `userid`, `content`, `likes`, `dislikes`) VALUES (1,2,2,"@Denzel, shut up bro",329,1);
 INSERT INTO `postcomments`(`postid`, `commentid`, `userid`, `content`, `likes`, `dislikes`) VALUES (1,3,3,"OHHH ROASTED BOY",329,1);
