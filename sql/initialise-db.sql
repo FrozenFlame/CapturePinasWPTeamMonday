@@ -8,31 +8,35 @@ CREATE TABLE users (
     id INTEGER NOT NULL AUTO_INCREMENT,
     PRIMARY KEY(id),
     username VARCHAR(20) NOT NULL,
-    fullname VARCHAR(30), email VARCHAR(30),
+    fullname VARCHAR(30) NOT NULL,
+    email VARCHAR(30) NOT NULL,
     password VARCHAR(20) NOT NULL,
-    activated VARCHAR(15)
+    activated VARCHAR(15) NOT NULL
 )   ENGINE=InnoDB;
 
 CREATE TABLE post(
     postid INTEGER NOT NULL AUTO_INCREMENT,
     userid INTEGER NOT NULL REFERENCES users,
-    posttitle VARCHAR(30),
+    title VARCHAR(30) NOT NULL,
     place VARCHAR(30) NOT NULL,
     isMedia VARCHAR(5) NOT NULL,
-    description VARCHAR(200),
-    likes INTEGER,
-    dislikes INTEGER,
-    favnum INTEGER,
-    timestamp VARCHAR(30),
+    description VARCHAR(200) NOT NULL,
+    likes INTEGER NOT NULL,
+    dislikes INTEGER NOT NULL,
+    favnum INTEGER NOT NULL,
+    timestamp VARCHAR(30) NOT NULL,
     PRIMARY KEY(postid)
 )   ENGINE=InnoDB;
 
 CREATE TABLE postcomments(
     postid INTEGER NOT NULL REFERENCES post,
+    commentid INTEGER NOT NULL AUTO_INCREMENT,
     userid INTEGER NOT NULL REFERENCES post,
     content VARCHAR(200) NOT NULL,
-    likes INTEGER,
-    dislikes INTEGER
+    likes INTEGER NOT NULL,
+    dislikes INTEGER NOT NULL,
+    timestamp VARCHAR(30) NOT NULL,
+    PRIMARY KEY(commentid)
 )   ENGINE=InnoDB;
 
 CREATE TABLE postmedia(
@@ -42,8 +46,8 @@ CREATE TABLE postmedia(
 
 CREATE TABLE userinfo(
     id INTEGER NOT NULL REFERENCES users,
-    filepath VARCHAR(100),
-    bio VARCHAR(500),
+    filepath VARCHAR(100) NOT NULL,
+    bio VARCHAR(500) NOT NULL,
     PRIMARY KEY(id)
 )    ENGINE=InnoDB;
 

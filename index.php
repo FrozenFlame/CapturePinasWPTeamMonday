@@ -73,7 +73,6 @@ if(isset($_SESSION['id'])) # if user is already logged in, redirect to logged in
                             <li><a href="#">Tawi tawi</a></li>
                             <li><a href="#">Zambales</a></li>
                             <li><a href="#">Zamboanga</a></li>
-                      
                             
                         </ul>
                     </li>
