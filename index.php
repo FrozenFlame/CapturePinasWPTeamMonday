@@ -76,8 +76,7 @@ if(isset($_SESSION['id'])) # if user is already logged in, redirect to logged in
                             
                         </ul>
                     </li>
-                    <li><a href="#">About Us</a></li>
-                 
+                <a href="aboutUs.html">AboutUs</a>
                 </ul> 
                 <ul class="nav navbar-nav navbar-right">
                     <li><a href="signup.html"><span class="glyphicon glyphicon-user" ></span> Sign Up</a></li>

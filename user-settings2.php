@@ -123,6 +123,19 @@
   </div>
 </div>
     <!-- End of Modal -->
+<!-------------------------------------------------------------------------------------------------------------------------------------------------->
+      <?php
+      require_once('../php/connection.php');
+       function getUsername(){
+            $currentUsrName;
+            $query = $this->db->prepare("SELECT username FROM users WHERE id = ?"); #BINARY makes the password search case-sensitive.
+            $query->bindparam(1, $_SESSION['id']);
+            $query->execute();
+            $currentUsrName = $query->fetch()['username'];
+            return $currentUsrName;
+      }
+      ?>
+<!------------------------------------------------------------------------------------------------------------------------------------------------------->      
       
     
       <div class="login-block" >
@@ -135,7 +148,9 @@
                 <div class = "form-group">
                     <label for = "Username" class = "col-sm-4 col-lg-5 control-label">Username</label>
                     <div class = "col-sm-6 col-md-6 col-lg-3">
-                        <input type = "text" class = "form-control" id = "Username" placeholder = "display current username + make uneditable(?)">
+<!------------------------------------------------------------------------------------------------------------------------------------------------------->                      
+                      <input type = "text" class = "form-control" id = "Username" placeholder = " + make uneditable(?)">
+<!------------------------------------------------------------------------------------------------------------------------------------------------------->                      
                     </div>
                 </div>
                 
