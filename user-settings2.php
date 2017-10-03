@@ -160,19 +160,33 @@ if(!isset($_SESSION['id'])) # if user is already logged in, redirect to logged i
 
             $currentUsrName;
             $currentFName;
-            $currentEmail;
-            
+            $currentEmailFull;
+            $currentEmail1;
+            GLOBAL $currentEmail2;
+            $emailPointer = 0;
+
             $query = $db->prepare("SELECT * FROM users WHERE id = ?"); #BINARY makes the password search case-sensitive.
             $query->bindparam(1, $_SESSION['id']);
-            
+
             $query->execute();
             $currentUsrName = $query->fetch()['username'];
-            
+
             $query->execute();
             $currentFName = $query->fetch()['fullname'];
-            
+            echo $currentFName;
             $query->execute();
-            $currentEmail = $query->fetch()['email'];
+            $currentEmailFull = $query->fetch()['email'];
+
+            while ($currentEmailFull{$emailPointer} != '@'){
+              $currentEmail1 = $currentEmail1.$currentEmailFull{$emailPointer};
+              $emailPointer++;
+            }
+
+            $emailPointer++;
+            while ($emailPointer < strlen($currentEmailFull)){
+              $currentEmail2 = $currentEmail2.$currentEmailFull{$emailPointer};
+              $emailPointer++;
+            }
 
       ?>
 <!------------------------------------------------------------------------------------------------------------------------------------------------------->
@@ -200,7 +214,7 @@ if(!isset($_SESSION['id'])) # if user is already logged in, redirect to logged i
                     <label for = "Fullname" class = "col-sm-4 col-lg-5 control-label">Full Name</label>
 
                     <div class = "col-sm-6 col-md-6 col-lg-3">
-                      
+
                       <?php
                         echo "<input type = \"text\" class = \"form-control\" id = \"Fullname\" style= \"text-transform: capitalize;\" placeholder = ".$currentFName." disabled>"; ?>
                     </div>
@@ -210,13 +224,23 @@ if(!isset($_SESSION['id'])) # if user is already logged in, redirect to logged i
                     <label for = "Email" class = "col-sm-4 col-lg-5 control-label">Email</label>
                     <div class = "col-sm-6 col-md-6 col-lg-3">
                         <div class="input-group">
-                          
+
                           <?php
-                            echo "<input type = \"text\" class = \"form-control\" id = \"Email\" placeholder = ".$currentEmail." >"; ?>
+                            echo "<input type = \"text\" class = \"form-control\" id = \"Email\" placeholder = ".$currentEmail1." >"; ?>
                             <div class="input-group-addon">@</div>
                             <select id="EmailSelect" class="selectpicker form-control">
-                                <option selected>gmail.com</option>
-                                <option>yahoo.com</option>
+
+                              <?php
+                              if ($currentEmail2 == 'gmail.com'){
+                                echo "<option selected>gmail.com</option>";
+                                echo "<option>yahoo.com</option>";
+                              }
+                              else if ($currentEmail2 == 'yahoo.com'){
+                                echo "<option selected>yahoo.com</option>";
+                                echo "<option>gmail.com</option>";
+                              }
+                                ?>
+
                             </select>
                         </div>
                     </div>
@@ -243,7 +267,7 @@ if(!isset($_SESSION['id'])) # if user is already logged in, redirect to logged i
                         <div class="input-group">
                             <input type = "password" class = "form-control" id = "Password2" placeholder = "Re-enter New Password" autocomplete="new-password">
                             <span class = "input-group-btn">
-                                <button class = "btn btn-default" type = "button" id="seePwdBtn"><span class="glyphicon glyphicon-eye-close"></span></button>
+                                <button class = "btn btn-default" type = "button" id="seePwdBtn2"><span class="glyphicon glyphicon-eye-close"></span></button>
                         </div>
                             <label id="wrongusrSignup"></label>
                     </div>
@@ -253,7 +277,7 @@ if(!isset($_SESSION['id'])) # if user is already logged in, redirect to logged i
 
                 <div class = "form-group">
                     <div class = "col-xs-offset-8 col-sm-offset-8 col-md-offset-8 col-lg-offset-7 col-sm-2 col-md-2 col-lg-1 col-xs-4">
-                        <button type = "button" class = "btn btn-default btn-block" id="bSignUp">Change Password</button>
+                        <button type = "button" class = "btn btn-default btn-block" id="bSaveChanges">Save Changes</button>
                     </div>
                 </div>
 
@@ -305,45 +329,66 @@ if(!isset($_SESSION['id'])) # if user is already logged in, redirect to logged i
                     $(seePwdBtn).find(".glyphicon").removeClass("glyphicon-eye-open").addClass("glyphicon-eye-close");
                 }
             })
-          $("#bSignUp").click(function()
+
+            $("#seePwdBtnModal2").click(function()
+            {
+                var password = document.getElementById('Password-modal2');
+                var seePwdBtn = document.getElementById('seePwdBtnModal2');
+                if(password.type=='password')
+                    {
+                        password.type='text';
+                        $(seePwdBtn2).find(".glyphicon").removeClass("glyphicon-eye-close").addClass("glyphicon-eye-open");
+                    }
+                else{
+                    password.type='password';
+                    $(seePwdBtn2).find(".glyphicon").removeClass("glyphicon-eye-open").addClass("glyphicon-eye-close");
+                }
+            })
+            $("#seePwdBtn2").click(function()
+            {
+                var password = document.getElementById('Password2');
+                var seePwdBtn = document.getElementById('seePwdBtn2');
+                if(password.type=='password')
+                    {
+                        password.type='text';
+                        $(seePwdBtn2).find(".glyphicon").removeClass("glyphicon-eye-close").addClass("glyphicon-eye-open");
+                    }
+                else{
+                    password.type='password';
+                    $(seePwdBtn2).find(".glyphicon").removeClass("glyphicon-eye-open").addClass("glyphicon-eye-close");
+                }
+            })
+          $("#bSaveChanges").click(function()
           {
-            var username = $('input#Username').val();
             var password = $('input#Password').val();
+            var password2 = $('input#Password2').val();
 
               //Combining email
             var email = $('input#Email').val();
               var email2 = $('select#EmailSelect').val();
               email = email + '@' + email2;
 
-              //Makes the first letters of fullname to capital letters.
-            var fullnameArray = $('input#Fullname').val().split(' ');
-              var fullname = '';
-              for(i = 0; i < fullnameArray.length ; i++)
-                  {
-                      fullname = fullname + ' '+ capitalize(fullnameArray[i]);
-                  }
-              //end of making 1st letters capital
+              if(password != password2 || $.trim(email) == '')  {
+                  $('label#wrongusrSignup').css("color","red");
+                  $('label#wrongusrSignup').text("Error");
+              } else{
 
-                if($.trim(username)=='' || $.trim(password)=='' || $.trim(email) == ''
-                   || fullname == '')
-                {
-                    $('label#wrongusrSignup').css("color","red");
-                    $('label#wrongusrSignup').text("Please fill up all fields.");
-                } else{
-
-                    $.post('ajax/signup_process.php', {username: username, password: password,email:email,fullname:fullname}, function(data)  //user is what we're passing in, and usern is what php will reference it with.
+                    $.post('ajax/savechanges_process.php', {password: password,email:email}, function(data)  //user is what we're passing in, and usern is what php will reference it with.
                     {             //data there is what php will return or "echo"
                         if(data) // is true
                         {
                             alert("Successful");
-                            window.location.href = 'home-in.php'; //moves us in
+                            window.location.href = 'user-settings2.php'; //moves us in
                         }
                         else
                         {
                            alert("Failed");
                         }
+
+
                     });
-                }
+                  }
+
             });
 
             //Login Code
