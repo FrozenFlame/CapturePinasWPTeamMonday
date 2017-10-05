@@ -5,43 +5,52 @@
     session_start();
 
     // initialize variables (from POST in signup.html)
-
-    $email=$_POST['email'];
-    $password=$_POST['password'];
-
-    $attempt = new Save_Changes();
-    echo $attempt->savechanges($password,$email);
+   // echo "<script>console.log('Hello');</script>";
+    $_email=$_POST['email'];
+    $_password=$_POST['password'];
+   // echo "<script>console.log('$password , $email');</script>";
+    $_id = $_SESSION['id'];
+    $attempt = new Save_Changes($_email, $_password, $_id);
+    //echo $attempt->savechanges($password,$email);
+    $attempt->savechanges();
+    
 
 
     class Save_Changes #inner class
     {
         private $db;
         private $successful;
-        public function __construct()
+        private $e_mail;
+        private $pass;
+        private $id;
+        public function __construct($e, $p, $i)
         {
             $this->db = new Connection();
             $this->db = $this->db->dbConnect(); #being extremely explicit here just in case.
+            $this->e_mail = $e;
+            $this->pass = $p;
+            $this->id = $i;
         }
 
-        public function savechanges($pass, $e_mail)
+        public function savechanges()
         {
-            $query = $this->db->prepare("UPDATE users SET password=? WHERE id=$_SESSION['id']");
-            $query->bindparam(1,$pass);
+            $query = $this->db->prepare("UPDATE users SET password=? WHERE id=$this->id");
+            $query->bindparam(1,$this->pass);
             $result = $query->execute();
             $query->execute();
 
-            $query2 = $this->db->prepare("UPDATE users SET email=? WHERE id=$_SESSION['id']");
-            $query2->bindparam(1,$e_mail);
+            $query2 = $this->db->prepare("UPDATE users SET email=? WHERE id=$this->id");
+            $query2->bindparam(1,$this->e_mail);
             $result2 = $query2->execute();
             $query2->execute();
 
             if($result)
             {
                 $successful=TRUE;
-                alert('Password changed!');
+                //alert('Password changed!');
             }else{
                 $successful=FALSE;
-                alert('Error changing password');
+                //alert('Error changing password');
             }
 
             return $successful;
@@ -49,4 +58,5 @@
 
     }
     die(0);
+
 ?>

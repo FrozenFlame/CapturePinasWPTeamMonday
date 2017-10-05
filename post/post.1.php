@@ -16,13 +16,12 @@
       <script src="js/html5shiv.js"></script>
       <script src="js/respond.min.js"></script>
     <![endif]-->
-
   </head>
   <body>
         <div class="col-sm-offset-2 col-offset-xs-0 col-sm-8 col-xs-12 post-container">
                     <div class="post">
                         <div class="row">
-                            <a href="#"><p><b>Reymark Arsenio</b></p></a>
+                            <a href="#"><p><b id="post-author">Placeholder</b></p></a> <!--note: wala pa 'tong unique ID!-->
                         </div>
                         <div class="row">
                             <div id="post-carousel" class="carousel slide" data-ride="carousel">
@@ -60,9 +59,8 @@
                               </div>
                         </div>
                         <div class="row">
-                            <p><b>Its more funner in Bolinao! </b> <br>Bolinao, Pangasinan <br>10:51pm September 31, 2017</p>
-                            <p id="post-description">This place is very wonderful. Astig grabe ayoko nang bumalik dito! Sana di na ko pumunta
-                            kasi sobrang ganda talaga. Worth the pagod beshies punta na kayo dyan huhu</p>
+                            <p id="post-header"><b id="post-title" name="title">Title Here </b> <br>Place Here <br>Date Here</p>
+                            <p id="post-description">Desription here</p>
                             <p id="line"></p>
                             <button class="btn btn-default" type="button" id="post-like-btn">0 <span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span></button>
                             <button class="btn btn-default" type="button" id="post-unlike-btn">0 <span class="glyphicon glyphicon-thumbs-down" aria-hidden="true"></span></button>
@@ -75,6 +73,7 @@
                         </div>
                     </div>
                 </div>
+      
       <script>
           $(document).ready(function()
             {
@@ -86,7 +85,20 @@
                 
                   $('a#nav_name_user').text(data+' ');
                 $('a#nav_name_user').append('<span class="glyphicon glyphicon-triangle-bottom" aria-hidden="true"></span>');
-                }); */ 
+                }); */
+
+                //DO NOTE: In the future this must be able to support uniqueIDs
+                var postAuthor = document.getElementById("post-author");
+                // var postHeader = document.getElementById("post-header");
+                var postHeader = document.getElementById("post-header");
+                //postHeader.innerHTML = "<b id=\"post-title\"></b> <br>Baller";
+                var postHeaderChild = postHeader.getElementsByTagName("b"); 
+                
+                postAuthor.innerHTML = "Authorini";
+                
+                postHeaderChild[0].innerHTML = "Hoho";
+                
+
                 $("#post-like-btn").click(function()
                 {
                     var likes = parseInt($(this).text());

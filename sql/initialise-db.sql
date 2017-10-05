@@ -24,7 +24,7 @@ CREATE TABLE post(
     likes INTEGER NOT NULL,
     dislikes INTEGER NOT NULL,
     favnum INTEGER NOT NULL,
-    timestamp VARCHAR(30) NOT NULL,
+    timestamp TIMESTAMP NOT NULL,
     PRIMARY KEY(postid)
 )   ENGINE=InnoDB;
 
