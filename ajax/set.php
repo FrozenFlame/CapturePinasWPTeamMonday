@@ -25,9 +25,7 @@
         {
             if($commandReceived==='getPostImages')
             {        
-                
-                
-                include_once('../post/postObject.php');
+                /*include_once('../post/postObject.php');
                 $query = $this->db->prepare("SELECT * FROM post");
                 $query->execute();
                 $result = $query->fetch(PDO::FETCH_ASSOC);
@@ -51,6 +49,32 @@
                     );
                     array_push($posts, $post->toArray());
                 }
+                return json_encode($posts);
+                } else
+                    return "false";*/
+                include_once('../post/postObject.php');
+                $query = $this->db->prepare("SELECT * FROM post");
+                $query->execute();
+                $result = $query->fetch(PDO::FETCH_ASSOC);
+                
+                $posts = array();
+                if($query->rowcount() != 0) 
+                {
+                    for($ctr = 0; $ctr < $query->rowcount() ; $ctr++)
+                    {
+                        $post = new Post
+                        (
+                            $result['postid'],
+                            $result['userid'],
+                            $result['title'],
+                            $result['place'],
+                            $result['description'],
+                            $result['likes'],
+                            $result['dislikes'],
+                            $result['timestamp']
+                        );
+                        array_push($posts, $post->toArray());
+                    }
                 return json_encode($posts);
                 } else
                     return "false";

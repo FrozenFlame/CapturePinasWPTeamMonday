@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="css/bootstrap.min.css"> <!-- changed to local files -->
     <script src = "js/jquery-3.2.1.js"></script>
     <script src="js/bootstrap.min.js"></script>
-    <link href="css/home-in.css" rel="stylesheet">
+    <link href="css/post.css" rel="stylesheet">
 
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
@@ -22,7 +22,7 @@
         <div class="col-sm-offset-2 col-offset-xs-0 col-sm-8 col-xs-12 post-container">
                     <div class="post">
                         <div class="row">
-                            <a href="#"><p><b>Reymark Arsenio</b></p></a>
+                            <a href="#"><p><b id="post-name">Xander Ford</b></p></a>
                         </div>
                         <div class="row">
                             <div id="post-carousel" class="carousel slide" data-ride="carousel">
@@ -60,9 +60,10 @@
                               </div>
                         </div>
                         <div class="row">
-                            <p><b>Its more funner in Bolinao! </b> <br>Bolinao, Pangasinan <br>10:51pm September 31, 2017</p>
-                            <p id="post-description">This place is very wonderful. Astig grabe ayoko nang bumalik dito! Sana di na ko pumunta
-                            kasi sobrang ganda talaga. Worth the pagod beshies punta na kayo dyan huhu</p>
+                            <p id="post-title-p"><b id="post-title"></b></p>
+                            <p id="post-place"></p>
+                            <p id="post-timestamp"></p>
+                            <p id="post-description"></p>
                             <p id="line"></p>
                             <button class="btn btn-default" type="button" id="post-like-btn">0 <span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span></button>
                             <button class="btn btn-default" type="button" id="post-unlike-btn">0 <span class="glyphicon glyphicon-thumbs-down" aria-hidden="true"></span></button>
@@ -83,7 +84,19 @@
                 $.post('ajax/set.php', {passed: passed}, function(data)
                 {
                     post = JSON.parse(data);
-                    alert(post[0].title);
+                    $('b#post-title').text(post[0].title);
+                    
+                    var passed2 = 'getId';
+                    $.post('ajax/set.php', {passed: passed2}, function(data)
+                    {
+                        $('b#post-name').text(data);
+                    }); 
+                    
+                    $('p#post-place').text(post[0].place);
+                    
+                    $('p#post-timestamp').text(post[0].timestamp);
+                    
+                    $('p#post-description').text(post[0].description);
                 }); 
                 $("#post-like-btn").click(function()
                 {
