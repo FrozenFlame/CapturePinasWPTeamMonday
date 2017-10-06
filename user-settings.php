@@ -1,3 +1,4 @@
+<!-- Team Monday -->
 <?php
 session_start();
 
@@ -5,20 +6,51 @@ if(!isset($_SESSION['id'])) # if user is already logged in, redirect to logged i
 {
   header('Location: index.php');
 }
+/**************************************** FETCHING DATA FROM THE DB *************************************************************/
+      include_once('connection.php');
+      $db = new Connection();
+      $db = $db->dbConnect();
+
+            $currentUsrName;
+            GLOBAL $currentFName;
+            $currentEmailFull;
+            $currentEmail1;
+            GLOBAL $currentEmail2;
+            $emailPointer = 0;
+
+        
+            $query = $db->prepare("SELECT * FROM users WHERE id = ?"); #BINARY makes the password search case-sensitive.
+            $query->bindparam(1, $_SESSION['id']);
+
+            $query->execute();
+            $currentUsrName = $query->fetch()['username'];
+            $query->execute();
+            $currentFName = $query->fetch()['fullname'];
+            $query->execute();
+            $currentEmailFull = $query->fetch()['email'];
+
+            while ($currentEmailFull{$emailPointer} != '@'){
+              $currentEmail1 = $currentEmail1.$currentEmailFull{$emailPointer};
+              $emailPointer++;
+            }
+
+            $emailPointer++;
+            while ($emailPointer < strlen($currentEmailFull)){
+              $currentEmail2 = $currentEmail2.$currentEmailFull{$emailPointer};
+              $emailPointer++;
+            }
+/*****************************************************************************************************************************************/
 
 ?>
-<!DOCTYPE html>
 <html>
   <head>
-
     <title>CapturePinas</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- Bootstrap -->
     <link rel="stylesheet" href="css/bootstrap.min.css"> <!-- changed to local files -->
     <script src = "js/jquery-3.2.1.js"></script>
     <script src="js/bootstrap.min.js"></script>
-    <link href="css/user-settings2.css" rel="stylesheet">
-
+    <link href="css/user-settings.css" rel="stylesheet">
 
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
@@ -41,10 +73,10 @@ if(!isset($_SESSION['id'])) # if user is already logged in, redirect to logged i
             </div>
             <div class="collapse navbar-collapse" id="myNavbar">
                 <ul class="nav navbar-nav">
-                    <li class="active"><a href="index.php">Home</a></li>
+                    <li><a href="index.php">Home</a></li>
 
                     <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Places <b class="caret"></b></a>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Places <span class="glyphicon glyphicon-triangle-bottom" aria-hidden="true"></span></a>
                         <ul class="dropdown-menu">
                             <li><a href="#">Albay</a></li>
                             <li><a href="#">Bataan</a></li>
@@ -83,7 +115,6 @@ if(!isset($_SESSION['id'])) # if user is already logged in, redirect to logged i
 
                         </ul>
                     </li>
-
                     <li><a href="#">About Us</a></li>
 
                 </ul>
@@ -102,10 +133,10 @@ if(!isset($_SESSION['id'])) # if user is already logged in, redirect to logged i
                         </div>
                     </li>
                     <li class="dropdown" id="profile-dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" id="nav_name_user"></a>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" id="nav_name_user"><?php echo $currentFName." ";?><span class="glyphicon glyphicon-triangle-bottom" aria-hidden="true"></span></a>
                         <ul class="dropdown-menu">
                         <li><a href="#">Profile</a></li>
-                        <li><a href="user-settings2.php">User Settings</a></li>
+                        <li><a href="user-settings.php">User Settings</a></li>
                         <li><a href="ajax/logout_process.php">Logout</a></li>
                         </ul>
                     </li>
@@ -152,44 +183,6 @@ if(!isset($_SESSION['id'])) # if user is already logged in, redirect to logged i
   </div>
 </div>
     <!-- End of Modal -->
-<!-------------------------------------------------------------------------------------------------------------------------------------------------->
-      <?php
-      include_once('connection.php');
-      $db = new Connection();
-      $db = $db->dbConnect();
-
-            $currentUsrName;
-            $currentFName;
-            $currentEmailFull;
-            $currentEmail1;
-            GLOBAL $currentEmail2;
-            $emailPointer = 0;
-
-        
-            $query = $db->prepare("SELECT * FROM users WHERE id = ?"); #BINARY makes the password search case-sensitive.
-            $query->bindparam(1, $_SESSION['id']);
-
-            $query->execute();
-            $currentUsrName = $query->fetch()['username'];
-            $query->execute();
-            $currentFName = $query->fetch()['fullname'];
-            $query->execute();
-            $currentEmailFull = $query->fetch()['email'];
-
-            while ($currentEmailFull{$emailPointer} != '@'){
-              $currentEmail1 = $currentEmail1.$currentEmailFull{$emailPointer};
-              $emailPointer++;
-            }
-
-            $emailPointer++;
-            while ($emailPointer < strlen($currentEmailFull)){
-              $currentEmail2 = $currentEmail2.$currentEmailFull{$emailPointer};
-              $emailPointer++;
-            }
-
-      ?>
-<!------------------------------------------------------------------------------------------------------------------------------------------------------->
-
 
       <div class="login-block" >
           <div class="form-block">
@@ -365,15 +358,28 @@ if(!isset($_SESSION['id'])) # if user is already logged in, redirect to logged i
 
               //Combining email
             var email = $('input#Email').val();
+            email = $.trim(email);
+            
             var email2 = $('select#EmailSelect').val();
             var emailFinal = email + '@' + email2;
+            emailFinal = $.trim(emailFinal);
+            
+              //Makes the first letters of fullname to capital letters.
+            var fullnameArray = $('input#Fullname').val().split(' ');
+            var fullname = '';
+              for(i = 0; i < fullnameArray.length ; i++)
+                  {
+                      fullname = fullname + ' '+ capitalize(fullnameArray[i]);
+                  }
+            fullname = $.trim(fullname);
+              //end of making 1st letters capital            
 
-              if(password != password2 || $.trim(email) == '')  {
+              if(password != password2)  {
                   $('label#wrongusrPassword2').css("color","red");
                   $('label#wrongusrPassword2').text("Error, both password fields must match.");
               } else{
 
-                    $.post('ajax/savechanges_process.php', {password: password,email:emailFinal}, function(data)  //user is what we're passing in, and usern is what php will reference it with.
+                    $.post('ajax/savechanges_process.php', {password: password, email:emailFinal, fullname: fullname}, function(data)  //user is what we're passing in, and usern is what php will reference it with.
                     {             //data there is what php will return or "echo"
                         if(data) // is true
                         {
@@ -387,6 +393,7 @@ if(!isset($_SESSION['id'])) # if user is already logged in, redirect to logged i
                            alert("Failed");
                         }
                     });
+                    window.location.href = 'user-settings.php'; //moves us in
                   }
 
             });
@@ -426,8 +433,6 @@ if(!isset($_SESSION['id'])) # if user is already logged in, redirect to logged i
 
 <!--
     THINGS TO DO
-        >make fullname editable (and saveable to DB)
         >password field condition if empty
-        >invi name in top right of this file
         >maybe add a pre-edit stage to this webpage.
 -->
