@@ -114,7 +114,7 @@ if(!isset($_SESSION['id'])) # if user is already logged in, redirect to logged i
     <!-- End of Nav bar -->
       <div class="container">
           <?php
-            include("post/post.php");
+            include("post/post.1.php");
           ?>
       </div>
 
@@ -133,13 +133,9 @@ if(!isset($_SESSION['id'])) # if user is already logged in, redirect to logged i
               $('a#nav_name_user').append('<span class="glyphicon glyphicon-triangle-bottom" aria-hidden="true"></span>');
               });
           }
-<<<<<<< HEAD
-        </script>      
-=======
         </script>
 
   </script>
 
->>>>>>> a70746cff5ea8098bbf8447bcc6f98b2fc6e9c8b
   </body>
 </html>

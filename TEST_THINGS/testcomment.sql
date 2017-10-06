@@ -7,9 +7,3 @@ INSERT INTO `postcomments`(`postid`, `commentid`, `userid`, `content`, `likes`, 
 INSERT INTO `postcomments`(`postid`, `commentid`, `userid`, `content`, `likes`, `dislikes`) VALUES (2,6,1,"PostID too right? I'm omniscient.", 20, 3);
 INSERT INTO `postcomments`(`postid`, `commentid`, `userid`, `content`, `likes`, `dislikes`) VALUES (2,7,4, "PostID two*", 36755, 1);
 INSERT INTO `postcomments`(`postid`, `commentid`, `userid`, `content`, `likes`, `dislikes`) VALUES (2,8,3,"OHHH ROASTED BOY",5,1);
-
-
-
-
-
-
