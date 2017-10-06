@@ -57,4 +57,21 @@ class Post
     {
         return $this->_timestamp;
     }
+    
+    public function toArray() //could be useful
+    {
+        $arr = array
+        (
+           "postid" => $this->_postid,
+           "userid" => $this->_userid,
+            "title" => $this->_title,
+            "place" => $this->_place,
+            "description" => $this->_description,
+           "likes" => $this->_likes,
+           "dislikes" => $this->_dislikes,
+           "timestamp" => $this->_timestamp,
+        );
+        return $arr;
+    }
+}
 ?>

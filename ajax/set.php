@@ -4,6 +4,7 @@
 
     session_start();
     
+    
     $command = $_POST['passed'];
 
     $attempt = new Getter();
@@ -24,38 +25,37 @@
         {
             if($commandReceived==='getPostImages')
             {
+                
+                include_once('../post/postObject.php');
                 $query = ("SELECT title, place FROM post");
                 $query->execute();
                 
-                $post = array();
+                $posts = array();
                 
                 if($query->rowcount() != 0) 
                 {
                 foreach($query as $result)
                 {
-                    $comment = new Comment
+                    $post = new Post
                     (
                         $result['postid'],
-                        $result['commentid'],
                         $result['userid'],
-                        $result['content'],
+                        $result['title'],
+                        $result['place'],
+                        $result['description'],
                         $result['likes'],
-                        $result['dislikes']
+                        $result['dislikes'],
+                        $result['timestamp']
                     );
-                    array_push($comments, $comment->toArray());
+                    array_push($posts, $post->toArray());
                 }
-                return json_encode($comments);
+                return json_encode($posts);
                 } else
                     return "false";
-                
-                
-                
-                
-                return $result;
-                //return $output;
             }
             if($commandReceived==='getId')
             {
+                debug();
                 $query = $this->db->prepare("SELECT fullName FROM users WHERE id = ?"); #retrieves fullname and other info based on users
                 $query->bindparam(1, $_SESSION['id']);
                 $query->execute();
@@ -63,9 +63,8 @@
                 return $result;
             }
         }
-        
-        function debug() {
+    }
+    function debug() {
             echo "<script>alert( 'Fake' );</script>";
         }
-    }
 ?>

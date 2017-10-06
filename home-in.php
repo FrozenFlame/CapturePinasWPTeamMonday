@@ -132,11 +132,6 @@ if(!isset($_SESSION['id'])) # if user is already logged in, redirect to logged i
               $('a#nav_name_user').append('<span class="glyphicon glyphicon-triangle-bottom" aria-hidden="true"></span>');
               });  
           }
-<<<<<<< HEAD
-        </script>
-=======
-  </script>
->>>>>>> c3898a0637153f360cea3cc59c653143ad69d4de
-      
+        </script>      
   </body>
 </html>

@@ -75,15 +75,12 @@
       <script>
           $(document).ready(function()
             {
-                /*var passed = 'getPostImages';
+                var passed = 'getPostImages';
               
                 $.post('ajax/set.php', {passed: passed}, function(data)  //user is what we're passing in, and usern is what php will reference it with.
                 {
                     alert(data);
-                
-                  $('a#nav_name_user').text(data+' ');
-                $('a#nav_name_user').append('<span class="glyphicon glyphicon-triangle-bottom" aria-hidden="true"></span>');
-                }); */ 
+                }); 
                 $("#post-like-btn").click(function()
                 {
                     var likes = parseInt($(this).text());
