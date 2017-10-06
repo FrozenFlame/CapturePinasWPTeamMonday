@@ -165,6 +165,7 @@ if(!isset($_SESSION['id'])) # if user is already logged in, redirect to logged i
             GLOBAL $currentEmail2;
             $emailPointer = 0;
 
+        
             $query = $db->prepare("SELECT * FROM users WHERE id = ?"); #BINARY makes the password search case-sensitive.
             $query->bindparam(1, $_SESSION['id']);
 
@@ -203,7 +204,7 @@ if(!isset($_SESSION['id'])) # if user is already logged in, redirect to logged i
 <!------------------------------------------------------------------------------------------------------------------------------------------------------->
                     <?php
 
-                     echo  "<input type = \"text\" class = \"form-control\" id = \"Username\" placeholder = ".$currentUsrName." disabled>"; ?> <!-- disabled can also be readonly, open for discussion chuchu-->
+                     echo  "<input type = \"text\" class = \"form-control\" id = \"Username\" placeholder = '".$currentUsrName."' disabled>"; ?> <!-- disabled can also be readonly, open for discussion chuchu-->
 <!------------------------------------------------------------------------------------------------------------------------------------------------------->
                     </div>
                 </div>
@@ -214,8 +215,7 @@ if(!isset($_SESSION['id'])) # if user is already logged in, redirect to logged i
                     <div class = "col-sm-6 col-md-6 col-lg-3">
 
                       <?php
-                        echo "<input type = \"text\" class = \"form-control\" id = \"Fullname\" style= \"text-transform: capitalize;\" placeholder = ".$currentFName." disabled>";
-                        echo "<script>console.log($currentFName);</script>"; 
+                        echo "<input type = \"text\" class = \"form-control\" id = \"Fullname\" style= \"text-transform: capitalize;\" placeholder = '".$currentFName."'>";
                         ?>
                     </div>
                 </div>
@@ -226,7 +226,7 @@ if(!isset($_SESSION['id'])) # if user is already logged in, redirect to logged i
                         <div class="input-group">
 
                           <?php
-                            echo "<input type = \"text\" class = \"form-control\" id = \"Email\" placeholder = ".$currentEmail1." >"; ?>
+                            echo "<input type = \"text\" class = \"form-control\" id = \"Email\" placeholder = '".$currentEmail1."' >"; ?>
                             <div class="input-group-addon">@</div>
                             <select id="EmailSelect" class="selectpicker form-control">
 
@@ -365,17 +365,16 @@ if(!isset($_SESSION['id'])) # if user is already logged in, redirect to logged i
 
               //Combining email
             var email = $('input#Email').val();
-              var email2 = $('select#EmailSelect').val();
-              email = email + '@' + email2;
+            var email2 = $('select#EmailSelect').val();
+            var emailFinal = email + '@' + email2;
 
               if(password != password2 || $.trim(email) == '')  {
                   $('label#wrongusrPassword2').css("color","red");
                   $('label#wrongusrPassword2').text("Error, both password fields must match.");
               } else{
 
-                    $.post('ajax/savechanges_process.php', {password: password,email:email}, function(data)  //user is what we're passing in, and usern is what php will reference it with.
+                    $.post('ajax/savechanges_process.php', {password: password,email:emailFinal}, function(data)  //user is what we're passing in, and usern is what php will reference it with.
                     {             //data there is what php will return or "echo"
-                        console.log('yo');
                         if(data) // is true
                         {
                             console.log(data);
@@ -426,8 +425,7 @@ if(!isset($_SESSION['id'])) # if user is already logged in, redirect to logged i
 </html>
 
 <!--
-    THINGS TO DO 
-        >fullname must show as fullname
+    THINGS TO DO
         >make fullname editable (and saveable to DB)
         >password field condition if empty
         >invi name in top right of this file

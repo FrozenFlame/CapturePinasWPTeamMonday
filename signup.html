@@ -240,12 +240,12 @@
               
               //Combining email
             var email = $('input#Email').val();
-              var email2 = $('select#EmailSelect').val();
-              email = email + '@' + email2;
+            var email2 = $('select#EmailSelect').val();
+            var emailFinal = email + '@' + email2;
               
               //Makes the first letters of fullname to capital letters.
             var fullnameArray = $('input#Fullname').val().split(' ');
-              var fullname = '';
+            var fullname = '';
               for(i = 0; i < fullnameArray.length ; i++)
                   {
                       fullname = fullname + ' '+ capitalize(fullnameArray[i]);
@@ -259,7 +259,7 @@
                     $('label#wrongusrSignup').text("Please fill up all fields.");
                 } else{
                    
-                    $.post('ajax/signup_process.php', {username: username, password: password,email:email,fullname:fullname}, function(data)  //user is what we're passing in, and usern is what php will reference it with.
+                    $.post('ajax/signup_process.php', {username: username, password: password,email:emailFinal,fullname:fullname}, function(data)  //user is what we're passing in, and usern is what php will reference it with.
                     {             //data there is what php will return or "echo"
                         if(data) // is true
                         {  
