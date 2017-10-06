@@ -79,10 +79,11 @@
           $(document).ready(function()
             {
                 var passed = 'getPostImages';
-              
-                $.post('ajax/set.php', {passed: passed}, function(data)  //user is what we're passing in, and usern is what php will reference it with.
+                var post;
+                $.post('ajax/set.php', {passed: passed}, function(data)
                 {
-                    alert(data);
+                    post = JSON.parse(data);
+                    alert(post[0].title);
                 }); 
                 $("#post-like-btn").click(function()
                 {

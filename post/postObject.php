@@ -1,6 +1,5 @@
 <?php
 include_once('../php/connection.php'); //so that we can get the author of the comment.
-
 class Post
 {
     private $_postid;
@@ -11,6 +10,7 @@ class Post
     private $_likes;
     private $_dislikes;
     private $_timestamp;
+  
 
     public function __construct($postid, $userid, $title, $place, $description, $likes, $dislikes, $timestamp)
     {   
