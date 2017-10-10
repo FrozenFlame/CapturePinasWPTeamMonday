@@ -9,11 +9,15 @@
 
     $broker = new Broker($type);
     $agent = $broker->getAgent();
-    // $attempt = new Getter();
-    // $broker->performCommand($command);
     $agent->performCommand($command);
-    // echo $agent->getData($command);
-    
+
+
+
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+ *      @author Denzel
+ *      - Inner classes -
+ * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+
     class Broker //creates a getter or setter class
     {
         private $type;
@@ -119,6 +123,23 @@
                 $query->execute();
                 $result = $query->fetch()['username'];
                 echo $result;
+            }
+        }
+    }
+
+    class Setter
+    {
+        private $db;
+        public function __construct() 
+        {
+            $this->db = new Connection();
+            $this->db = $this->db->dbConnect(); #being extremely explicit here just in case.      
+        }
+        public function performCommand($commandReceived)
+        {
+            if($commandReceived === "Placeholder")
+            {
+                // do placeholder things
             }
         }
     }

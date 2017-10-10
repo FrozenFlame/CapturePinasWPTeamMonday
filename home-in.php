@@ -122,7 +122,7 @@ if(!isset($_SESSION['id'])) # if user is already logged in, redirect to logged i
       <script>
         window.onload = doSet();
 
-           function doSet()
+           function doSet() //actually prepares navbar is what set does
           {
               var passed = 'getId';
 

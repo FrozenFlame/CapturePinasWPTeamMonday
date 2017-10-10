@@ -4,12 +4,13 @@
     <title>Comments Test</title>
     <script src = "../js/jquery-3.2.1.js"></script>
     
-    <script>
+    <!-- essentially makeshift builder -->
+    <script> 
         var commentIterator = 0;    
         $(document).ready(function()
         {
             // initial loading of comments (at most 2)
-            var postid = 1; //NOTE! put your own postid here! (as an int)
+            var postid = 2; //NOTE! put your own postid here! (as an int)
             getComment(postid, commentIterator);
 
             $("button#showmore_b").click(function()

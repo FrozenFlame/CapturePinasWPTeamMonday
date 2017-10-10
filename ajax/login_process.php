@@ -3,7 +3,6 @@
     include_once('../php/connection.php');
 
     session_start();
-    
 
     $user = $_POST['usern'];
     $pass = $_POST['passw'];
@@ -26,7 +25,6 @@
 
         public function login($username, $password) #this is the database logic
         {
-            
             $query = $this->db->prepare("SELECT * FROM users WHERE username = ? AND BINARY password = ?"); #BINARY makes the password search case-sensitive.
             $query->bindparam(1, $username);
             $query->bindparam(2, $password);
@@ -36,7 +34,7 @@
             {    
                 $successful = TRUE;
                 
-                $_SESSION['id'] = $query->fetch()['id'];
+                $_SESSION['id'] = $query->fetch()['id']; //setting of userid in $_SESSION
             }
             else
             {
