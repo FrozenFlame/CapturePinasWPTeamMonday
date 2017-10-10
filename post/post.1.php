@@ -1,5 +1,6 @@
 <!-- 
   Made By Jarvis
+  This page is what happens if you select a specific post to show.
 -->
 <html>
   <head>
@@ -9,19 +10,21 @@
     <link rel="stylesheet" href="css/bootstrap.min.css"> <!-- changed to local files -->
     <script src = "js/jquery-3.2.1.js"></script>
     <script src="js/bootstrap.min.js"></script>
-    <link href="css/home-in.css" rel="stylesheet">
+    <link href="css/post.css" rel="stylesheet">
 
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
       <script src="js/html5shiv.js"></script>
       <script src="js/respond.min.js"></script>
     <![endif]-->
+
   </head>
   <body>
         <div class="col-sm-offset-2 col-offset-xs-0 col-sm-8 col-xs-12 post-container">
                     <div class="post">
                         <div class="row">
-                            <a href="#"><p><b id="post-author">Placeholder</b></p></a> <!--note: wala pa 'tong unique ID!-->
+                            <!--<a href="#"><p><b id="post-name"></b></p></a> -->
+                            <p id="post-title-p"><b id="post-title"></b></p>
                         </div>
                         <div class="row">
                             <div id="post-carousel" class="carousel slide" data-ride="carousel">
@@ -59,11 +62,16 @@
                               </div>
                         </div>
                         <div class="row">
-                            <p id="post-header"><b id="post-title" name="title">Title Here </b> <br>Place Here <br>Date Here</p>
-                            <p id="post-description">Desription here</p>
+<!--                        <p id="post-title-p"><b id="post-title"></b></p> -->
+                            <a href="#"><p><b id="post-name"></b></p></a>
+                            <p>
+                            in <b id="post-place"></b>
+                            </p>
+                            <p id="post-timestamp"></p>
+                            <p id="post-description"></p>
                             <p id="line"></p>
-                            <button class="btn btn-default" type="button" id="post-like-btn">0 <span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span></button>
-                            <button class="btn btn-default" type="button" id="post-unlike-btn">0 <span class="glyphicon glyphicon-thumbs-down" aria-hidden="true"></span></button>
+                            <button class="btn btn-default" type="button" id="post-like-btn"><text id = "post-likes">0</text> <span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span></button>
+                            <button class="btn btn-default" type="button" id="post-unlike-btn"><text id = "post-dislikes">0</text>  <span class="glyphicon glyphicon-thumbs-down" aria-hidden="true"></span></button>
                             <p id="line"></p>
                             <div class="textarea-div">
                                 <textarea class="form-control" id="post-comment" placeholder="Enter a comment.."></textarea>
@@ -73,44 +81,41 @@
                         </div>
                     </div>
                 </div>
-      
       <script>
           $(document).ready(function()
             {
-                /*var passed = 'getPostImages';
-              
-                $.post('ajax/set.php', {passed: passed}, function(data)  //user is what we're passing in, and usern is what php will reference it with.
+                var passed = 'getPostInfo';
+                var post;
+                $.post('ajax/set.php', {passed: passed}, function(data)
                 {
-                    alert(data);
-                
-                  $('a#nav_name_user').text(data+' ');
-                $('a#nav_name_user').append('<span class="glyphicon glyphicon-triangle-bottom" aria-hidden="true"></span>');
-                }); */
+                    post = JSON.parse(data);
+                    $('b#post-title').text(post[0].title);
+                    var command = 'getPostAuthor';
+                    var userid = post[0].userid;
 
-                //DO NOTE: In the future this must be able to support uniqueIDs
-                var postAuthor = document.getElementById("post-author");
-                // var postHeader = document.getElementById("post-header");
-                var postHeader = document.getElementById("post-header");
-                //postHeader.innerHTML = "<b id=\"post-title\"></b> <br>Baller";
-                var postHeaderChild = postHeader.getElementsByTagName("b"); 
-                
-                postAuthor.innerHTML = "Authorini";
-                
-                postHeaderChild[0].innerHTML = "Hoho";
-                
-
+                    $.post('ajax/set.php', {passed: command, author_id: userid}, function(data)
+                    {
+                        $('b#post-name').text(data);
+                    }); 
+                    
+                    $('b#post-place').text(post[0].place);
+                    $('p#post-timestamp').text(post[0].timestamp);
+                    $('p#post-description').text(post[0].description);
+                    $('text#post-likes').text(post[0].likes);
+                    $('text#post-dislikes').text(post[0].dislikes);
+                }); 
                 $("#post-like-btn").click(function()
                 {
                     var likes = parseInt($(this).text());
                     $(this).text(likes+1+' ');
                     $(this).append('<span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span>');
-                })
+                });
                 $("#post-unlike-btn").click(function()
                 {
                     var likes = parseInt($(this).text());
                     $(this).text(likes+1+' ');
                     $(this).append('<span class="glyphicon glyphicon-thumbs-down" aria-hidden="true"></span>');
-                })
+                });
             });
          </script>
     </body>

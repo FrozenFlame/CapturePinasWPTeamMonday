@@ -20,38 +20,10 @@
             $this->db = $this->db->dbConnect(); #being extremely explicit here just in case.      
         }
         
-        
         public function getData($commandReceived)
         {
-            if($commandReceived==='getPostImages')
+            if($commandReceived==='getPostInfo')
             {        
-                /*include_once('../post/postObject.php');
-                $query = $this->db->prepare("SELECT * FROM post");
-                $query->execute();
-                $result = $query->fetch(PDO::FETCH_ASSOC);
-                
-                $posts = array();
-                
-                if($query->rowcount() != 0) 
-                {
-                foreach($query as $result)
-                {
-                    $post = new Post
-                    (
-                        $result['postid'],
-                        $result['userid'],
-                        $result['title'],
-                        $result['place'],
-                        $result['description'],
-                        $result['likes'],
-                        $result['dislikes'],
-                        $result['timestamp']
-                    );
-                    array_push($posts, $post->toArray());
-                }
-                return json_encode($posts);
-                } else
-                    return "false";*/
                 include_once('../post/postObject.php');
                 $query = $this->db->prepare("SELECT * FROM post");
                 $query->execute();
@@ -79,13 +51,21 @@
                 } else
                     return "false";
             }
-            if($commandReceived==='getId')
+            else if($commandReceived==='getId') //we should rename this method one day. We're not getting the ID here, we're getting the full name            {
             {
-                
                 $query = $this->db->prepare("SELECT fullName FROM users WHERE id = ?"); #retrieves fullname and other info based on users
                 $query->bindparam(1, $_SESSION['id']);
                 $query->execute();
                 $result = $query->fetch()['fullName'];
+                return $result;
+            }
+            else if($commandReceived==='getPostAuthor')
+            {
+                $authorID = $_POST['author_id'];
+                $query = $this->db->prepare("SELECT username FROM users WHERE id = ?"); #retrieves fullname and other info based on users
+                $query->bindparam(1, $authorID);
+                $query->execute();
+                $result = $query->fetch()['username'];
                 return $result;
             }
         }
