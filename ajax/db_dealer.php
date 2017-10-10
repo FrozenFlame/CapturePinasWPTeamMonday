@@ -4,22 +4,46 @@
 
     session_start();
     
-    $command = $_POST['passed'];
+    $type = $_POST['type']; 
+    $command = $_POST['command'];
 
-    $attempt = new Getter();
-    echo $attempt->getData($command);
+    $broker = new Broker($type);
+    $agent = $broker->getAgent();
+    // $attempt = new Getter();
+    // $broker->performCommand($command);
+    $agent->performCommand($command);
+    // echo $agent->getData($command);
+    
+    class Broker //creates a getter or setter class
+    {
+        private $type;
+        public function __construct($type)
+        {
+            $this->type = $type;
+        }
+        public function getAgent()
+        {
+            switch($this->type)
+            {
+                case "get":
+                return new Getter();
+                break;
+                case "set":
+                return new Setter();
+                break;
+            }
+        }
+    }
 
     class Getter
     {
         private $db;
-        private $successful;
         public function __construct() 
         {
             $this->db = new Connection();
             $this->db = $this->db->dbConnect(); #being extremely explicit here just in case.      
         }
-        
-        public function getData($commandReceived)
+        public function performCommand($commandReceived)
         {
             if($commandReceived==='getPostInfo')
             {        
@@ -46,9 +70,9 @@
                         );
                         array_push($posts, $post->toArray());
                     }
-                return json_encode($posts);
+                echo json_encode($posts);
                 } else
-                    return "false";
+                    echo "false";
             }
             else if($commandReceived==='getPostInfoTEMP')
             {        
@@ -75,9 +99,9 @@
                         );
                         array_push($posts, $post->toArray());
                     }
-                return json_encode($posts);
+                echo json_encode($posts);
                 } else
-                    return "false";
+                    echo "false";
             }
             else if($commandReceived==='getId') //we should rename this method one day. We're not getting the ID here, we're getting the full name            {
             {
@@ -85,7 +109,7 @@
                 $query->bindparam(1, $_SESSION['id']);
                 $query->execute();
                 $result = $query->fetch()['fullName'];
-                return $result;
+                echo $result;
             }
             else if($commandReceived==='getPostAuthor')
             {
@@ -94,7 +118,7 @@
                 $query->bindparam(1, $authorID);
                 $query->execute();
                 $result = $query->fetch()['username'];
-                return $result;
+                echo $result;
             }
         }
     }

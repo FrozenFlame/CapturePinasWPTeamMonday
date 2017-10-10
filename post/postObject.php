@@ -10,8 +10,9 @@ class Post
     private $_likes;
     private $_dislikes;
     private $_timestamp;
-  
+    //add: array of file paths for the pictures
 
+  
     public function __construct($postid, $userid, $title, $place, $description, $likes, $dislikes, $timestamp)
     {   
         $this->_postid = $postid;
@@ -62,14 +63,14 @@ class Post
     {
         $arr = array
         (
-           "postid" => $this->_postid,
-           "userid" => $this->_userid,
+            "postid" => $this->_postid,
+            "userid" => $this->_userid,
             "title" => $this->_title,
             "place" => $this->_place,
             "description" => $this->_description,
-           "likes" => $this->_likes,
-           "dislikes" => $this->_dislikes,
-           "timestamp" => $this->_timestamp,
+            "likes" => $this->_likes,
+            "dislikes" => $this->_dislikes,
+            "timestamp" => $this->_timestamp,
         );
         return $arr;
     }

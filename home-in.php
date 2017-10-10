@@ -114,7 +114,7 @@ if(!isset($_SESSION['id'])) # if user is already logged in, redirect to logged i
     <!-- End of Nav bar -->
       <div class="container">
           <?php
-            include("post/post.1.php");
+            include("post/post.php");
           ?>
       </div>
 

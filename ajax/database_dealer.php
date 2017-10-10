@@ -1,22 +1,55 @@
-<?php 
-    # set.php is to prepare the SESSION and Cookies for use throughout the website.
+<?php
+/*
+    The purpose of database_dealer is for general database dealership. 
+    that being: collection of content, posting of content, etc.
+    all based on the $command given to it
+*/
     include_once('../php/connection.php');
-
-    session_start();
     
-    $command = $_POST['passed'];
+    session_start();
 
-    $attempt = new Getter();
-    echo $attempt->getData($command);
+    $type = $_POST['type'];
+    $command = $_POST['command'];
 
-    class Getter
+    $agent = new Getter();
+    //$broker = new Broker($agent);
+    //$broker->performCommand($type, $command);
+    echo $agent->getData($command);
+    class Broker
     {
-        private $db;
-        private $successful;
-        public function __construct() 
+        private $db; //public so other classes may use it easily
+        private $agent;
+        public function __construct($agent) //accepts variable to initialize database to.
         {
             $this->db = new Connection();
-            $this->db = $this->db->dbConnect(); #being extremely explicit here just in case.      
+            $this->db = $this->db->dbConnect();
+            $this->agent = $agent;
+        }
+        
+        public function performCommand($type, $command)
+        {
+            switch ($type)
+            {
+            case "set":
+            $this->agent = new Setter($db);
+            break;
+            case "get":
+            $this->agent = new Getter($db);
+            break;
+            }
+        }
+    }
+    class Setter //job is to put things into the database
+    {
+
+    }
+    class Getter //job is to take things from the database
+    {
+        private $db;
+        public function __construct($db) 
+        {
+                $this->db = new Connection();
+                $this->db = $this->db->dbConnect();
         }
         
         public function getData($commandReceived)

@@ -125,3 +125,9 @@ JSON:
 Suddenly realized we need a user page. We knew that but we just haven't made it yet lol.
 
 -DD
+
+10-OCT-17
+We also need some kind of Create Post page
+and a way to not make like-dislike spammable.
+
+-DD

@@ -85,21 +85,24 @@
           $(document).ready(function()
             {
                 var passed = 'getPostInfo';
+                var type = 'get';
                 var post;
-                $.post('ajax/set.php', {passed: passed}, function(data)
+                $.post('ajax/db_dealer.php', {command: passed, type: type}, function(data)
                 {
                     post = JSON.parse(data);
                     $('b#post-title').text(post[0].title);
+                    
                     var command = 'getPostAuthor';
                     var userid = post[0].userid;
-
-                    $.post('ajax/set.php', {passed: command, author_id: userid}, function(data)
+                    $.post('ajax/db_dealer.php', {command: command, type: type, author_id: userid}, function(data)
                     {
                         $('b#post-name').text(data);
                     }); 
                     
                     $('b#post-place').text(post[0].place);
+                    
                     $('p#post-timestamp').text(post[0].timestamp);
+                    
                     $('p#post-description').text(post[0].description);
                     $('text#post-likes').text(post[0].likes);
                     $('text#post-dislikes').text(post[0].dislikes);
