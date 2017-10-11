@@ -2,6 +2,12 @@
   Made By Jarvis
   This page is what happens if you select a specific post to show.
 -->
+<?php
+  #variable declaration
+  $hype = "HYYYYPE"; # THIS IS IT
+  $postID = 3; #just a test, the value we put here should come from the post that was selected, which will have its own logic some other time
+?>
+
 <html>
   <head>
     <title>CapturePinas</title>
@@ -35,7 +41,7 @@
                                   <li data-target="#post-carousel" data-slide-to="2"></li>
                                 </ol>
 
-                                <!-- Wrapper for slides -->
+                                <!-- Wrapper for slides, also where we need to inject picture paths--> 
                                 <div class="carousel-inner">
                                   <div class="item active">
                                     <img src="images/4.jpg" alt="Los Angeles">
@@ -83,12 +89,7 @@
                             </div>
                             <p id="line"></p>
                             <!-- passing postID value to comment loader -->
-                            <?php
-                            $hype = "HYYYYPE"; // THIS IS IT
-                            $postID = 1; //just a test, the value we put here should come from the post that was selected, which will have its own logic some other time
-                            include("comment_loader.php");
-                             
-                            ?>
+                            <?php include("comment_loader.php"); ?>
                         </div>
                      
                     </div>
@@ -97,10 +98,11 @@
       <script>
           $(document).ready(function()
             {
+                var postid = "<?php echo $postID?>"; //this postid is what will show up, just for testing purposes 
                 var passed = 'getPostInfo';
                 var type = 'get';
                 var post;
-                $.post('ajax/db_dealer.php', {command: passed, type: type}, function(data)
+                $.post('ajax/db_dealer.php', {command: passed, type: type, postid: postid}, function(data)
                 {
                     post = JSON.parse(data);
                     $('b#post-title').text(post[0].title);
@@ -111,11 +113,8 @@
                     {
                         $('b#post-name').text(data);
                     }); 
-                    
                     $('b#post-place').text(post[0].place);
-                    
                     $('p#post-timestamp').text(post[0].timestamp);
-                    
                     $('p#post-description').text(post[0].description);
                     $('text#post-likes').text(post[0].likes);
                     $('text#post-dislikes').text(post[0].dislikes);

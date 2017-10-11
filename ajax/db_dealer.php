@@ -14,8 +14,8 @@
 
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
- *      @author Denzel
- *      - Inner classes -
+ *       @author Denzel
+ *      - Inner Classes -
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
     class Broker //creates a getter or setter class
@@ -52,7 +52,9 @@
             if($commandReceived==='getPostInfo')
             {        
                 include_once('../post/postObject.php');
-                $query = $this->db->prepare("SELECT * FROM post");
+                $query = $this->db->prepare("SELECT * FROM post WHERE postid = ?");
+                $postid = $_POST['postid'];
+                $query->bindparam(1, $postid);
                 $query->execute();
                 $result = $query->fetch(PDO::FETCH_ASSOC);
                 
@@ -143,7 +145,8 @@
             }
         }
     }
-    function debug() {
+    function debug() 
+    {
             echo "<script>alert( 'Fake' );</script>";
-        }
+    }
 ?>

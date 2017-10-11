@@ -112,13 +112,32 @@ if(!isset($_SESSION['id'])) # if user is already logged in, redirect to logged i
         </div>
     </nav>
     <!-- End of Nav bar -->
-      <div class="container">
-          <?php
-            include("post/post.php");
-          ?>
-      </div>
 
-      <script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+     <script>
         window.onload = doSet();
 
         function doSet() //actually prepares navbar is what set does
@@ -147,6 +166,6 @@ if(!isset($_SESSION['id'])) # if user is already logged in, redirect to logged i
         });
         
           
-        </script>      
-  </body>
+        </script>   
+    </body>
 </html>
