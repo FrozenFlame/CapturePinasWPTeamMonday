@@ -5,7 +5,7 @@
 <?php
   #variable declaration
   $hype = "HYYYYPE"; # THIS IS IT
-  $postID = 3; #just a test, the value we put here should come from the post that was selected, which will have its own logic some other time
+  $postID = 1; #just a test, the value we put here should come from the post that was selected, which will have its own logic some other time
 ?>
 
 <html>

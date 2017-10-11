@@ -140,10 +140,7 @@ if(!isset($_SESSION['id'])) # if user is already logged in, redirect to logged i
             //@ means user search ex: @Reymark
             var navSearchText = $("input#navbar-search").val();
             var command = "search";
-            $.post('php/search_dealer.php', {query: navSearchText, command: command}, function(data)
-            {
-                alert(data);
-            }); 
+            window.location = "search_results.php";
         });
         
           

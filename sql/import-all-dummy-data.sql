@@ -9,25 +9,20 @@ INSERT INTO users (id, username, fullname, email, password, activated) VALUES
 ;
 
 INSERT INTO post (postid, userid, title, place, isMedia, description, likes, dislikes, favnum, timestamp) VALUES
-    (NULL, 1, "Adversario title", "adversario place", "TRUE", "description ni greg", 3, 1 , 1 , "13:01 8/11/2011"),
-    (NULL, 2, "Arsenio title", "arsenio place", "FALSE", "arsenio no description", 1, 2, 3, "6:56 10/11/2012"),
-    (NULL, 3, "Cabangon title", "cabangon place", "FALSE", "The FitnessGram Pacer Test
-     is a multistage aerobic capacity test that progressively gets more difficult as it continues.
-     The 20 meter pacer test will begin in 30 seconds. Line up at the start. The running speed
-     starts slowly but gets faster each minute after you hear this signal bodeboop. A sing lap
-     should be completed every time you hear this sound. ding Remember to run in a straight line
-     and run as long as possible. The second time you fail to complete a lap before the sound,
-     your test is over. The test will begin on the word start. On your mark. Get ready!… Start. ding﻿", 5, 0, 5, "23:24 3/2/2001"),
-    (NULL, 4, "Catalan post1", "catalan place1", "True", "halp", 4, 1, 2, "24:60 13/32/2018"),
-    (NULL, 4, "Catalan post2", "catalan place2", "TRUE", "mercedes bench", 3, 2, 1, "1:23 1/2/2003")
+    (NULL, 1, "Don't wanna go home'", "Albay", "TRUE", "Guys I swear there isn't a better place than this!", 3, 1 , 1 , "13:01 8/11/2011"),
+    (NULL, 2, "Another day on vacay", "Palawan", "FALSE", "Grabe guys, this place is the best. 
+    Thank goodness I decided to go here", 1, 2, 3, "6:56 10/11/2012"),
+    (NULL, 3, "No TRyhards here", "Laoag", "FALSE", "I went here for the bonus checks.", 5, 0, 5, "23:24 3/2/2001"),
+    (NULL, 4, "Catalan Islands they should rename this place", "Boracay", "True", "For real my friends this is not suitable.", 4, 1, 2, "24:60 13/32/2018"),
+    (NULL, 4, "I'm lost help please", "Mt. Diwata", "TRUE", "No kidding like I'm legit lost", 35, 2, 1, "1:23 1/2/2003")
 ;
 
 INSERT INTO postcomments (postid, userid, content, likes, dislikes, timestamp) VALUES
-    (1, 1, "userid1 comments on postid1", 1 , 1, "13:01 8/11/2011"),
-    (3, 2, "userid2 comments on postid3", 2, 3, "6:56 10/11/2012"),
-    (3, 3, "userid3 comments on postid3", 0, 5, "23:24 3/2/2001"),
-    (2, 4, "userid4 comments on postid2", 1, 2, "24:60 13/32/2018"),
-    (5, 4, "userid4 comments on postid5", 2, 1, "1:23 1/2/2003")
+    (1, 1, "No kidding", 1 , 1, "13:01 8/11/2011"),
+    (3, 2, "Yo, this place is clean.", 2, 3, "6:56 10/11/2012"),
+    (3, 3, "No it isn't'", 0, 5, "23:24 3/2/2001"),
+    (2, 4, "This place can only get better, you guys know that", 1, 2, "24:60 13/32/2018"),
+    (5, 4, "Yeah sure but as it stands there's not much going on here.", 2, 1, "1:23 1/2/2003")
 ;
 
 INSERT INTO postmedia (postid, filepath) VALUES
@@ -37,11 +32,11 @@ INSERT INTO postmedia (postid, filepath) VALUES
 ;
 
 INSERT INTO userinfo (id, filepath, bio) VALUES
-    (1, "/CapturePinasWPTeamMonday/userimages/default", "Hi im greg"),
-    (2, "/CapturePinasWPTeamMonday/userimages/u2img3", "jarvs is here"),
-    (3, "/CapturePinasWPTeamMonday/userimages/u3img1", "plus ultra!"),
-    (4, "/CapturePinasWPTeamMonday/userimages/default", "eksdi"),
-    (5, "/CapturePinasWPTeamMonday/userimages/u5img6", "ez dogs")
+    (1, "/CapturePinasWPTeamMonday/images/avatars/default.png", "Hi im greg"),
+    (2, "/CapturePinasWPTeamMonday/images/avatars/default.png", "jarvs is here"),
+    (3, "/CapturePinasWPTeamMonday/images/avatars/default.png", "plus ultra!"),
+    (4, "/CapturePinasWPTeamMonday/images/avatars/default.png", "eksdi"),
+    (5, "/CapturePinasWPTeamMonday/images/avatars/denzelAvatar.png", "ez dogs")
 ;
 
 INSERT INTO userfav (id, postid) VALUES

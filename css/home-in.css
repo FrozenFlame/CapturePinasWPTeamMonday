@@ -36,6 +36,14 @@ img {
     border-bottom-width: thin;
     border-color: lightgray;
 }
+#line-bold{ /*fix this at some point*/
+    padding-top: 10px;
+    width: 100%;
+    border-width: 1px;
+    border-bottom: solid;
+    border-bottom-width: thick;
+    border-color: black;S
+}
 .textarea-div{
     width: 95%;
     display:inline-block;

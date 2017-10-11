@@ -12,7 +12,7 @@
     $search->performCommand($command);
 
     
-
+    
 
 
 
@@ -33,10 +33,11 @@
         {
             switch($command)
             {
+                #search function is for getting list of post
                 case "search": 
                 $query = $_POST['query'];
                 
-                $sql = 
+                #$sql = 
 
                 echo $query;
                 break;

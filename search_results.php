@@ -1,12 +1,11 @@
 <!-- Team Monday -->
+<!-- NO DESIGN YET -->
 <?php
 session_start();
-
 if(!isset($_SESSION['id'])) # if user is already logged in, redirect to logged in page.
 {
   header('Location: index.php');
 }
-
 ?>
 <html>
   <head>
@@ -18,7 +17,7 @@ if(!isset($_SESSION['id'])) # if user is already logged in, redirect to logged i
     <script src="js/bootstrap.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <link href="css/home-in.css" rel="stylesheet">
-
+    <link href="css/post.css" rel="stylesheet">
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
       <script src="js/html5shiv.js"></script>
@@ -112,6 +111,15 @@ if(!isset($_SESSION['id'])) # if user is already logged in, redirect to logged i
         </div>
     </nav>
     <!-- End of Nav bar -->
+    <br/>
+    <br/>
+    <h1>Results</h1>
+
+    <p id="line-bold"></p>
+    <!-- this is where results will be generated -->
+    <div class="container" id="results"> 
+    
+    </div>
 
 
 
@@ -132,24 +140,34 @@ if(!isset($_SESSION['id'])) # if user is already logged in, redirect to logged i
 
 
 
-
-
-
-
-
-     <script>
+    <script>
         window.onload = doSet();
-
-        function doSet() //actually prepares navbar is what set does
+        function doSet() //actually prepares navbar is what set does, and for this page, this also initiates search population
         {
             var passed = 'getId';
-
             $.post('ajax/set.php', {passed: passed}, function(data)  //user is what we're passing in, and usern is what php will reference it with.
             {                                                               //data there is what php will return or "echo"
-
                 $('a#nav_name_user').text(data+' ');
                 $('a#nav_name_user').append('<span class="glyphicon glyphicon-triangle-bottom" aria-hidden="true"></span>');
             });
+            
+            // post population
+            var resultNo = 0;
+            if(resultNo > 0)
+            {
+                for(var x = 0; x < resultNo; x++)
+                {
+                    
+                }
+            }
+            else
+            {   
+                var g = document.getElementById("results");
+                g.innerHTML = "<b> Sorry! No posts found with that criteria!";
+
+            }
+            
+            
         }
 
         $("button#navbar-search-button").click(function()
