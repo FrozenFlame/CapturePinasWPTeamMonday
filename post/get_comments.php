@@ -1,4 +1,6 @@
 <?php
+
+    # not integrating this into db_dealer.php for legacy reasons
     include_once('../php/connection.php');
     include_once('commentObject.php');
 

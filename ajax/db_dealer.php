@@ -166,7 +166,36 @@
                 #$sql = 
                 echo $query;
                 break;
-                case "home":
+                
+                //these are ther results for BASIC home (organized by post date)
+                case "home": 
+                include_once('../post/postObject.php');
+                $query = $this->db->prepare("SELECT * FROM post ORDER BY 'timestamp' LIMIT 4 OFFSET :off");
+                //"SELECT * FROM postcomments WHERE postid = :postid LIMIT :lim OFFSET :offset"
+                $offset = (int)$_POST['offset'];
+                $query->bindparam(':off', $offset, PDO::PARAM_INT);
+                $query->execute();
+                $posts = array();
+                if($query->rowcount() != 0) 
+                {
+                    foreach($query as $result)
+                    {
+                        $post= new Post
+                        (
+                            $result['postid'],
+                            $result['userid'],
+                            $result['title'],
+                            $result['place'],
+                            $result['description'],
+                            $result['likes'],
+                            $result['dislikes'],
+                            $result['timestamp']
+                        );
+                        array_push($posts, $post->toArray());
+                    }
+                echo json_encode($posts);
+                } else
+                    echo "false";
                 break;
 
             }

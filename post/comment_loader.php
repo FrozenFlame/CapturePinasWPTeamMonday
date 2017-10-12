@@ -32,14 +32,12 @@ function getHYPED($hype)
         {
             commentIterator += 2; 
             getComment(postID, commentIterator);
-            ren(c++); //THIS IS CAUSING THE LINE TO SAY FAKE, it's just a thing to test out the adaptive IDs
-            // getAnythingpls();
+            //ren(c++); //THIS IS CAUSING THE LINE TO SAY FAKE, it's just a thing to test out the adaptive IDs
         });
 
     }); 
     function ren(c)
     {
-        
         document.getElementById("author"+c).innerHTML = "fake";
     }
     function getComment(postid, iterator)

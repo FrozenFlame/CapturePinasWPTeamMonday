@@ -11,7 +11,6 @@ class Post
     private $_dislikes;
     private $_timestamp;
     //add: array of file paths for the pictures
-
   
     public function __construct($postid, $userid, $title, $place, $description, $likes, $dislikes, $timestamp)
     {   

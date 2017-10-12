@@ -16,7 +16,7 @@ if(!isset($_SESSION['id'])) # if user is already logged in, redirect to logged i
     <link rel="stylesheet" href="css/bootstrap.min.css"> <!-- changed to local files -->
     <script src = "js/jquery-3.2.1.js"></script>
     <script src="js/bootstrap.min.js"></script>
-    <script src="js/bootstrap.min.js"></script>
+    <script src= "post/postfactory.js"> </script>;
     <link href="css/home-in.css" rel="stylesheet">
     <link href="css/post.css" rel="stylesheet">
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -111,8 +111,8 @@ if(!isset($_SESSION['id'])) # if user is already logged in, redirect to logged i
         </div>
     </nav>
     <!-- End of Nav bar -->
-      <div class="container"> <!-- Make iterative -->
-          
+      <div class="container" id ="home-posts"> <!-- Make iterative -->
+                
       </div>
 
       <script>
@@ -124,13 +124,18 @@ if(!isset($_SESSION['id'])) # if user is already logged in, redirect to logged i
 
             $.post('ajax/set.php', {passed: passed}, function(data)  //user is what we're passing in, and usern is what php will reference it with.
             {                                                               //data there is what php will return or "echo"
-
                 $('a#nav_name_user').text(data+' ');
                 $('a#nav_name_user').append('<span class="glyphicon glyphicon-triangle-bottom" aria-hidden="true"></span>');
             });
 
-            var x = document.getElementById('');
+            //NOTE offset is 0 because this is the FIRST TIME LOAD of the page. Before the "more" is clicked.
+            $.post('ajax/db_dealer.php', {type: "search", command: "home", offset: 0}, function(data)
+            {
+                //alert(data); //data now contains JSON formatted goods
+                createPostLite(document.getElementById('home-posts'), data, 0);
+            });
         }
+
 
         $("button#navbar-search-button").click(function()
         {
@@ -142,7 +147,9 @@ if(!isset($_SESSION['id'])) # if user is already logged in, redirect to logged i
             window.location = "search_results.php";
         });
         
+
           
         </script>      
+
   </body>
 </html>
