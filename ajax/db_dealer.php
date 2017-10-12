@@ -12,7 +12,6 @@
     $agent->performCommand($command);
 
 
-
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
  *       @author Denzel
  *      - Inner Classes -
@@ -34,6 +33,9 @@
                 break;
                 case "set":
                 return new Setter();
+                break;
+                case "search":
+                return new Searcher();
                 break;
             }
         }
@@ -142,6 +144,31 @@
             if($commandReceived === "Placeholder")
             {
                 // do placeholder things
+            }
+        }
+    }
+
+    class Searcher
+    {
+        private $db;
+        public function __construct() 
+        {
+            $this->db = new Connection();
+            $this->db = $this->db->dbConnect();     
+        }
+        public function performCommand($command)
+        {
+            switch($command)
+            {
+                #search function is for getting list of post
+                case "search": 
+                $query = $_POST['query'];
+                #$sql = 
+                echo $query;
+                break;
+                case "home":
+                break;
+
             }
         }
     }

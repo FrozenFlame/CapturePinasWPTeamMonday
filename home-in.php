@@ -18,7 +18,7 @@ if(!isset($_SESSION['id'])) # if user is already logged in, redirect to logged i
     <script src="js/bootstrap.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <link href="css/home-in.css" rel="stylesheet">
-
+    <link href="css/post.css" rel="stylesheet">
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
       <script src="js/html5shiv.js"></script>
@@ -88,10 +88,9 @@ if(!isset($_SESSION['id'])) # if user is already logged in, redirect to logged i
                 <ul class="nav navbar-nav navbar-right">
                     <li>
                         <div class="col-lg-12">
-                         <form class="navbar-form" role="search">
+                         <form class="navbar-form" role="search" method="POST" action="search_results.php"> <!-- method="<post/get>" action="<location of php>" -->
                             <div class="input-group">
-
-                                <input type="text" class="form-control" placeholder="Search" id="navbar-search">
+                                <input type="text" class="form-control" placeholder="Search" name = "query" id="navbar-search">
                                 <div class="input-group-btn">
                                 <button class="btn btn-default" type="submit" id ='navbar-search-button'><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
                                 </div>
@@ -112,10 +111,8 @@ if(!isset($_SESSION['id'])) # if user is already logged in, redirect to logged i
         </div>
     </nav>
     <!-- End of Nav bar -->
-      <div class="container">
-          <?php
-            include("post/post.php");
-          ?>
+      <div class="container"> <!-- Make iterative -->
+          
       </div>
 
       <script>
@@ -131,6 +128,8 @@ if(!isset($_SESSION['id'])) # if user is already logged in, redirect to logged i
                 $('a#nav_name_user').text(data+' ');
                 $('a#nav_name_user').append('<span class="glyphicon glyphicon-triangle-bottom" aria-hidden="true"></span>');
             });
+
+            var x = document.getElementById('');
         }
 
         $("button#navbar-search-button").click(function()

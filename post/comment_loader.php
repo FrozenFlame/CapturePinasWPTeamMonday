@@ -27,7 +27,7 @@ function getHYPED($hype)
         // initial loading of comments (at most 2)
         
         getComment(postID, commentIterator);
-var c = 0;
+        var c = 0;
         $("button#showmore_b").click(function()
         {
             commentIterator += 2; 

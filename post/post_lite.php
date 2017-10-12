@@ -76,20 +76,11 @@
                             <p id="post-timestamp"></p>
                             <p id="post-description"></p>
                             <p id="line"></p> 
+                            <!-- Like Dislike Buttons -->
                             <button class="btn btn-default" type="button" id="post-like-btn"><text id = "post-likes">0</text> <span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span></button>
                             <button class="btn btn-default" type="button" id="post-unlike-btn"><text id = "post-dislikes">0</text>  <span class="glyphicon glyphicon-thumbs-down" aria-hidden="true"></span></button>
                             <p id="line"></p>
 
-                            <!-- Comments Section -->
-                            <b> Comments </b>
-                            <br/>
-                            <div class="textarea-div">
-                                <textarea class="form-control" id="post-comment" placeholder="Enter a comment.."></textarea>
-                                <button type="button" class="btn btn-default" id="textarea-button" >Comment</button>
-                            </div>
-                            <p id="line"></p>
-                            <!-- passing postID value to comment loader -->
-                            <?php include("comment_loader.php"); ?>
                         </div>
                      
                     </div>

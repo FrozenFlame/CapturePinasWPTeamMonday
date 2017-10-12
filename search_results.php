@@ -117,6 +117,7 @@ if(!isset($_SESSION['id'])) # if user is already logged in, redirect to logged i
 
     <p id="line-bold"></p>
     <!-- this is where results will be generated -->
+    
     <div class="container" id="results"> 
     
     </div>
@@ -152,6 +153,27 @@ if(!isset($_SESSION['id'])) # if user is already logged in, redirect to logged i
             });
             
             // post population
+            var postid = "<?php echo $postID?>"; //this postid is what will show up, just for testing purposes 
+            var passed = 'getPostInfo';
+            var type = 'get';
+            var post;
+            $.post('ajax/db_dealer.php', {command: passed, type: type, postid: postid}, function(data)
+            {
+                post = JSON.parse(data);
+                $('b#post-title').text(post[0].title);
+                
+                var command = 'getPostAuthor';
+                var userid = post[0].userid;
+                $.post('ajax/db_dealer.php', {command: command, type: type, author_id: userid}, function(data)
+                {
+                    $('b#post-name').text(data);
+                }); 
+                $('b#post-place').text(post[0].place);
+                $('p#post-timestamp').text(post[0].timestamp);
+                $('p#post-description').text(post[0].description);
+                $('text#post-likes').text(post[0].likes);
+                $('text#post-dislikes').text(post[0].dislikes);
+            });
             var resultNo = 0;
             if(resultNo > 0)
             {
@@ -167,21 +189,20 @@ if(!isset($_SESSION['id'])) # if user is already logged in, redirect to logged i
 
             }
             
-            
         }
 
-        $("button#navbar-search-button").click(function()
-        {
-            //this is the basic search function, not advanced search
-            //Plaintext could mean either place or title text, likely to be place text
-            //@ means user search ex: @Reymark
-            var navSearchText = $("input#navbar-search").val();
-            var command = "search";
-            $.post('php/search_dealer.php', {query: navSearchText, command: command}, function(data)
-            {
-                alert(data);
-            }); 
-        });
+        // $("button#navbar-search-button").click(function()
+        // {
+        //     //this is the basic search function, not advanced search
+        //     //Plaintext could mean either place or title text, likely to be place text
+        //     //@ means user search ex: @Reymark
+        //     var navSearchText = $("input#navbar-search").val();
+        //     var command = "search";
+        //     $.post('php/search_dealer.php', {query: navSearchText, command: command}, function(data)
+        //     {
+        //         alert(data);
+        //     }); 
+        // });
         
           
         </script>   
