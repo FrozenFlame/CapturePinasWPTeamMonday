@@ -42,8 +42,9 @@ function createPostLite(container, json, index)
 
         /*ROW CONTENTS*/
         //rowTitle
-        var pTitle = document.createElement("p");
-        pTitle.setAttribute("id", "post-title-p");
+        var pTitle = document.createElement("a"); //changed to 'a'
+        pTitle.setAttribute("href", "#");       
+        pTitle.setAttribute("id", "post-title-p"+it+index);
         var bTitle = document.createElement("b");
         bTitle.setAttribute("id", "post-title");
         // bTitle.innerHTML = "Title"; //TODO: tempData
@@ -53,7 +54,7 @@ function createPostLite(container, json, index)
 
         //rowCarousel
         var divCarousel = document.createElement("div");
-        divCarousel.setAttribute("id","post-carousel");
+        divCarousel.setAttribute("id","post-carousel"+it+index);
         divCarousel.setAttribute("class","carousel slide");
         divCarousel.setAttribute("data-ride", "carousel");
         /*rowCarousel-children*/
@@ -64,14 +65,14 @@ function createPostLite(container, json, index)
                 //THIS IS WHERE YOU NEED TO ITERATE
                 //for now we shall be using the temporary stock pictures
                 var liCar0 = document.createElement("li");
-                liCar0.setAttribute("data-target","#post-carousel");
+                liCar0.setAttribute("data-target","#post-carousel"+it+index);
                 liCar0.setAttribute("data-slide-to","0");
                 liCar0.setAttribute("class","active");
                 var liCar1 = document.createElement("li");
-                liCar1.setAttribute("data-target","#post-carousel");
+                liCar1.setAttribute("data-target","#post-carousel"+it+index);
                 liCar1.setAttribute("data-slide-to","1");
                 var liCar2 = document.createElement("li");
-                liCar2.setAttribute("data-target","#post-carousel");
+                liCar2.setAttribute("data-target","#post-carousel"+it+index);
                 liCar2.setAttribute("data-slide-to","2");
                 //adding them to parent
                 olCarousel.appendChild(liCar0);
@@ -111,7 +112,7 @@ function createPostLite(container, json, index)
             //aLeftControl
             var aLeftControl = document.createElement("a");
             aLeftControl.setAttribute("class","left carousel-control");
-            aLeftControl.setAttribute("href","#post-carousel");
+            aLeftControl.setAttribute("href","#post-carousel"+it+index);
             aLeftControl.setAttribute("data-slide", "prev");
                 /*aLeftControl-children*/
                 var spanGlyphLeft = document.createElement("span");
@@ -124,7 +125,7 @@ function createPostLite(container, json, index)
             //aRightControl
             var aRightControl = document.createElement("a");
             aRightControl.setAttribute("class","right carousel-control");
-            aRightControl.setAttribute("href","#post-carousel");
+            aRightControl.setAttribute("href","#post-carousel"+it+index);
             aRightControl.setAttribute("data-slide", "next");
                 /*aRightControl-children*/
                 var spanGlyphRight = document.createElement("span");
@@ -182,9 +183,10 @@ function createPostLite(container, json, index)
             buttonLike.setAttribute("class","btn btn-default");
             buttonLike.setAttribute("type","button");
             buttonLike.setAttribute("id","post-like-btn");
+            buttonLike.setAttribute("onclick","thumbsUp(this)");
                 /*buttonLike-children*/
                 var buttonTextLike = document.createElement("text");
-                buttonTextLike.setAttribute("id","post-likes");
+                buttonTextLike.setAttribute("id","post-likes"+it+index);
                 buttonTextLike.innerHTML = postJSON[it].likes +" ";
                 var spanLike = document.createElement("span");
                 spanLike.setAttribute("class","glyphicon glyphicon-thumbs-up");
@@ -196,9 +198,10 @@ function createPostLite(container, json, index)
             buttonDislike.setAttribute("class","btn btn-default");
             buttonDislike.setAttribute("type","button");
             buttonDislike.setAttribute("id","post-unlike-btn");
+            buttonDislike.setAttribute("onclick","thumbsDown(this)");
                 /*buttonLike-children*/
                 var buttonTextDislike = document.createElement("text");
-                buttonTextDislike.setAttribute("id","post-dislikes");
+                buttonTextDislike.setAttribute("id","post-dislikes"+it+index);
                 buttonTextDislike.innerHTML = postJSON[it].dislikes +" "; //0 is default value, replace this with JSON value
                 var spanDislike = document.createElement("span");
                 spanDislike.setAttribute("class","glyphicon glyphicon-thumbs-down");
@@ -223,4 +226,29 @@ function createPostLite(container, json, index)
     }
 
 }
+
+
+//WARNING: Every function below 
+function leftClicked() //how to get name of button that took the action
+{
+
+}
+
+/**
+ * @param elem - this is the element itself
+ */
+function thumbsUp(elem) //sick
+{
+    // alert(id.id);
+    var eleText = elem.children;
+    // alert();
+    eleText[0].innerHTML = parseInt(eleText[0].innerHTML) +1 +" ";
+}
+function thumbsDown(elem)
+{
+    // alert(id);
+    var eleText = elem.children;
+    eleText[0].innerHTML = parseInt(eleText[0].innerHTML) +1 +" ";
+}
+
 
