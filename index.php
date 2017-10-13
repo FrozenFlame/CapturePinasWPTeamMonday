@@ -31,7 +31,7 @@ if(isset($_SESSION['id'])) # if user is already logged in, redirect to logged in
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="index.php">Capture Pinas</a>
+                <a class="navbar-brand" href="index.php">CapturePinas</a>
             </div>
             <div class="collapse navbar-collapse" id="myNavbar">
                 <ul class="nav navbar-nav">
@@ -41,6 +41,7 @@ if(isset($_SESSION['id'])) # if user is already logged in, redirect to logged in
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">Places <b class="caret"></b></a>
                         <ul class="dropdown-menu">
                             <li><a href="#">Albay</a></li>
+                            <li><a href="#">Banaue</a></li>
                             <li><a href="#">Bataan</a></li>
                             <li><a href="#">Batanes</a></li>
                             <li><a href="#">Batangas</a></li>
@@ -52,7 +53,7 @@ if(isset($_SESSION['id'])) # if user is already logged in, redirect to logged in
                             <li><a href="#">Capiz</a></li>
                             <li><a href="#">Cavite</a></li>
                             <li><a href="#">Cebu</a></li>
-                            <li><a href="#">Davao(PD30)</a></li>
+                            <li><a href="#">Davao</a></li>
                             <li><a href="#">Ilocos Norte</a></li>
                             <li><a href="#">Ilocos Sur</a></li>
                             <li><a href="#">Laguna</a></li>

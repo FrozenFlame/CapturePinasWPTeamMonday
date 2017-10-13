@@ -131,3 +131,9 @@ We also need some kind of Create Post page
 and a way to not make like-dislike spammable.
 
 -DD
+
+13-OCT-17
+Fix up the comment loading algorithm. By 2s fine as long as there are enough entries
+But! You need to consider if there's only 1 comment left, in order to make the ajax gud.
+
+-DD

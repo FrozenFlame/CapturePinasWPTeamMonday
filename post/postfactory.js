@@ -16,6 +16,7 @@ function createPostLite(container, json, index)
     // setting of JSON content will be synced
         var postJSON;
         postJSON = JSON.parse(json);
+
     
     //basically, every item here needs to have some kind of naming convention attached to them + the uniqueID
     // might need some algorithm in separate functions for this, for variable length things like images uploaded
@@ -46,6 +47,8 @@ function createPostLite(container, json, index)
         pTitle.setAttribute("id", "post-title-p");
         var bTitle = document.createElement("b");
         bTitle.setAttribute("id", "post-title");
+        // bTitle.innerHTML = "Title"; //TODO: tempData
+        bTitle.innerHTML = postJSON[it].title;
         pTitle.appendChild(bTitle);
         rowTitle.appendChild(pTitle);
 
@@ -84,7 +87,7 @@ function createPostLite(container, json, index)
                 divItemActive.setAttribute("class","item active");
                     /*divItemActive-children*/
                     var img0 = document.createElement("img");
-                    img0.setAttribute("src","images/4.jpg");
+                    img0.setAttribute("src","images/postimages/1img1.png");
                     img0.setAttribute("alt","Los Angeles");
                     divItemActive.appendChild(img0);
                 //divItem1
@@ -92,7 +95,7 @@ function createPostLite(container, json, index)
                 divItem1.setAttribute("class","item");
                     /*divItem1-children*/
                     var img1 = document.createElement("img");
-                    img1.setAttribute("src","images/2.jpg");
+                    img1.setAttribute("src","images/postimages/1img2.png");
                     img1.setAttribute("alt","Chicago");
                     divItem1.appendChild(img1);
                 //divItem2
@@ -100,7 +103,7 @@ function createPostLite(container, json, index)
                 divItem2.setAttribute("class","item");
                     /*divItem2-children*/
                     var img2 = document.createElement("img");
-                    img2.setAttribute("src","images/3.jpg");
+                    img2.setAttribute("src","images/postimages/1img3.png");
                     img2.setAttribute("alt","New York");
                     divItem2.appendChild(img2);
                 divCarouselInner.appendChild(divItemActive);
@@ -139,8 +142,8 @@ function createPostLite(container, json, index)
             divCarousel.appendChild(aLeftControl);
         rowCarousel.appendChild(divCarousel);
         //rowDetails
-        var divDetails = document.createElement("div");
-        divDetails.setAttribute("class","row");
+        // var divDetails = document.createElement("div");
+        // divDetails.setAttribute("class","row");
             /*divDetails-children*/
             //aPostName
             var aPostName = document.createElement("a");
@@ -150,6 +153,7 @@ function createPostLite(container, json, index)
                 var pPostName = document.createElement("p");
                 var bPostName = document.createElement("b");
                 bPostName.setAttribute("id", "post-name");
+                bPostName.innerHTML = postJSON[it].username;
                 pPostName.appendChild(bPostName);
                 aPostName.appendChild(pPostName);
             //pPostPlace
@@ -159,14 +163,17 @@ function createPostLite(container, json, index)
                 text.innerHTML = "in ";
                 var bPostPlace = document.createElement("b");
                 bPostPlace.setAttribute("id", "post-place");
+                bPostPlace.innerHTML = postJSON[it].place;
                 pPostPlace.appendChild(text);
                 pPostPlace.appendChild(bPostPlace);
             //pPostTimeStamp
             var pPostTimeStamp = document.createElement("p");
             pPostTimeStamp.setAttribute("id","post-timestamp");
+            pPostTimeStamp.innerHTML = postJSON[it].timestamp;
             //pPostDescription
             var pPostDescription = document.createElement("p");
             pPostDescription.setAttribute("id","post-timestamp");
+            pPostDescription.innerHTML = postJSON[it].description;
             //line
             var pLine = document.createElement("p");
             pLine.setAttribute("id","line");
@@ -177,9 +184,9 @@ function createPostLite(container, json, index)
             buttonLike.setAttribute("type","button");
             buttonLike.setAttribute("id","post-like-btn");
                 /*buttonLike-children*/
-                var buttonTextLike = document.createElement("button");
+                var buttonTextLike = document.createElement("text");
                 buttonTextLike.setAttribute("id","post-likes");
-                buttonTextLike.innerHTML = 0;
+                buttonTextLike.innerHTML = postJSON[it].likes +" ";
                 var spanLike = document.createElement("span");
                 spanLike.setAttribute("class","glyphicon glyphicon-thumbs-up");
                 spanLike.setAttribute("aria-hidden","true");
@@ -191,9 +198,9 @@ function createPostLite(container, json, index)
             buttonDislike.setAttribute("type","button");
             buttonDislike.setAttribute("id","post-unlike-btn");
                 /*buttonLike-children*/
-                var buttonTextDislike = document.createElement("button");
+                var buttonTextDislike = document.createElement("text");
                 buttonTextDislike.setAttribute("id","post-dislikes");
-                buttonTextDislike.innerHTML = 0;
+                buttonTextDislike.innerHTML = postJSON[it].dislikes +" "; //0 is default value, replace this with JSON value
                 var spanDislike = document.createElement("span");
                 spanDislike.setAttribute("class","glyphicon glyphicon-thumbs-down");
                 spanDislike.setAttribute("aria-hidden","true");
@@ -202,15 +209,14 @@ function createPostLite(container, json, index)
             var pLine2 = document.createElement("p");
             pLine2.setAttribute("id","line");
         //adding all that back to our row
-        divDetails.appendChild(pPostName);
-        divDetails.appendChild(pPostPlace);
-        divDetails.appendChild(pPostTimeStamp);
-        divDetails.appendChild(pPostDescription);
-        divDetails.appendChild(pLine);
-        divDetails.appendChild(buttonLike);
-        divDetails.appendChild(buttonDislike);
-        divDetails.appendChild(pLine2);
-
+        rowDetails.appendChild(aPostName);
+        rowDetails.appendChild(pPostPlace);
+        rowDetails.appendChild(pPostTimeStamp);
+        rowDetails.appendChild(pPostDescription);
+        rowDetails.appendChild(pLine);
+        rowDetails.appendChild(buttonLike);
+        rowDetails.appendChild(buttonDislike);
+        rowDetails.appendChild(pLine2);
         //slapping it onto our container
         outerDiv.appendChild(postDiv);
         container.appendChild(outerDiv);
