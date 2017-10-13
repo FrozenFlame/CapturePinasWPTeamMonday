@@ -131,7 +131,7 @@ if(!isset($_SESSION['id'])) # if user is already logged in, redirect to logged i
             //NOTE offset is 0 because this is the FIRST TIME LOAD of the page. Before the "more" is clicked.
             $.post('ajax/db_dealer.php', {type: "search", command: "home", offset: 0}, function(data)
             {
-                //alert(data); //data now contains JSON formatted goods
+                alert(data); //data now contains JSON formatted goods
                 createPostLite(document.getElementById('home-posts'), data, 0);
             });
         }

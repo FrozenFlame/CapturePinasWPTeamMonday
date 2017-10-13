@@ -97,6 +97,7 @@ function createPostLite(container, json, index)
                     divItem1.appendChild(img1);
                 //divItem2
                 var divItem2 = document.createElement("div");
+                divItem2.setAttribute("class","item");
                     /*divItem2-children*/
                     var img2 = document.createElement("img");
                     img2.setAttribute("src","images/3.jpg");
@@ -136,7 +137,7 @@ function createPostLite(container, json, index)
             divCarousel.appendChild(divCarouselInner);
             divCarousel.appendChild(aRightControl);
             divCarousel.appendChild(aLeftControl);
-        
+        rowCarousel.appendChild(divCarousel);
         //rowDetails
         var divDetails = document.createElement("div");
         divDetails.setAttribute("class","row");
