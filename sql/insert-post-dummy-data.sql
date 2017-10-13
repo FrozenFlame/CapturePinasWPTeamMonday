@@ -1,15 +1,20 @@
 USE capturepinas;
 
-INSERT INTO post (postid, userid, title, place, isMedia, description, likes, dislikes, favnum, timestamp) VALUES 
-    (NULL, 1, "Adversario title", "adversario place", "TRUE", "description ni greg", 3, 1 , 1 , "13:01 8/11/2011"),
-    (NULL, 2, "Arsenio title", "arsenio place", "FALSE", "arsenio no description", 1, 2, 3, "6:56 10/11/2012"),
-    (NULL, 3, "Cabangon title", "cabangon place", "FALSE", "The FitnessGram Pacer Test
-     is a multistage aerobic capacity test that progressively gets more difficult as it continues.
-     The 20 meter pacer test will begin in 30 seconds. Line up at the start. The running speed
-     starts slowly but gets faster each minute after you hear this signal bodeboop. A sing lap
-     should be completed every time you hear this sound. ding Remember to run in a straight line
-     and run as long as possible. The second time you fail to complete a lap before the sound,
-     your test is over. The test will begin on the word start. On your mark. Get ready!… Start. ding﻿", 5, 0, 5, "23:24 3/2/2001"),
-    (NULL, 4, "Catalan post1", "catalan place1", "True", "halp", 4, 1, 2, "24:60 13/32/2018"),
-    (NULL, 4, "Catalan post2", "catalan place2", "TRUE", "mercedes bench", 3, 2, 1, "1:23 1/2/2003")
+INSERT INTO post (postid, userid, title, place, description, likes, dislikes, favnum, timestamp) VALUES 
+    (NULL, 1, "Banaue of Painterly Dreams", "Banaue", "Because of its high altitude, Banaue is often described as
+     \"where land merges with the clouds to meet the heavens\" with the rice terraces as \"the stairway to the sky.\" #RoadToTopPhotographerPH", 4, 0 , 2, "2016-08-11 13:01:20"),
+    
+    (NULL, 2, "Awesome Hills", "Bohol", "Chocolate Hills is a series of 1,268 perfectly symmetrical, haycock-shaped hills that rise some 30 meters above the ground.
+     A National Geologic Monument, these unique, rock formations were cast after million years of evolution. #RoadToTopPhotographerPH #BeatThatGreg", 4, 1, 4, "2016-08-15 17:56:23"),
+    
+    (NULL, 1, "The Isle of Your Tropical Dreams", "Cebu", "Cebu is the traveler's fantasy of a tropical island come true - balmy weather,
+     pristine beaches, crystalline waters, and luxurious resorts with all the frills of modern living.﻿", 3, 0, 1, "2017-01-16 14:24:18"),
+    
+    (NULL, 5, "Cool photo lol", "Camarines Sur", "Look at this little guy! Found him resting while we were walking", 3, 0, 3, "2017-01-22 08:14:18"),
+    
+    (NULL, 5, "HELP!", "Camarines Sur", "So I was trying to get this picture of a dragonfly,
+     but then I tripped and fell on my camera! Now I need a new one! T_T", 0, 0, 0, "2017-01-22 08:24:38"),
+    
+    (NULL, 4, "\"The Last Frontier\"", "Palawan", "Guys punta kayo dito! Grabe ang ganda! Sama kayo sakin babalik ako dito <3", 4, 0, 4, "2017-02-03 22:04:16")
+    
 ;
