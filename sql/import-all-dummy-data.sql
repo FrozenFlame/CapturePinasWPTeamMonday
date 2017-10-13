@@ -1,11 +1,11 @@
 USE capturepinas;
 
 INSERT INTO users (id, username, fullname, email, password) VALUES
-(NULL, 'GreekDiety1998', 'Greg Marvin Adversario', 'adversario@gmail.com', '$2y$10$sbWT5BxqlstdgMKY0hUuIeSyQ.WX0BizEpl0uMyEHCqXej6HpVIc.'),   -- non hashed 'goingPro'
-(NULL, 'jarvis', 'Reymark Arsenio', 'arsenio@gmail.com', '$2y$10$EypZc/x87EMeHxYG1lyySOWZzdrsXCzk1hcO5QM6RpLNU/.Tnebzq'),             -- non hashed 'warmachineroxx' 
-(NULL, 'cKyuzee', 'Joshua Cabangon', 'cabangon@yahoo.com', '$2y$10$kQ2ww93xtbWHgf0tc4uh/.zaKNsjMiOhysS6OY9ZrGmCMJAKnH9J.'),              -- non hashed 'tentacles'
-(NULL, 'Catargaryen', 'Celine Catalan', 'catalan@gmail.com', '$2y$10$AEs3Hrpq2eHlZaouee1tN.ww0QNqBN6yFKWgiM2pXfcXFsFh84gjO'),             -- non hashed 'catalan123'
-(NULL, 'DD_', 'Denzel Deogracias', 'deogracias@gmail.com', '$2y$10$TP6JM3kIYqnRk41IcZNFP.RyIM.pOLIFTbEBwxSwAr2w2dElQ9wCe')                   -- non hashed 'ez_dogs'
+(NULL, 'GreekDiety1998', 'Greg Marvin Adversario', 'adversario@gmail.com', '$2y$10$sbWT5BxqlstdgMKY0hUuIeSyQ.WX0BizEpl0uMyEHCqXej6HpVIc.'),         -- non hashed 'goingPro'
+(NULL, 'jarvis', 'Reymark Arsenio', 'arsenio@gmail.com', '$2y$10$EypZc/x87EMeHxYG1lyySOWZzdrsXCzk1hcO5QM6RpLNU/.Tnebzq'),                           -- non hashed 'warmachineroxx' 
+(NULL, 'cKyuzee', 'Joshua Cabangon', 'cabangon@yahoo.com', '$2y$10$kQ2ww93xtbWHgf0tc4uh/.zaKNsjMiOhysS6OY9ZrGmCMJAKnH9J.'),                         -- non hashed 'tentacles'
+(NULL, 'Catargaryen', 'Celine Catalan', 'catalan@gmail.com', '$2y$10$AEs3Hrpq2eHlZaouee1tN.ww0QNqBN6yFKWgiM2pXfcXFsFh84gjO'),                       -- non hashed 'catalan123'
+(NULL, 'DD_', 'Denzel Deogracias', 'deogracias@gmail.com', '$2y$10$TP6JM3kIYqnRk41IcZNFP.RyIM.pOLIFTbEBwxSwAr2w2dElQ9wCe')                          -- non hashed 'ez_dogs'
 ;
 
 INSERT INTO post (postid, userid, title, place, description, likes, dislikes, favnum, timestamp) VALUES 

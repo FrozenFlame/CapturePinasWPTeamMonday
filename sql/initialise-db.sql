@@ -18,7 +18,7 @@ CREATE TABLE post(
     userid INTEGER NOT NULL REFERENCES users,
     title VARCHAR(50) NOT NULL,
     place VARCHAR(30) NOT NULL,
-    description VARCHAR(200) NOT NULL,
+    description VARCHAR(256) NOT NULL,
     likes INTEGER NOT NULL,
     dislikes INTEGER NOT NULL,
     favnum INTEGER NOT NULL,
