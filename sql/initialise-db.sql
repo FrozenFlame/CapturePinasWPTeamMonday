@@ -7,11 +7,10 @@ USE capturepinas;
 CREATE TABLE users (
     id INTEGER NOT NULL AUTO_INCREMENT,
     PRIMARY KEY(id),
-    username VARCHAR(20) NOT NULL,
+    username VARCHAR(20) NOT NULL UNIQUE,
     fullname VARCHAR(30) NOT NULL,
     email VARCHAR(30) NOT NULL,
-    password VARCHAR(20) NOT NULL,
-    activated VARCHAR(15) NOT NULL
+    password VARCHAR(20) NOT NULL
 )   ENGINE=InnoDB;
 
 CREATE TABLE post(
@@ -19,7 +18,6 @@ CREATE TABLE post(
     userid INTEGER NOT NULL REFERENCES users,
     title VARCHAR(30) NOT NULL,
     place VARCHAR(30) NOT NULL,
-    isMedia VARCHAR(5) NOT NULL,
     description VARCHAR(200) NOT NULL,
     likes INTEGER NOT NULL,
     dislikes INTEGER NOT NULL,
@@ -35,7 +33,7 @@ CREATE TABLE postcomments(
     content VARCHAR(200) NOT NULL,
     likes INTEGER NOT NULL,
     dislikes INTEGER NOT NULL,
-    timestamp VARCHAR(30) NOT NULL,
+    timestamp TIMESTAMP NOT NULL,
     PRIMARY KEY(commentid)
 )   ENGINE=InnoDB;
 
