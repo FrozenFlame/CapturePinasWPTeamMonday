@@ -170,7 +170,7 @@
                 //these are ther results for BASIC home (organized by post date)
                 case "home": 
                 include_once('../post/postObject.php');
-                $query = $this->db->prepare("SELECT u.username, p.* FROM post p RIGHT JOIN users u ON p.userid = u.id ORDER BY 'timestamp' LIMIT 4 OFFSET :off");
+                $query = $this->db->prepare("SELECT u.username, p.* FROM post p LEFT JOIN users u ON p.userid = u.id ORDER BY 'timestamp' LIMIT 4 OFFSET :off");
                 /*
                 "SELECT u.username, p.* FROM post p RIGHT JOIN users u ON p.userid = u.id WHERE postid = :postid");
                 $postid = $_POST['postid'];

@@ -12,6 +12,7 @@ class Post
     private $_timestamp;
     private $_username;
     //add: array of file paths for the pictures
+    private $_filepathsL;
   
     public function __construct($postid, $userid, $title, $place, $description, $likes, $dislikes, $timestamp, $username)
     {   
@@ -24,7 +25,7 @@ class Post
         $this->_dislikes = $dislikes;
         $this->_timestamp = $timestamp;
         $this->_username = $username;
-       
+        
     }
 
     public function getPostID()

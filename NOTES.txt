@@ -135,5 +135,10 @@ and a way to not make like-dislike spammable.
 13-OCT-17
 Fix up the comment loading algorithm. By 2s fine as long as there are enough entries
 But! You need to consider if there's only 1 comment left, in order to make the ajax gud.
+THINGS THAT NEED UNIQUE ID :
+* previous and next carousel
+* like dislike 
+* @param INDEX IS FOR UNIQUE ID
+* algorithm for appending variable no. of images. 
 
 -DD
