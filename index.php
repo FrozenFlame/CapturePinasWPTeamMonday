@@ -99,7 +99,7 @@ if(isset($_SESSION['id'])) # if user is already logged in, redirect to logged in
         </button>-->
       </div>
       <div class="modal-body">
-        <form action = "php/login_process.php" method="post"> <!--php functionality inserted in form tag-->
+        <form > <!--php functionality inserted in form tag-->
           <div class="form-group">
             <label for="Username" class="form-control-label">Username</label>
               <div class="input-group">

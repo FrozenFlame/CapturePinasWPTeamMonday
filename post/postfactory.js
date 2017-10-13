@@ -14,10 +14,9 @@
 function createPostLite(container, json, index)
 {
     // setting of JSON content will be synced
-        var postJSON;
-        postJSON = JSON.parse(json);
+    var postJSON;
+    postJSON = JSON.parse(json);
 
-    
     //basically, every item here needs to have some kind of naming convention attached to them + the uniqueID
     // might need some algorithm in separate functions for this, for variable length things like images uploaded
     //OKAY, while working it stumbled in my mind that maybe we don't needto give a unique ID to EVERYTHING after all
@@ -221,9 +220,7 @@ function createPostLite(container, json, index)
         outerDiv.appendChild(postDiv);
         container.appendChild(outerDiv);
         
-        
-        
-        
     }
+
 }
 

@@ -9,9 +9,12 @@
     $fullname=$_POST['fullname'];
     $email=$_POST['email'];
     $password=$_POST['password'];
- 
+    
+    #hashed password!
+    $hash = password_hash($password, PASSWORD_DEFAULT);
+
     $attempt = new Signup();
-    echo $attempt->signup($username, $password,$email, $fullname); 
+    echo $attempt->signup($username, $hash, $email, $fullname); 
     $attempt->getUserId($username);
     /*if(isset($user) === TRUE && empty($user) === FALSE 
     && isset($pass) === TRUE && empty($pass) === FALSE) #this is to check if our reference is valid.
@@ -30,7 +33,7 @@
         
         public function signup($user, $pass, $e_mail, $full_name)
         {
-            $query = $this->db->prepare("INSERT INTO users VALUES(NULL,?,?,?,?,0)"); #value 0 is for the account email verif thing.
+            $query = $this->db->prepare("INSERT INTO users VALUES(NULL,?,?,?,?)"); #value 0 is for the account email verif thing.
             $query->bindparam(1,$user);
             $query->bindparam(2,$full_name);
             $query->bindparam(3,$e_mail);

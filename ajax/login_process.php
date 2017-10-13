@@ -25,21 +25,46 @@
 
         public function login($username, $password) #this is the database logic
         {
-            $query = $this->db->prepare("SELECT * FROM users WHERE username = ? AND BINARY password = ?"); #BINARY makes the password search case-sensitive.
+            $query = $this->db->prepare("SELECT * FROM users WHERE username = ?"); #BINARY makes the password search case-sensitive.
             $query->bindparam(1, $username);
-            $query->bindparam(2, $password);
             $query->execute();
+            $content = $query->fetchAll();
             
-            if($query->rowcount() == 1) #checks if it at least found a user with such credentials.
-            {    
-                $successful = TRUE;
-                
-                $_SESSION['id'] = $query->fetch()['id']; //setting of userid in $_SESSION
+            if($query->rowcount() == 1)
+            {
+                if(password_verify($password, $content[0]['password']))
+                {
+                    $successful = TRUE;
+                    $_SESSION['id'] =  $content[0]['id'];
+                }
+                else
+                {
+                    $successful = FALSE;
+                }
             }
             else
             {
-                 $successful = FALSE; #the credentials were wrong.
+                $successful = FALSE;
             }
+            // if($query->rowcount() == 1) #checks if it at least found a user with such credentials.
+            // {    
+            //    /* $successful = TRUE;
+                
+            //     $_SESSION['id'] = $query->fetch()['id']; //setting of userid in $_SESSION*/
+            //     if(password_verify($password, $query->fetch()['password']))#pass check
+            //     {
+            //         $successful = TRUE;
+            //         $_SESSION['id'] = $query->fetch()['id'];
+            //     }
+            //     else
+            //     {
+            //         $successful = FALSE;
+            //     }
+            // }
+            // else
+            // {
+            //      $successful = FALSE; #the credentials were wrong.
+            // }
                
            return $successful;
         }

@@ -11,7 +11,6 @@
     $_id = $_SESSION['id'];
     $attempt = new Save_Changes($_email, $_password, $_fullname, $_id);
     $attempt->savechanges();
-    
 
 
     class Save_Changes #inner class
@@ -45,7 +44,8 @@
 
             if ($this->pass != ''){
                 $query2 = $this->db->prepare("UPDATE users SET password=? WHERE id=$this->id");
-                $query2->bindparam(1,$this->pass);
+                $hashed = password_hash($this->pass,PASSWORD_DEFAULT);
+                $query2->bindparam(1,$hashed);
                 $result2 = $query2->execute();
                 $query2->execute();
             }

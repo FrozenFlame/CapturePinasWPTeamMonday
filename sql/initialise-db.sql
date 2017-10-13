@@ -10,13 +10,13 @@ CREATE TABLE users (
     username VARCHAR(20) NOT NULL UNIQUE,
     fullname VARCHAR(30) NOT NULL,
     email VARCHAR(30) NOT NULL,
-    password VARCHAR(20) NOT NULL
+    password VARCHAR(256) NOT NULL
 )   ENGINE=InnoDB;
 
 CREATE TABLE post(
     postid INTEGER NOT NULL AUTO_INCREMENT,
     userid INTEGER NOT NULL REFERENCES users,
-    title VARCHAR(30) NOT NULL,
+    title VARCHAR(50) NOT NULL,
     place VARCHAR(30) NOT NULL,
     description VARCHAR(200) NOT NULL,
     likes INTEGER NOT NULL,

@@ -110,7 +110,6 @@ function getHYPED($hype)
     {
         var cs = document.getElementById("comments_sec");
         /* cs.innerHTML = "<a href = \"#\"><b id = \"authorDefault\"> Author </b></a>    <br/>    <text id = \"commentDefault\">My Comment lol.</text>    <br/>    <text>Likes: </text>    <b id = \"likesDefault\">3</b>    <text>Dislikes: </text>    <b id = \"dislikesDefault\">4</b>    <br/>    <br/>";*/ //this is jawot to the next level, no way this is the only solution
-        
     }
 
     function getComment2(postid, iterator)
