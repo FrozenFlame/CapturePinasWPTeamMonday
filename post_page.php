@@ -124,11 +124,11 @@ if(!isset($_SESSION['id'])) # sets variable for guests
     <script>
         window.onload = doSet();
         var item = "<?php echo $isGuest; ?>";
-        var isGuest = (item > 0)? item: 1;
+        var isGuest = (item > 0) ? item : 1;
         function doSet() //actually prepares navbar is what set does
         {
             var passed = 'getId';
-
+            
             $.post('ajax/set.php', {passed: passed}, function(data)  //user is what we're passing in, and usern is what php will reference it with.
             {                                                               //data there is what php will return or "echo"
                 $('a#nav_name_user').text(data+' ');

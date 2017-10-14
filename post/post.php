@@ -66,98 +66,183 @@
         
                 
       <script>
+            var loggedUsername;
+            var postid = "<?php echo $postID ?>"; //this postid is what will show up, just for testing purposes
+          
           $(document).ready(function()
             {
-                var postid = "<?php echo $postID ?>"; //this postid is what will show up, just for testing purposes
                 // var postid = 1; 
                 var passed = 'getPostInfo';
                 var type = 'get';
                 var post;
                 if(postid > 0 )
                 {
-                $.post('ajax/db_dealer.php', {command: passed, type: type, postid: postid}, function(data)
-                {
-                    post = JSON.parse(data);
-                    $('b#post-title').text(post[0].title);
-                    
-                    var command = 'getPostAuthor';
-                    var userid = post[0].userid;
-                    $.post('ajax/db_dealer.php', {command: command, type: type, author_id: userid}, function(data)
+                    $.post('ajax/db_dealer.php', {command: passed, type: type, postid: postid}, function(data)
                     {
-                        $('b#post-username').text(data);
-                    }); 
-                    document.getElementById("user-image").setAttribute("src", post[0].filepath);
-                    $('b#post-place').text(post[0].place);
-                    $('p#post-timestamp').text(post[0].timestamp);
-                    $('p#post-description').text(post[0].description);
-                    $('text#post-likes').text(post[0].likes);
-                    $('text#post-dislikes').text(post[0].dislikes);
-                    var liCar = [];
-                    var len = post[0].path.length;
-                    var olCarousel = document.getElementById("carousel-indicators");
-                    for(var i = 0; i < len; i++)
-                    {
-                        var li = document.createElement("li");
-                        li.setAttribute("data-target","#post-carousel");
-                        li.setAttribute("data-slide-to", i);
-                        // if(i == 0)
-                        //     li.setAttribute("class","active");
-                        liCar.push(li);
-                    
-                        (olCarousel);
-                        olCarousel.appendChild(liCar[i]);
+                        post = JSON.parse(data);
+                        $('b#post-title').text(post[0].title);
                         
-                    }
-                    liCar[0].setAttribute("class","active");
-                    var divItem = [];
-                    var inCarousel = document.getElementById("carousel-inner");
-                    for(var i = 0; i < liCar.length; i++)
-                    {
-                        var item = document.createElement("div");
-                        item.setAttribute("class","item");
-                        var img = document.createElement("img");
-                        img.setAttribute("src", post[0].path[i]);
-                        img.setAttribute("alt","Image not found");
-                        item.appendChild(img);
-                        divItem.push(item);
-                        document.getElementById("carousel-inner").appendChild(divItem[i]);
-                    }
-                    divItem[0].setAttribute("class","item active");
+                        var command = 'getPostAuthor';
+                        var userid = post[0].userid;
+                        $.post('ajax/db_dealer.php', {command: command, type: type, author_id: userid}, function(data)
+                        {
+                            $('b#post-username').text(data);
+                        }); 
+                        document.getElementById("user-image").setAttribute("src", post[0].filepath);
+                        $('b#post-place').text(post[0].place);
+                        $('p#post-timestamp').text(post[0].timestamp);
+                        $('p#post-description').text(post[0].description);
+                        $('text#post-likes').text(post[0].likes);
+                        $('text#post-dislikes').text(post[0].dislikes);
+                        var liCar = [];
+                        var len = post[0].path.length;
+                        var olCarousel = document.getElementById("carousel-indicators");
+                        for(var i = 0; i < len; i++)
+                        {
+                            var li = document.createElement("li");
+                            li.setAttribute("data-target","#post-carousel");
+                            li.setAttribute("data-slide-to", i);
+                            // if(i == 0)
+                            //     li.setAttribute("class","active");
+                            liCar.push(li);
+                        
+                            (olCarousel);
+                            olCarousel.appendChild(liCar[i]);
+                            
+                        }
+                        liCar[0].setAttribute("class","active");
+                        var divItem = [];
+                        var inCarousel = document.getElementById("carousel-inner");
+                        for(var i = 0; i < liCar.length; i++)
+                        {
+                            var item = document.createElement("div");
+                            item.setAttribute("class","item");
+                            var img = document.createElement("img");
+                            img.setAttribute("src", post[0].path[i]);
+                            img.setAttribute("alt","Image not found");
+                            item.appendChild(img);
+                            divItem.push(item);
+                            document.getElementById("carousel-inner").appendChild(divItem[i]);
+                        }
+                        divItem[0].setAttribute("class","item active");
                     }); 
+
                     $("#post-like-btn").click(function()
                     {
                         var likes = parseInt($(this).text());
                         $(this).text(likes+1+' ');
                         $(this).append('<span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span>');
                     });
+
                     $("#post-unlike-btn").click(function()
                     {
                         var likes = parseInt($(this).text());
                         $(this).text(likes+1+' ');
                         $(this).append('<span class="glyphicon glyphicon-thumbs-down" aria-hidden="true"></span>');
                     });
-                    }
-                    else
+
+                    //comment button
+                    $("#textarea-button").click(function()
                     {
-                        document.getElementById("postdiv").innerHTML = "<h1>Sorry! This post does not exist!</h1>";
-                        document.getElementById("postdiv").innerHTML += "<br/><h2> Redirecting in <b id=\"redirect\">5</b></h2>" 
-                        var timeLeft = 4;
-                        setInterval(function()
+                        revealAllComments();//displays all comments      
+                        var elem = document.getElementById("post-comment");  
+                        postComment(elem.value);                
+                        elem.value = '';
+                        
+                        //comment cooldown
+                        document.getElementById("textarea-button").disabled = true;
+                        setTimeout(function()
                         {
-                            document.getElementById("redirect").innerHTML = timeLeft--;
-                        }, 1000);
-                        setTimeout(function () 
-                        {
-                            window.location.href = "index.php"; //will redirect to your blog page (an ex: blog.html)
-                        }, 5000); //will call the function after 2 secs.
-                    }
+                            document.getElementById("textarea-button").disabled = false;
+                        }, 5000);
+                    });
+
+                    //prepares username
+                    $.post('ajax/db_dealer.php', {type: "get", command: "getPostAuthor", author_id: "<?php echo $_SESSION['id']; ?>"}, function(data)
+                    {
+                       loggedUsername = data;
+                    });
+
+                }
+                else
+                {
+                    document.getElementById("postdiv").innerHTML = "<h1>Sorry! This post does not exist!</h1>";
+                    document.getElementById("postdiv").innerHTML += "<br/><h2> Redirecting in <b id=\"redirect\">5</b></h2>" 
+                    var timeLeft = 4;
+                    var countdown = setInterval(function()
+                    {
+                        document.getElementById("redirect").innerHTML = timeLeft--;
+                    }, 1000);
+                    setTimeout(function () 
+                    {
+                        clearInterval(countdown);
+                        window.location.href = "index.php"; //will redirect to your blog page (an ex: blog.html)
+                    }, 5000); //will call the function after 2 secs.
+                }
                 
             });
-            // }
-            // else
-            // {
-            //     alert("no content");
-            // }
+
+            function revealAllComments()
+            {
+                // alert("fale");
+                // getRemComment(postid, iterator);
+                for(var iter = 0; iter < 33; iter++) //sad brute force way to do this
+                {
+                    commentIterator += 2;
+                    getComment(postid, commentIterator);
+                }
+                // commentIterator = document.getElementById("comments_sec").children.length;
+
+            }
+            function postComment(comment)
+            {
+                // alert(comment);  
+                //delay gaming for arrangement purposes
+                setTimeout(
+                function()
+                {
+                    var commsec = document.getElementById("comments_sec");
+                    var a = document.createElement("a");//Author of comment
+                    a.setAttribute("href", "#"); //this where we put the user in question.
+                    a.setAttribute("id", "href"+(commentIterator+1));
+
+                    var author = document.createElement("b");
+                    author.setAttribute("id", "author"+(commentIterator+1));
+
+                    author.innerHTML = loggedUsername;
+                    a.appendChild(author);
+
+                    var a2 = document.createElement("text"); //comment
+                    a2.setAttribute("id","comment"+(commentIterator+1));
+                    a2.innerHTML = comment;
+
+                    var a3 = document.createElement("text"); 
+                    a3.innerHTML = "Likes: ";
+
+                    var a4 = document.createElement("b"); //actual likes value
+                    a4.innerHTML = 0 +" ";
+                    a4.setAttribute("id","likes"+(commentIterator+1));
+
+                    var a5 = document.createElement("text"); //dislikes
+                    a5.innerHTML = "Dislikes: ";
+
+                    var a6 = document.createElement("b"); //actual dislike value
+                    a6.innerHTML = 0 +" ";
+                    a6.setAttribute("id","dislikes"+(commentIterator+1));
+
+                    commsec.appendChild(a);
+                    commsec.appendChild(document.createElement("br"));
+                    commsec.appendChild(a2);
+                    commsec.appendChild(document.createElement("br"));
+                    commsec.appendChild(a3);
+                    commsec.appendChild(a4);
+                    commsec.appendChild(a5);
+                    commsec.appendChild(a6);
+                    commsec.appendChild(document.createElement("br"));
+                    commsec.appendChild(document.createElement("br"));
+                }, 800);
+               
+            }
          </script>
     </body>
 </html>
