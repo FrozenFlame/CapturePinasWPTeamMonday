@@ -1,22 +1,17 @@
 <?php 
     # set.php is to prepare the SESSION and Cookies for use throughout the website.
     include_once('../php/connection.php');
-
     session_start();
     
     $type = $_POST['type']; 
     $command = $_POST['command'];
-
     $broker = new Broker($type);
     $agent = $broker->getAgent();
     $agent->performCommand($command);
-
-
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
  *       @author Denzel
  *      - Inner Classes -
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-
     class Broker //creates a getter or setter class
     {
         private $type;
@@ -40,7 +35,6 @@
             }
         }
     }
-
     class Getter
     {
         private $db;
@@ -112,7 +106,6 @@
             }
         }
     }
-
     class Setter
     {
         private $db;
@@ -129,7 +122,6 @@
             }
         }
     }
-
     class Searcher
     {
         private $db;
@@ -152,7 +144,7 @@
                 //these are ther results for BASIC home (organized by post date)
                 case "home": 
                 include_once('../post/postObject.php');
-                $query = $this->db->prepare("SELECT u.username, p.*,i.filepath FROM post p LEFT JOIN users u ON p.userid = u.id LEFT JOIN userinfo i ON u.id = i.id ORDER BY 'timestamp' LIMIT 4 OFFSET :off");
+                $query = $this->db->prepare("SELECT u.username, p.* FROM post p LEFT JOIN users u ON p.userid = u.id ORDER BY 'timestamp' LIMIT 4 OFFSET :off");
                 /*
                 "SELECT u.username, p.* FROM post p RIGHT JOIN users u ON p.userid = u.id WHERE postid = :postid");
                 $postid = $_POST['postid'];
@@ -177,8 +169,7 @@
                             $result['likes'],
                             $result['dislikes'],
                             $result['timestamp'],
-                            $result['username'],
-                            $result['filepath']
+                            $result['username']
                         );
                         /*adding of file paths*/
                         $query2 = $this->db->prepare("SELECT * FROM `postmedia` WHERE postid = ?");
@@ -195,7 +186,6 @@
                 } else
                     echo "false";
                 break;
-
             }
         }
     }

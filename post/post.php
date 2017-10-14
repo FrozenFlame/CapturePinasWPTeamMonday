@@ -31,14 +31,7 @@
                 <div class="post">
                     <div class="row">
                         <!--<a href="#"><p><b id="post-name"></b></p></a> -->
-                        <!--<p id="post-title-p"><b id="post-title"></b></p>-->
-                            <div class="media">
-                              <img class="d-flex mr-3" src="/CapturePinasWPTeamMonday/images/userimages/u1.png" alt="Generic placeholder image">
-                              <div class="media-body">
-                                <h5 class="mt-0">Media heading</h5>
-                                Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
-                              </div>
-                            </div>
+                        <p id="post-title-p"><b id="post-title"></b></p>
                     </div>
                     <div class="row">
                         <div id="post-carousel" class="carousel slide" data-ride="carousel">
@@ -116,7 +109,6 @@
                     $('p#post-description').text(post[0].description);
                     $('text#post-likes').text(post[0].likes);
                     $('text#post-dislikes').text(post[0].dislikes);
-
                     var liCar = [];
                     var len = post[0].path.length;
                     var olCarousel = document.getElementById("carousel-indicators");
@@ -134,7 +126,6 @@
                         
                     }
                     liCar[0].setAttribute("class","active");
-
                     var divItem = [];
                     var inCarousel = document.getElementById("carousel-inner");
                     for(var i = 0; i < liCar.length; i++)
@@ -149,8 +140,6 @@
                         document.getElementById("carousel-inner").appendChild(divItem[i]);
                     }
                     divItem[0].setAttribute("class","item active");
-
-
                     }); 
                     $("#post-like-btn").click(function()
                     {
@@ -164,13 +153,10 @@
                         $(this).text(likes+1+' ');
                         $(this).append('<span class="glyphicon glyphicon-thumbs-down" aria-hidden="true"></span>');
                     });
-
-
                     }
                     else
                     {
                         document.getElementById("postdiv").innerHTML = "<h1>Sorry! This post does not exist!</h1>";
-
                         document.getElementById("postdiv").innerHTML += "<br/><h2> Redirecting in <b id=\"redirect\">5</b></h2>" 
                         var timeLeft = 4;
                         setInterval(function()
@@ -182,11 +168,8 @@
                             window.location.href = "index.php"; //will redirect to your blog page (an ex: blog.html)
                         }, 5000); //will call the function after 2 secs.
                     }
-
                 
-
             });
-
             // }
             // else
             // {
