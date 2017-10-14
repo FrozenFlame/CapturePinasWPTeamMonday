@@ -36,25 +36,11 @@
                     <div class="row">
                         <div id="post-carousel" class="carousel slide" data-ride="carousel">
                             <!-- Indicators -->
-                            <ol class="carousel-indicators">
-                                <li data-target="#post-carousel" data-slide-to="0" class="active"></li>
-                                <li data-target="#post-carousel" data-slide-to="1"></li>
-                                <li data-target="#post-carousel" data-slide-to="2"></li>
+                            <ol class="carousel-indicators" id ="carousel-indicators">
                             </ol>
 
                             <!-- Wrapper for slides, also where we need to inject picture paths--> 
-                            <div class="carousel-inner">
-                                <div class="item active">
-                                <img src="images/4.jpg" alt="Los Angeles"> <!-- alt shows if src is not found-->
-                                </div>
-
-                                <div class="item">
-                                <img src="images/2.jpg" alt="Chicago">
-                                </div>
-
-                                <div class="item">
-                                <img src="images/3.jpg" alt="New york">
-                                </div>
+                            <div class="carousel-inner" id="carousel-inner">
                             </div>
 
                             <!-- Left and right controls -->
@@ -105,24 +91,59 @@
                 var passed = 'getPostInfo';
                 var type = 'get';
                 var post;
-                 if(postid > 0 )
-                 {
-                    $.post('ajax/db_dealer.php', {command: passed, type: type, postid: postid}, function(data)
+                if(postid > 0 )
+                {
+                $.post('ajax/db_dealer.php', {command: passed, type: type, postid: postid}, function(data)
+                {
+                    post = JSON.parse(data);
+                    $('b#post-title').text(post[0].title);
+                    
+                    var command = 'getPostAuthor';
+                    var userid = post[0].userid;
+                    $.post('ajax/db_dealer.php', {command: command, type: type, author_id: userid}, function(data)
                     {
-                        post = JSON.parse(data);
-                        $('b#post-title').text(post[0].title);
+                        $('b#post-name').text(data);
+                    }); 
+                    $('b#post-place').text(post[0].place);
+                    $('p#post-timestamp').text(post[0].timestamp);
+                    $('p#post-description').text(post[0].description);
+                    $('text#post-likes').text(post[0].likes);
+                    $('text#post-dislikes').text(post[0].dislikes);
+
+                    var liCar = [];
+                    var len = post[0].path.length;
+                    var olCarousel = document.getElementById("carousel-indicators");
+                    for(var i = 0; i < len; i++)
+                    {
+                        var li = document.createElement("li");
+                        li.setAttribute("data-target","#post-carousel");
+                        li.setAttribute("data-slide-to", i);
+                        // if(i == 0)
+                        //     li.setAttribute("class","active");
+                        liCar.push(li);
+                    
+                        (olCarousel);
+                        olCarousel.appendChild(liCar[i]);
                         
-                        var command = 'getPostAuthor';
-                        var userid = post[0].userid;
-                        $.post('ajax/db_dealer.php', {command: command, type: type, author_id: userid}, function(data)
-                        {
-                            $('b#post-name').text(data);
-                        }); 
-                        $('b#post-place').text(post[0].place);
-                        $('p#post-timestamp').text(post[0].timestamp);
-                        $('p#post-description').text(post[0].description);
-                        $('text#post-likes').text(post[0].likes);
-                        $('text#post-dislikes').text(post[0].dislikes);
+                    }
+                    liCar[0].setAttribute("class","active");
+
+                    var divItem = [];
+                    var inCarousel = document.getElementById("carousel-inner");
+                    for(var i = 0; i < liCar.length; i++)
+                    {
+                        var item = document.createElement("div");
+                        item.setAttribute("class","item");
+                        var img = document.createElement("img");
+                        img.setAttribute("src", post[0].path[i]);
+                        img.setAttribute("alt","Image not found");
+                        item.appendChild(img);
+                        divItem.push(item);
+                        document.getElementById("carousel-inner").appendChild(divItem[i]);
+                    }
+                    divItem[0].setAttribute("class","item active");
+
+
                     }); 
                     $("#post-like-btn").click(function()
                     {
@@ -136,22 +157,27 @@
                         $(this).text(likes+1+' ');
                         $(this).append('<span class="glyphicon glyphicon-thumbs-down" aria-hidden="true"></span>');
                     });
-                }
-                else
-                {
-                    document.getElementById("postdiv").innerHTML = "<h1>Sorry! This post does not exist!</h1>";
 
-                    document.getElementById("postdiv").innerHTML += "<br/><h2> Redirecting in <b id=\"redirect\">5</b></h2>" 
-                    var timeLeft = 4;
-                    setInterval(function()
+
+                    }
+                    else
                     {
-                        document.getElementById("redirect").innerHTML = timeLeft--;
-                    }, 1000);
-                    setTimeout(function () 
-                    {
-                        window.location.href = "index.php"; //will redirect to your blog page (an ex: blog.html)
-                    }, 5000); //will call the function after 2 secs.
-                }
+                        document.getElementById("postdiv").innerHTML = "<h1>Sorry! This post does not exist!</h1>";
+
+                        document.getElementById("postdiv").innerHTML += "<br/><h2> Redirecting in <b id=\"redirect\">5</b></h2>" 
+                        var timeLeft = 4;
+                        setInterval(function()
+                        {
+                            document.getElementById("redirect").innerHTML = timeLeft--;
+                        }, 1000);
+                        setTimeout(function () 
+                        {
+                            window.location.href = "index.php"; //will redirect to your blog page (an ex: blog.html)
+                        }, 5000); //will call the function after 2 secs.
+                    }
+
+                
+
             });
 
             // }

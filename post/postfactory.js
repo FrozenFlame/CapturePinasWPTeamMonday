@@ -68,7 +68,6 @@ function createPostLite(container, json, index)
             olCarousel.setAttribute("class","carousel-indicators");
                 /*olCarousel-children*/
                 //THIS IS WHERE YOU NEED TO ITERATE
-                //for now we shall be using the temporary stock pictures
                 var liCar = [];
                 for(var i = 0; i < postJSON[it].path.length; i++)
                 {
