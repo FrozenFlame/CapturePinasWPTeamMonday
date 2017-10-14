@@ -31,7 +31,14 @@
                 <div class="post">
                     <div class="row">
                         <!--<a href="#"><p><b id="post-name"></b></p></a> -->
-                        <p id="post-title-p"><b id="post-title"></b></p>
+                        <!--<p id="post-title-p"><b id="post-title"></b></p>-->
+                            <div class="media">
+                              <img class="d-flex mr-3" src="/CapturePinasWPTeamMonday/images/userimages/u1.png" alt="Generic placeholder image">
+                              <div class="media-body">
+                                <h5 class="mt-0">Media heading</h5>
+                                Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
+                              </div>
+                            </div>
                     </div>
                     <div class="row">
                         <div id="post-carousel" class="carousel slide" data-ride="carousel">

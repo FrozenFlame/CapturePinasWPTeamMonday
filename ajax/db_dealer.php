@@ -152,7 +152,7 @@
                 //these are ther results for BASIC home (organized by post date)
                 case "home": 
                 include_once('../post/postObject.php');
-                $query = $this->db->prepare("SELECT u.username, p.* FROM post p LEFT JOIN users u ON p.userid = u.id ORDER BY 'timestamp' LIMIT 4 OFFSET :off");
+                $query = $this->db->prepare("SELECT u.username, p.*,i.filepath FROM post p LEFT JOIN users u ON p.userid = u.id LEFT JOIN userinfo i ON u.id = i.id ORDER BY 'timestamp' LIMIT 4 OFFSET :off");
                 /*
                 "SELECT u.username, p.* FROM post p RIGHT JOIN users u ON p.userid = u.id WHERE postid = :postid");
                 $postid = $_POST['postid'];
@@ -177,7 +177,8 @@
                             $result['likes'],
                             $result['dislikes'],
                             $result['timestamp'],
-                            $result['username']
+                            $result['username'],
+                            $result['filepath']
                         );
                         /*adding of file paths*/
                         $query2 = $this->db->prepare("SELECT * FROM `postmedia` WHERE postid = ?");

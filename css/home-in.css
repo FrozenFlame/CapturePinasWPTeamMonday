@@ -1,7 +1,21 @@
 body {
     background-color: ghostwhite;
 }
+/* for media */
+.post-user-image {
+margin-top:10px;
+margin-left:5px;
+width:12%;
+}
+.media-body {
+padding-right:20px;
+}
+/* end of for media */
 /* for post */
+.carousel {
+    width: 96%;
+    margin-bottom: 5px;
+}
 .container {
         padding: 50px;
     }
@@ -61,6 +75,15 @@ textarea{
   bottom:23px;
   right:20px;
 }
+.post-title{
+    margin-bottom: 10px;
+}
+.post-username {
+    width: 10%;
+}
+.post-description{
+    width: 95%;
+}
 /* end of for post */
 .modal-footer {
     height: 65px;
@@ -83,7 +106,7 @@ textarea{
     padding-left:5px;/*Removing the large whitespace to the left of list items*/
     border: 1px solid #ddd;
 }
-//.features-container {
+.features-container {
     background-color:burlywood;
 }
 .navbar-default {

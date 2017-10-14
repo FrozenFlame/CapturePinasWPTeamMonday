@@ -11,9 +11,10 @@ class Post
     private $_dislikes;
     private $_timestamp;
     private $_username;
+    private $_filepath;
     //add: array of file paths for the pictures
     private $_filepathsL;
-    public function __construct($postid, $userid, $title, $place, $description, $likes, $dislikes, $timestamp, $username)
+    public function __construct($postid, $userid, $title, $place, $description, $likes, $dislikes, $timestamp, $username,$filepath)
     {   
         $this->_postid = $postid;
         $this->_userid = $userid;
@@ -24,6 +25,7 @@ class Post
         $this->_dislikes = $dislikes;
         $this->_timestamp = $timestamp;
         $this->_username = $username;
+        $this->_filepath = $filepath;
         $this->_filepathsL = array();
     }
 
@@ -59,6 +61,10 @@ class Post
     {
         return $this->_timestamp;
     }
+    public function getFilepath()
+    {
+        return $this->_filepath;
+    }
     
     /*
         @param {string} path - used to push item into $_filePathsL 
@@ -81,6 +87,7 @@ class Post
             "dislikes" => $this->_dislikes,
             "timestamp" => $this->_timestamp,
             "username" => $this->_username,
+            "filepath" => $this->_filepath,
             "path" => $this->_filepathsL
         );
         return $arr;
