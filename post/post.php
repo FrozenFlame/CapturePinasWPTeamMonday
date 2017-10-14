@@ -202,6 +202,7 @@
                     getComment(postid, commentIterator);
                 }
                 // commentIterator = document.getElementById("comments_sec").children.length;
+                commentIterator++;
 
             }
             function postComment(comment, postID)
