@@ -26,7 +26,9 @@
         {
             //SELECT * FROM `postcomments` WHERE postid = 1 LIMIT y OFFSET x  !!y is how many results you want, and x will be what index in the result set.
             // I <3 MYSQL A LOT. #getREKTDB2
-            $query = $this->db->prepare("SELECT * FROM postcomments WHERE postid = :postid LIMIT :lim OFFSET :offset");
+            /*$query = $this->db->prepare("SELECT * FROM postcomments WHERE postid = :postid LIMIT :lim OFFSET :offset");*/
+            $query = $this->db->prepare("SELECT pc.*, u.filepath FROM postcomments pc LEFT JOIN userinfo u ON pc.userid=u.id WHERE postid= :postid LIMIT :lim OFFSET :offset");
+            
             $query->bindparam(':postid', $postid);
             $really = 2; //omg REALLY? YOU NEED TO DECLARE IT? BIND PARAM CANNOT ACCEPT LITERALS? LEGIT? WHAT THE HELL.
             //$query->bindparam(':lim', 2, PDO::PARAM_INT); //THIS BREAKS IT FOR REAL
@@ -49,7 +51,8 @@
                         $result['userid'],
                         $result['content'],
                         $result['likes'],
-                        $result['dislikes']
+                        $result['dislikes'],
+                        $result['filepath']
                     );
                     array_push($comments, $comment->toArray());
                 }

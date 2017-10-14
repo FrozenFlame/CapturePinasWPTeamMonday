@@ -68,6 +68,11 @@ textarea{
   right:12px;
 }
 /* end of for post */
+.post-user-image {
+margin-top: auto;
+margin-left:5px;
+width:8%;
+}
 .modal-footer {
     height: 65px;
 }

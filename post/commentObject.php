@@ -11,8 +11,9 @@ class Comment
     private $_content;
     private $_likes;
     private $_dislikes;
+    private $_filepath;
 
-    public function __construct($postid, $commentid, $userid, $content, $likes, $dislikes)
+    public function __construct($postid, $commentid, $userid, $content, $likes, $dislikes,$filepath)
     {   
         $this->_postid = $postid;
         $this->_commentid = $commentid;
@@ -20,6 +21,7 @@ class Comment
         $this->_content = $content;
         $this->_likes = $likes;
         $this->_dislikes = $dislikes;
+        $this->_filepath = $filepath;
         //setAuthor(); //just learned php doesnt like userdefined functions UNLESS YOU CLAIM IT AS YOUR OWN OMG PHP SUCKS
         $this->setAuthor(); //gotta be super explicit jeez...
     }
@@ -64,6 +66,10 @@ class Comment
     {
         return $this->_username;
     }
+    public function getFilepath()
+    {
+        return $this->_filepath;
+    }
     public function getAuthor()
     {
         return $this->_author;
@@ -79,6 +85,7 @@ class Comment
         $json->likes = $this->_likes;
         $json->dislikes = $this->_dislikes;
         $json->username = $this->_username;
+        $json->filepath = $this->_filepath;
         $json->author = $this->_author;
         return json_encode($json);
     }
@@ -100,6 +107,7 @@ class Comment
            "likes" => $this->_likes,
            "dislikes" => $this->_dislikes,
            "username" => $this->_username,
+            "filepath" => $this->_filepath,
            "author" => $this->_author
         );
         return $arr;

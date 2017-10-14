@@ -42,60 +42,74 @@ function getHYPED($hype)
     }
     function getComment(postid, iterator)
     {
-         var commentsJSON;
+        var commentsJSON;
 
-          var commsec = document.getElementById("comments_sec");
+        var commsec = document.getElementById("comments_sec");
+        var list = document.createElement("ul");
+                    list.setAttribute("class","list-unstyled");
+        commsec.appendChild(list);
         $.post('post/get_comments.php', {postid:postid, range:iterator}, function(data)
         {
             if(data != "false")
             {
                 commentsJSON = JSON.parse(data);
                 //no format file for this one, just focusing on the database yanking
+                
                
                 if(commentsJSON.length < 2) //balances the number
                     commentIterator--;
-
+                
                 for(var it = 0; it < commentsJSON.length; it++) //this is our format now T-T feelsbadman. Maybe a workaround some other time...
                 {
-                    var a = document.createElement("a");//Author of comment
-                    // a.setAttribute("id", comments[0].author); // unintended code, but a good observation on external ID definition
-                    a.setAttribute("href", "#"); //this where we put the user in question.
-                    a.setAttribute("id", "href"+(it+iterator));
+                        var media = document.createElement("li");
+                        media.setAttribute("class","media");
+                            var img = document.createElement("img");
+                            img.setAttribute("class","d-flex mr-3 pull-left post-user-image");
+                            img.setAttribute("src",commentsJSON[it].filepath);
+                            var mediaBody = document.createElement("div");
+                            mediaBody.setAttribute("class","media-body");
+                                var a = document.createElement("a");//Author of comment
+                                // a.setAttribute("id", comments[0].author); // unintended code, but a good observation on external ID definition
+                                a.setAttribute("href", "#"); //this where we put the user in question.
+                                a.setAttribute("id", "href"+(it+iterator));
 
-                    var author = document.createElement("b");
-                    author.setAttribute("id", "author"+(it+iterator));
-                    author.innerHTML = commentsJSON[it].username;
-                    a.appendChild(author);
+                                var author = document.createElement("b");
+                                author.setAttribute("id", "author"+(it+iterator));
+                                author.innerHTML = commentsJSON[it].username;
+                                a.appendChild(author);
 
-                    var a2 = document.createElement("text"); //comment
-                    a2.setAttribute("id","comment"+(it+iterator));
-                    a2.innerHTML = commentsJSON[it].content;
+                                var a2 = document.createElement("text"); //comment
+                                a2.setAttribute("id","comment"+(it+iterator));
+                                a2.innerHTML = commentsJSON[it].content;
 
-                    var a3 = document.createElement("text"); 
-                    a3.innerHTML = "Likes: ";
+                                var a3 = document.createElement("text"); 
+                                a3.innerHTML = "Likes: ";
 
-                    var a4 = document.createElement("b"); //actual likes value
-                    a4.innerHTML = commentsJSON[it].likes+" ";
-                    a4.setAttribute("id","likes"+(it+iterator));
+                                var a4 = document.createElement("b"); //actual likes value
+                                a4.innerHTML = commentsJSON[it].likes+" ";
+                                a4.setAttribute("id","likes"+(it+iterator));
 
-                    var a5 = document.createElement("text"); //dislikes
-                    a5.innerHTML = "Dislikes: ";
+                                var a5 = document.createElement("text"); //dislikes
+                                a5.innerHTML = "Dislikes: ";
 
-                    var a6 = document.createElement("b"); //actual dislike value
-                    a6.innerHTML = commentsJSON[it].dislikes+" ";
-                    a6.setAttribute("id","dislikes"+(it+iterator));
-
+                                var a6 = document.createElement("b"); //actual dislike value
+                                a6.innerHTML = commentsJSON[it].dislikes+" ";
+                                a6.setAttribute("id","dislikes"+(it+iterator));
+                    
                     //adding to comments section
-                    commsec.appendChild(a);
-                    commsec.appendChild(document.createElement("br"));
-                    commsec.appendChild(a2);
-                    commsec.appendChild(document.createElement("br"));
-                    commsec.appendChild(a3);
-                    commsec.appendChild(a4);
-                    commsec.appendChild(a5);
-                    commsec.appendChild(a6);
-                    commsec.appendChild(document.createElement("br"));
-                    commsec.appendChild(document.createElement("br")); 
+                    media.appendChild(img);
+                    mediaBody.appendChild(a);
+                    mediaBody.appendChild(document.createElement("br"));
+                    mediaBody.appendChild(a2);
+                    mediaBody.appendChild(document.createElement("br"));
+                    mediaBody.appendChild(a3);
+                    mediaBody.appendChild(a4);
+                    mediaBody.appendChild(a5);
+                    mediaBody.appendChild(a6);
+                    media.appendChild(mediaBody);
+                    commsec.appendChild(media);
+                    media.appendChild(document.createElement("br"));
+                    list.appendChild(media);
                     // alert("id iterator current: " +(it+iterator)); //debug thing
                 }
             }
