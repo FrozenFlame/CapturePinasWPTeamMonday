@@ -28,7 +28,7 @@ function createPostLite(container, json, index)
     for(var it = 0; it < postJSON.length; it++) 
     {
         var outerDiv = document.createElement("div"); // main container of an individual post_lite
-        outerDiv.setAttribute("class", "class=\"col-sm-offset-2 col-offset-xs-0 col-sm-8 col-xs-12 post-container\"");
+        outerDiv.setAttribute("class", "class=\"col-lg-offset-2 col-md-offset-2 col-offset-xs-0 col-md-8 col-sm-12 post-container\"");
 
         var postDiv = document.createElement("div"); // post class
         postDiv.setAttribute("class", "post");
@@ -51,7 +51,7 @@ function createPostLite(container, json, index)
         pTitle.setAttribute("href", "post_page.php?post="+postJSON[it].postid);       
         pTitle.setAttribute("id", "post-title-p"+it+index);
         var bTitle = document.createElement("b");
-        bTitle.setAttribute("id", "post-title");
+        bTitle.setAttribute("class", "post-title");
         // bTitle.innerHTML = "Title"; //TODO: tempData
         bTitle.innerHTML = postJSON[it].title;
         pTitle.appendChild(bTitle);
@@ -135,11 +135,56 @@ function createPostLite(container, json, index)
         // var divDetails = document.createElement("div");
         // divDetails.setAttribute("class","row");
             /*divDetails-children*/
+            
+        
+            //post-media
+            var divMedia = document.createElement("div");
+            divMedia.setAttribute("class","media");
+                //image of the user
+                var imgMedia = document.createElement("img");
+                imgMedia.setAttribute("class","d-flex mr-3 post-user-image pull-left");
+                imgMedia.setAttribute("src", postJSON[it].filepath);
+                //media body
+                var divMediaBody = document.createElement("div");
+                divMediaBody.setAttribute("class","media-body");
+                    //post name
+                    var aPostName = document.createElement("a");
+                    aPostName.setAttribute("href", "#"); //painful... this needs yet another algorithm
+                    aPostName.setAttribute("id","post-href");
+                    /*aPostName-children*/
+                    var pPostName = document.createElement("p");
+                    var bPostName = document.createElement("b");
+                    
+                    bPostName.setAttribute("class","post-username");
+                    bPostName.innerHTML = postJSON[it].username;
+                    pPostName.appendChild(bPostName);
+                    aPostName.appendChild(pPostName);
+                    //pPostPlace
+                     var pPostPlace = document.createElement("p");
+                    /*pPostPlace-children*/
+                    var text = document.createElement("text");
+                    text.innerHTML = "in ";
+                    var bPostPlace = document.createElement("b");
+                    bPostPlace.setAttribute("id", "post-place");
+                    bPostPlace.innerHTML = postJSON[it].place;
+                    pPostPlace.appendChild(text);
+                    pPostPlace.appendChild(bPostPlace);
+                    //pPostTimeStamp
+                    var pPostTimeStamp = document.createElement("p");
+                    pPostTimeStamp.setAttribute("id","post-timestamp");
+                    pPostTimeStamp.innerHTML = postJSON[it].timestamp;
+        divMediaBody.appendChild(aPostName);
+        divMediaBody.appendChild(pPostPlace);
+        divMediaBody.appendChild(pPostTimeStamp);
+        divMedia.appendChild(imgMedia);
+        divMedia.appendChild(divMediaBody);
+
+        /*
             //aPostName
             var aPostName = document.createElement("a");
             aPostName.setAttribute("href", "#"); //painful... this needs yet another algorithm
             aPostName.setAttribute("id","post-href");
-                /*aPostName-children*/
+                /*aPostName-children
                 var pPostName = document.createElement("p");
                 var bPostName = document.createElement("b");
                 bPostName.setAttribute("id", "post-name");
@@ -148,7 +193,7 @@ function createPostLite(container, json, index)
                 aPostName.appendChild(pPostName);
             //pPostPlace
             var pPostPlace = document.createElement("p");
-                /*pPostPlace-children*/
+                //pPostPlace-children
                 var text = document.createElement("text");
                 text.innerHTML = "in ";
                 var bPostPlace = document.createElement("b");
@@ -159,10 +204,11 @@ function createPostLite(container, json, index)
             //pPostTimeStamp
             var pPostTimeStamp = document.createElement("p");
             pPostTimeStamp.setAttribute("id","post-timestamp");
-            pPostTimeStamp.innerHTML = postJSON[it].timestamp;
+            pPostTimeStamp.innerHTML = postJSON[it].timestamp;*/
+
             //pPostDescription
             var pPostDescription = document.createElement("p");
-            pPostDescription.setAttribute("id","post-timestamp");
+            pPostDescription.setAttribute("class","post-description");
             pPostDescription.innerHTML = postJSON[it].description;
             //line
             var pLine = document.createElement("p");
@@ -201,9 +247,10 @@ function createPostLite(container, json, index)
             var pLine2 = document.createElement("p");
             pLine2.setAttribute("id","line");
         //adding all that back to our row
-        rowDetails.appendChild(aPostName);
-        rowDetails.appendChild(pPostPlace);
-        rowDetails.appendChild(pPostTimeStamp);
+         rowDetails.appendChild(divMedia);
+        // rowDetails.appendChild(aPostName);
+        // rowDetails.appendChild(pPostPlace);
+        // rowDetails.appendChild(pPostTimeStamp);
         rowDetails.appendChild(pPostDescription);
         rowDetails.appendChild(pLine);
         rowDetails.appendChild(buttonLike);

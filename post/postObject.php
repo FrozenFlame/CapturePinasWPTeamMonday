@@ -11,9 +11,10 @@ class Post
     private $_dislikes;
     private $_timestamp;
     private $_username;
+     private $_avatarpath; //avatar
     //add: array of file paths for the pictures
     private $_filepathsL;
-    public function __construct($postid, $userid, $title, $place, $description, $likes, $dislikes, $timestamp, $username)
+    public function __construct($postid, $userid, $title, $place, $description, $likes, $dislikes, $timestamp, $username, $filepath)
     {   
         $this->_postid = $postid;
         $this->_userid = $userid;
@@ -24,11 +25,16 @@ class Post
         $this->_dislikes = $dislikes;
         $this->_timestamp = $timestamp;
         $this->_username = $username;
+        $this->_avatarpath = $filepath;
         $this->_filepathsL = array();
     }
     public function getPostID()
     {
         return $this->_postid;
+    }
+    public function getAvatarPath()
+    {
+        return $this->_avatarpath;
     }
     public function getPlace()
     {
@@ -79,6 +85,7 @@ class Post
             "dislikes" => $this->_dislikes,
             "timestamp" => $this->_timestamp,
             "username" => $this->_username,
+            "filepath" => $this->_avatarpath,
             "path" => $this->_filepathsL
         );
         return $arr;

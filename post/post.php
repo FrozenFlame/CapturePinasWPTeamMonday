@@ -31,7 +31,9 @@
                 <div class="post">
                     <div class="row">
                         <!--<a href="#"><p><b id="post-name"></b></p></a> -->
-                        <p id="post-title-p"><b id="post-title"></b></p>
+                    <p id="post-title-p"><b id="post-title"></b></p>
+                           
+                           
                     </div>
                     <div class="row">
                         <div id="post-carousel" class="carousel slide" data-ride="carousel">
@@ -55,11 +57,8 @@
                             </div>
                     </div>
                     <div class="row">
-                        <a href="#"><p><b id="post-name"></b></p></a>
-                        <p>
-                        in <b id="post-place"></b>
-                        </p>
-                        <p id="post-timestamp"></p>
+                     
+                        <div class="media"><img class="d-flex mr-3 post-user-image pull-left" src="/CapturePinasWPTeamMonday/images/userimages/default.png" id= "user-image"/><div class="media-body"><a href="#" id="post-href"><p><b class="post-username" id ="post-username"></b></p></a><p><text>in </text><b id="post-place">Place</b></p><p id="post-timestamp">Date</p></div></div>
                         <p id="post-description"></p>
                         <p id="line"></p> 
                         <button class="btn btn-default" type="button" id="post-like-btn"><text id = "post-likes">0</text> <span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span></button>
@@ -102,8 +101,9 @@
                     var userid = post[0].userid;
                     $.post('ajax/db_dealer.php', {command: command, type: type, author_id: userid}, function(data)
                     {
-                        $('b#post-name').text(data);
+                        $('b#post-username').text(data);
                     }); 
+                    document.getElementById("user-image").setAttribute("src", post[0].filepath);
                     $('b#post-place').text(post[0].place);
                     $('p#post-timestamp').text(post[0].timestamp);
                     $('p#post-description').text(post[0].description);
