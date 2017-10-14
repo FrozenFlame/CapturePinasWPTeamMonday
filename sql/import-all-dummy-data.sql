@@ -58,38 +58,38 @@ INSERT INTO postcomments (postid, userid, content, likes, dislikes, timestamp) V
 
 
 INSERT INTO postmedia (postid, filepath) VALUES 
-    (1, "/CapturePinasWPTeamMonday/postimages/1img1.png"),
-    (1, "/CapturePinasWPTeamMonday/postimages/1img2.png"),
-    (1, "/CapturePinasWPTeamMonday/postimages/1img3.png"),
-    (1, "/CapturePinasWPTeamMonday/postimages/1img4.png"),
+    (1, "/CapturePinasWPTeamMonday/images/postimages/1img1.png"),
+    (1, "/CapturePinasWPTeamMonday/images/postimages/1img2.png"),
+    (1, "/CapturePinasWPTeamMonday/images/postimages/1img3.png"),
+    (1, "/CapturePinasWPTeamMonday/images/postimages/1img4.png"),
     
-    (2, "/CapturePinasWPTeamMonday/postimages/2img1.png"),
-    (2, "/CapturePinasWPTeamMonday/postimages/2img2.png"),
-    (2, "/CapturePinasWPTeamMonday/postimages/2img3.png"),
-    (2, "/CapturePinasWPTeamMonday/postimages/2img4.png"),
-    (2, "/CapturePinasWPTeamMonday/postimages/2img5.png"),
+    (2, "/CapturePinasWPTeamMonday/images/postimages/2img1.png"),
+    (2, "/CapturePinasWPTeamMonday/images/postimages/2img2.png"),
+    (2, "/CapturePinasWPTeamMonday/images/postimages/2img3.png"),
+    (2, "/CapturePinasWPTeamMonday/images/postimages/2img4.png"),
+    (2, "/CapturePinasWPTeamMonday/images/postimages/2img5.png"),
 
-    (3, "/CapturePinasWPTeamMonday/postimages/3img1.png"),
-    (3, "/CapturePinasWPTeamMonday/postimages/3img2.png"),
-    (3, "/CapturePinasWPTeamMonday/postimages/3img3.png"),
-    (3, "/CapturePinasWPTeamMonday/postimages/3img4.png"),
-    (3, "/CapturePinasWPTeamMonday/postimages/3img5.png"),
-    (3, "/CapturePinasWPTeamMonday/postimages/3img6.png"),
+    (3, "/CapturePinasWPTeamMonday/images/postimages/3img1.png"),
+    (3, "/CapturePinasWPTeamMonday/images/postimages/3img2.png"),
+    (3, "/CapturePinasWPTeamMonday/images/postimages/3img3.png"),
+    (3, "/CapturePinasWPTeamMonday/images/postimages/3img4.png"),
+    (3, "/CapturePinasWPTeamMonday/images/postimages/3img5.png"),
+    (3, "/CapturePinasWPTeamMonday/images/postimages/3img6.png"),
     
-    (4, "/CapturePinasWPTeamMonday/postimages/4img1.png"),
+    (4, "/CapturePinasWPTeamMonday/images/postimages/4img1.png"),
     
-    (5, "/CapturePinasWPTeamMonday/postimages/5img1.png"),
+    (5, "/CapturePinasWPTeamMonday/images/postimages/5img1.png"),
     
-    (6, "/CapturePinasWPTeamMonday/postimages/6img1.png"),
-    (6, "/CapturePinasWPTeamMonday/postimages/6img2.png")
+    (6, "/CapturePinasWPTeamMonday/images/postimages/6img1.png"),
+    (6, "/CapturePinasWPTeamMonday/images/postimages/6img2.png")
 ;
 
 INSERT INTO userinfo (id, filepath, bio) VALUES 
-    (1, "/CapturePinasWPTeamMonday/userimages/u1.png", "Teacher, athlete, programmer, photographer. I am the best in everything."),
-    (2, "/CapturePinasWPTeamMonday/userimages/u2.png", "My goal is to be the best photographer PH."),
-    (3, "/CapturePinasWPTeamMonday/userimages/u3.png", "Omae wa Mo Shindeiru (You are already dead) - Kenshirou (Fist of the North Star)"),    
-    (4, "/CapturePinasWPTeamMonday/userimages/default.png", "Hi po! Hobby ko po ang mag picture kasi masaya po. Hope we can be friends!"),
-    (5, "/CapturePinasWPTeamMonday/userimages/u5.png", "Need money for new camera T_T")
+    (1, "/CapturePinasWPTeamMonday/images/userimages/u1.png", "Teacher, athlete, programmer, photographer. I am the best in everything."),
+    (2, "/CapturePinasWPTeamMonday/images/userimages/u2.png", "My goal is to be the best photographer PH."),
+    (3, "/CapturePinasWPTeamMonday/images/userimages/u3.png", "Omae wa Mo Shindeiru (You are already dead) - Kenshirou (Fist of the North Star)"),    
+    (4, "/CapturePinasWPTeamMonday/images/userimages/default.png", "Hi po! Hobby ko po ang mag picture kasi masaya po. Hope we can be friends!"),
+    (5, "/CapturePinasWPTeamMonday/images/userimages/u5.png", "Need money for new camera T_T")
 ;
 
 INSERT INTO userfav (id, postid) VALUES 

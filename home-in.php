@@ -113,11 +113,13 @@ if(!isset($_SESSION['id'])) # if user is already logged in, redirect to logged i
     </nav>
     <!-- End of Nav bar -->
       <div class="container" id ="home-posts"> <!-- Make iterative -->
-      </div>
+        <!-- more posts button -->
+      <p><button type="button" onclick="loadPost()">Load More Posts</button></p>
+  
 
     <script>
         window.onload = doSet();
-
+        var off = 0;
         function doSet() //actually prepares navbar is what set does
         {
             var passed = 'getId';
@@ -145,6 +147,15 @@ if(!isset($_SESSION['id'])) # if user is already logged in, redirect to logged i
             var command = "search";
             window.location = "search_results.php";
         });
+        function loadPost()
+        {
+            off+=4;
+            $.post('ajax/db_dealer.php', {type: "search", command: "home", offset: off}, function(data)
+            {
+                // alert(data); //data now contains JSON formatted goods, debugging tool
+                createPostLite(document.getElementById('home-posts'), data, off);
+            });
+        }
         
         
 

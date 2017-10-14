@@ -11,10 +11,10 @@
  * @param {string} json - The data you wish to insert must be in a JSON STRING format.
  * @param {int} index - The index for the unique id acquisition.
  */
+var postJSON;
 function createPostLite(container, json, index)
 {
     // setting of JSON content will be synced
-    var postJSON;
     postJSON = JSON.parse(json);
 
     //basically, every item here needs to have some kind of naming convention attached to them + the uniqueID
@@ -64,51 +64,37 @@ function createPostLite(container, json, index)
                 /*olCarousel-children*/
                 //THIS IS WHERE YOU NEED TO ITERATE
                 //for now we shall be using the temporary stock pictures
-                var liCar0 = document.createElement("li");
-                liCar0.setAttribute("data-target","#post-carousel"+it+index);
-                liCar0.setAttribute("data-slide-to","0");
-                liCar0.setAttribute("class","active");
-                var liCar1 = document.createElement("li");
-                liCar1.setAttribute("data-target","#post-carousel"+it+index);
-                liCar1.setAttribute("data-slide-to","1");
-                var liCar2 = document.createElement("li");
-                liCar2.setAttribute("data-target","#post-carousel"+it+index);
-                liCar2.setAttribute("data-slide-to","2");
-                //adding them to parent
-                olCarousel.appendChild(liCar0);
-                olCarousel.appendChild(liCar1);
-                olCarousel.appendChild(liCar2);
+                var liCar = [];
+                for(var i = 0; i < postJSON[it].path.length; i++)
+                {
+                    var li = document.createElement("li");
+                    li.setAttribute("data-target","#post-carousel"+it+index);
+                    li.setAttribute("data-slide-to", i);
+                    // if(i == 0)
+                    //     li.setAttribute("class","active");
+                    liCar.push(li);
+                    olCarousel.appendChild(liCar[i]);
+                }
+                liCar[0].setAttribute("class","active");
             //divCarouselInner
             var divCarouselInner = document.createElement("div");
             divCarouselInner.setAttribute("class","carousel-inner");
                 /*divCarouselInner-children*/
                 //divItemActive
-                var divItemActive = document.createElement("div");
-                divItemActive.setAttribute("class","item active");
-                    /*divItemActive-children*/
-                    var img0 = document.createElement("img");
-                    img0.setAttribute("src","images/postimages/1img1.png");
-                    img0.setAttribute("alt","Los Angeles");
-                    divItemActive.appendChild(img0);
-                //divItem1
-                var divItem1 = document.createElement("div");
-                divItem1.setAttribute("class","item");
-                    /*divItem1-children*/
-                    var img1 = document.createElement("img");
-                    img1.setAttribute("src","images/postimages/1img2.png");
-                    img1.setAttribute("alt","Chicago");
-                    divItem1.appendChild(img1);
-                //divItem2
-                var divItem2 = document.createElement("div");
-                divItem2.setAttribute("class","item");
-                    /*divItem2-children*/
-                    var img2 = document.createElement("img");
-                    img2.setAttribute("src","images/postimages/1img3.png");
-                    img2.setAttribute("alt","New York");
-                    divItem2.appendChild(img2);
-                divCarouselInner.appendChild(divItemActive);
-                divCarouselInner.appendChild(divItem1);
-                divCarouselInner.appendChild(divItem2);
+                var divItem = [];
+                for(var i = 0; i < liCar.length; i++)
+                {
+                    var item = document.createElement("div");
+                    item.setAttribute("class","item");
+                    var img = document.createElement("img");
+                    img.setAttribute("src", postJSON[it].path[i]);
+                    img.setAttribute("alt","Image not found");
+                    item.appendChild(img);
+                    divItem.push(item);
+                    divCarouselInner.appendChild(divItem[i]);
+                }
+                divItem[0].setAttribute("class","item active");
+              
             //aLeftControl
             var aLeftControl = document.createElement("a");
             aLeftControl.setAttribute("class","left carousel-control");
@@ -251,4 +237,55 @@ function thumbsDown(elem)
     eleText[0].innerHTML = parseInt(eleText[0].innerHTML) +1 +" ";
 }
 
+function setChildren()
+{
+    var liCar0 = document.createElement("li");
+                liCar0.setAttribute("data-target","#post-carousel"+it+index);
+                liCar0.setAttribute("data-slide-to","0");
+                liCar0.setAttribute("class","active");
+                var liCar1 = document.createElement("li");
+                liCar1.setAttribute("data-target","#post-carousel"+it+index);
+                liCar1.setAttribute("data-slide-to","1");
+                var liCar2 = document.createElement("li");
+                liCar2.setAttribute("data-target","#post-carousel"+it+index);
+                liCar2.setAttribute("data-slide-to","2");
+                //adding them to parent
+                olCarousel.appendChild(liCar0);
+                olCarousel.appendChild(liCar1);
+                olCarousel.appendChild(liCar2);
 
+                //divCarouselInner
+            var divCarouselInner = document.createElement("div");
+            divCarouselInner.setAttribute("class","carousel-inner");
+                /*divCarouselInner-children*/
+                //divItemActive
+                var divItemActive = document.createElement("div");
+                divItemActive.setAttribute("class","item active");
+                    /*divItemActive-children*/
+                    var img0 = document.createElement("img");
+                    img0.setAttribute("src","images/postimages/1img1.png");
+                    img0.setAttribute("alt","Los Angeles");
+                    divItemActive.appendChild(img0);
+                //divItem1
+                var divItem1 = document.createElement("div");
+                divItem1.setAttribute("class","item");
+                    /*divItem1-children*/
+                    var img1 = document.createElement("img");
+                    img1.setAttribute("src","images/postimages/1img2.png");
+                    img1.setAttribute("alt","Chicago");
+                    divItem1.appendChild(img1);
+                //divItem2
+                var divItem2 = document.createElement("div");
+                divItem2.setAttribute("class","item");
+                    /*divItem2-children*/
+                    var img2 = document.createElement("img");
+                    img2.setAttribute("src","images/postimages/1img3.png");
+                    img2.setAttribute("alt","New York");
+                    divItem2.appendChild(img2);
+                divCarouselInner.appendChild(divItemActive);
+                divCarouselInner.appendChild(divItem1);
+                divCarouselInner.appendChild(divItem2);
+
+
+
+}

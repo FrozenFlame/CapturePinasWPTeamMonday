@@ -52,6 +52,8 @@ function getHYPED($hype)
                 commentsJSON = JSON.parse(data);
                 //no format file for this one, just focusing on the database yanking
                
+                if(commentsJSON.length < 2) //balances the number
+                    commentIterator--;
 
                 for(var it = 0; it < commentsJSON.length; it++) //this is our format now T-T feelsbadman. Maybe a workaround some other time...
                 {
@@ -99,6 +101,7 @@ function getHYPED($hype)
             }
             else
             {
+                commentIterator -= 2;   
                 // alert("Sorry, no more comments to load");
             } //this is just a bad way to do it. let's have it show directly on the webpage instead.
         });
