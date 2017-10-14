@@ -112,10 +112,11 @@ if(!isset($_SESSION['id'])) # if user is already logged in, redirect to logged i
         </div>
     </nav>
     <!-- End of Nav bar -->
-      <div class="container" id ="home-posts"> <!-- Make iterative -->
+      <div class="container" id ="home-posts"> </div><!-- Make iterative -->
         <!-- more posts button -->
-      <p><button type="button" onclick="loadPost()">Load More Posts</button></p>
+      
   
+<p><button type="button" onclick="loadPost()">Load More Posts</button></p>
 
     <script>
         window.onload = doSet();
@@ -136,6 +137,7 @@ if(!isset($_SESSION['id'])) # if user is already logged in, redirect to logged i
                 // alert(data); //data now contains JSON formatted goods
                 createPostLite(document.getElementById('home-posts'), data, 0);
             });
+
         }
 
         $("button#navbar-search-button").click(function()

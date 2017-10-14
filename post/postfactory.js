@@ -16,6 +16,11 @@ function createPostLite(container, json, index)
 {
     // setting of JSON content will be synced
     postJSON = JSON.parse(json);
+    
+    
+    var jsonlength;
+    (postJSON.length == null)? jsonlength = 0:jsonlength = postJSON.length;
+    off -= (4-jsonlength); //this keeps our function ready for any new database entries on the fly. Ajax gaming.
 
     //basically, every item here needs to have some kind of naming convention attached to them + the uniqueID
     // might need some algorithm in separate functions for this, for variable length things like images uploaded
