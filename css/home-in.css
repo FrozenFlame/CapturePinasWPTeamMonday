@@ -41,7 +41,6 @@ padding-right:20px;
 img {
     width: 100%;
 }
-
 #line{
     padding-top: 10px;
     width: 95%;
@@ -73,7 +72,7 @@ textarea{
 #textarea-button{
     position:absolute;
   bottom:23px;
-  right:20px;
+  right:10px;
 }
 .post-title{
     margin-bottom: 10px;
@@ -83,6 +82,18 @@ textarea{
 }
 .post-description{
     width: 95%;
+}
+/* post buttons */
+.post-dislike-button {
+    margin-left: 7px;
+    
+}
+.post-like-button {
+   
+}
+.button-comment {
+    float: right;
+    margin-right: 34px;
 }
 /* end of for post */
 .modal-footer {

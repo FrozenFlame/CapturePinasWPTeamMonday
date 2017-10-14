@@ -216,7 +216,7 @@ function createPostLite(container, json, index)
             /*like dislike buttons*/
             //like
             var buttonLike = document.createElement("button");
-            buttonLike.setAttribute("class","btn btn-default");
+            buttonLike.setAttribute("class","btn btn-default post-like-button");
             buttonLike.setAttribute("type","button");
             buttonLike.setAttribute("id","post-like-btn");
             buttonLike.setAttribute("onclick","thumbsUp(this)");
@@ -231,7 +231,7 @@ function createPostLite(container, json, index)
             buttonLike.appendChild(spanLike);
             //dislike
             var buttonDislike = document.createElement("button");
-            buttonDislike.setAttribute("class","btn btn-default");
+            buttonDislike.setAttribute("class","btn btn-default post-dislike-button");
             buttonDislike.setAttribute("type","button");
             buttonDislike.setAttribute("id","post-unlike-btn");
             buttonDislike.setAttribute("onclick","thumbsDown(this)");
@@ -246,6 +246,15 @@ function createPostLite(container, json, index)
             buttonDislike.appendChild(spanDislike);
             var pLine2 = document.createElement("p");
             pLine2.setAttribute("id","line");
+            
+            var aButtonComment=document.createElement("a");
+            aButtonComment.setAttribute("href", "post_page.php?post="+postJSON[it].postid);
+            var buttonComment = document.createElement("button");
+            buttonComment.setAttribute("class","btn btn-default button-comment");
+            buttonComment.setAttribute("type","button");
+            buttonComment.innerHTML="See comments";
+            aButtonComment.appendChild(buttonComment);
+            
         //adding all that back to our row
          rowDetails.appendChild(divMedia);
         // rowDetails.appendChild(aPostName);
@@ -255,6 +264,7 @@ function createPostLite(container, json, index)
         rowDetails.appendChild(pLine);
         rowDetails.appendChild(buttonLike);
         rowDetails.appendChild(buttonDislike);
+        rowDetails.appendChild(aButtonComment);
         rowDetails.appendChild(pLine2);
         //slapping it onto our container
         outerDiv.appendChild(postDiv);
