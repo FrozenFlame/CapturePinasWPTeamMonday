@@ -45,7 +45,9 @@
                         <p id="post-description"></p>
                         <p id="line"></p> 
                         <button class="btn btn-default" type="button" id="post-like-btn"><text id = "post-likes">0</text> <span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span></button>
-                        <button class="btn btn-default" type="button" id="post-unlike-btn"><text id = "post-dislikes">0</text>  <span class="glyphicon glyphicon-thumbs-down" aria-hidden="true"></span></button>
+                        <button class="btn btn-default" type="button" id="post-unlike-btn">
+                            <text id = "post-dislikes">0</text>  
+                            <span class="glyphicon glyphicon-thumbs-down" aria-hidden="true"></span></button>
                         <p id="line"></p>
 
                         <!-- Comments Section -->
