@@ -11,6 +11,7 @@ function getHYPED($hype)
 
 <body> 
 <div id = "comments_sec">
+    <ul id="comment-list" class="list-unstyled"></ul>
 </div>
 
 <button type="button" id="showmore_b"> Show more </button>
@@ -45,9 +46,8 @@ function getHYPED($hype)
         var commentsJSON;
 
         var commsec = document.getElementById("comments_sec");
-        var list = document.createElement("ul");
-                    list.setAttribute("class","list-unstyled");
-        commsec.appendChild(list);
+        var list = document.getElementById("comment-list");
+        
         $.post('post/get_comments.php', {postid:postid, range:iterator}, function(data)
         {
             if(data != "false")

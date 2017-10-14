@@ -135,6 +135,12 @@
                 $query->bindparam(2, $comment->userid);
                 $query->bindparam(3, $comment->content);
                 $query->execute(); #fingers crossed x
+                
+                $query2 = $this->db->prepare("SELECT filepath FROM userinfo WHERE id=?");
+                $query2->bindparam(1,$_POST['userid']);
+                $query2->execute();
+                $result = $query2->fetch()['filepath'];
+                echo $result;
             }
         }
     }
