@@ -26,112 +26,139 @@
 
   </head>
   <body>
-        <div class="col-sm-offset-2 col-offset-xs-0 col-sm-8 col-xs-12 post-container">
-                    <div class="post">
-                        <div class="row">
-                            <!--<a href="#"><p><b id="post-name"></b></p></a> -->
-                            <p id="post-title-p"><b id="post-title"></b></p>
-                        </div>
-                        <div class="row">
-                            <div id="post-carousel" class="carousel slide" data-ride="carousel">
-                                <!-- Indicators -->
-                                <ol class="carousel-indicators">
-                                  <li data-target="#post-carousel" data-slide-to="0" class="active"></li>
-                                  <li data-target="#post-carousel" data-slide-to="1"></li>
-                                  <li data-target="#post-carousel" data-slide-to="2"></li>
-                                </ol>
+        <div id ="postdiv">
+            <div class="col-sm-offset-2 col-offset-xs-0 col-sm-8 col-xs-12 post-container">
+                <div class="post">
+                    <div class="row">
+                        <!--<a href="#"><p><b id="post-name"></b></p></a> -->
+                        <p id="post-title-p"><b id="post-title"></b></p>
+                    </div>
+                    <div class="row">
+                        <div id="post-carousel" class="carousel slide" data-ride="carousel">
+                            <!-- Indicators -->
+                            <ol class="carousel-indicators">
+                                <li data-target="#post-carousel" data-slide-to="0" class="active"></li>
+                                <li data-target="#post-carousel" data-slide-to="1"></li>
+                                <li data-target="#post-carousel" data-slide-to="2"></li>
+                            </ol>
 
-                                <!-- Wrapper for slides, also where we need to inject picture paths--> 
-                                <div class="carousel-inner">
-                                  <div class="item active">
-                                    <img src="images/4.jpg" alt="Los Angeles"> <!-- alt shows if src is not found-->
-                                  </div>
-
-                                  <div class="item">
-                                    <img src="images/2.jpg" alt="Chicago">
-                                  </div>
-
-                                  <div class="item">
-                                    <img src="images/3.jpg" alt="New york">
-                                  </div>
+                            <!-- Wrapper for slides, also where we need to inject picture paths--> 
+                            <div class="carousel-inner">
+                                <div class="item active">
+                                <img src="images/4.jpg" alt="Los Angeles"> <!-- alt shows if src is not found-->
                                 </div>
 
-                                <!-- Left and right controls -->
-                                <a class="left carousel-control" href="#post-carousel" data-slide="prev">
-                                  <span class="glyphicon glyphicon-chevron-left"></span>
-                                  <span class="sr-only">Previous</span>
-                                </a>
-                                <a class="right carousel-control" href="#post-carousel" data-slide="next">
-                                  <span class="glyphicon glyphicon-chevron-right"></span>
-                                  <span class="sr-only">Next</span>
-                                </a>
-                              </div>
-                        </div>
-                        <div class="row">
-<!--                        <p id="post-title-p"><b id="post-title"></b></p> -->
-                            <a href="#"><p><b id="post-name"></b></p></a>
-                            <p>
-                            in <b id="post-place"></b>
-                            </p>
-                            <p id="post-timestamp"></p>
-                            <p id="post-description"></p>
-                            <p id="line"></p> 
-                            <button class="btn btn-default" type="button" id="post-like-btn"><text id = "post-likes">0</text> <span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span></button>
-                            <button class="btn btn-default" type="button" id="post-unlike-btn"><text id = "post-dislikes">0</text>  <span class="glyphicon glyphicon-thumbs-down" aria-hidden="true"></span></button>
-                            <p id="line"></p>
+                                <div class="item">
+                                <img src="images/2.jpg" alt="Chicago">
+                                </div>
 
-                            <!-- Comments Section -->
-                            <b> Comments </b>
-                            <br/>
-                            <div class="textarea-div">
-                                <textarea class="form-control" id="post-comment" placeholder="Enter a comment.."></textarea>
-                                <button type="button" class="btn btn-default" id="textarea-button" >Comment</button>
+                                <div class="item">
+                                <img src="images/3.jpg" alt="New york">
+                                </div>
                             </div>
-                            <p id="line"></p>
-                            <!-- passing postID value to comment loader -->
-                            <?php include("comment_loader.php"); ?>
-                        </div>
-                     
+
+                            <!-- Left and right controls -->
+                            <a class="left carousel-control" href="#post-carousel" data-slide="prev">
+                                <span class="glyphicon glyphicon-chevron-left"></span>
+                                <span class="sr-only">Previous</span>
+                            </a>
+                            <a class="right carousel-control" href="#post-carousel" data-slide="next">
+                                <span class="glyphicon glyphicon-chevron-right"></span>
+                                <span class="sr-only">Next</span>
+                            </a>
+                            </div>
                     </div>
+                    <div class="row">
+                        <a href="#"><p><b id="post-name"></b></p></a>
+                        <p>
+                        in <b id="post-place"></b>
+                        </p>
+                        <p id="post-timestamp"></p>
+                        <p id="post-description"></p>
+                        <p id="line"></p> 
+                        <button class="btn btn-default" type="button" id="post-like-btn"><text id = "post-likes">0</text> <span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span></button>
+                        <button class="btn btn-default" type="button" id="post-unlike-btn"><text id = "post-dislikes">0</text>  <span class="glyphicon glyphicon-thumbs-down" aria-hidden="true"></span></button>
+                        <p id="line"></p>
+
+                        <!-- Comments Section -->
+                        <b> Comments </b>
+                        <br/>
+                        <div class="textarea-div">
+                            <textarea class="form-control" id="post-comment" placeholder="Enter a comment.."></textarea>
+                            <button type="button" class="btn btn-default" id="textarea-button" >Comment</button>
+                        </div>
+                        <p id="line"></p>
+                        <!-- passing postID value to comment loader -->
+                        <?php include("comment_loader.php"); ?>
+                    </div>
+                    
                 </div>
+            </div>
+        </div>
+        
                 
       <script>
           $(document).ready(function()
             {
-                var postid = "<?php echo $postID?>"; //this postid is what will show up, just for testing purposes 
+                var postid = "<?php echo $postID ?>"; //this postid is what will show up, just for testing purposes
+                // var postid = 1; 
                 var passed = 'getPostInfo';
                 var type = 'get';
                 var post;
-                $.post('ajax/db_dealer.php', {command: passed, type: type, postid: postid}, function(data)
-                {
-                    post = JSON.parse(data);
-                    $('b#post-title').text(post[0].title);
-                    
-                    var command = 'getPostAuthor';
-                    var userid = post[0].userid;
-                    $.post('ajax/db_dealer.php', {command: command, type: type, author_id: userid}, function(data)
+                 if(postid > 0 )
+                 {
+                    $.post('ajax/db_dealer.php', {command: passed, type: type, postid: postid}, function(data)
                     {
-                        $('b#post-name').text(data);
+                        post = JSON.parse(data);
+                        $('b#post-title').text(post[0].title);
+                        
+                        var command = 'getPostAuthor';
+                        var userid = post[0].userid;
+                        $.post('ajax/db_dealer.php', {command: command, type: type, author_id: userid}, function(data)
+                        {
+                            $('b#post-name').text(data);
+                        }); 
+                        $('b#post-place').text(post[0].place);
+                        $('p#post-timestamp').text(post[0].timestamp);
+                        $('p#post-description').text(post[0].description);
+                        $('text#post-likes').text(post[0].likes);
+                        $('text#post-dislikes').text(post[0].dislikes);
                     }); 
-                    $('b#post-place').text(post[0].place);
-                    $('p#post-timestamp').text(post[0].timestamp);
-                    $('p#post-description').text(post[0].description);
-                    $('text#post-likes').text(post[0].likes);
-                    $('text#post-dislikes').text(post[0].dislikes);
-                }); 
-                $("#post-like-btn").click(function()
+                    $("#post-like-btn").click(function()
+                    {
+                        var likes = parseInt($(this).text());
+                        $(this).text(likes+1+' ');
+                        $(this).append('<span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span>');
+                    });
+                    $("#post-unlike-btn").click(function()
+                    {
+                        var likes = parseInt($(this).text());
+                        $(this).text(likes+1+' ');
+                        $(this).append('<span class="glyphicon glyphicon-thumbs-down" aria-hidden="true"></span>');
+                    });
+                }
+                else
                 {
-                    var likes = parseInt($(this).text());
-                    $(this).text(likes+1+' ');
-                    $(this).append('<span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span>');
-                });
-                $("#post-unlike-btn").click(function()
-                {
-                    var likes = parseInt($(this).text());
-                    $(this).text(likes+1+' ');
-                    $(this).append('<span class="glyphicon glyphicon-thumbs-down" aria-hidden="true"></span>');
-                });
+                    document.getElementById("postdiv").innerHTML = "<h1>Sorry! This post does not exist!</h1>";
+
+                    document.getElementById("postdiv").innerHTML += "<br/><h2> Redirecting in <b id=\"redirect\">5</b></h2>" 
+                    var timeLeft = 4;
+                    setInterval(function()
+                    {
+                        document.getElementById("redirect").innerHTML = timeLeft--;
+                    }, 1000);
+                    setTimeout(function () 
+                    {
+                        window.location.href = "index.php"; //will redirect to your blog page (an ex: blog.html)
+                    }, 5000); //will call the function after 2 secs.
+                }
             });
+
+            // }
+            // else
+            // {
+            //     alert("no content");
+            // }
          </script>
     </body>
 </html>

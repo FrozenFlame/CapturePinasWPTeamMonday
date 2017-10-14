@@ -48,7 +48,7 @@ function createPostLite(container, json, index)
         /*ROW CONTENTS*/
         //rowTitle
         var pTitle = document.createElement("a"); //changed to 'a'
-        pTitle.setAttribute("href", "#");       
+        pTitle.setAttribute("href", "post_page.php?post="+postJSON[it].postid);       
         pTitle.setAttribute("id", "post-title-p"+it+index);
         var bTitle = document.createElement("b");
         bTitle.setAttribute("id", "post-title");

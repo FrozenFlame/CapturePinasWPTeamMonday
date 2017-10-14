@@ -54,7 +54,8 @@
             if($commandReceived==='getPostInfo')
             {        
                 include_once('../post/postObject.php');
-                $query = $this->db->prepare("SELECT * FROM post WHERE postid = ?");
+                $query = $this->db->prepare("SELECT u.username, p.* FROM post p LEFT JOIN users u ON p.userid = u.id  WHERE postid = ?");
+                // SELECT u.username, p.* FROM post p LEFT JOIN users u ON p.userid = u.id 
                 $postid = $_POST['postid'];
                 $query->bindparam(1, $postid);
                 $query->execute();
@@ -74,37 +75,18 @@
                             $result['description'],
                             $result['likes'],
                             $result['dislikes'],
-                            $result['timestamp']
+                            $result['timestamp'],
+                            $result['username']
                         );
-                        array_push($posts, $post->toArray());
-                    }
-                echo json_encode($posts);
-                } else
-                    echo "false";
-            }
-            else if($commandReceived==='getPostInfoTEMP')
-            {        
-                include_once('../post/postObject.php');
-                $query = $this->db->prepare("SELECT * FROM post");
-                $query->execute();
-                $result = $query->fetch(PDO::FETCH_ASSOC);
-                
-                $posts = array();
-                if($query->rowcount() != 0) 
-                {
-                    for($ctr = 0; $ctr < $query->rowcount() ; $ctr++)
-                    {
-                        $post = new Post
-                        (
-                            $result['postid'],
-                            $result['userid'],
-                            $result['title'],
-                            $result['place'],
-                            $result['description'],
-                            $result['likes'],
-                            $result['dislikes'],
-                            $result['timestamp']
-                        );
+                         /*adding of file paths*/
+                        $query2 = $this->db->prepare("SELECT * FROM `postmedia` WHERE postid = ?");
+                        $query2->bindparam(1, $result['postid']);
+                        $query2->execute();
+                        foreach($query2 as $result2)
+                        {
+                            // echo json_encode($result2[1]);
+                            $post->pushToPathList($result2[1]);
+                        }
                         array_push($posts, $post->toArray());
                     }
                 echo json_encode($posts);
