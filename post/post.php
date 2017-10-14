@@ -73,7 +73,6 @@
           
           $(document).ready(function()
             {
-                // var postid = 1; 
                 var passed = 'getPostInfo';
                 var type = 'get';
                 var post;
@@ -146,17 +145,26 @@
                     //comment button
                     $("#textarea-button").click(function()
                     {
-                        revealAllComments();//displays all comments      
-                        var elem = document.getElementById("post-comment");  
-                        postComment(elem.value);                
-                        elem.value = '';
-                        
-                        //comment cooldown
-                        document.getElementById("textarea-button").disabled = true;
-                        setTimeout(function()
+                        if(document.getElementById("post-comment").value.trim() != '')
                         {
-                            document.getElementById("textarea-button").disabled = false;
-                        }, 5000);
+                            revealAllComments();//displays all comments      
+                            var elem = document.getElementById("post-comment");  
+                            postComment(elem.value, postid);                
+                            elem.value = '';
+                            
+                            //comment cooldown
+                            document.getElementById("textarea-button").disabled = true;
+                            setTimeout(function()
+                            {
+                                document.getElementById("textarea-button").disabled = false;
+                            }, 5000);
+                        }
+                        else
+                        {
+                            alert("Please fill the comment box before submitting your comment.");
+                            document.getElementById("post-comment").value = '';
+                        }
+                       
                     });
 
                     //prepares username
@@ -196,53 +204,69 @@
                 // commentIterator = document.getElementById("comments_sec").children.length;
 
             }
-            function postComment(comment)
+            function postComment(comment, postID)
             {
                 // alert(comment);  
                 //delay gaming for arrangement purposes
-                setTimeout(
-                function()
+                if(comment.trim() != '')
                 {
-                    var commsec = document.getElementById("comments_sec");
-                    var a = document.createElement("a");//Author of comment
-                    a.setAttribute("href", "#"); //this where we put the user in question.
-                    a.setAttribute("id", "href"+(commentIterator+1));
+                    setTimeout( function()
+                    {
+                        var comment_ = new Object();
+                        comment_.postid = postID;
+                        comment_.userid = "<?php echo $_SESSION['id']; ?>";
+                        comment_.content = comment;
+                        var commentJSON =  JSON.stringify(comment_);
+                        // alert("post.php says: " +commentJSON);
+                        $.post('ajax/db_dealer.php', {type:"set", command:"postComment", comment: commentJSON}, function()
+                        {
+                            var commsec = document.getElementById("comments_sec");
+                            var a = document.createElement("a");//Author of comment
+                            a.setAttribute("href", "#"); //this where we put the user in question.
+                            a.setAttribute("id", "href"+(commentIterator+1));
 
-                    var author = document.createElement("b");
-                    author.setAttribute("id", "author"+(commentIterator+1));
+                            var author = document.createElement("b");
+                            author.setAttribute("id", "author"+(commentIterator+1));
 
-                    author.innerHTML = loggedUsername;
-                    a.appendChild(author);
+                            author.innerHTML = loggedUsername;
+                            a.appendChild(author);
 
-                    var a2 = document.createElement("text"); //comment
-                    a2.setAttribute("id","comment"+(commentIterator+1));
-                    a2.innerHTML = comment;
+                            var a2 = document.createElement("text"); //comment
+                            a2.setAttribute("id","comment"+(commentIterator+1));
+                            a2.innerHTML = comment;
 
-                    var a3 = document.createElement("text"); 
-                    a3.innerHTML = "Likes: ";
+                            var a3 = document.createElement("text"); 
+                            a3.innerHTML = "Likes: ";
 
-                    var a4 = document.createElement("b"); //actual likes value
-                    a4.innerHTML = 0 +" ";
-                    a4.setAttribute("id","likes"+(commentIterator+1));
+                            var a4 = document.createElement("b"); //actual likes value
+                            a4.innerHTML = 0 +" ";
+                            a4.setAttribute("id","likes"+(commentIterator+1));
 
-                    var a5 = document.createElement("text"); //dislikes
-                    a5.innerHTML = "Dislikes: ";
+                            var a5 = document.createElement("text"); //dislikes
+                            a5.innerHTML = "Dislikes: ";
 
-                    var a6 = document.createElement("b"); //actual dislike value
-                    a6.innerHTML = 0 +" ";
-                    a6.setAttribute("id","dislikes"+(commentIterator+1));
+                            var a6 = document.createElement("b"); //actual dislike value
+                            a6.innerHTML = 0 +" ";
+                            a6.setAttribute("id","dislikes"+(commentIterator+1));
 
-                    commsec.appendChild(a);
-                    commsec.appendChild(document.createElement("br"));
-                    commsec.appendChild(a2);
-                    commsec.appendChild(document.createElement("br"));
-                    commsec.appendChild(a3);
-                    commsec.appendChild(a4);
-                    commsec.appendChild(a5);
-                    commsec.appendChild(a6);
-                    commsec.appendChild(document.createElement("br"));
-                    commsec.appendChild(document.createElement("br"));
-                }, 800);
+                            commsec.appendChild(a);
+                            commsec.appendChild(document.createElement("br"));
+                            commsec.appendChild(a2);
+                            commsec.appendChild(document.createElement("br"));
+                            commsec.appendChild(a3);
+                            commsec.appendChild(a4);
+                            commsec.appendChild(a5);
+                            commsec.appendChild(a6);
+                            commsec.appendChild(document.createElement("br"));
+                            commsec.appendChild(document.createElement("br"));
+                        });
+                    }, 800);
+                }
+                else
+                {
+                  
+                }
+                
                
             }
          </script>

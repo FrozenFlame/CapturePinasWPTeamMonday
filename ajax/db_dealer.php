@@ -35,6 +35,10 @@
             }
         }
     }
+
+    /**
+        Responsible for getting database data
+    */
     class Getter
     {
         private $db;
@@ -107,6 +111,10 @@
             }
         }
     }
+
+    /**
+        Responsible for pushing database data
+    */
     class Setter
     {
         private $db;
@@ -117,12 +125,23 @@
         }
         public function performCommand($commandReceived)
         {
-            if($commandReceived === "Placeholder")
+            if($commandReceived === "postComment")
             {
                 // do placeholder things
+                $commentJSON = $_POST['comment'];
+                $comment = json_decode($commentJSON);
+                $query = $this->db->prepare("INSERT INTO postcomments VALUES(?,NULL,?,?,0,0,NULL)");
+                $query->bindparam(1, $comment->postid);
+                $query->bindparam(2, $comment->userid);
+                $query->bindparam(3, $comment->content);
+                $query->execute(); #fingers crossed x
             }
         }
     }
+
+    /**
+        Responsible for getting posts via search types
+    */
     class Searcher
     {
         private $db;
@@ -137,56 +156,56 @@
             {
                 #search function is for getting list of post
                 case "search": 
-                $query = $_POST['query'];
-                #$sql = 
-                echo $query;
+                    $query = $_POST['query'];
+                    #$sql = 
+                    echo $query;
                 break;
                 
                 //these are ther results for BASIC home (organized by post date)
                 case "home": 
-                include_once('../post/postObject.php');
-                $query = $this->db->prepare("SELECT u.username, p.*, i.filepath FROM post p LEFT JOIN users u ON p.userid = u.id LEFT JOIN userinfo i ON u.id = i.id ORDER BY 'timestamp' LIMIT 4 OFFSET :off");
-                /*
-                "SELECT u.username, p.* FROM post p RIGHT JOIN users u ON p.userid = u.id WHERE postid = :postid");
-                $postid = $_POST['postid'];
-                $query->bindparam(':postid', $postid, PDO::PARAM_INT);
-                */
-                //"SELECT * FROM postcomments WHERE postid = :postid LIMIT :lim OFFSET :offset"
-                $offset = (int)$_POST['offset'];
-                $query->bindparam(':off', $offset, PDO::PARAM_INT);
-                $query->execute();
-                $posts = array();
-                if($query->rowcount() != 0) 
-                {
-                    foreach($query as $result)
+                    include_once('../post/postObject.php');
+                    $query = $this->db->prepare("SELECT u.username, p.*, i.filepath FROM post p LEFT JOIN users u ON p.userid = u.id LEFT JOIN userinfo i ON u.id = i.id ORDER BY 'timestamp' LIMIT 4 OFFSET :off");
+                    /*
+                    "SELECT u.username, p.* FROM post p RIGHT JOIN users u ON p.userid = u.id WHERE postid = :postid");
+                    $postid = $_POST['postid'];
+                    $query->bindparam(':postid', $postid, PDO::PARAM_INT);
+                    */
+                    //"SELECT * FROM postcomments WHERE postid = :postid LIMIT :lim OFFSET :offset"
+                    $offset = (int)$_POST['offset'];
+                    $query->bindparam(':off', $offset, PDO::PARAM_INT);
+                    $query->execute();
+                    $posts = array();
+                    if($query->rowcount() != 0) 
                     {
-                        $post= new Post
-                        (
-                            $result['postid'],
-                            $result['userid'],
-                            $result['title'],
-                            $result['place'],
-                            $result['description'],
-                            $result['likes'],
-                            $result['dislikes'],
-                            $result['timestamp'],
-                            $result['username'],
-                            $result['filepath'] //this is the path to their avatar
-                        );
-                        /*adding of file paths*/
-                        $query2 = $this->db->prepare("SELECT * FROM `postmedia` WHERE postid = ?");
-                        $query2->bindparam(1, $result['postid']);
-                        $query2->execute();
-                        foreach($query2 as $result2)
+                        foreach($query as $result)
                         {
-                            // echo json_encode($result2[1]);
-                            $post->pushToPathList($result2[1]);
+                            $post= new Post
+                            (
+                                $result['postid'],
+                                $result['userid'],
+                                $result['title'],
+                                $result['place'],
+                                $result['description'],
+                                $result['likes'],
+                                $result['dislikes'],
+                                $result['timestamp'],
+                                $result['username'],
+                                $result['filepath'] //this is the path to their avatar
+                            );
+                            /*adding of file paths*/
+                            $query2 = $this->db->prepare("SELECT * FROM `postmedia` WHERE postid = ?");
+                            $query2->bindparam(1, $result['postid']);
+                            $query2->execute();
+                            foreach($query2 as $result2)
+                            {
+                                // echo json_encode($result2[1]);
+                                $post->pushToPathList($result2[1]);
+                            }
+                            array_push($posts, $post->toArray());
                         }
-                        array_push($posts, $post->toArray());
-                    }
-                echo json_encode($posts);
-                } else
-                    echo "false";
+                    echo json_encode($posts);
+                    } else
+                        echo "false";
                 break;
             }
         }
