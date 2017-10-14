@@ -42,13 +42,17 @@ INSERT INTO postcomments (postid, userid, content, likes, dislikes, timestamp) V
     (3, 1, "My best work so far! #Unedited", 1, 0, "2017-01-16 14:24:22"),
     (3, 1, "What, no comments yet? Guess people are afk", 1, 0, "2017-01-17 09:13:52"),
     (3, 1, "Yo I think this site's dead", 1, 0, "2017-01-19 08:14:22"),
+    (3, 5, "Yo, parang blurred or low res yung mga nasa dulo bro", 1, 1, "2017-01-30 09:14:22"),
+    (3, 5, "Parang yung lens mo lang brad, condolences \"bro\"", 1, 1, "2017-01-30 09:15:01"),
+    
     
     (4, 2, "Cool photos bro!", 3, 0, "2017-01-22 08:20:19"),
     (4, 5, "LOL thanks bro!", 2, 0, "2017-01-22 08:20:48"),
     (4, 4, "Wow its so pretty!", 4, 0, "2017-01-22 16:21:18"),
     (4, 3, "Nice job dude! Oh, and condolence to your camera..", 1, 0, "2017-01-22 17:24:38"),    
 
-    (5, 2, "Condolences, bro", 1, 0, "2017-01-22 08:24:58"),    
+    (5, 2, "Condolences, bro", 1, 1, "2017-01-22 08:24:58"),
+    (5, 1, "Reasons", 1, 0, "2017-01-22 08:28:20"),        
     
     (6, 2, "Wow! Haha tara sama ako XD", 2, 0, "2017-02-03 23:14:22"),
     (6, 4, "Yun tara! Next week?", 2, 0, "2017-02-03 23:14:26"),

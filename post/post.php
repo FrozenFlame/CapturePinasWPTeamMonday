@@ -8,23 +8,6 @@
    #just a test, the value we put here should come from the post that was selected, which will have its own logic some other time
 ?>
 
-<html>
-  <head>
-    <title>CapturePinas</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- Bootstrap -->
-    <link rel="stylesheet" href="css/bootstrap.min.css"> <!-- changed to local files -->
-    <script src = "js/jquery-3.2.1.js"></script>
-    <script src="js/bootstrap.min.js"></script>
-    <link href="css/post.css" rel="stylesheet">
-
-    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!--[if lt IE 9]>
-      <script src="js/html5shiv.js"></script>
-      <script src="js/respond.min.js"></script>
-    <![endif]-->
-
-  </head>
   <body>
         <div id ="postdiv">
             <div class="col-sm-offset-2 col-offset-xs-0 col-sm-8 col-xs-12 post-container">
