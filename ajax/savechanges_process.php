@@ -1,5 +1,9 @@
 <?php
-    # signup_process.php's job is to allow users to create an account.
+    /******************************************************************************
+    *   @author cKyuzee
+    *   07-OCT-17
+    *******************************************************************************/
+    # savechanges_process.php's job is to allow users to edit their credentials
     include_once('../php/connection.php');
 
     session_start();

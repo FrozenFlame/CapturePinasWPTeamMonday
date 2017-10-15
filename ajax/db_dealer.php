@@ -118,16 +118,25 @@
                 $query->execute();
                 echo $query->fetch()['commentid'];
             }
-            else if($commandReceived==='commentOpinion')
+            else if($commandReceived==='postOpinion') //dont confuse with actual posting
+            {
+                $query = $this->db->prepare("SELECT opinion FROM postopinion WHERE postid = ? AND userid = ?");
+                $query->bindparam(1, $_POST['postid']);
+                $query->bindparam(2, $_SESSION['id']);
+                $query->execute();
+                if($query->rowcount() > 0) //means user has given an opinion before
+                    echo $query->fetch()['opinion'];
+                else                        //means user hasn't given an opinion before
+                    echo 'N';
+            }
+            else if($commandReceived==='commentOpinion') //withdrawing comment opinion from database (not to be confused with giving an opiniong by the Setter class!)
             {
                 $query = $this->db->prepare("SELECT opinion FROM commentopinion WHERE commentid = ? AND userid = ?");
                 $query->bindparam(1, $_POST['commentid']);
                 $query->bindparam(2, $_SESSION['id']);
                 $query->execute();
                 if($query->rowcount() > 0) //means user has given an opinion before
-                {
                     echo $query->fetch()['opinion'];
-                }
                 else                        //means user hasn't given an opinion before
                     echo 'N';
             }
@@ -191,6 +200,98 @@
                     $query2->bindparam(2, $filepath);
                     // $query2->execute(); holding trigger for now
                 }                
+            }
+            else if($commandReceived === 'postOpinion')
+            {
+                /**
+                *   @author Denzel
+                */
+                //First time opinion checker
+                $query = $this->db->prepare("SELECT opinion FROM postopinion WHERE postid = ? AND userid = ?");
+                $query->bindparam(1, $_POST['postid']);
+                $query->bindparam(2, $_SESSION['id']);
+                $query->execute();
+                if($query->rowcount() == 0) //means user is giving opinion for the first time
+                {
+                    $query2 = $this->db->prepare("INSERT INTO postopinion VALUES(?,?,?)");
+                    $query2->bindparam(1, $_POST['postid']);
+                    $query2->bindparam(2, $_SESSION['id']);
+                    $query2->bindparam(3, $_POST['opinion']);
+                    $query2->execute();
+
+                    //updates values found in postcomment like/dislike counter
+                    //it's also nice that this is so embedded in the backend service, it'll make it harder for attackers to mess our things up by means of inspect element
+                    if($_POST['opinion'] == 'L') //user liked
+                    {
+                        $query3 = $this->db->prepare("UPDATE post SET likes = likes + 1 WHERE postid = ?");
+                        $query3->bindparam(1, $_POST['postid']);
+                        $query3->execute();
+                    }
+                    else //user disliked
+                    {
+                        $query3 = $this->db->prepare("UPDATE post SET dislikes = dislikes + 1 WHERE postid = ?");
+                        $query3->bindparam(1, $_POST['postid']);
+                        $query3->execute();
+                    }
+                }
+                else
+                {
+                    $previousOpinion = $query->fetch()['opinion']; //gets the user's opinion before the change
+                    $query2 = $this->db->prepare("UPDATE postopinion SET opinion = ? WHERE postid = ? AND userid = ?");
+                    $query2->bindparam(1, $_POST['opinion']);
+                    $query2->bindparam(2, $_POST['postid']);
+                    $query2->bindparam(3, $_SESSION['id']);
+                    $query2->execute();
+                    
+                    switch($_POST['opinion']) //this is the current opinion casted
+                    {
+                        case 'N': //they are now neutral
+                            if($previousOpinion == 'L') //they liked it before
+                            {
+                                $query3 = $this->db->prepare("UPDATE post SET likes = likes - 1 WHERE postid = ?"); //-1 from likes
+                                $query3->bindparam(1, $_POST['postid']);
+                                $query3->execute();
+                            }
+                            else //they disliked it before
+                            {
+                                $query3 = $this->db->prepare("UPDATE post SET dislikes = dislikes - 1 WHERE postid = ?"); //-1 from dislikes
+                                $query3->bindparam(1, $_POST['postid']);
+                                $query3->execute();
+                            }
+                        break;
+                        case 'L': //they are now Liking it
+                            if($previousOpinion == 'N') //they were neutral before
+                            {
+                                $query3 = $this->db->prepare("UPDATE post SET likes = likes + 1 WHERE postid = ?"); //+1 to likes
+                                $query3->bindparam(1, $_POST['postid']);
+                                $query3->execute();
+                            }
+                            else //they disliked it before
+                            {
+                                $query3 = $this->db->prepare("UPDATE post SET likes = likes + 1, dislikes = dislikes - 1 WHERE postid = ?"); //+1 to likes, -1 from dislikes
+                                $query3->bindparam(1, $_POST['postid']);
+                                $query3->execute();
+                            }
+                        break;
+                        case 'D': //they are now Disliking it
+                            if($previousOpinion == 'N') //they were neutral before
+                            {
+                                $query3 = $this->db->prepare("UPDATE post SET dislikes = dislikes + 1 WHERE postid = ?"); //+1 to dislikes
+                                $query3->bindparam(1, $_POST['postid']);
+                                $query3->execute();
+                            }
+                            else //they liked it before
+                            {
+                                $query3 = $this->db->prepare("UPDATE post SET dislikes = dislikes + 1, likes = likes - 1 WHERE postid = ?");//+1 to dislikes, -1 from likes  
+                                $query3->bindparam(1, $_POST['postid']);
+                                $query3->execute();
+                            }
+                        break;
+                    }
+
+                }
+
+
             }
             else if($commandReceived === 'commentOpinion') //first time opinion is taken care of here
             {

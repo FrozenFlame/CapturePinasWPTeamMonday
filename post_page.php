@@ -127,10 +127,7 @@ if(!isset($_SESSION['id'])) # sets variable for guests
         var item = "<?php echo $isGuest; ?>"; 
         var isGuest = (item > 0) ? item : 1;//this isGuest stuff is for when the person viewing a particular post is logged in or not, this will urge them to log in if they try to do likes/comment etc related
         var counter;
-        function comm()
-        {
-            document.getElementById("comment-like-btn");
-        }
+        
         function doSet() //actually prepares navbar is what set does
         {
             var passed = 'getId';
@@ -143,15 +140,15 @@ if(!isset($_SESSION['id'])) # sets variable for guests
          
         }
 
-        $("button#navbar-search-button").click(function()
-        {
-            //this is the basic search function, not advanced search
-            //Plaintext could mean either place or title text, likely to be place text
-            //@ means user search ex: @Reymark
-            var navSearchText = $("input#navbar-search").val();
-            var command = "search";
-            window.location = "search_results.php";
-        });
+        // $("button#navbar-search-button").click(function()
+        // {
+        //     //this is the basic search function, not advanced search
+        //     //Plaintext could mean either place or title text, likely to be place text
+        //     //@ means user search ex: @Reymark
+        //     var navSearchText = $("input#navbar-search").val();
+        //     var command = "search";
+        //     window.location = "search_results.php";
+        // });
         
 
     </script>      

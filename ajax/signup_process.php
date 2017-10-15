@@ -1,5 +1,10 @@
 <?php 
+    /**********************************************************************************
+    *   @author Jarvis
+    *   02-OCT-17
+    ***********************************************************************************/
     # signup_process.php's job is to allow users to create an account.
+
     include_once('../php/connection.php');
 
     session_start();

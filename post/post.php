@@ -59,10 +59,16 @@
                         </div>
                         <p class="post-description" id="post-description"></p>
                         <p id="line"></p> 
-                        <button class="btn btn-default" type="button" id="post-like-btn"><text id = "post-likes">0</text> <span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span></button>
-                        <button class="btn btn-default" type="button" id="post-unlike-btn">
+                        <button class="btn btn-default" type="button" id="post-like-btn" onclick = "thumbsUp(this)">
+                            <text id = "post-likes">0</text> 
+                            <span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span>
+                            <text> Likes </text>
+                        </button>
+                        <button class="btn btn-default" type="button" id="post-unlike-btn" onclick = "thumbsDown(this)">
                             <text id = "post-dislikes">0</text>  
-                            <span class="glyphicon glyphicon-thumbs-down" aria-hidden="true"></span></button>
+                            <span class="glyphicon glyphicon-thumbs-down" aria-hidden="true"></span>
+                            <text> Disikes </text>
+                        </button>
                         <p id="line"></p>
 
                         <!-- Comments Section -->
@@ -143,19 +149,19 @@
                         divItem[0].setAttribute("class","item active");
                     }); 
 
-                    $("#post-like-btn").click(function()
-                    {
-                        var likes = parseInt($(this).text());
-                        $(this).text(likes+1+' ');
-                        $(this).append('<span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span>');
-                    });
+                    // $("#post-like-btn").click(function()
+                    // {
+                    //     var likes = parseInt($(this).text());
+                    //     $(this).text(likes+1+' ');
+                    //     $(this).append('<span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span>');
+                    // });
 
-                    $("#post-unlike-btn").click(function()
-                    {
-                        var likes = parseInt($(this).text());
-                        $(this).text(likes+1+' ');
-                        $(this).append('<span class="glyphicon glyphicon-thumbs-down" aria-hidden="true"></span>');
-                    });
+                    // $("#post-unlike-btn").click(function()
+                    // {
+                    //     var likes = parseInt($(this).text());
+                    //     $(this).text(likes+1+' ');
+                    //     $(this).append('<span class="glyphicon glyphicon-thumbs-down" aria-hidden="true"></span>');
+                    // });
 
                     //comment button
                     $("#textarea-button").click(function()
@@ -332,48 +338,6 @@
                         a4btext.setAttribute("data-commentid", cid);
                     });
                             
-                            //|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
-                            
-                            /*alert(filepath);
-                            var commsec = document.getElementById("comments_sec");
-                            var a = document.createElement("a");//Author of comment
-                            a.setAttribute("href", "#"); //this where we put the user in question.
-                            a.setAttribute("id", "href"+(commentIterator+1));
-
-                            var author = document.createElement("b");
-                            author.setAttribute("id", "author"+(commentIterator+1));
-
-                            author.innerHTML = loggedUsername;
-                            a.appendChild(author);
-
-                            var a2 = document.createElement("text"); //comment
-                            a2.setAttribute("id","comment"+(commentIterator+1));
-                            a2.innerHTML = comment;
-
-                            var a3 = document.createElement("text"); 
-                            a3.innerHTML = "Likes: ";
-
-                            var a4 = document.createElement("b"); //actual likes value
-                            a4.innerHTML = 0 +" ";
-                            a4.setAttribute("id","likes"+(commentIterator+1));
-
-                            var a5 = document.createElement("text"); //dislikes
-                            a5.innerHTML = "Dislikes: ";
-
-                            var a6 = document.createElement("b"); //actual dislike value
-                            a6.innerHTML = 0 +" ";
-                            a6.setAttribute("id","dislikes"+(commentIterator+1));
-
-                            commsec.appendChild(a);
-                            commsec.appendChild(document.createElement("br"));
-                            commsec.appendChild(a2);
-                            commsec.appendChild(document.createElement("br"));
-                            commsec.appendChild(a3);
-                            commsec.appendChild(a4);
-                            commsec.appendChild(a5);
-                            commsec.appendChild(a6);
-                            commsec.appendChild(document.createElement("br"));
-                            commsec.appendChild(document.createElement("br"));*/
                         });
                     }, 800);
                 }
@@ -383,6 +347,81 @@
                 }
                 
                
+            }
+
+
+
+            //thumbs up and down
+            function thumbsUp(elem)   //for post @param elem is the button itself
+            {
+                // alert(id.id);
+                var postRating = elem.children[0]; //element that contains our like post rating
+                var thumbdownelem = document.getElementById('post-dislikes');
+
+                $.post('ajax/db_dealer.php', {type: "get", command: "postOpinion", postid: postid}, function(data) //we expect data to be: L, D, or N
+                {
+                    // alert(data +" prev opinion");
+                    switch(data)
+                    {
+                        case 'N'://Neutral  (+1 for like)                   -> db value is now L
+                            postRating.innerHTML = parseInt(postRating.innerHTML) +1 +" ";
+                            givePostOpinion(postid, "L");
+                        break;
+                        case 'L'://Liked    (-1 for like)                   -> db value is now N
+                            postRating.innerHTML = parseInt(postRating.innerHTML) -1 +" ";
+                            givePostOpinion(postid, "N");
+                        break;
+                        case 'D'://Disliked (+1 for like, -1 for dislike)   -> db value is now L
+                            postRating.innerHTML = parseInt(postRating.innerHTML) +1 +" ";
+                            thumbdownelem.innerHTML = parseInt(thumbdownelem.innerHTML) -1 +" ";
+                            givePostOpinion(postid, "L");
+                        break;
+                    }
+                }); 
+                //cooldown
+                elem.disabled = true;
+                setTimeout(function()
+                {
+                    elem.disabled = false;
+                },1000);
+
+            }
+            function thumbsDown(elem) //for post @param elem is the button itself
+            {
+                // alert(id);
+                var postRating = elem.children[0]; //element that contains our dislike post rating
+                var thumbupelem = document.getElementById('post-likes');
+
+                $.post('ajax/db_dealer.php', {type:"get", command:"postOpinion", postid: postid}, function(data) //we expect data to be: L, D, or N
+                {
+                    switch(data)
+                    {
+                        case 'N'://Neutral  (+1 for dislike)                -> db value is now D
+                            postRating.innerHTML = parseInt(postRating.innerHTML) +1 +" ";
+                            givePostOpinion(postid, "D");
+                        break;
+                        case 'L'://Liked    (+1 for dislike, -1 for like)   -> db value is now D
+                            postRating.innerHTML = parseInt(postRating.innerHTML) +1 +" ";
+                            thumbupelem.innerHTML = parseInt(thumbupelem.innerHTML) -1 +" ";
+                            givePostOpinion(postid, "D");
+                        break;
+                        case 'D'://Disliked (-1 for dislike)                -> db value is now N
+                            postRating.innerHTML = parseInt(postRating.innerHTML) -1 +" ";
+                            givePostOpinion(postid, "N");
+                        break;
+                    }
+                });
+                //cooldown
+                elem.disabled = true;
+                setTimeout(function()
+                {
+                    elem.disabled = false;
+                },1000);
+
+            }
+            function givePostOpinion(postid, opinion)
+            {
+                $.post('ajax/db_dealer.php', {type: "set", command: "postOpinion", postid: postid, opinion: opinion});
             }
          </script>
     </body>

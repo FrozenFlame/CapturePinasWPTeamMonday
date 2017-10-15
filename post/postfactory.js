@@ -1,8 +1,8 @@
 // Team Monday
 
 /***********************************************************************
- *  Post design by       : Jarvis 
- *  Conversion to DOM by : Denzel
+ *  Post design by       : @author Jarvis 
+ *  Conversion to DOM by : @author Denzel
  *  13-OCT-17
  ***********************************************************************/
 
@@ -12,7 +12,7 @@
  * @param {int} index - The index for the unique id acquisition.
  */
 var postJSON;
-var _userid = "<?php echo $_SESSION['id'] ?>";
+var _userid = "<?php echo $_SESSION['id']; ?>";
 function createPostLite(container, json, index)
 {
     // setting of JSON content will be synced
@@ -181,33 +181,6 @@ function createPostLite(container, json, index)
         divMedia.appendChild(imgMedia);
         divMedia.appendChild(divMediaBody);
 
-        /*
-            //aPostName
-            var aPostName = document.createElement("a");
-            aPostName.setAttribute("href", "#"); //painful... this needs yet another algorithm
-            aPostName.setAttribute("id","post-href");
-                /*aPostName-children
-                var pPostName = document.createElement("p");
-                var bPostName = document.createElement("b");
-                bPostName.setAttribute("id", "post-name");
-                bPostName.innerHTML = postJSON[it].username;
-                pPostName.appendChild(bPostName);
-                aPostName.appendChild(pPostName);
-            //pPostPlace
-            var pPostPlace = document.createElement("p");
-                //pPostPlace-children
-                var text = document.createElement("text");
-                text.innerHTML = "in ";
-                var bPostPlace = document.createElement("b");
-                bPostPlace.setAttribute("id", "post-place");
-                bPostPlace.innerHTML = postJSON[it].place;
-                pPostPlace.appendChild(text);
-                pPostPlace.appendChild(bPostPlace);
-            //pPostTimeStamp
-            var pPostTimeStamp = document.createElement("p");
-            pPostTimeStamp.setAttribute("id","post-timestamp");
-            pPostTimeStamp.innerHTML = postJSON[it].timestamp;*/
-
             //pPostDescription
             var pPostDescription = document.createElement("p");
             pPostDescription.setAttribute("class","post-description");
@@ -215,16 +188,17 @@ function createPostLite(container, json, index)
             //line
             var pLine = document.createElement("p");
             pLine.setAttribute("id","line");
-            /*like dislike buttons*/
+            /*post like dislike buttons*/
             //like
             var buttonLike = document.createElement("button");
             buttonLike.setAttribute("class","btn btn-default post-like-button");
             buttonLike.setAttribute("type","button");
             buttonLike.setAttribute("id","post-like-btn");
+            buttonLike.setAttribute("data-postid",postJSON[it].postid);
             buttonLike.setAttribute("onclick","thumbsUp(this)");
                 /*buttonLike-children*/
                 var buttonTextLike = document.createElement("text");
-                buttonTextLike.setAttribute("id","post-likes"+it+index);
+                buttonTextLike.setAttribute("id","post-likes"+(it+index));
                 buttonTextLike.innerHTML = postJSON[it].likes +" ";
                 var spanLike = document.createElement("span");
                 spanLike.setAttribute("class","glyphicon glyphicon-thumbs-up");
@@ -235,11 +209,12 @@ function createPostLite(container, json, index)
             var buttonDislike = document.createElement("button");
             buttonDislike.setAttribute("class","btn btn-default post-dislike-button");
             buttonDislike.setAttribute("type","button");
-            buttonDislike.setAttribute("id","post-unlike-btn");
+            buttonDislike.setAttribute("id","post-unlike-btn"); //@Jarvis. Unlike hahahaha
+            buttonDislike.setAttribute("data-postid", postJSON[it].postid);
             buttonDislike.setAttribute("onclick","thumbsDown(this)");
                 /*buttonLike-children*/
                 var buttonTextDislike = document.createElement("text");
-                buttonTextDislike.setAttribute("id","post-dislikes"+it+index);
+                buttonTextDislike.setAttribute("id","post-dislikes"+(it+index));
                 buttonTextDislike.innerHTML = postJSON[it].dislikes +" "; //0 is default value, replace this with JSON value
                 var spanDislike = document.createElement("span");
                 spanDislike.setAttribute("class","glyphicon glyphicon-thumbs-down");
@@ -277,23 +252,83 @@ function createPostLite(container, json, index)
 }
 
 
-//WARNING: Every function below 
+//WARNING: Every function below is what you should be editing if you wanna play around with some post things
 
 /**
  * @param elem - this is the element itself
  */
-function thumbsUp(elem) //sick
+function thumbsUp(elem)   //for post @param elem is the button itself
 {
     // alert(id.id);
-    var eleText = elem.children;
-    // alert();
-    eleText[0].innerHTML = parseInt(eleText[0].innerHTML) +1 +" ";
+    var postRating = elem.children[0]; //element that contains our like post rating
+    var postIndex = postRating.getAttribute("id").substr(10); //id is post-likes which is 10 characters
+    var thumbdownelem = document.getElementById('post-dislikes'+postIndex);
+
+    $.post('ajax/db_dealer.php', {type: "get", command: "postOpinion", postid: elem.dataset.postid}, function(data) //we expect data to be: L, D, or N
+    {
+        // alert(data +" prev opinion");
+        switch(data)
+        {
+            case 'N'://Neutral  (+1 for like)                   -> db value is now L
+                postRating.innerHTML = parseInt(postRating.innerHTML) +1 +" ";
+                givePostOpinion(elem.dataset.postid, "L");
+            break;
+            case 'L'://Liked    (-1 for like)                   -> db value is now N
+                postRating.innerHTML = parseInt(postRating.innerHTML) -1 +" ";
+                givePostOpinion(elem.dataset.postid, "N");
+            break;
+            case 'D'://Disliked (+1 for like, -1 for dislike)   -> db value is now L
+                postRating.innerHTML = parseInt(postRating.innerHTML) +1 +" ";
+                thumbdownelem.innerHTML = parseInt(thumbdownelem.innerHTML) -1 +" ";
+                givePostOpinion(elem.dataset.postid, "L");
+            break;
+        }
+    }); 
+    //cooldown
+    elem.disabled = true;
+    setTimeout(function()
+    {
+        elem.disabled = false;
+    },1000);
+
 }
-function thumbsDown(elem)
+function thumbsDown(elem) //for post @param elem is the button itself
 {
     // alert(id);
-    var eleText = elem.children;
-    eleText[0].innerHTML = parseInt(eleText[0].innerHTML) +1 +" ";
+    var postRating = elem.children[0]; //element that contains our dislike post rating
+    var postIndex = postRating.getAttribute("id").substr(13); //id is post-dislikes which is 13 characters
+    var thumbupelem = document.getElementById('post-likes'+postIndex);
+
+    $.post('ajax/db_dealer.php', {type:"get", command:"postOpinion", postid: elem.dataset.postid}, function(data) //we expect data to be: L, D, or N
+    {
+        switch(data)
+        {
+            case 'N'://Neutral  (+1 for dislike)                -> db value is now D
+                postRating.innerHTML = parseInt(postRating.innerHTML) +1 +" ";
+                givePostOpinion(elem.dataset.postid, "D");
+            break;
+            case 'L'://Liked    (+1 for dislike, -1 for like)   -> db value is now D
+                postRating.innerHTML = parseInt(postRating.innerHTML) +1 +" ";
+                thumbupelem.innerHTML = parseInt(thumbupelem.innerHTML) -1 +" ";
+                givePostOpinion(elem.dataset.postid, "D");
+            break;
+            case 'D'://Disliked (-1 for dislike)                -> db value is now N
+                postRating.innerHTML = parseInt(postRating.innerHTML) -1 +" ";
+                givePostOpinion(elem.dataset.postid, "N");
+            break;
+        }
+    });
+    //cooldown
+    elem.disabled = true;
+    setTimeout(function()
+    {
+        elem.disabled = false;
+    },1000);
+
+}
+function givePostOpinion(postid, opinion)
+{
+    $.post('ajax/db_dealer.php', {type: "set", command: "postOpinion", postid: postid, opinion: opinion});
 }
 
 function thumbsUpComment(elem)
@@ -321,7 +356,7 @@ function thumbsUpComment(elem)
                 commentRating.innerHTML = parseInt(commentRating.innerHTML) +1 +" ";
                 giveCommentOpinion(commentRating.dataset.commentid, "L");
             break;
-            case 'L'://Liked    (-1 for dislike)                -> db value is now N
+            case 'L'://Liked    (-1 for like)                -> db value is now N
                 commentRating.innerHTML = parseInt(commentRating.innerHTML) -1 +" ";
                 giveCommentOpinion(commentRating.dataset.commentid, "N");
             break;
@@ -349,7 +384,7 @@ function thumbsDownComment(elem)
 
     $.post('ajax/db_dealer.php', {type:"get", command:"commentOpinion", commentid: commentRating.dataset.commentid}, function(data) //we expect data to be: L, D, or N
     {
-        alert(data +" prev opinion");
+        // alert(data +" prev opinion");
         switch(data)
         {
             case 'N'://Neutral  (+1 for dislike)                -> db value is now D
@@ -379,7 +414,7 @@ function giveCommentOpinion(commentid, opinion)
     $.post('ajax/db_dealer.php', {type: "set", command: "commentOpinion", commentid: commentid, opinion: opinion});
 }
 
-function setChildren()
+function setChildren() //unused method.
 {
     var liCar0 = document.createElement("li");
                 liCar0.setAttribute("data-target","#post-carousel"+it+index);
