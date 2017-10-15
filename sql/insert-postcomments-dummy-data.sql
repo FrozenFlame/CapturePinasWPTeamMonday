@@ -16,15 +16,15 @@ INSERT INTO postcomments (postid, userid, content, likes, dislikes, timestamp) V
     (3, 1, "What, no comments yet? Guess people are afk", 1, 0, "2017-01-17 09:13:52"),
     (3, 1, "Yo I think this site's dead", 1, 0, "2017-01-19 08:14:22"),
     
-    (4, 2, "Cool photos bro!", 3, 0, "2017-01-22 08:20:19"),
-    (4, 5, "LOL thanks bro!", 2, 0, "2017-01-22 08:20:48"),
-    (4, 4, "Wow its so pretty!", 4, 0, "2017-01-22 16:21:18"),
+    (4, 2, "Great photo bro!", 3, 0, "2017-01-22 08:20:19"),
+    (4, 5, "LOL thanks bro!", 1, 0, "2017-01-22 08:20:48"),
+    (4, 4, "Wow its so pretty!", 3, 0, "2017-01-22 16:21:18"),
     (4, 3, "Nice job dude! Oh, and condolence to your camera..", 1, 0, "2017-01-22 17:24:38"),    
 
     (5, 2, "Condolences, bro", 1, 0, "2017-01-22 08:24:58"),    
     
-    (6, 2, "Wow! Haha tara sama ako XD", 2, 0, "2017-02-03 23:14:22"),
-    (6, 4, "Yun tara! Next week?", 2, 0, "2017-02-03 23:14:26"),
-    (6, 2, "Gege pwede! hahaahha", 2, 0, "2017-02-03 23:14:32"),
-    (6, 5, "I have no idea what you folks are talking about. Nice pics tho", 3, 0, "2017-02-04 09:34:26")
+    (6, 2, "Wow! Haha tara sama ako XD", 1, 0, "2017-02-03 23:14:22"),
+    (6, 4, "Yun tara! Next week?", 1, 0, "2017-02-03 23:14:26"),
+    (6, 2, "Gege pwede! hahaahha", 1, 0, "2017-02-03 23:14:32"),
+    (6, 5, "I have no idea what you folks are talking about. Nice pics tho", 2, 0, "2017-02-04 09:34:26")
 ;

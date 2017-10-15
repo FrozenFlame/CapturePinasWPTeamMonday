@@ -151,37 +151,37 @@ if(isset($_SESSION['id'])) # if user is already logged in, redirect to logged in
           <div class="col-sm-6 col-md-3" id="div1">
                 <img class="img-circle img-responsive" src="images/1.jpg">
                 <h3>Share</h3>
-                <p>Bla baiosdjasiodj absd nafaiodg basyudgsayu niofhyusbd basyudgasdaugd adsaydv v
-              asdasbd dsad nifuhaygbf bbasgduho joiyibjdu bidgaybfdh ufhuvb hjfab js bkjgh erkavf stfskjd hdbdk'
-              asjbfas dshgbusdf hj jkbjhdsjv dgfnrtfhajnf lkghnoi bKNFDFU</p>
-                <p><a class="btn btn-default" href="#">View Details &raquo;</a></p>
+                <p>Share your experiences with your friends and loved ones as you travel around the Philippines! Upload
+                your photos and add your personal comments and views about your trip to share to people you have already
+                connected with! Tell everyone about your experience and how fun it is to travel to the places that you
+                have visited!</p>
+                <!--<p><a class="btn btn-default" href="#">View Details &raquo;</a></p>-->
               </div>    
               
               <div class="col-sm-6 col-md-3">
                 <img class="img-circle img-responsive" src="images/2.jpg">
                 <h3>Explore</h3>
-                <p>Bla baiosdjasiodj absd nafaiodg basyudgsayu niofhyusbd basyudgasdaugd adsaydv v
-              asdasbd dsad nifuhaygbf bbasgduho joiyibjdu bidgaybfdh ufhuvb hjfab js bkjgh erkavf stfskjd hdbdk'
-              asjbfas dshgbusdf hj jkbjhdsjv dgfnrtfhajnf lkghnoi bKNFDFU</p>
-                <p><a class="btn btn-default" href="#">View Details &raquo;</a></p>
+                <p>Explore new regions that you haven't been to.. yet! Find new interesting places that you can plan your
+                next trip on! See for yourself all the places that others have visited and mark them as your favourites to
+                remember them by!</p>
+                <!--<p><a class="btn btn-default" href="#">View Details &raquo;</a></p>-->
               </div>
               
               <div class="col-sm-6 col-md-3">
                 <img class="img-circle img-responsive" src="images/3.jpg">
                 <h3>Socialize</h3>
-                <p>Bla baiosdjasiodj absd nafaiodg basyudgsayu niofhyusbd basyudgasdaugd adsaydv v
-              asdasbd dsad nifuhaygbf bbasgduho joiyibjdu bidgaybfdh ufhuvb hjfab js bkjgh erkavf stfskjd hdbdk'
-              asjbfas dshgbusdf hj jkbjhdsjv dgfnrtfhajnf lkghnoi bKNFDFU</p>
-                <p><a class="btn btn-default" href="#">View Details &raquo;</a></p>
+                <p>Let other people see your travels! Meet and connect with your fellow travelers that have been to the places
+                that you have been! Or, meet people that have been to the places that you want to go to! People can also
+                approach you about places you've been to that they haven't visited yet!</p>
+                <!--<p><a class="btn btn-default" href="#">View Details &raquo;</a></p>-->
               </div>
               
               <div class="col-sm-6 col-md-3">
                 <img class="img-circle img-responsive" src="images/4.jpg">
                 <h3>Experience</h3>
-                <p>Bla baiosdjasiodj absd nafaiodg basyudgsayu niofhyusbd basyudgasdaugd adsaydv v
-              asdasbd dsad nifuhaygbf bbasgduho joiyibjdu bidgaybfdh ufhuvb hjfab js bkjgh erkavf stfskjd hdbdk'
-              asjbfas dshgbusdf hj jkbjhdsjv dgfnrtfhajnf lkghnoi bKNFDFU</p>
-                <p><a class="btn btn-default" href="#">View Details &raquo;</a></p>
+                <p>Get a feel for a beatiful place through another's lenses! Re-visit your favourite landmarks through another
+                person's perspective! Experience the thrill of travel and the rewarding sights you can have!</p>
+                <!--<p><a class="btn btn-default" href="#">View Details &raquo;</a></p>-->
               </div>
           </div>
       </div>

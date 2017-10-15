@@ -53,3 +53,15 @@ CREATE TABLE userfav(
     id INTEGER NOT NULL REFERENCES users,
     postid INTEGER NOT NULL REFERENCES post
 )    ENGINE=InnoDB;
+
+CREATE TABLE postopinion(
+    postid INTEGER NOT NULL REFERENCES post,
+    userid INTEGER NOT NULL REFERENCES post,
+    opinion CHAR(1) NOT NULL
+)    ENGINE=InnoDB;
+
+CREATE TABLE commentopinion(
+    commentid INTEGER NOT NULL REFERENCES postcomments,
+    userid INTEGER NOT NULL REFERENCES postcomments,
+    opinion CHAR(1) NOT NULL
+)    ENGINE=InnoDB;
