@@ -77,7 +77,7 @@ if(isset($_SESSION['id'])) # if user is already logged in, redirect to logged in
                             
                         </ul>
                     </li>
-                <a href="aboutUs.html">AboutUs</a>
+                <li><a href="#">About Us</a></li>
                 </ul> 
                 <ul class="nav navbar-nav navbar-right">
                     <li><a href="signup.html"><span class="glyphicon glyphicon-user" ></span> Sign Up</a></li>
@@ -179,7 +179,7 @@ if(isset($_SESSION['id'])) # if user is already logged in, redirect to logged in
               <div class="col-sm-6 col-md-3">
                 <img class="img-circle img-responsive" src="images/4.jpg">
                 <h3>Experience</h3>
-                <p>Get a feel for a beatiful place through another's lenses! Re-visit your favourite landmarks through another
+                <p>Get a feel for a beautiful place through another's lenses! Re-visit your favourite landmarks through another
                 person's perspective! Experience the thrill of travel and the rewarding sights you can have!</p>
                 <!--<p><a class="btn btn-default" href="#">View Details &raquo;</a></p>-->
               </div>
