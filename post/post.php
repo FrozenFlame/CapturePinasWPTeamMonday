@@ -252,18 +252,51 @@
 
                                 var author = document.createElement("b");
                                 author.setAttribute("id", "author"+(commentIterator+1));
-
                                 author.innerHTML = loggedUsername;
                                 a.appendChild(author);
 
                                 var a2 = document.createElement("text"); //comment
-                                a2.setAttribute("id","comment"+(commentIterator+1));
+                                a2.setAttribute("id","comment"+(commentIterator+1));    
                                 a2.innerHTML = comment;
 
-                                var a3 = document.createElement("text"); 
-                                a3.innerHTML = "Likes: ";
+                                var cid;
+                                $.post('ajax/db_dealer.php', {type:"get", command:"getLastCommentId"}, function(data)
+                                {
+                                    cid = data;
+                                });
 
-                                var a4 = document.createElement("b"); //actual likes value
+
+                                var a3b = document.createElement("button");
+                                a3b.setAttribute("type", "button");
+                                a3b.setAttribute("class", "btn btn-default");
+                                var commentind = document.getElementById('comment-list').children.length;//(document.getElementById('comment-list').children.length) is to get the amount of comments and apply it here
+                                a3b.setAttribute("id", "comment-like-btn"+commentind); 
+                                a3b.setAttribute("onclick","thumbsUpComment(this)");
+                                    var a3btext = document.createElement("text");
+                                    a3btext.setAttribute("id","comment-likes");
+                                    a3btext.setAttribute("data-commentid", cid);//this is now commentid
+                                    a3btext.innerHTML = 0 +" ";
+                                    var a3bspan = document.createElement("span");
+                                    a3bspan.setAttribute("class", "glyphicon glyphicon-thumbs-up");
+                                    a3bspan.setAttribute("aria-hidden","true");
+                                a3b.appendChild(a3btext);
+                                a3b.appendChild(a3bspan);
+                                
+                                var a4b = document.createElement("button");
+                                a4b.setAttribute("type", "button");
+                                a4b.setAttribute("class", "btn btn-default");
+                                a4b.setAttribute("id", "comment-dislike-btn"+commentind);
+                                a4b.setAttribute("onclick","thumbsDownComment(this)");
+                                var a4btext = document.createElement("text");
+                                a4btext.setAttribute("id","comment-dislikes");
+                                a4btext.setAttribute("data-commentid", cid);//this is now commentid
+                                a4btext.innerHTML = 0 +" ";
+                                var a4bspan = document.createElement("span");
+                                a4bspan.setAttribute("class", "glyphicon glyphicon-thumbs-down");
+                                a4bspan.setAttribute("aria-hidden","true");
+                                a4b.appendChild(a4btext);
+                                a4b.appendChild(a4bspan);
+                                /*var a4 = document.createElement("b"); //actual likes value
                                 a4.innerHTML = 0 +" ";
                                 a4.setAttribute("id","likes"+(commentIterator+1));
 
@@ -272,21 +305,28 @@
 
                                 var a6 = document.createElement("b"); //actual dislike value
                                 a6.innerHTML = 0 +" ";
-                                a6.setAttribute("id","dislikes"+(commentIterator+1));
-                    
+                                a6.setAttribute("id","dislikes"+(commentIterator+1));*/
+                                
+                                var pLine = document.createElement("p");
+                                pLine.setAttribute("id","line");
+
                     //adding to comments section
                     media.appendChild(img);
                     mediaBody.appendChild(a);
                     mediaBody.appendChild(document.createElement("br"));
                     mediaBody.appendChild(a2);
                     mediaBody.appendChild(document.createElement("br"));
-                    mediaBody.appendChild(a3);
-                    mediaBody.appendChild(a4);
-                    mediaBody.appendChild(a5);
-                    mediaBody.appendChild(a6);
+                    mediaBody.appendChild(a3b);
+                    var space = document.createElement("text");
+                    space.innerHTML = " ";
+                    mediaBody.appendChild(space);
+                    mediaBody.appendChild(a4b);
+                    // mediaBody.appendChild(a4);
+                    // mediaBody.appendChild(a5);
+                    // mediaBody.appendChild(a6);
                     media.appendChild(mediaBody);
+                    media.appendChild(pLine);
                     commsec.appendChild(media);
-                    media.appendChild(document.createElement("br"));
                     list.appendChild(media);
                             
                             //|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||

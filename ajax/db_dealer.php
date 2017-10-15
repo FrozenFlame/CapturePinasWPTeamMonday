@@ -37,7 +37,7 @@
     }
 
     /**
-        Responsible for getting database data
+    *    Responsible for getting database data
     */
     class Getter
     {
@@ -109,11 +109,30 @@
                 $result = $query->fetch()['username'];
                 echo $result;
             }
+            else if ($commandReceived==='getLastCommentId')
+            {
+                $query = $this->db->prepare("SELECT commentid FROM postcomments ORDER BY commentid DESC LIMIT 1 ");
+                $query->execute();
+                echo $query->fetch()['commentid'];
+            }
+            else if ($commandReceived==='commentOpinion')
+            {
+                $query = $this->db->prepare("SELECT opinion FROM commentopinion WHERE commentid = ? AND userid = ?");
+                $query->bindparam(1, $_POST['commentid']);
+                $query->bindparam(2, $_SESSION['id']);
+                $query->execute();
+                if($query->rowcount() > 0) //means user has given an opinion before
+                {
+                    echo $query->fetch()['opinion'];
+                }
+                else                        //means user hasn't given an opinion before
+                    echo 'N';
+            }
         }
     }
 
     /**
-        Responsible for pushing database data
+    *    Responsible for pushing database data
     */
     class Setter
     {
@@ -142,11 +161,104 @@
                 $result = $query2->fetch()['filepath'];
                 echo $result;
             }
+            else if($commandReceived === 'commentOpinion') //first time opinion is taken care of here
+            {
+                /**
+                *    @author Denzel
+                */
+                //First time opinion checker
+                
+                $query = $this->db->prepare("SELECT opinion FROM commentopinion WHERE commentid = ? AND userid = ?");
+                $query->bindparam(1, $_POST['commentid']);
+                $query->bindparam(2, $_SESSION['id']);
+                $query->execute();
+
+                if($query->rowcount() == 0) //means user is giving opinion for the first time
+                {
+                    $query2 = $this->db->prepare("INSERT INTO commentopinion VALUES(?,?,?)");
+                    $query2->bindparam(1, $_POST['commentid']);
+                    $query2->bindparam(2, $_SESSION['id']);
+                    $query2->bindparam(3, $_POST['opinion']);
+                    $query2->execute();
+
+                    //updates values found in postcomment like/dislike counter
+                    //it's also nice that this is so embedded in the backend service, it'll make it harder for attackers to mess our things up by means of inspect element
+                    if($_POST['opinion'] == 'L') //user liked
+                    {
+                        $query3 = $this->db->prepare("UPDATE postcomments SET likes = likes + 1 WHERE commentid = ?");
+                        $query3->bindparam(1, $_POST['commentid']);
+                        $query3->execute();
+                    }
+                    else //user disliked
+                    {
+                        $query3 = $this->db->prepare("UPDATE postcomments SET dislikes = dislikes + 1 WHERE commentid = ?");
+                        $query3->bindparam(1, $_POST['commentid']);
+                        $query3->execute();
+                    }
+                }
+                else //user has given opinion before
+                {
+                    $previousOpinion = $query->fetch()['opinion']; //gets the user's opinion before the change
+                    $query2 = $this->db->prepare("UPDATE commentopinion SET opinion = ? WHERE commentid = ? AND userid = ?");
+                    $query2->bindparam(1, $_POST['opinion']);
+                    $query2->bindparam(2, $_POST['commentid']);
+                    $query2->bindparam(3, $_SESSION['id']);
+                    $query2->execute();
+                    
+                    switch($_POST['opinion']) //this is the current opinion casted
+                    {
+                        case 'N': //they are now neutral
+                            if($previousOpinion == 'L') //they liked it before
+                            {
+                                $query3 = $this->db->prepare("UPDATE postcomments SET likes = likes - 1 WHERE commentid = ?"); //-1 from likes
+                                $query3->bindparam(1, $_POST['commentid']);
+                                $query3->execute();
+                            }
+                            else //they disliked it before
+                            {
+                                $query3 = $this->db->prepare("UPDATE postcomments SET dislikes = dislikes - 1 WHERE commentid = ?"); //-1 from dislikes
+                                $query3->bindparam(1, $_POST['commentid']);
+                                $query3->execute();
+                            }
+                        break;
+                        case 'L': //they are now Liking it
+                            if($previousOpinion == 'N') //they were neutral before
+                            {
+                                $query3 = $this->db->prepare("UPDATE postcomments SET likes = likes + 1 WHERE commentid = ?"); //+1 to likes
+                                $query3->bindparam(1, $_POST['commentid']);
+                                $query3->execute();
+                            }
+                            else //they disliked it before
+                            {
+                                $query3 = $this->db->prepare("UPDATE postcomments SET likes = likes + 1, dislikes = dislikes - 1 WHERE commentid = ?"); //+1 to likes, -1 from dislikes
+                                $query3->bindparam(1, $_POST['commentid']);
+                                $query3->execute();
+                            }
+                        break;
+                        case 'D': //they are now Disliking it
+                            if($previousOpinion == 'N') //they were neutral before
+                            {
+                                $query3 = $this->db->prepare("UPDATE postcomments SET dislikes = dislikes + 1 WHERE commentid = ?"); //+1 to dislikes
+                                $query3->bindparam(1, $_POST['commentid']);
+                                $query3->execute();
+                            }
+                            else //they liked it before
+                            {
+                                $query3 = $this->db->prepare("UPDATE postcomments SET dislikes = dislikes + 1, likes = likes - 1 WHERE commentid = ?");//+1 to dislikes, -1 from likes  
+                                $query3->bindparam(1, $_POST['commentid']);
+                                $query3->execute();
+                            }
+                        break;
+                    }
+
+                }
+                
+            }
         }
     }
 
     /**
-        Responsible for getting posts via search types
+    *    Responsible for getting posts via search types
     */
     class Searcher
     {
@@ -220,4 +332,30 @@
     {
             echo "<script>alert( 'Fake' );</script>";
     }
+
+
+//  [Team Monday: DBD, FETCH!]
+    //                          ;\ 
+    //                         |' \ 
+    //      _                  ; : ; 
+    //     / `-.              /: : | 
+    //    |  ,-.`-.          ,': : | 
+    //    \  :  `. `.       ,'-. : | 
+    //     \ ;    ;  `-.__,'    `-.| 
+    //      \ ;   ;  :::  ,::'`:.  `. 
+    //       \ `-. :  `    :.    `.  \ 
+    //        \   \    ,   ;   ,:    (\ 
+    //         \   :., :.    ,'o)): ` `-. 
+    //        ,/,' ;' ,::"'`.`---'   `.  `-._ 
+    //      ,/  :  ; '"      `;'          ,--`. 
+    //     ;/   :; ;             ,:'     (   ,:)    
+    //       ,.,:.    ; ,:.,  ,-._ `.     \""'/ 
+    //       '::'     `:'`  ,'(  \`._____.-'"' 
+    //          ;,   ;  `.  `. `._`-.  \\ 
+    //          ;:.  ;:       `-._`-.\  \`.     [db_dealer(DBD): ARF!]
+    //           '`:. :        |' `. `\  ) \ 
+    //              ` ;:       |    `--\__,' 
+    //                '`      ,' 
+    //                     ,-' 
+//
 ?>
