@@ -95,6 +95,9 @@ function getHYPED($hype)
                                 var a6 = document.createElement("b"); //actual dislike value
                                 a6.innerHTML = commentsJSON[it].dislikes+" ";
                                 a6.setAttribute("id","dislikes"+(it+iterator));
+                                
+                                var pLine = document.createElement("p");
+                                pLine.setAttribute("id","line");
                     
                     //adding to comments section
                     media.appendChild(img);
@@ -107,8 +110,9 @@ function getHYPED($hype)
                     mediaBody.appendChild(a5);
                     mediaBody.appendChild(a6);
                     media.appendChild(mediaBody);
+                    media.appendChild(pLine);
                     commsec.appendChild(media);
-                    media.appendChild(document.createElement("br"));
+                    //media.appendChild(document.createElement("br"));
                     list.appendChild(media);
                     // alert("id iterator current: " +(it+iterator)); //debug thing
                 }

@@ -2,6 +2,10 @@ body {
     background-color: ghostwhite;
 }
 /* for post */
+.media {
+    margin-bottom: auto;
+    margin-top: auto;
+}
 #post-place {
     margin: 0;
 }
@@ -56,7 +60,7 @@ img {
     width: 95%;
     display:inline-block;
     position:relative;
-    padding-bottom: 8px;
+    padding-bottom: 12px;
 }
 textarea{
     resize: none;
@@ -66,8 +70,8 @@ textarea{
 }
 #textarea-button{
     position:absolute;
-  bottom:18px;
-  right:12px;
+  bottom:22px;
+  right:10px;
 }
 /* end of for post */
 

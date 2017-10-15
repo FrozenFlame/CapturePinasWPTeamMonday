@@ -71,7 +71,7 @@
                             <textarea class="form-control" id="post-comment" placeholder="Enter a comment.."></textarea>
                             <button type="button" class="btn btn-default" id="textarea-button" >Comment</button>
                         </div>
-                        <p id="line"></p>
+                        <!-- <p id="line"></p> -->
                         <!-- passing postID value to comment loader -->
                         <?php include("comment_loader.php"); ?>
                     </div>
