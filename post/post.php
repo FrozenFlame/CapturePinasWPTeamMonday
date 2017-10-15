@@ -257,12 +257,7 @@
                                 a2.setAttribute("id","comment"+(commentIterator+1));    
                                 a2.innerHTML = comment;
 
-                                var cid;
-                                $.post('ajax/db_dealer.php', {type:"get", command:"getLastCommentId"}, function(data)
-                                {
-                                    cid = data;
-                                });
-
+                                
 
                                 var a3b = document.createElement("button");
                                 a3b.setAttribute("type", "button");
@@ -272,7 +267,7 @@
                                 a3b.setAttribute("onclick","thumbsUpComment(this)");
                                     var a3btext = document.createElement("text");
                                     a3btext.setAttribute("id","comment-likes");
-                                    a3btext.setAttribute("data-commentid", cid);//this is now commentid
+                                    // a3btext.setAttribute("data-commentid", cid+"");//cid will now be applied later in the code.
                                     a3btext.innerHTML = 0 +" ";
                                     var a3bspan = document.createElement("span");
                                     a3bspan.setAttribute("class", "glyphicon glyphicon-thumbs-up");
@@ -287,7 +282,7 @@
                                 a4b.setAttribute("onclick","thumbsDownComment(this)");
                                 var a4btext = document.createElement("text");
                                 a4btext.setAttribute("id","comment-dislikes");
-                                a4btext.setAttribute("data-commentid", cid);//this is now commentid
+                                // a4btext.setAttribute("data-commentid", cid); //cid will now be applied later in the code.
                                 a4btext.innerHTML = 0 +" ";
                                 var a4bspan = document.createElement("span");
                                 a4bspan.setAttribute("class", "glyphicon glyphicon-thumbs-down");
@@ -326,6 +321,14 @@
                     media.appendChild(pLine);
                     commsec.appendChild(media);
                     list.appendChild(media);
+
+                    var cid; //data-commentid application
+                    $.post('ajax/db_dealer.php', {type:"get", command:"getLastCommentId"}, function(data)
+                    {
+                        cid = data;
+                        a3btext.setAttribute("data-commentid", cid);
+                        a4btext.setAttribute("data-commentid", cid);
+                    });
                             
                             //|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
                             
