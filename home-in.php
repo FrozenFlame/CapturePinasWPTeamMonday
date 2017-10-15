@@ -161,7 +161,7 @@ if(!isset($_SESSION['id'])) # if user is already logged in, redirect to logged i
                               <option>Pampanga</option>
                               <option>Pangasinan</option>
                               <option>Quezon</option>
-                              <option>Rombol</option>
+                              <option>Romblon</option>
                               <option>Sarangani</option>
                               <option>Sultan Kudarat</option>
                               <option>Surigao del Norte</option>
