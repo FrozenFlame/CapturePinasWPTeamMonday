@@ -79,8 +79,6 @@ $query = $_POST['query'];
                             <li><a href="#">Tawi tawi</a></li>
                             <li><a href="#">Zambales</a></li>
                             <li><a href="#">Zamboanga</a></li>
-
-
                         </ul>
                     </li>
                     <li><a href="#">About Us</a></li>
@@ -89,10 +87,9 @@ $query = $_POST['query'];
                 <ul class="nav navbar-nav navbar-right">
                     <li>
                         <div class="col-lg-12">
-                         <form class="navbar-form" role="search">
+                         <form class="navbar-form" role="search" method="POST" action="search_results.php"> <!-- method="<post/get>" action="<location of php>" -->
                             <div class="input-group">
-
-                                <input type="text" class="form-control" placeholder="Search" id="navbar-search">
+                                <input type="text" class="form-control" placeholder="Search" name = "query" id="navbar-search">
                                 <div class="input-group-btn">
                                 <button class="btn btn-default" type="submit" id ='navbar-search-button'><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
                                 </div>
