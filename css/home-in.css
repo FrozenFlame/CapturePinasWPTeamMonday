@@ -77,7 +77,7 @@ img {
 }
 #line-bold{ /*fix this at some point*/
     padding-top: 10px;
-    width: 100%;
+    margin: auto;
     border-width: 1px;
     border-bottom: solid;
     border-bottom-width: thick;

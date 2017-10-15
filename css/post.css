@@ -1,6 +1,10 @@
 body {
     background-color: ghostwhite;
 }
+#h1-search{
+    margin-left: 30px;
+    margin-bottom: auto;
+}
 /* for post */
 #postdiv{
     padding-bottom: 10px;
@@ -15,7 +19,6 @@ body {
 #post-title-p {
     margin: 0;
 }
-
 .post {
     margin: auto;
     margin-top: 10px;
