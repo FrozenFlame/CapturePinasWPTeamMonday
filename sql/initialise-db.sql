@@ -54,6 +54,11 @@ CREATE TABLE userfav(
     postid INTEGER NOT NULL REFERENCES post
 )    ENGINE=InnoDB;
 
+-- CREATE TABLE postopinion(                     -- ORIGINAL VERSION, GONNA TRY SOME foreign key things 
+--     postid INTEGER NOT NULL REFERENCES post,
+--     userid INTEGER NOT NULL REFERENCES post,
+--     opinion CHAR(1) NOT NULL
+-- )    ENGINE=InnoDB;
 CREATE TABLE postopinion(
     postid INTEGER NOT NULL REFERENCES post,
     userid INTEGER NOT NULL REFERENCES post,
