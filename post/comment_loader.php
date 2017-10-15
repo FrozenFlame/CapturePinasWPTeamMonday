@@ -64,7 +64,7 @@ function getHYPED($hype)
                         var media = document.createElement("li");
                         media.setAttribute("class","media");
                             var img = document.createElement("img");
-                            img.setAttribute("class","d-flex mr-3 pull-left post-user-image");
+                            img.setAttribute("class","d-flex mr-3 pull-left comment-user-image");
                             img.setAttribute("src",commentsJSON[it].filepath);
                             var mediaBody = document.createElement("div");
                             mediaBody.setAttribute("class","media-body");

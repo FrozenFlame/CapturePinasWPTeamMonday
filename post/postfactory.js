@@ -50,8 +50,9 @@ function createPostLite(container, json, index)
         var pTitle = document.createElement("a"); //changed to 'a'
         pTitle.setAttribute("href", "post_page.php?post="+postJSON[it].postid);       
         pTitle.setAttribute("id", "post-title-p"+it+index);
+        pTitle.setAttribute("class", "post-title");
         var bTitle = document.createElement("b");
-        bTitle.setAttribute("class", "post-title");
+        
         // bTitle.innerHTML = "Title"; //TODO: tempData
         bTitle.innerHTML = postJSON[it].title;
         pTitle.appendChild(bTitle);
@@ -153,19 +154,19 @@ function createPostLite(container, json, index)
                     aPostName.setAttribute("id","post-href");
                     /*aPostName-children*/
                     var pPostName = document.createElement("p");
+                    pPostName.setAttribute("class","post-username");
                     var bPostName = document.createElement("b");
                     
-                    bPostName.setAttribute("class","post-username");
                     bPostName.innerHTML = postJSON[it].username;
                     pPostName.appendChild(bPostName);
                     aPostName.appendChild(pPostName);
                     //pPostPlace
-                     var pPostPlace = document.createElement("p");
+                    var pPostPlace = document.createElement("p");
+                    pPostPlace.setAttribute("class","post-place");
                     /*pPostPlace-children*/
                     var text = document.createElement("text");
                     text.innerHTML = "in ";
                     var bPostPlace = document.createElement("b");
-                    bPostPlace.setAttribute("id", "post-place");
                     bPostPlace.innerHTML = postJSON[it].place;
                     pPostPlace.appendChild(text);
                     pPostPlace.appendChild(bPostPlace);

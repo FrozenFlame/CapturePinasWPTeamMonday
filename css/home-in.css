@@ -4,8 +4,13 @@ body {
 /* for media */
 .post-user-image {
 margin-top:10px;
-margin-left:5px;
+margin-left:auto;
 width:12%;
+}
+.comment-user-image {
+margin-top: auto;
+margin-left:auto;
+width:8%;
 }
 .media-body {
 padding-right:20px;
@@ -13,6 +18,7 @@ padding-right:20px;
 /* end of for media */
 /* for post */
 .carousel {
+    margin-top:3px;
     width: 96%;
     margin-bottom: 5px;
 }
@@ -31,7 +37,8 @@ padding-right:20px;
     background-color: whitesmoke;
    
 }
-#post-description{
+.post-description{
+    margin-top: 10px;
     width: 96%;
 }
 #post-carousel {
@@ -75,13 +82,18 @@ textarea{
   right:10px;
 }
 .post-title{
-    margin-bottom: 10px;
+    margin-top: 20px;
 }
 .post-username {
-    width: 10%;
+    margin-top: 15px;
+    margin-bottom: auto;
+}
+.post-place {
+    margin-bottom: auto;
 }
 .post-description{
     width: 95%;
+    margin-bottom: auto;
 }
 /* post buttons */
 .post-dislike-button {

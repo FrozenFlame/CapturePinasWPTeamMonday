@@ -14,7 +14,7 @@
                 <div class="post">
                     <div class="row">
                         <!--<a href="#"><p><b id="post-name"></b></p></a> -->
-                    <p id="post-title-p"><b id="post-title"></b></p>
+                    <p id="post-title-p"><h4><b id="post-title"></b></h4></p>
                            
                            
                     </div>
@@ -41,8 +41,22 @@
                     </div>
                     <div class="row">
                      
-                        <div class="media"><img class="d-flex mr-3 post-user-image pull-left" src="/CapturePinasWPTeamMonday/images/userimages/default.png" id= "user-image"/><div class="media-body"><a href="#" id="post-href"><p><b class="post-username" id ="post-username"></b></p></a><p><text>in </text><b id="post-place">Place</b></p><p id="post-timestamp">Date</p></div></div>
-                        <p id="post-description"></p>
+                        <div class="media">
+                            <img class="d-flex mr-3 post-user-image pull-left" src="/CapturePinasWPTeamMonday/images/userimages/default.png" id= "user-image"/>
+                            <div class="media-body">
+                                <a href="#" id="post-href">
+                                    <p class="post-username">
+                                        <b id ="post-username"></b>
+                                    </p>
+                                </a>
+                                <p class="post-place">
+                                    <text>in </text>
+                                    <b id="post-place">Place</b>
+                                </p>
+                                <p id="post-timestamp">Date</p>
+                            </div>
+                        </div>
+                        <p class="post-description" id="post-description"></p>
                         <p id="line"></p> 
                         <button class="btn btn-default" type="button" id="post-like-btn"><text id = "post-likes">0</text> <span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span></button>
                         <button class="btn btn-default" type="button" id="post-unlike-btn">
@@ -82,7 +96,6 @@
                     {
                         post = JSON.parse(data);
                         $('b#post-title').text(post[0].title);
-                        
                         var command = 'getPostAuthor';
                         var userid = post[0].userid;
                         $.post('ajax/db_dealer.php', {command: command, type: type, author_id: userid}, function(data)
@@ -226,7 +239,7 @@
                             var media = document.createElement("li");
                             media.setAttribute("class","media");
                             var img = document.createElement("img");
-                            img.setAttribute("class","d-flex mr-3 pull-left post-user-image");
+                            img.setAttribute("class","d-flex mr-3 pull-left comment-user-image");
                             img.setAttribute("src",filepath);
                             var mediaBody = document.createElement("div");
                             mediaBody.setAttribute("class","media-body");
