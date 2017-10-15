@@ -138,7 +138,7 @@ $query = $_POST['query'];
             {
                 case 'searchPlace': searchby = "place"; break;
             }
-            document.getElementById('searchby').innerHTML = "Searching by <i>" +searchby +"</i>";
+            // document.getElementById('searchby').innerHTML = "Searching by <i>" +searchby +"</i>";
             // post population
             
             var search = "<?php echo $query; ?>";
@@ -152,7 +152,7 @@ $query = $_POST['query'];
                     createPostLite(document.getElementById('result-posts'), data, 0);
                 }
                 else 
-                    document.getElementById('results').innerHTML = "<h2> Sorry! No posts found with your search query. :( </h2>";
+                    document.getElementById('result-posts').innerHTML = "<h2> No posts found with your search query. :(<h2/> <br/> <h2>Sorry! -Team Monday </h2>";
             });
         }
 
