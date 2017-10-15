@@ -11,6 +11,7 @@ body {
 margin-top:10px;
 margin-left:auto;
 width:12%;
+    cursor: pointer;
 }
 .comment-user-image {
 margin-top: auto;
@@ -135,6 +136,16 @@ textarea{
 }
 .glyphicon glyphicon-triangle-bottom{
     padding-top: 10px;
+}
+.places-li{
+    margin-left: 10px;
+    margin-top: 5px;
+    cursor: pointer;
+    
+}
+.places-li:hover {
+    color:darkgreen;
+    font-weight: bold;
 }
 .dropdown-menu {
      display: none;/*This is the default state.*/

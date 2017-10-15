@@ -41,44 +41,47 @@ if(!isset($_SESSION['id'])) # if user is already logged in, redirect to logged i
             <div class="collapse navbar-collapse" id="myNavbar">
                 <ul class="nav navbar-nav">
                     <li class="active"><a href="index.php">Home</a></li>
-
+                        
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">Places <span class="glyphicon glyphicon-triangle-bottom" aria-hidden="true"></span></a>
-                        <ul class="dropdown-menu">
-                            <li><a href="#">Albay</a></li>
-                            <li><a href="#">Banaue</a></li>
-                            <li><a href="#">Bataan</a></li>
-                            <li><a href="#">Batanes</a></li>
-                            <li><a href="#">Batangas</a></li>
-                            <li><a href="#">Benguet</a></li>
-                            <li><a href="#">Bohol</a></li>
-                            <li><a href="#">Bulacan</a></li>
-                            <li><a href="#">Camarines Norte</a></li>
-                            <li><a href="#">Camarines Sur</a></li>
-                            <li><a href="#">Capiz</a></li>
-                            <li><a href="#">Cavite</a></li>
-                            <li><a href="#">Cebu</a></li>
-                            <li><a href="#">Davao</a></li>
-                            <li><a href="#">Ilocos Norte</a></li>
-                            <li><a href="#">Ilocos Sur</a></li>
-                            <li><a href="#">Laguna</a></li>
-                            <li><a href="#">Leyte</a></li>
-                            <li><a href="#">Marinduque</a></li>
-                            <li><a href="#">Negros Occidental</a></li>
-                            <li><a href="#">Negros Oriental</a></li>
-                            <li><a href="#">Nueva Ecija</a></li>
-                            <li><a href="#">Palawan</a></li>
-                            <li><a href="#">Pampanga</a></li>
-                            <li><a href="#">Pangasinan</a></li>
-                            <li><a href="#">Quezon</a></li>
-                            <li><a href="#">Romblon</a></li>
-                            <li><a href="#">Sarangani</a></li>
-                            <li><a href="#">Sultan Kudarat</a></li>
-                            <li><a href="#">Surigao del Norte</a></li>
-                            <li><a href="#">Surigao del Sur</a></li>
-                            <li><a href="#">Tawi tawi</a></li>
-                            <li><a href="#">Zambales</a></li>
-                            <li><a href="#">Zamboanga</a></li>
+                        <ul class="dropdown-menu" id="places-dropdown">
+                            <form action="search_results.php" method="POST" id="places-form">
+                            <input type="hidden" name="query" id="topic">
+                            <li class="places-li">Albay</li>
+                            <li class="places-li">Banaue</li>
+                            <li class="places-li">Bataan</li>
+                            <li class="places-li">Batanes</li>
+                            <li class="places-li">Batangas</li>
+                            <li class="places-li">Benguet</li>
+                            <li class="places-li">Bohol</li>
+                            <li class="places-li">Bulacan</li>
+                            <li class="places-li">Camarines Norte</li>
+                            <li class="places-li">Camarines Sur</li>
+                            <li class="places-li">Capiz</li>
+                            <li class="places-li">Cavite</li>
+                            <li class="places-li">Cebu</li>
+                            <li class="places-li">Davao</li>
+                            <li class="places-li">Ilocos Norte</li>
+                            <li class="places-li">Ilocos Sur</li>
+                            <li class="places-li">Laguna</li>
+                            <li class="places-li">Leyte</li>
+                            <li class="places-li">Marinduque</li>
+                            <li class="places-li">Negros Occidental</li>
+                            <li class="places-li">Negros Oriental</li>
+                            <li class="places-li">Nueva Ecija</li>
+                            <li class="places-li">Palawan</li>
+                            <li class="places-li">Pampanga</li>
+                            <li class="places-li">Pangasinan</li>
+                            <li class="places-li">Quezon</li>
+                            <li class="places-li">Romblon</li>
+                            <li class="places-li">Sarangani</li>
+                            <li class="places-li">Sultan Kudarat</li>
+                            <li class="places-li">Surigao del Norte</li>
+                            <li class="places-li">Surigao del Sur</li>
+                            <li class="places-li">Tawi tawi</li>
+                            <li class="places-li">Zambales</li>
+                            <li class="places-li">Zamboanga</li>
+                            </form>
 
                         </ul>
                     </li>
@@ -191,6 +194,14 @@ if(!isset($_SESSION['id'])) # if user is already logged in, redirect to logged i
     </div>
 
     <script>
+        $(document).ready(function(){ 
+              $('#places-dropdown').on('click',function(e)
+                   {
+                        $('#topic').val($(e.target).text());
+                        //$('#topic').Text($(e.target).text());
+                        $('#places-form').submit();
+                   });
+        });
         var off = 0;
         var mode = "home";//this decides how the arrangement of posts appear
         //choices are {string} "home" or "highest"
@@ -234,30 +245,30 @@ if(!isset($_SESSION['id'])) # if user is already logged in, redirect to logged i
         
         $(function() {
 
-  // We can attach the `fileselect` event to all file inputs on the page
-  $(document).on('change', ':file', function() {
-    var input = $(this),
-        numFiles = input.get(0).files ? input.get(0).files.length : 1,
-        label = input.val().replace(/\\/g, '/').replace(/.*\//, '');
-    input.trigger('fileselect', [numFiles, label]);
-      alert(input.val().get(1));
-  });
-
-  // We can watch for our custom `fileselect` event like this
-  $(document).ready( function() {
-      $(':file').on('fileselect', function(event, numFiles, label) {
-
-          var input = $(this).parents('.input-group').find(':text'),
-              log = numFiles > 1 ? numFiles + ' files selected' : label;
-
-          if( input.length ) {
-              input.val(log);
-          } else {
-              if( log ) alert(log);
-          }
-
+      // We can attach the `fileselect` event to all file inputs on the page
+      $(document).on('change', ':file', function() {
+        var input = $(this),
+            numFiles = input.get(0).files ? input.get(0).files.length : 1,
+            label = input.val().replace(/\\/g, '/').replace(/.*\//, '');
+        input.trigger('fileselect', [numFiles, label]);
+          alert(input.val().get(1));
       });
-  });
+
+      // We can watch for our custom `fileselect` event like this
+      $(document).ready( function() {
+          $(':file').on('fileselect', function(event, numFiles, label) {
+
+              var input = $(this).parents('.input-group').find(':text'),
+                  log = numFiles > 1 ? numFiles + ' files selected' : label;
+
+              if( input.length ) {
+                  input.val(log);
+              } else {
+                  if( log ) alert(log);
+              }
+
+          });
+      });
   
 });
         
