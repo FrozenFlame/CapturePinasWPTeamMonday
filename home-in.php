@@ -111,7 +111,7 @@ if(!isset($_SESSION['id'])) # if user is already logged in, redirect to logged i
         </div>
     </nav>
     <!-- End of Nav bar -->
-      
+      <br>
       <div class="container" id ="home-posts">
           <div class="col-sm-offset-2 col-offset-xs-0 col-sm-8 col-xs-12 post-container">
              <div class="post" style="padding-bottom:10px;">  
@@ -187,7 +187,7 @@ if(!isset($_SESSION['id'])) # if user is already logged in, redirect to logged i
         <!-- more posts button -->
       
     <div class="wrapper">
-        <button type="button" onclick="loadPost()" id="load-more-button">Load More Posts</button>
+        <button type="button" class="btn btn-default" onclick="loadPost()" id="load-more-button">Load More Posts</button>
     </div>
 
     <script>
