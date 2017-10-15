@@ -77,11 +77,11 @@ img {
 }
 #line-bold{ /*fix this at some point*/
     padding-top: 10px;
-    width: 100%;
+    margin: auto;
     border-width: 1px;
     border-bottom: solid;
     border-bottom-width: thick;
-    border-color: black;S
+    border-color: black;
 }
 .textarea-div{
     width: 95%;
@@ -136,12 +136,22 @@ textarea{
 .glyphicon glyphicon-triangle-bottom{
     padding-top: 10px;
 }
+.places-li{
+    margin-left: 10px;
+    margin-top: 5px;
+    cursor: pointer;
+    
+}
+.places-li:hover {
+    color:darkgreen;
+    font-weight: bold;
+}
 .dropdown-menu {
      display: none;/*This is the default state.*/
     z-index: 9999;
     position: absolute;
-    width: 400px;
-    max-height:180px;/*The important part*/
+    width: 450px;
+    max-height:300px;/*The important part*/
     overflow-y:auto;/*Also...*/
     overflow-x:hidden;/*And the end of the important part*/
     margin: 0px;

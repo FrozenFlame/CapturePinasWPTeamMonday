@@ -188,11 +188,17 @@ if(isset($_SESSION['id'])) # if user is already logged in, redirect to logged in
       
       
       <script>
-
+        
           //LOGIN CODE
         var attemptsRem = 5;
         $(document).ready(function()
         {
+            $("#Password-modal").keyup(function(event){
+                if(event.keyCode == 13){
+                    $("#bloginmdl").click();
+                }
+            });
+            
             $("#seePwdBtnModal").click(function()
             {
                 var password = document.getElementById('Password-modal');
