@@ -271,9 +271,6 @@ if(!isset($_SESSION['id'])) # if user is already logged in, redirect to logged i
       });
   
 });
-        
-        
-
     </script>      
 
   </body>

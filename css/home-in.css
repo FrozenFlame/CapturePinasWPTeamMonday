@@ -11,7 +11,6 @@ body {
 margin-top:10px;
 margin-left:auto;
 width:12%;
-    cursor: pointer;
 }
 .comment-user-image {
 margin-top: auto;
@@ -82,7 +81,7 @@ img {
     border-width: 1px;
     border-bottom: solid;
     border-bottom-width: thick;
-    border-color: black;S
+    border-color: black;
 }
 .textarea-div{
     width: 95%;
@@ -151,8 +150,8 @@ textarea{
      display: none;/*This is the default state.*/
     z-index: 9999;
     position: absolute;
-    width: 400px;
-    max-height:180px;/*The important part*/
+    width: 450px;
+    max-height:300px;/*The important part*/
     overflow-y:auto;/*Also...*/
     overflow-x:hidden;/*And the end of the important part*/
     margin: 0px;
