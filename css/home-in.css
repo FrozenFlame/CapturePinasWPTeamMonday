@@ -1,6 +1,11 @@
 body {
     background-color: ghostwhite;
 }
+
+.wrapper {
+    text-align: center;
+    padding-bottom: 15px;
+}
 /* for media */
 .post-user-image {
 margin-top:10px;
@@ -16,6 +21,12 @@ width:8%;
 padding-right:20px;
 }
 /* end of for media */
+/* for uploading post */
+#upload-post-select{
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+/*  end of for uploading post*/
 /* for post */
 .carousel {
     margin-top:3px;
@@ -35,7 +46,6 @@ padding-right:20px;
     border-color: darkgray;
     border-width: 1px;
     background-color: whitesmoke;
-   
 }
 .post-description{
     margin-top: 10px;
@@ -50,7 +60,15 @@ img {
 }
 #line{
     padding-top: 10px;
-    width: 95%;
+    width: 96%;
+    border-width: 1px;
+    border-bottom: solid;
+    border-bottom-width: thin;
+    border-color: lightgray;
+}
+#line-1{
+    padding-top: auto;
+    width: 96%;
     border-width: 1px;
     border-bottom: solid;
     border-bottom-width: thin;

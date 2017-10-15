@@ -40,14 +40,6 @@ img {
     width: 100%;
 }
 
-#line{ 
-    padding-top: 10px;
-    width: 95%;
-    border-width: 1px;
-    border-bottom: solid;
-    border-bottom-width: thin;
-    border-color: lightgray;
-}
 #line-bold{ /* id why I can't get this to work */
     padding-top: 10px;
     width: 95%;
