@@ -117,7 +117,7 @@ if(!isset($_SESSION['id'])) # if user is already logged in, redirect to logged i
           <div class="col-sm-offset-2 col-offset-xs-0 col-sm-8 col-xs-12 post-container">
              <div class="post" style="padding-bottom:10px;">  
                 <div class="row">
-                    <p><b>Make a post</b></p>
+                    <p style="margin-top:5px;"><b>Make a post</b></p>
                     <p id="line-1"></p>
                 </div>
                 <div class="row">  
@@ -133,7 +133,7 @@ if(!isset($_SESSION['id'])) # if user is already logged in, redirect to logged i
                 </div>
                 <div class="row">
                      <div class="form-inline" id="upload-post-select">                             
-                          <label for="sel1">Select place </label>
+                          <label for="sel1" style="padding-right:5px;">Select place </label>
                           <select class="form-control" id="upload-select">
                               <option>Albay</option>
                               <option>Banaue</option>

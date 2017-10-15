@@ -67,6 +67,7 @@ img {
     border-color: lightgray;
 }
 #line-1{
+    margin-top: auto;
     padding-top: auto;
     width: 96%;
     border-width: 1px;
