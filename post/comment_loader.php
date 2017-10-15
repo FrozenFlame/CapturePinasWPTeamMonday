@@ -54,7 +54,6 @@ function getHYPED($hype)
             {
                 commentsJSON = JSON.parse(data);
                 //no format file for this one, just focusing on the database yanking
-                
                
                 if(commentsJSON.length < 2) //balances the number
                     commentIterator--;
@@ -81,20 +80,60 @@ function getHYPED($hype)
                                 var a2 = document.createElement("text"); //comment
                                 a2.setAttribute("id","comment"+(it+iterator));
                                 a2.innerHTML = commentsJSON[it].content;
+                              
+                                //yo learned something, adding 'data-' before your attempt at a custom tag attribute allows the document to remain in valid status. this is a new HTML 5 thing.
+                                var a3b = document.createElement("button");
+                                a3b.setAttribute("type", "button");
+                                a3b.setAttribute("class", "btn btn-default");
+                                a3b.setAttribute("id", "comment-like-btn" +(it+iterator));
+                                a3b.setAttribute("onclick","thumbsUpComment(this)");
+                                    var a3btext = document.createElement("text");
+                                    a3btext.setAttribute("id","comment-likes" );
+                                    a3btext.setAttribute("data-commentid", commentsJSON[it].commentid);//this is now commentid
+                                    a3btext.innerHTML = commentsJSON[it].likes +" ";
+                                    var a3bspan = document.createElement("span");
+                                    a3bspan.setAttribute("class", "glyphicon glyphicon-thumbs-up");
+                                    a3bspan.setAttribute("aria-hidden","true");
+                                a3b.appendChild(a3btext);
+                                a3b.appendChild(a3bspan);
+                                // var a3 = document.createElement("text"); 
+                                // a3.innerHTML = "Likes: ";
+                                /*
+                                <button class="btn btn-default" type="button" id="post-like-btn">
+                                    <text id = "post-likes">0</text> 
+                                    <span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span>
+                                </button>
 
-                                var a3 = document.createElement("text"); 
-                                a3.innerHTML = "Likes: ";
+                                <button class="btn btn-default" type="button" id="post-unlike-btn">
+                                    <text id = "post-dislikes">0</text>  
+                                    <span class="glyphicon glyphicon-thumbs-down" aria-hidden="true"></span>
+                                </button>
+                                */
+                                var a4b = document.createElement("button");
+                                a4b.setAttribute("type", "button");
+                                a4b.setAttribute("class", "btn btn-default");
+                                a4b.setAttribute("id", "comment-dislike-btn" +(it+iterator));
+                                a4b.setAttribute("onclick","thumbsDownComment(this)");
+                                    var a4btext = document.createElement("text");
+                                    a4btext.setAttribute("id","post-dislikes");
+                                    a4btext.setAttribute("data-commentid", commentsJSON[it].commentid);//this is now commentid
+                                    a4btext.innerHTML = commentsJSON[it].dislikes +" ";
+                                    var a4bspan = document.createElement("span");
+                                    a4bspan.setAttribute("class", "glyphicon glyphicon-thumbs-down");
+                                    a4bspan.setAttribute("aria-hidden","true");
+                                a4b.appendChild(a4btext);
+                                a4b.appendChild(a4bspan);
 
-                                var a4 = document.createElement("b"); //actual likes value
-                                a4.innerHTML = commentsJSON[it].likes+" ";
-                                a4.setAttribute("id","likes"+(it+iterator));
+                                // var a4 = document.createElement("b"); //actual likes value
+                                // a4.innerHTML = commentsJSON[it].likes+" ";
+                                // a4.setAttribute("id","likes"+(it+iterator));
 
-                                var a5 = document.createElement("text"); //dislikes
-                                a5.innerHTML = "Dislikes: ";
+                                // var a5 = document.createElement("text"); //dislikes
+                                // a5.innerHTML = "Dislikes: ";
 
-                                var a6 = document.createElement("b"); //actual dislike value
-                                a6.innerHTML = commentsJSON[it].dislikes+" ";
-                                a6.setAttribute("id","dislikes"+(it+iterator));
+                                // var a6 = document.createElement("b"); //actual dislike value
+                                // a6.innerHTML = commentsJSON[it].dislikes+" ";
+                                // a6.setAttribute("id","dislikes"+(it+iterator));
                                 
                                 var pLine = document.createElement("p");
                                 pLine.setAttribute("id","line");
@@ -105,10 +144,14 @@ function getHYPED($hype)
                     mediaBody.appendChild(document.createElement("br"));
                     mediaBody.appendChild(a2);
                     mediaBody.appendChild(document.createElement("br"));
-                    mediaBody.appendChild(a3);
-                    mediaBody.appendChild(a4);
-                    mediaBody.appendChild(a5);
-                    mediaBody.appendChild(a6);
+                    mediaBody.appendChild(a3b);
+                    var space = document.createElement("text");
+                    space.innerHTML = " ";
+                    mediaBody.appendChild(space);
+                    mediaBody.appendChild(a4b);
+                    // mediaBody.appendChild(a4);
+                    // mediaBody.appendChild(a5);
+                    // mediaBody.appendChild(a6);
                     media.appendChild(mediaBody);
                     media.appendChild(pLine);
                     commsec.appendChild(media);

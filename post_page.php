@@ -82,7 +82,7 @@ if(!isset($_SESSION['id'])) # sets variable for guests
 
                         </ul>
                     </li>
-                    <li><a href="#">About Us</a></li>
+                    <li><a href="#" onclick="comm()">About Us</a></li>
 
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
@@ -123,8 +123,13 @@ if(!isset($_SESSION['id'])) # sets variable for guests
 
     <script>
         window.onload = doSet();
-        var item = "<?php echo $isGuest; ?>";
-        var isGuest = (item > 0) ? item : 1;
+        var item = "<?php echo $isGuest; ?>"; 
+        var isGuest = (item > 0) ? item : 1;//this isGuest stuff is for when the person viewing a particular post is logged in or not, this will urge them to log in if they try to do likes/comment etc related
+        var counter;
+        function comm()
+        {
+            document.getElementById("comment-like-btn");
+        }
         function doSet() //actually prepares navbar is what set does
         {
             var passed = 'getId';
@@ -146,7 +151,6 @@ if(!isset($_SESSION['id'])) # sets variable for guests
             var command = "search";
             window.location = "search_results.php";
         });
-      
         
 
     </script>      

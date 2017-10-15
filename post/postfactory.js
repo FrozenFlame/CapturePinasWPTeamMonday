@@ -12,6 +12,7 @@
  * @param {int} index - The index for the unique id acquisition.
  */
 var postJSON;
+var _userid = "<?php echo $_SESSION['id'] ?>";
 function createPostLite(container, json, index)
 {
     // setting of JSON content will be synced
@@ -277,10 +278,6 @@ function createPostLite(container, json, index)
 
 
 //WARNING: Every function below 
-function leftClicked() //how to get name of button that took the action
-{
-
-}
 
 /**
  * @param elem - this is the element itself
@@ -297,6 +294,89 @@ function thumbsDown(elem)
     // alert(id);
     var eleText = elem.children;
     eleText[0].innerHTML = parseInt(eleText[0].innerHTML) +1 +" ";
+}
+
+function thumbsUpComment(elem)
+{
+    var commentRating = elem.children[0]; //index 0 because the first child of this element contains our commentid  
+    var commentIndex = elem.getAttribute("id").substr(16); //id is comment-like-btn which is 16 characters
+    var thumbdownelem = document.getElementById('comment-dislike-btn'+commentIndex);
+    //first we check what status the user has with the comment
+    /*
+    <input type="text" id="foo" data-something="something" value="bar">
+    and the javascript.
+
+    var el = document.getElementById("foo"); 
+
+    console.log(el.value) // bar
+    console.log(el.getAttribute("id")) // foo
+    console.log(el.dataset.something) //something
+    */ 
+    $.post('ajax/db_dealer.php', {type:"get", command:"commentOpinion", commentid: commentRating.dataset.commentid}, function(data) //we expect data to be: L, D, or N
+    {
+        alert(data +" prev opinion");
+        switch(data)
+        {
+            case 'N'://Neutral  (+1 for like)                   -> db value is now L
+                commentRating.innerHTML = parseInt(commentRating.innerHTML) +1 +" ";
+                giveCommentOpinion(commentRating.dataset.commentid, "L");
+            break;
+            case 'L'://Liked    (-1 for dislike)                -> db value is now N
+                commentRating.innerHTML = parseInt(commentRating.innerHTML) -1 +" ";
+                giveCommentOpinion(commentRating.dataset.commentid, "N");
+            break;
+            case 'D'://Disliked (+1 for like, -1 for dislike)   -> db value is now L
+                commentRating.innerHTML = parseInt(commentRating.innerHTML) +1 +" ";
+                thumbdownelem.children[0].innerHTML = parseInt(thumbdownelem.children[0].innerHTML) -1 +" ";
+                giveCommentOpinion(commentRating.dataset.commentid, "L");
+            break;
+        }
+    }); 
+    //cooldown
+    elem.disabled = true;
+    setTimeout(function()
+    {
+        elem.disabled = false;
+    },1000);
+}
+function thumbsDownComment(elem)
+{
+    var commentRating = elem.children[0];
+    var commentIndex = elem.getAttribute("id").substr(19); //id is comment-dislike-btn which is 19 characters
+    var thumbupelem = document.getElementById('comment-like-btn'+commentIndex);
+    // alert("hey " +commentIndex);
+    // alert(document.getElementById('comment-dislike-btn'+commentIndex).children[0].innerHTML +" complexshiz");
+
+    $.post('ajax/db_dealer.php', {type:"get", command:"commentOpinion", commentid: commentRating.dataset.commentid}, function(data) //we expect data to be: L, D, or N
+    {
+        alert(data +" prev opinion");
+        switch(data)
+        {
+            case 'N'://Neutral  (+1 for dislike)                -> db value is now D
+                commentRating.innerHTML = parseInt(commentRating.innerHTML) +1 +" ";
+                giveCommentOpinion(commentRating.dataset.commentid, "D");
+            break;
+            case 'L'://Liked    (+1 for dislike, -1 for like)   -> db value is now D
+                commentRating.innerHTML = parseInt(commentRating.innerHTML) +1 +" ";
+                thumbupelem.children[0].innerHTML = parseInt(thumbupelem.children[0].innerHTML) -1 +" ";
+                giveCommentOpinion(commentRating.dataset.commentid, "D");
+            break;
+            case 'D'://Disliked (-1 for dislike)                -> db value is now N
+                commentRating.innerHTML = parseInt(commentRating.innerHTML) -1 +" ";
+                giveCommentOpinion(commentRating.dataset.commentid, "N");
+            break;
+        }
+    });
+    //cooldown
+    elem.disabled = true;
+    setTimeout(function()
+    {
+        elem.disabled = false;
+    },1000);
+}
+function giveCommentOpinion(commentid, opinion)
+{
+    $.post('ajax/db_dealer.php', {type: "set", command: "commentOpinion", commentid: commentid, opinion: opinion});
 }
 
 function setChildren()
