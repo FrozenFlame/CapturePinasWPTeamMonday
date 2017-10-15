@@ -6,6 +6,8 @@ if(!isset($_SESSION['id'])) # if user is already logged in, redirect to logged i
 {
   header('Location: index.php');
 }
+
+$query = $_POST['query'];
 ?>
 <html>
   <head>
@@ -15,7 +17,7 @@ if(!isset($_SESSION['id'])) # if user is already logged in, redirect to logged i
     <link rel="stylesheet" href="css/bootstrap.min.css"> <!-- changed to local files -->
     <script src = "js/jquery-3.2.1.js"></script>
     <script src="js/bootstrap.min.js"></script>
-    <script src="js/bootstrap.min.js"></script>
+    <script src= "post/postfactory.js"> </script>
     <link href="css/home-in.css" rel="stylesheet">
     <link href="css/post.css" rel="stylesheet">
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -113,35 +115,18 @@ if(!isset($_SESSION['id'])) # if user is already logged in, redirect to logged i
     <!-- End of Nav bar -->
     <br/>
     <br/>
-    <h1>Results</h1>
+    <h1 id ="h1-search">Results for: ""</h1>
 
     <p id="line-bold"></p>
     <!-- this is where results will be generated -->
     
-    <div class="container" id="results"> 
-    
+    <div class="container" id="result-posts"> 
+    <h2 id = "searchby"></h2>
     </div>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     <script>
+        var off = 0;
+        var mode = "searchPlace";
         window.onload = doSet();
         function doSet() //actually prepares navbar is what set does, and for this page, this also initiates search population
         {
@@ -151,44 +136,27 @@ if(!isset($_SESSION['id'])) # if user is already logged in, redirect to logged i
                 $('a#nav_name_user').text(data+' ');
                 $('a#nav_name_user').append('<span class="glyphicon glyphicon-triangle-bottom" aria-hidden="true"></span>');
             });
-            
+            var searchby;
+            switch(mode)
+            {
+                case 'searchPlace': searchby = "place"; break;
+            }
+            document.getElementById('searchby').innerHTML = "Searching by <i>" +searchby +"</i>";
             // post population
-            var postid = "<?php echo $postID?>"; //this postid is what will show up, just for testing purposes 
-            var passed = 'getPostInfo';
-            var type = 'get';
-            var post;
-            $.post('ajax/db_dealer.php', {command: passed, type: type, postid: postid}, function(data)
-            {
-                post = JSON.parse(data);
-                $('b#post-title').text(post[0].title);
-                
-                var command = 'getPostAuthor';
-                var userid = post[0].userid;
-                $.post('ajax/db_dealer.php', {command: command, type: type, author_id: userid}, function(data)
-                {
-                    $('b#post-name').text(data);
-                }); 
-                $('b#post-place').text(post[0].place);
-                $('p#post-timestamp').text(post[0].timestamp);
-                $('p#post-description').text(post[0].description);
-                $('text#post-likes').text(post[0].likes);
-                $('text#post-dislikes').text(post[0].dislikes);
-            });
-            var resultNo = 0;
-            if(resultNo > 0)
-            {
-                for(var x = 0; x < resultNo; x++)
-                {
-                    
-                }
-            }
-            else
-            {   
-                var g = document.getElementById("results");
-                g.innerHTML = "<b> Sorry! No posts found with that criteria!";
-
-            }
             
+            var search = "<?php echo $query; ?>";
+            document.getElementById("h1-search").innerHTML = "Results for: \"" +search +"\"";
+
+            $.post('ajax/db_dealer.php', {type:"search", command:mode, searchplace: search, offset: 0}, function(data)
+            {
+                // alert(data);
+                if(data)
+                {
+                    createPostLite(document.getElementById('result-posts'), data, 0);
+                }
+                else 
+                    document.getElementById('results').innerHTML = "<h2> Sorry! No posts found with your search query. :( </h2>";
+            });
         }
 
         // $("button#navbar-search-button").click(function()

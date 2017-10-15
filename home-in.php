@@ -16,7 +16,7 @@ if(!isset($_SESSION['id'])) # if user is already logged in, redirect to logged i
     <link rel="stylesheet" href="css/bootstrap.min.css"> <!-- changed to local files -->
     <script src = "js/jquery-3.2.1.js"></script>
     <script src="js/bootstrap.min.js"></script>
-    <script src= "post/postfactory.js"> </script>;
+    <script src= "post/postfactory.js"> </script>
     <link href="css/home-in.css" rel="stylesheet">
     <link href="css/post.css" rel="stylesheet">
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -119,8 +119,10 @@ if(!isset($_SESSION['id'])) # if user is already logged in, redirect to logged i
 <p><button type="button" onclick="loadPost()">Load More Posts</button></p>
 
     <script>
-        window.onload = doSet();
         var off = 0;
+        var mode = "home";//this decides how the arrangement of posts appear
+        //choices are {string} "home" or "highest"
+        window.onload = doSet();
         function doSet() //actually prepares navbar is what set does
         {
             var passed = 'getId';
@@ -132,27 +134,26 @@ if(!isset($_SESSION['id'])) # if user is already logged in, redirect to logged i
             });
 
             //NOTE offset is 0 because this is the FIRST TIME LOAD of the page. Before the "more" is clicked.
-            $.post('ajax/db_dealer.php', {type: "search", command: "home", offset: 0}, function(data)
+            $.post('ajax/db_dealer.php', {type: "search", command: mode, offset: 0}, function(data)
             {
                 // alert(data); //data now contains JSON formatted goods
                 createPostLite(document.getElementById('home-posts'), data, 0);
             });
-
         }
 
-        $("button#navbar-search-button").click(function()
-        {
-            //this is the basic search function, not advanced search
-            //Plaintext could mean either place or title text, likely to be place text
-            //@ means user search ex: @Reymark
-            var navSearchText = $("input#navbar-search").val();
-            var command = "search";
-            window.location = "search_results.php";
-        });
+        // $("button#navbar-search-button").click(function()
+        // {
+        //     //this is the basic search function, not advanced search
+        //     //Plaintext could mean either place or title text, likely to be place text
+        //     //@ means user search ex: @Reymark
+        //     var navSearchText = $("input#navbar-search").val();
+        //     var command = "search";
+        //     window.location = "search_results.php";
+        // });
         function loadPost()
         {
             off+=4;
-            $.post('ajax/db_dealer.php', {type: "search", command: "home", offset: off}, function(data)
+            $.post('ajax/db_dealer.php', {type: "search", command: mode, offset: off}, function(data)
             {
                 // alert(data); //data now contains JSON formatted goods, debugging tool
                 createPostLite(document.getElementById('home-posts'), data, off);
