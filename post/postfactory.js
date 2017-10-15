@@ -22,7 +22,7 @@ function createPostLite(container, json, index)
     var jsonlength;
     (postJSON.length == null)? jsonlength = 0:jsonlength = postJSON.length;
     off -= (4-jsonlength); //this keeps our function ready for any new database entries on the fly. Ajax gaming.
-
+    
     //basically, every item here needs to have some kind of naming convention attached to them + the uniqueID
     // might need some algorithm in separate functions for this, for variable length things like images uploaded
     //OKAY, while working it stumbled in my mind that maybe we don't needto give a unique ID to EVERYTHING after all
@@ -314,7 +314,7 @@ function thumbsUpComment(elem)
     */ 
     $.post('ajax/db_dealer.php', {type:"get", command:"commentOpinion", commentid: commentRating.dataset.commentid}, function(data) //we expect data to be: L, D, or N
     {
-        alert(data +" prev opinion");
+        // alert(data +" prev opinion");
         switch(data)
         {
             case 'N'://Neutral  (+1 for like)                   -> db value is now L

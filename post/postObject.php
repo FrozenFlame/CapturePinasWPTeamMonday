@@ -11,7 +11,7 @@ class Post
     private $_dislikes;
     private $_timestamp;
     private $_username;
-     private $_avatarpath; //avatar
+    private $_avatarpath; //avatar
     //add: array of file paths for the pictures
     private $_filepathsL;
     public function __construct($postid, $userid, $title, $place, $description, $likes, $dislikes, $timestamp, $username, $filepath)
