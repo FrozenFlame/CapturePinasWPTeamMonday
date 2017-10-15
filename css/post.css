@@ -2,6 +2,9 @@ body {
     background-color: ghostwhite;
 }
 /* for post */
+#postdiv{
+    padding-bottom: 10px;
+}
 .media {
     margin-bottom: auto;
     margin-top: auto;
@@ -12,9 +15,7 @@ body {
 #post-title-p {
     margin: 0;
 }
-.container {
-        padding: 50px;
-    }
+
 .post {
     margin: auto;
     margin-top: 10px;

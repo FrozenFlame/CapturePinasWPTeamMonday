@@ -9,6 +9,7 @@
 ?>
 
   <body>
+      <div class="container-post">
         <div id ="postdiv">
             <div class="col-sm-offset-2 col-offset-xs-0 col-sm-8 col-xs-12 post-container">
                 <div class="post">
@@ -79,6 +80,7 @@
                 </div>
             </div>
         </div>
+      </div>
         
                 
       <script>

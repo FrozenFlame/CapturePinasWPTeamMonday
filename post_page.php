@@ -15,9 +15,10 @@ if(!isset($_SESSION['id'])) # sets variable for guests
     <link rel="stylesheet" href="css/bootstrap.min.css"> <!-- changed to local files -->
     <script src = "js/jquery-3.2.1.js"></script>
     <script src="js/bootstrap.min.js"></script>
-    <script src= "post/postfactory.js"> </script>;
+    <script src= "post/postfactory.js"> </script>
     <link href="css/home-in.css" rel="stylesheet">
     <link href="css/post.css" rel="stylesheet">
+      <!--fake-->
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
       <script src="js/html5shiv.js"></script>
@@ -114,12 +115,12 @@ if(!isset($_SESSION['id'])) # sets variable for guests
     <br/>
     <br/>
     <br/>
-    <br/>
-    <br/>
+    
     <?php 
     $postID = (isset($_GET['post']) && !empty($_GET['post'])) ? $_GET['post'] : 0;
     // $postID = $_POST['post'];
     include("post/post.php"); ?>
+      
 
     <script>
         window.onload = doSet();
@@ -150,6 +151,5 @@ if(!isset($_SESSION['id'])) # sets variable for guests
         
 
     </script>      
-
   </body>
 </html>
