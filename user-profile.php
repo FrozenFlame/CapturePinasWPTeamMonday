@@ -125,6 +125,7 @@ if(!isset($_SESSION['id'])) # if user is already logged in, redirect to logged i
                                 
                             </div>
                     </div>
+                  <p id="line" style="margin-bottom:auto;"></p>
                   <p id="bio" style="padding-top:5px;"></p>
               </div>
               <div id="home-posts" class="col-lg-6">
