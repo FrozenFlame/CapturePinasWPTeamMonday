@@ -136,7 +136,7 @@ if(!isset($_SESSION['id'])) # if user is already logged in, redirect to logged i
         <!-- more posts button -->
       
     <div class="wrapper">
-        <button type="button" class="btn btn-default" onclick="loadPost()" id="load-more-button">Load More Posts</button>
+        <button type="button" class="btn btn-default" onclick="loadPost()" id="load-more-button" style="margin-top:10px;">Load More Posts</button>
     </div>
 
     <script>

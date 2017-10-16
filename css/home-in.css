@@ -29,6 +29,7 @@ padding-right:20px;
 /*  end of for uploading post*/
 /* for post */
 .carousel {
+    overflow: hidden;
     margin-top:3px;
     width: 96%;
     margin-bottom: 5px;

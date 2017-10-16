@@ -177,11 +177,11 @@ if(!isset($_SESSION['id'])) # if user is already logged in, redirect to logged i
                  <div class="row">
                      <p style="margin:auto;"><b> Title </b></p>
                      <div class="textarea-div">
-                        <input type="text" class="form-control" placeholder="Location (optional)" id="post-title"></input>
+                        <input type="text" class="form-control" placeholder="Enter title" id="post-title"></input>
                      </div>
                      <b> Where </b>
                      <div class="textarea-div">
-                        <input type="text" class="form-control" placeholder="Location (optional)" id="post-location"></input>
+                        <input type="text" class="form-control" placeholder="Enter location (optional)" id="post-location"></input>
                      </div>
     
                      <b> Description </b>
