@@ -13,7 +13,7 @@ body {
 .profile-details {
     margin-right: 1px;
     margin-top: 10px;
-    margin-left:38px;
+    margin-left:40px;
     border-radius: 5px;
     border-style: solid;
     border-color: darkgray;
@@ -21,6 +21,11 @@ body {
     background-color: whitesmoke;
 }
 /* for media */
+.profile-user-image {
+margin-top:10px;
+margin-left:auto;
+width:25%;
+}
 .post-user-image {
 margin-top:10px;
 margin-left:auto;

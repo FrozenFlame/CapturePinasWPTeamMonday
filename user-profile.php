@@ -117,7 +117,15 @@ if(!isset($_SESSION['id'])) # if user is already logged in, redirect to logged i
       <div class="container-fluid container-user-profile row">
           <div class="row">
               <div class="col-lg-3 profile-details">
-                  <h4>fake</h4>
+                  <div class="media">
+                            <img class="d-flex mr-3 profile-user-image pull-left" id= "user-image"/>
+                            <div class="media-body">
+                                <h4 style="padding-top:10px;"><b id="profile-name"></b></h4>
+                                
+                                
+                            </div>
+                    </div>
+                  <p id="bio" style="padding-top:5px;"></p>
               </div>
               <div id="home-posts" class="col-lg-6">
               </div>
@@ -132,6 +140,7 @@ if(!isset($_SESSION['id'])) # if user is already logged in, redirect to logged i
 
     <script>
         $(document).ready(function(){ 
+               
               $('#places-dropdown').on('click',function(e)
                    {
                         $('#topic').val($(e.target).text());
@@ -150,6 +159,7 @@ if(!isset($_SESSION['id'])) # if user is already logged in, redirect to logged i
 
             $.post('ajax/set.php', {passed: passed}, function(data)  //user is what we're passing in, and usern is what php will reference it with.
             {                                                               //data there is what php will return or "echo"
+                $('b#profile-name').text(data);
                 $('a#nav_name_user').text(data+' ');
                 $('a#nav_name_user').append('<span class="glyphicon glyphicon-triangle-bottom" aria-hidden="true"></span>');
             });
@@ -163,11 +173,14 @@ if(!isset($_SESSION['id'])) # if user is already logged in, redirect to logged i
             });
             $.post('ajax/db_dealer.php', {type: "get", command: "getUserProfile"}, function(data)
             {
-                alert(data);
+                //alert(data);
                 //var profile;
-                //profile = JSON.parse(data);
-                //alert(profile.filepath);
-                
+                profile = JSON.parse(data);
+                var img = document.getElementById("user-image");
+                img.setAttribute("src",profile.filepath);
+                var name = document.getElementById("profile-name");
+                $('p#bio').text(profile.bio);
+                 
                 //alert(data);
                 // alert(data); //data now contains JSON formatted goods
             });

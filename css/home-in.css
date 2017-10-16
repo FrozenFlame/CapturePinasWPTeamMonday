@@ -47,6 +47,7 @@ padding-right:20px;
     border-width: 1px;
     background-color: whitesmoke;
 }
+
 .post-description{
     margin-top: 10px;
     width: 96%;
@@ -84,7 +85,7 @@ img {
     border-color: black;
 }
 .textarea-div{
-    width: 95%;
+    width: 85%;
     display:inline-block;
     position:relative;
     padding-bottom: 15px;
@@ -100,9 +101,7 @@ textarea{
   bottom:23px;
   right:10px;
 }
-.post-title{
-    margin-top: 20px;
-}
+
 .post-username {
     margin-top: 15px;
     margin-bottom: auto;

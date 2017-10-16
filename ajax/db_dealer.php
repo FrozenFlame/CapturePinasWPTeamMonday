@@ -106,13 +106,13 @@
             else if($commandReceived==='getUserProfile')
             {
                 include_once('../post/userProfileObject.php');
-                $query = $this->db->prepare("SELECT filepath,bio FROM userinfo WHERE id = 1");
-                //$query->bindparam(1, $_SESSION['id']);
+                $query = $this->db->prepare("SELECT filepath,bio FROM userinfo WHERE id = ?");
+                $query->bindparam(1, $_SESSION['id']);
                 $query->execute();
                 $result = $query->fetch(PDO::FETCH_ASSOC);
                 $profile = new UserProfile($result['filepath'],$result['bio']);
                 //$profile->toArray();
-                echo json_encode($profile);
+                echo json_encode($profile->toArray());
             }
             else if($commandReceived==='getPostAuthor')
             {
