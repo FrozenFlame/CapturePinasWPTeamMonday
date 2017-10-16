@@ -1,3 +1,4 @@
+-- @author cKyuzee
 USE capturepinas;
 
 INSERT INTO users (id, username, fullname, email, password) VALUES
