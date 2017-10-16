@@ -1,3 +1,4 @@
+-- @author cKyuzee
 DROP DATABASE IF EXISTS capturepinas;
 
 CREATE DATABASE IF NOT EXISTS capturepinas;

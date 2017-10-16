@@ -112,6 +112,12 @@
                 $result = $query->fetch()['username'];
                 echo $result;
             }
+            else if($commandReceived==='getLastPostId')
+            {
+                $query = $this->db->prepare("SELECT postid FROM post ORDER BY postid DESC LIMIT 1");
+                $query->execute();
+                echo $query->fetch()['postid'];
+            }
             else if($commandReceived==='getLastCommentId')
             {
                 $query = $this->db->prepare("SELECT commentid FROM postcomments ORDER BY commentid DESC LIMIT 1 ");
@@ -180,13 +186,13 @@
                 */
                 //post columns are: postid, userid, title, place, description, likes, dislikes, favnum, timestamp
                 $postJSON = $_POST['postJSON'];
-                $post = json_decode($contentJSON);
+                $post = json_decode($postJSON);
                 $query = $this->db->prepare("INSERT INTO post VALUES(NULL, ?, ?, ?, ?, 0, 0, 0, NULL)");
                 $query->bindparam(1, $post->userid);
                 $query->bindparam(2, $post->title);
                 $query->bindparam(3, $post->place);
                 $query->bindparam(4, $post->description);
-                // $query->execute(); holding trigger for now
+                $query->execute(); //holding trigger for now
                 
                 //now to add filepaths;
                 //postmedia columns are: postid, filepath
@@ -198,7 +204,7 @@
                 foreach($post->path as $filepath) //$post->path is an array
                 {
                     $query2->bindparam(2, $filepath);
-                    // $query2->execute(); holding trigger for now
+                    $query2->execute(); //holding trigger for now
                 }                
             }
             else if($commandReceived === 'postOpinion')
