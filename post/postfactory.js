@@ -193,8 +193,17 @@ function createPostLite(container, json, index)
 
                         var hour = date.getHours();
                         var min = date.getMinutes();
+                        function FormatNumberLength(num, length) 
+                        {
+                            var r = num.toString();
+                            while (r.length < length) 
+                            {
+                                r = "0" + r;
+                            }
+                            return r;
+                        }
 
-                        return hour +":" +min +" " +day + " " + months[monthIndex] + " " + year;
+                        return "[" +FormatNumberLength(hour,2) +":" +FormatNumberLength(min,2)+"] " +day + " " + months[monthIndex] + ", " + year;
                     }
                     function formatDateStr(date) //returns a string for the Date() object
                     {
@@ -228,14 +237,7 @@ function createPostLite(container, json, index)
                     var diffTime = getTimeDiff(currentDate, postDate);
                     var timeString = jsDate +" " +diffTime;
                     
-                    
-                    // console.log(currentDate.getTime());
-                    // console.log(postDate.getTime());
-                    // console.log(currentDate.getTime() - postDate.getTime());
-
-                   
-
-
+                    console.log(jsDate);
                     /**
                      * end of algorithm
                      */
@@ -491,22 +493,47 @@ function getTimeDiff(curDate, posDate) //returns a string of the time difference
      * 1 month = 2.628e+9ms
      * 1 year = 3.154e+10
      */
+    var diff="";
+    
+    var unixDiff = Math.abs(curDate.getTime() - posDate.getTime());
 
-    /**
-     * days logic
-     * var date1 = new Date("7/13/2010");
-     * var date2 = new Date("7/14/2010");
-     * var timeDiff = Math.abs(date2.getTime() - date1.getTime());
-     * var diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24)); 
-     */
-    var diff=""
-      
-      
-       
+    if(unixDiff < 60000) //post is just a few seconds old
+    {
+        var grammar = (Math.ceil(unixDiff/(1000)) > 1) ? "seconds": "second";
+        var diff = Math.ceil(unixDiff / (1000))+ " seconds";
+    }
+    else if(unixDiff < 3.6e+6) //post is less than an hour old
+    {
+        var grammar = (Math.ceil(unixDiff/(1000 * 60)) > 1) ? " minutes": " minute";
+        var diff = Math.ceil(unixDiff/(1000 * 60)) +grammar;
+    }
+    else if(unixDiff < 8.64e+7) //post is less than a day old
+    {
+        var grammar = (Math.ceil(unixDiff/(1000 * 60 * 60)) > 1) ? " hours": " hour";
+        var diff = Math.ceil(unixDiff/(1000 * 60 * 60)) +grammar;
+    }
+    else if(unixDiff < 6.048e+8) //post is less than a week old
+    {
+        var grammar = (Math.ceil(unixDiff/(1000 * 60 * 60 * 24)) > 1) ? " days": " day";
+        var diff = Math.ceil(unixDiff/(1000 * 60 * 60 * 24)) +grammar;
+    }
+    else if(unixDiff < 2.628e+9) //post is less than a month old
+    {
+        var grammar = (Math.ceil(unixDiff/(1000 * 60 * 60 * 24 * 7)) > 1) ? " weeks": " week";
+        var diff = Math.ceil(unixDiff/(1000 * 60 * 60 * 24 * 7)) +grammar;
+    }
+    else if(unixDiff < 3.154e+10) //post is less than a year old
+    {                                                            //lol hax using days instead of weeks       
+        var grammar = (Math.ceil(unixDiff/(1000 * 60 * 60 * 24 * 30 )) > 1) ? " months": " month";
+        var diff = Math.ceil(unixDiff/(1000 * 60 * 60 * 24 * 30 )) +grammar;
+    }
+    else //years old ._. 
+    {
+        var grammar = (Math.ceil(unixDiff/(1000 * 60 * 60 * 24 * 7 * 4 * 12)) > 1) ? " years": " year";
+        var diff = Math.ceil(unixDiff/(1000 * 60 * 60 * 24 * 7 * 4 * 12)) +grammar;
+    }
         
-        
-    return "( " +diff +" ago)"
-       
+    return "(" +diff +" ago)";
 }
 
 function setChildren() //unused method.
