@@ -24,7 +24,8 @@ INSERT INTO post (postid, userid, title, place, description, likes, dislikes, fa
     (NULL, 5, "HELP!", "Camarines Sur", "So I was trying to get this picture of a dragonfly,
      but then I tripped and fell on my camera! Now I need a new one! T_T", 0, 0, 0, "2017-01-22 08:24:38"),
     
-    (NULL, 4, "\"The Last Frontier\"", "Palawan", "Guys punta kayo dito! Grabe ang ganda! Sama kayo sakin babalik ako dito <3", 4, 0, 4, "2017-02-03 22:04:16")
+    (NULL, 4, "\"The Last Frontier\"", "Palawan", "Guys punta kayo dito! Grabe ang ganda! Sama kayo sakin babalik ako dito <3", 4, 0, 4, "2017-02-03 22:04:16"),
+    (NULL, 1, "Memeis israel", "My mind, Tawi tawi", "ez butterini", 1, 1, 0, "2017-10-16 22:37:14")
     
 ;
 
@@ -58,7 +59,9 @@ INSERT INTO postcomments (postid, userid, content, likes, dislikes, timestamp) V
     (6, 2, "Wow! Haha tara sama ako XD", 2, 0, "2017-02-03 23:14:22"),
     (6, 4, "Yun tara! Next week?", 2, 0, "2017-02-03 23:14:26"),
     (6, 2, "Gege pwede! hahaahha", 2, 0, "2017-02-03 23:14:32"),
-    (6, 5, "I have no idea what you folks are talking about. Nice pics tho", 3, 0, "2017-02-04 09:34:26")
+    (6, 5, "I have no idea what you folks are talking about. Nice pics tho", 3, 0, "2017-02-04 09:34:26"),
+
+    (7, 1, "I got hacked wth", 1, 0, "2017-10-16 23:39:49")
 ;
 
 
@@ -86,7 +89,9 @@ INSERT INTO postmedia (postid, filepath) VALUES
     (5, "/CapturePinasWPTeamMonday/images/postimages/5img1.png"),
     
     (6, "/CapturePinasWPTeamMonday/images/postimages/6img1.png"),
-    (6, "/CapturePinasWPTeamMonday/images/postimages/6img2.png")
+    (6, "/CapturePinasWPTeamMonday/images/postimages/6img2.png"),
+    
+    (7, "/CapturePinasWPTeamMonday/images/postimages/7img1.gif")
 ;
 
 INSERT INTO userinfo (id, filepath, bio) VALUES 
@@ -142,7 +147,11 @@ INSERT INTO postopinion (postid, userid, opinion) VALUES
     (6, 2, 'L'),
     (6, 3, 'L'),
     (6, 4, 'L'),
-    (6, 5, 'L')
+    (6, 5, 'L'),
+
+    (7, 1, 'D'),
+    (7, 5, 'L')
+
 ;
 
 INSERT INTO commentopinion (commentid, userid, opinion) VALUES
@@ -182,5 +191,7 @@ INSERT INTO commentopinion (commentid, userid, opinion) VALUES
     (19, 2, 'L'),
     (20, 4, 'L'),
     (21, 2, 'L'),
-    (21, 4, 'L')
+    (21, 4, 'L'),
+
+    (26, 5, 'L')
 ;
