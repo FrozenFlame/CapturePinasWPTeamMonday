@@ -1,12 +1,31 @@
 body {
     background-color: ghostwhite;
 }
-
+.container-user-profile{
+    padding: inherit; 
+    padding-left: 1px;
+    padding-top: 30px;
+}
 .wrapper {
     text-align: center;
     padding-bottom: 15px;
 }
+.profile-details {
+    margin-right: 1px;
+    margin-top: 10px;
+    margin-left:40px;
+    border-radius: 5px;
+    border-style: solid;
+    border-color: darkgray;
+    border-width: 1px;
+    background-color: whitesmoke;
+}
 /* for media */
+.profile-user-image {
+margin-top:10px;
+margin-left:auto;
+width:25%;
+}
 .post-user-image {
 margin-top:10px;
 margin-left:auto;
@@ -33,9 +52,6 @@ padding-right:20px;
     width: 96%;
     margin-bottom: 5px;
 }
-.container {
-        padding: 30px;
-    }
 .post {
     margin: auto;
     margin-top: 10px;
@@ -47,7 +63,6 @@ padding-right:20px;
     border-width: 1px;
     background-color: whitesmoke;
 }
-
 .post-description{
     margin-top: 10px;
     width: 96%;
@@ -85,7 +100,7 @@ img {
     border-color: black;
 }
 .textarea-div{
-    width: 85%;
+    width: 95%;
     display:inline-block;
     position:relative;
     padding-bottom: 15px;
@@ -101,7 +116,9 @@ textarea{
   bottom:23px;
   right:10px;
 }
-
+.post-title{
+    margin-top: 20px;
+}
 .post-username {
     margin-top: 15px;
     margin-bottom: auto;

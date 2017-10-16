@@ -1,13 +1,12 @@
 <!-- Team Monday -->
-<!-- NO DESIGN YET -->
 <?php
 session_start();
+
 if(!isset($_SESSION['id'])) # if user is already logged in, redirect to logged in page.
 {
   header('Location: index.php');
 }
 
-$query = $_POST['query'];
 ?>
 <html>
   <head>
@@ -17,9 +16,8 @@ $query = $_POST['query'];
     <link rel="stylesheet" href="css/bootstrap.min.css"> <!-- changed to local files -->
     <script src = "js/jquery-3.2.1.js"></script>
     <script src="js/bootstrap.min.js"></script>
-    <script src= "post/postfactory.js"> </script>
-    <link href="css/home-in.css" rel="stylesheet">
-    <link href="css/post.css" rel="stylesheet">
+    <script src= "post/post-user-profile.js"> </script>
+    <link href="css/user-profile.css" rel="stylesheet">
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
       <script src="js/html5shiv.js"></script>
@@ -37,12 +35,12 @@ $query = $_POST['query'];
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="index.php">Capture Pinas</a>
+                <a class="navbar-brand" href="index.php">CapturePinas</a>
             </div>
             <div class="collapse navbar-collapse" id="myNavbar">
                 <ul class="nav navbar-nav">
                     <li class="active"><a href="index.php">Home</a></li>
-
+                        
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">Places <span class="glyphicon glyphicon-triangle-bottom" aria-hidden="true"></span></a>
                         <ul class="dropdown-menu" id="places-dropdown">
@@ -115,61 +113,79 @@ $query = $_POST['query'];
         </div>
     </nav>
     <!-- End of Nav bar -->
-    <br/>
-    <br/>
-    <h1 id ="h1-search">Results for: ""</h1>
-
-    <p id="line-bold"></p>
-    <!-- this is where results will be generated -->
-    
-    <div id="result-posts" style="padding-bottom:30px;padding-left:30px;padding-right:30px;"> 
-    <h2 id = "searchby"></h2>
+      <br>
+      <div class="container-fluid container-user-profile row">
+          <div class="row">
+              <div class="col-lg-3 profile-details">
+                  <div class="media">
+                            <img class="d-flex mr-3 profile-user-image pull-left" id= "user-image"/>
+                            <div class="media-body">
+                                <h4 style="padding-top:10px;"><b id="profile-name"></b></h4>
+                                
+                                
+                            </div>
+                    </div>
+                  <p id="line" style="margin-bottom:auto;"></p>
+                  <p id="bio" style="padding-top:5px;"></p>
+              </div>
+              <div id="home-posts" class="col-lg-6">
+              </div>
+          </div>
+      </div>
+      <!-- Make iterative -->
+        <!-- more posts button -->
+      
+    <div class="wrapper">
+        <button type="button" class="btn btn-default" onclick="loadPost()" id="load-more-button">Load More Posts</button>
     </div>
 
     <script>
         $(document).ready(function(){ 
+               
               $('#places-dropdown').on('click',function(e)
                    {
                         $('#topic').val($(e.target).text());
                         //$('#topic').Text($(e.target).text());
                         $('#places-form').submit();
                    });
-            if($('#searchby').val()==''){
-                $('#searchby').hide();
-            }
         });
         var off = 0;
-        var mode = "searchPlace";
+        var mode = "user-profile";//this decides how the arrangement of posts appear
+        
+        //choices are {string} "home" or "highest"
         window.onload = doSet();
-        function doSet() //actually prepares navbar is what set does, and for this page, this also initiates search population
+        function doSet() //actually prepares navbar is what set does
         {
             var passed = 'getId';
+
             $.post('ajax/set.php', {passed: passed}, function(data)  //user is what we're passing in, and usern is what php will reference it with.
             {                                                               //data there is what php will return or "echo"
+                $('b#profile-name').text(data);
                 $('a#nav_name_user').text(data+' ');
                 $('a#nav_name_user').append('<span class="glyphicon glyphicon-triangle-bottom" aria-hidden="true"></span>');
             });
-            var searchby;
-            switch(mode)
-            {
-                case 'searchPlace': searchby = "place"; break;
-            }
-            // document.getElementById('searchby').innerHTML = "Searching by <i>" +searchby +"</i>";
-            // post population
-            
-            var search = "<?php echo $query; ?>";
-            document.getElementById("h1-search").innerHTML = "Results for: \"" +search +"\"";
 
-            $.post('ajax/db_dealer.php', {type:"search", command:mode, searchplace: search, offset: 0}, function(data)
+            //NOTE offset is 0 because this is the FIRST TIME LOAD of the page. Before the "more" is clicked.
+            $.post('ajax/db_dealer.php', {type: "search", command: mode, offset: 0 }, function(data)
             {
-                // alert(data);
-                if(data)
-                {
-                    createPostLite(document.getElementById('result-posts'), data, 0);
-                }
-                else 
-                    document.getElementById('result-posts').innerHTML = "<h2> No posts found with your search query. :(<h2/> <br/> <h2>Sorry! -Team Monday </h2>";
+                //alert(data);
+                // alert(data); //data now contains JSON formatted goods
+                createPostLite(document.getElementById('home-posts'), data, 0);
             });
+            $.post('ajax/db_dealer.php', {type: "get", command: "getUserProfile"}, function(data)
+            {
+                //alert(data);
+                //var profile;
+                profile = JSON.parse(data);
+                var img = document.getElementById("user-image");
+                img.setAttribute("src",profile.filepath);
+                var name = document.getElementById("profile-name");
+                $('p#bio').text(profile.bio);
+                 
+                //alert(data);
+                // alert(data); //data now contains JSON formatted goods
+            });
+            
         }
 
         // $("button#navbar-search-button").click(function()
@@ -179,13 +195,18 @@ $query = $_POST['query'];
         //     //@ means user search ex: @Reymark
         //     var navSearchText = $("input#navbar-search").val();
         //     var command = "search";
-        //     $.post('php/search_dealer.php', {query: navSearchText, command: command}, function(data)
-        //     {
-        //         alert(data);
-        //     }); 
+        //     window.location = "search_results.php";
         // });
-        
-          
-        </script>   
-    </body>
+        function loadPost()
+        {
+            off+=4;
+            $.post('ajax/db_dealer.php', {type: "search", command: mode, offset: off}, function(data)
+            {
+                // alert(data); //data now contains JSON formatted goods, debugging tool
+                createPostLite(document.getElementById('home-posts'), data, off);
+            });
+        }
+    </script>      
+
+  </body>
 </html>

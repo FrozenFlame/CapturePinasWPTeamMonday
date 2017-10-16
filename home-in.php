@@ -104,7 +104,7 @@ if(!isset($_SESSION['id'])) # if user is already logged in, redirect to logged i
                     <li class="dropdown" id="profile-dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" id="nav_name_user"></a>
                         <ul class="dropdown-menu">
-                        <li><a href="#">Profile</a></li>
+                        <li><a href="user-profile.php">Profile</a></li>
                         <li><a href="user-settings.php">User Settings</a></li>
                         <li><a href="ajax/logout_process.php">Logout</a></li>
                         </ul>
@@ -175,16 +175,16 @@ if(!isset($_SESSION['id'])) # if user is already logged in, redirect to logged i
                         </div>
                 </div>
                  <div class="row">
-                     <b> Title </b>
-                     <br/>
+                     <p style="margin:auto;"><b> Title </b></p>
                      <div class="textarea-div">
-                        <input type="text" class="form-control" placeholder="Title" id="post-title"></input>
+                        <input type="text" class="form-control" placeholder="Location (optional)" id="post-title"></input>
                      </div>
                      <b> Where </b>
                      <br/>
                      <div class="textarea-div">
                         <input type="text" class="form-control" placeholder="Location (optional)" id="post-location"></input>
                      </div>
+    
                      <b> Description </b>
                         <br/>
                         <div class="textarea-div">
