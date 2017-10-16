@@ -136,7 +136,7 @@ if(!isset($_SESSION['id'])) # if user is already logged in, redirect to logged i
                     <li class="dropdown" id="profile-dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" id="nav_name_user"><?php echo $currentFName." ";?><span class="glyphicon glyphicon-triangle-bottom" aria-hidden="true"></span></a>
                         <ul class="dropdown-menu">
-                        <li><a href="#">Profile</a></li>
+                        <li><a href="user-profile.php">Profile</a></li>
                         <li><a href="user-settings.php">User Settings</a></li>
                         <li><a href="ajax/logout_process.php">Logout</a></li>
                         </ul>
@@ -271,7 +271,7 @@ if(!isset($_SESSION['id'])) # if user is already logged in, redirect to logged i
 
                 <div class = "form-group">
                     <div class = "col-xs-offset-8 col-sm-offset-8 col-md-offset-8 col-lg-offset-7 col-sm-2 col-md-2 col-lg-1 col-xs-4">
-                        <button type = "button" class = "btn btn-default btn-block" id="bSaveChanges">Save Changes</button>
+                        <button type = "button" class = "btn btn-default btn-block" id="bSaveChanges">Save</button>
                     </div>
                 </div>
 
