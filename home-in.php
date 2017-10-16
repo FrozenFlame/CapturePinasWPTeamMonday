@@ -350,7 +350,7 @@ if(!isset($_SESSION['id'])) # if user is already logged in, redirect to logged i
                         {
                             result = JSON.parse(data);
                             alert(result[0]);
-                            alert(result[1]);
+                            // alert(result[1]);
                             numOfSuccessfulUploads = result[1];
                             //AND then this iss where I discover the rest of the code must be shoved into this function. this is great.
                             //fun fact I just recently shoved it even deeper from the $.post to this $.ajax async gaming
@@ -368,7 +368,7 @@ if(!isset($_SESSION['id'])) # if user is already logged in, redirect to logged i
                             post.path = new Array();
 
                             for(var c = 0; c < numOfSuccessfulUploads; c++)
-                                post.path.push("/CapturePinasWPTeamMonday/images/postimages/" +pID+"img" +(c+1) +"." +result[2]);
+                                post.path.push("/CapturePinasWPTeamMonday/images/postimages/" +pID+"img" +(c+1) +"." +result[2][c]);
 
                             $.post('ajax/db_dealer.php', 
                             {type:"set", command:"post",

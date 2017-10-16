@@ -10,7 +10,7 @@
    // $target = $dir . basename($file["name"]);
    $uploadOk = 1;
    // $imageFileType = pathinfo($target, PATHINFO_EXTENSION);
-   $ftype = "";
+   $ftypeToJSON = array();
    $remarks = "Remarks:\n";
    
    $items = 0; //items actually uploaded
@@ -27,7 +27,7 @@
       $file = $_FILES['file-' . $it];
       $target = $dir . basename($file['name']);
       $imageFileType = pathinfo($target, PATHINFO_EXTENSION);
-      $ftype = $imageFileType;// globalization
+      $ftype = $imageFileType;
       $target = $dir .$pID ."img" .($items +1) ."." .$imageFileType;
       $check = getimagesize($file['tmp_name']);
       $remarks .= $file['name'];
@@ -72,6 +72,8 @@
       {
          move_uploaded_file($file["tmp_name"], $target); 
          $items++;
+
+         array_push($ftypeToJSON, $ftype);
       }
       $remarks .= "\n";
    }
@@ -81,14 +83,14 @@
    {
       array_push($echoitems, "All files uploaded successfully!");
       array_push($echoitems, $items);
-      array_push($echoitems, $ftype); //this is the filetype;
+      array_push($echoitems, json_encode($ftypeToJSON)); //this is the filetype;
       echo json_encode($echoitems);
    }
    else
    {
       array_push($echoitems, "Sorry, one or more files failed to upload:\n" .$remarks);
       array_push($echoitems, $items);
-      array_push($echoitems, $ftype); //this is the filetype;
+      array_push($echoitems, json_encode($ftypeToJSON)); //this is the filetype;
       echo json_encode($echoitems);
    }
 
