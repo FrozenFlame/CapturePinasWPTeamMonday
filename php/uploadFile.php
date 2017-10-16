@@ -26,8 +26,9 @@
       //Check if file is actually an image
       $file = $_FILES['file-' . $it];
       $target = $dir . basename($file['name']);
-      $imageFileType = pathinfo($target, PATHINFO_EXTENSION);
-      $ftype = $imageFileType;
+      $imageFileType = "";
+      $imageFileType = strtolower(pathinfo($target, PATHINFO_EXTENSION));
+      
       $target = $dir .$pID ."img" .($items +1) ."." .$imageFileType;
       $check = getimagesize($file['tmp_name']);
       $remarks .= $file['name'];
@@ -49,10 +50,10 @@
       }
 
       // Check file size (in bytes) if its too large
-      if ($file["size"] > 500000) //500000 bytes is 0.5MB btw
+      if ($file["size"] > 20000000) //500000 bytes is 0.5MB btw. new: boosted higher to 20MB
       {
          //   echo "Sorry, your file is too large.";
-         $remarks .= " - is too large (0.5MB limit)";
+         $remarks .= " - is too large (20MB limit)";
          $uploadOk = 0;
       }
       // Allow certain file formats
@@ -72,8 +73,8 @@
       {
          move_uploaded_file($file["tmp_name"], $target); 
          $items++;
-
-         array_push($ftypeToJSON, $ftype);
+         array_push($ftypeToJSON, $imageFileType);
+         $remarks .= " - OK";
       }
       $remarks .= "\n";
    }
