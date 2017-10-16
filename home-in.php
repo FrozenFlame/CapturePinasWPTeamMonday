@@ -176,10 +176,12 @@ if(!isset($_SESSION['id'])) # if user is already logged in, redirect to logged i
                 </div>
                  <div class="row">
                      <b> Title </b>
+                     <br/>
                      <div class="textarea-div">
                         <input type="text" class="form-control" placeholder="Title" id="post-title"></input>
                      </div>
                      <b> Where </b>
+                     <br/>
                      <div class="textarea-div">
                         <input type="text" class="form-control" placeholder="Location (optional)" id="post-location"></input>
                      </div>
@@ -188,7 +190,7 @@ if(!isset($_SESSION['id'])) # if user is already logged in, redirect to logged i
                         <div class="textarea-div">
                             <textarea class="form-control" id="upload-textarea" placeholder="Enter description.."></textarea>
                         </div>
-                     <button type="button" class="btn btn-default" id="upload-button" style="float:right;margin-right:35px;" onclick ="upload()">Upload</button>
+                     <button type="button" class="btn btn-default" id="upload-button" style="float:right;margin-right:35px;" onclick ="upload()">+Post</button>
                  
                  </div>
              </div>

@@ -18,7 +18,6 @@ function createPostLite(container, json, index)
     // setting of JSON content will be synced
     postJSON = JSON.parse(json);
     
-    
     var jsonlength;
     (postJSON.length == null)? jsonlength = 0:jsonlength = postJSON.length;
     off -= (4-jsonlength); //this keeps our function ready for any new database entries on the fly. Ajax gaming.
@@ -174,7 +173,73 @@ function createPostLite(container, json, index)
                     //pPostTimeStamp
                     var pPostTimeStamp = document.createElement("p");
                     pPostTimeStamp.setAttribute("id","post-timestamp");
-                    pPostTimeStamp.innerHTML = postJSON[it].timestamp;
+
+                    /**
+                     * TIME CALCULATION 
+                     */
+                    function formatDateHTML(date) 
+                    {
+                        var months = 
+                        [
+                            "January", "February", "March",
+                            "April", "May", "June", "July",
+                            "August", "September", "October",
+                            "November", "December"
+                        ];
+
+                        var day = date.getDate();
+                        var monthIndex = date.getMonth();
+                        var year = date.getFullYear();
+
+                        var hour = date.getHours();
+                        var min = date.getMinutes();
+
+                        return hour +":" +min +" " +day + " " + months[monthIndex] + " " + year;
+                    }
+                    function formatDateStr(date) //returns a string for the Date() object
+                    {
+                        // 2016-08-15 17:56:23 ex.
+                        var dateParts = date.split("-");
+                        var months = 
+                        [
+                            "Jan", "Feb", "Mar",
+                            "Apr", "May", "Jun", "Jul",
+                            "Aug", "Sep", "Oct",
+                            "Nov", "Dec"
+                        ];
+
+                        var day = dateParts[2].substr(0,2);
+                        var monthIndex = parseInt(dateParts[1])-1;
+                        var year = dateParts[0];
+
+                        // var hour = dateParts[2].substr(3,5);
+                        // var min = dateParts[2].substr(6,8);
+                        // var sec = dateParts[2].substr(9,11);
+                        var time = dateParts[2].substr(3,11);
+
+                        return months[monthIndex] +" " +day +" " +year +" " +time +" GMT+0800 (Taipei Standard Time)" ;
+                    }
+                    var sqlTimestamp = postJSON[it].timestamp;
+                    var str = formatDateStr(sqlTimestamp);
+                    
+                    var currentDate = new Date();
+                    var postDate = new Date(str);
+                    var jsDate = formatDateHTML(new Date(str));
+                    var diffTime = getTimeDiff(currentDate, postDate);
+                    var timeString = jsDate +" " +diffTime;
+                    
+                    
+                    // console.log(currentDate.getTime());
+                    // console.log(postDate.getTime());
+                    // console.log(currentDate.getTime() - postDate.getTime());
+
+                   
+
+
+                    /**
+                     * end of algorithm
+                     */
+                    pPostTimeStamp.innerHTML = timeString;
         divMediaBody.appendChild(aPostName);
         divMediaBody.appendChild(pPostPlace);
         divMediaBody.appendChild(pPostTimeStamp);
@@ -412,6 +477,36 @@ function thumbsDownComment(elem)
 function giveCommentOpinion(commentid, opinion)
 {
     $.post('ajax/db_dealer.php', {type: "set", command: "commentOpinion", commentid: commentid, opinion: opinion});
+}
+
+function getTimeDiff(curDate, posDate) //returns a string of the time difference
+{
+    /**
+     * milliseconds to other time:
+     * 1 sec = 1000ms
+     * 1 min = 60000ms
+     * 1 hr = 3.6e+6ms
+     * 1 day = 8.64e+7ms
+     * 1 week = 6.048e+8ms
+     * 1 month = 2.628e+9ms
+     * 1 year = 3.154e+10
+     */
+
+    /**
+     * days logic
+     * var date1 = new Date("7/13/2010");
+     * var date2 = new Date("7/14/2010");
+     * var timeDiff = Math.abs(date2.getTime() - date1.getTime());
+     * var diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24)); 
+     */
+    var diff=""
+      
+      
+       
+        
+        
+    return "( " +diff +" ago)"
+       
 }
 
 function setChildren() //unused method.
