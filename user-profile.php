@@ -16,9 +16,8 @@ if(!isset($_SESSION['id'])) # if user is already logged in, redirect to logged i
     <link rel="stylesheet" href="css/bootstrap.min.css"> <!-- changed to local files -->
     <script src = "js/jquery-3.2.1.js"></script>
     <script src="js/bootstrap.min.js"></script>
-    <script src= "post/postfactory.js"> </script>
-    <link href="css/home-in.css" rel="stylesheet">
-    <link href="css/post.css" rel="stylesheet">
+    <script src= "post/post-user-profile.js"> </script>
+    <link href="css/user-profile.css" rel="stylesheet">
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
       <script src="js/html5shiv.js"></script>
@@ -115,78 +114,16 @@ if(!isset($_SESSION['id'])) # if user is already logged in, redirect to logged i
     </nav>
     <!-- End of Nav bar -->
       <br>
-      <div class="container" id ="home-posts">
-          <div class="col-sm-offset-2 col-offset-xs-0 col-sm-8 col-xs-12 post-container">
-             <div class="post" style="padding-bottom:10px;">  
-                <div class="row">
-                    <p style="margin-top:5px;"><b>Make a post</b></p>
-                    <p id="line-1"></p>
-                </div>
-                <div class="row">  
-                        <div class="input-group">
-                            
-                            <label class="input-group-btn">
-                                <span class="btn btn-default">
-                                    Browse photos&hellip; <input type="file" id="file" style="display: none" multiple>
-                                </span>
-                            </label>
-                            <input type="text" class="form-control" readonly style="width:30%;">
-                        </div>       
-                </div>
-                <div class="row">
-                     <div class="form-inline" id="upload-post-select">                             
-                          <label for="sel1" style="padding-right:5px;">Select place </label>
-                          <select class="form-control" id="upload-select">
-                              <option>Albay</option>
-                              <option>Banaue</option>
-                              <option>Bataan</option>
-                              <option>Batanes</option>
-                              <option>Batangas</option>
-                              <option>Benguet</option>
-                              <option>Bohol</option>
-                              <option>Bulacan</option>
-                              <option>Camarines Norte</option>
-                              <option>Camarines Sur</option>
-                              <option>Capiz</option>
-                              <option>Cavite</option>
-                              <option>Cebu</option>
-                              <option>Davao</option>
-                              <option>Ilocos Norte</option>
-                              <option>Ilocos Sur</option>
-                              <option>Laguna</option>
-                              <option>Leyte</option>
-                              <option>Marinduque</option>
-                              <option>Negros Occidental</option>
-                              <option>Negros Oriental</option>
-                              <option>Nueva Ecija</option>
-                              <option>Palawan</option>
-                              <option>Pampanga</option>
-                              <option>Pangasinan</option>
-                              <option>Quezon</option>
-                              <option>Romblon</option>
-                              <option>Sarangani</option>
-                              <option>Sultan Kudarat</option>
-                              <option>Surigao del Norte</option>
-                              <option>Surigao del Sur</option>
-                              <option>Tawi tawi</option>
-                              <option>Zambales</option>
-                              <option>Zamboanga</option>
-                          </select>
-                        </div>
-                </div>
-                 <div class="row">
-                     <b> Description </b>
-                        <br/>
-                        <div class="textarea-div">
-                            <textarea class="form-control" id="upload-textarea" placeholder="Enter description.."></textarea>
-                        </div>
-                     <button type="button" class="btn btn-default" id="upload-button" style="float:right;margin-right:35px;">Upload</button>
-                 
-                 </div>
-             </div>
+      <div class="container-fluid container-user-profile row">
+          <div class="row">
+              <div class="col-lg-3 profile-details">
+                  <h4>fake</h4>
+              </div>
+              <div id="home-posts" class="col-lg-6">
+              </div>
           </div>
-            
-      </div><!-- Make iterative -->
+      </div>
+      <!-- Make iterative -->
         <!-- more posts button -->
       
     <div class="wrapper">
@@ -203,7 +140,8 @@ if(!isset($_SESSION['id'])) # if user is already logged in, redirect to logged i
                    });
         });
         var off = 0;
-        var mode = "home";//this decides how the arrangement of posts appear
+        var mode = "user-profile";//this decides how the arrangement of posts appear
+        
         //choices are {string} "home" or "highest"
         window.onload = doSet();
         function doSet() //actually prepares navbar is what set does
@@ -217,11 +155,23 @@ if(!isset($_SESSION['id'])) # if user is already logged in, redirect to logged i
             });
 
             //NOTE offset is 0 because this is the FIRST TIME LOAD of the page. Before the "more" is clicked.
-            $.post('ajax/db_dealer.php', {type: "search", command: mode, offset: 0}, function(data)
+            $.post('ajax/db_dealer.php', {type: "search", command: mode, offset: 0 }, function(data)
             {
+                //alert(data);
                 // alert(data); //data now contains JSON formatted goods
                 createPostLite(document.getElementById('home-posts'), data, 0);
             });
+            $.post('ajax/db_dealer.php', {type: "get", command: "getUserProfile"}, function(data)
+            {
+                alert(data);
+                //var profile;
+                //profile = JSON.parse(data);
+                //alert(profile.filepath);
+                
+                //alert(data);
+                // alert(data); //data now contains JSON formatted goods
+            });
+            
         }
 
         // $("button#navbar-search-button").click(function()
@@ -242,35 +192,6 @@ if(!isset($_SESSION['id'])) # if user is already logged in, redirect to logged i
                 createPostLite(document.getElementById('home-posts'), data, off);
             });
         }
-        
-        $(function() {
-
-      // We can attach the `fileselect` event to all file inputs on the page
-      $(document).on('change', ':file', function() {
-        var input = $(this),
-            numFiles = input.get(0).files ? input.get(0).files.length : 1,
-            label = input.val().replace(/\\/g, '/').replace(/.*\//, '');
-        input.trigger('fileselect', [numFiles, label]);
-          alert(input.val().get(1));
-      });
-
-      // We can watch for our custom `fileselect` event like this
-      $(document).ready( function() {
-          $(':file').on('fileselect', function(event, numFiles, label) {
-
-              var input = $(this).parents('.input-group').find(':text'),
-                  log = numFiles > 1 ? numFiles + ' files selected' : label;
-
-              if( input.length ) {
-                  input.val(log);
-              } else {
-                  if( log ) alert(log);
-              }
-
-          });
-      });
-  
-});
     </script>      
 
   </body>
