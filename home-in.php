@@ -329,11 +329,12 @@ if(!isset($_SESSION['id'])) # if user is already logged in, redirect to logged i
                 $.post('ajax/db_dealer.php', {type:"get", command:"getLastPostId"}, function(data)
                 {
                     // var lastpostid = ;
+                    pID = 0;
                     pID = parseInt(data)+1;
                     uploadList.append('pid', pID);
-                    for (var pair of uploadList.entries()) {
-                    console.log(pair[0]+ ', PUSANG ' + pair[1]); 
-                    }
+                    // for (var pair of uploadList.entries()) {
+                    // console.log(pair[0]+ ', PUSANG ' + pair[1]); 
+                    // }
                     /*I kid ye not my friends. I suspected this too late
                         I knew that the $.ajax was running earlier than this $.post method despite their positioning in the code.
                         Now that I moved the $.ajax function in here, it guarantees our $.post must complete BEFORE this piece of... nanites executes
@@ -350,10 +351,13 @@ if(!isset($_SESSION['id'])) # if user is already logged in, redirect to logged i
                         success: function(data)
                         {
                             result = JSON.parse(data);
+                            /*alert(result[0]);
+                            alert(result[1]);
+                            alert(result[2]);*/
                             alert(result[0]);
-                            // alert(result[1]);
+                            // alert(result[2]);
                             numOfSuccessfulUploads = result[1];
-                            //AND then this iss where I discover the rest of the code must be shoved into this function. this is great.
+                            //AND then this is where I discover the rest of the code must be shoved into this function. this is great.
                             //fun fact I just recently shoved it even deeper from the $.post to this $.ajax async gaming
                             //OKAY LAST TIME. Hopefully this is the last time. now I had to go inside the success: function
                             var post = new Object();
@@ -367,9 +371,18 @@ if(!isset($_SESSION['id'])) # if user is already logged in, redirect to logged i
                             post.description = document.getElementById("upload-textarea").value.trim();
                             
                             post.path = new Array();
-
+                            
+                            var exts = JSON.parse(result[2]);
+                            
                             for(var c = 0; c < numOfSuccessfulUploads; c++)
-                                post.path.push("/CapturePinasWPTeamMonday/images/postimages/" +pID+"img" +(c+1) +"." +result[2][c]);
+                                post.path.push("/CapturePinasWPTeamMonday/images/postimages/" +pID+"img" +(c+1) +"." +exts[c]);
+                            // var c = 0;
+                            // for(var extension of result[2])
+                            // {
+                            //     post.path.push("/CapturePinasWPTeamMonday/images/postimages/" +pID+"img" +(c++ +1) +"." +extension);
+                            // }
+                            
+                            // alert(JSON.stringify(post) +" \n-post content");
 
                             $.post('ajax/db_dealer.php', 
                             {type:"set", command:"post",
@@ -380,8 +393,6 @@ if(!isset($_SESSION['id'])) # if user is already logged in, redirect to logged i
                                 // alert(data+"fake");
                                 window.location = "post_page.php?post=" +pID;
                             });
-
-
 
                         }
                         

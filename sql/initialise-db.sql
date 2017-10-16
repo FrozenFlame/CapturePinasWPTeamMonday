@@ -18,7 +18,7 @@ CREATE TABLE post(
     postid INTEGER NOT NULL AUTO_INCREMENT,
     userid INTEGER NOT NULL REFERENCES users,
     title VARCHAR(50) NOT NULL,
-    place VARCHAR(30) NOT NULL,
+    place VARCHAR(50) NOT NULL,
     description VARCHAR(256) NOT NULL,
     likes INTEGER NOT NULL,
     dislikes INTEGER NOT NULL,
@@ -40,7 +40,7 @@ CREATE TABLE postcomments(
 
 CREATE TABLE postmedia(
     postid INTEGER NOT NULL REFERENCES post,
-    filepath VARCHAR(100) NOT NULL
+    filepath VARCHAR(256) NOT NULL
 )    ENGINE=InnoDB;
 
 CREATE TABLE userinfo(
