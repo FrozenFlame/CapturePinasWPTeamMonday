@@ -22,7 +22,7 @@ CREATE TABLE post(
     likes INTEGER NOT NULL,
     dislikes INTEGER NOT NULL,
     favnum INTEGER NOT NULL,
-    timestamp TIMESTAMP NOT NULL,
+    timestamp TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     PRIMARY KEY(postid)
 )   ENGINE=InnoDB;
 
@@ -33,7 +33,7 @@ CREATE TABLE postcomments(
     content VARCHAR(200) NOT NULL,
     likes INTEGER NOT NULL,
     dislikes INTEGER NOT NULL,
-    timestamp TIMESTAMP NOT NULL,
+    timestamp TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     PRIMARY KEY(commentid)
 )   ENGINE=InnoDB;
 
