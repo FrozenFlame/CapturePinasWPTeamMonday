@@ -261,10 +261,11 @@ function createPostLite(container, json, index)
             pLine.setAttribute("id","line");
             /*post like dislike buttons*/
             //like
+        
             var buttonLike = document.createElement("button");
             buttonLike.setAttribute("class","btn btn-default post-like-button");
             buttonLike.setAttribute("type","button");
-            buttonLike.setAttribute("id","post-like-btn");
+            buttonLike.setAttribute("id","post-like-btn"+(it+index));
             buttonLike.setAttribute("data-postid",postJSON[it].postid);
             buttonLike.setAttribute("onclick","thumbsUp(this)");
                 /*buttonLike-children*/
@@ -280,7 +281,7 @@ function createPostLite(container, json, index)
             var buttonDislike = document.createElement("button");
             buttonDislike.setAttribute("class","btn btn-default post-dislike-button");
             buttonDislike.setAttribute("type","button");
-            buttonDislike.setAttribute("id","post-unlike-btn"); //@Jarvis. Unlike hahahaha
+            buttonDislike.setAttribute("id","post-unlike-btn"+(it+index)); //@Jarvis. Unlike hahahaha
             buttonDislike.setAttribute("data-postid", postJSON[it].postid);
             buttonDislike.setAttribute("onclick","thumbsDown(this)");
                 /*buttonLike-children*/
@@ -294,7 +295,7 @@ function createPostLite(container, json, index)
             buttonDislike.appendChild(spanDislike);
             var pLine2 = document.createElement("p");
             pLine2.setAttribute("id","line");
-            
+setLikesDislikes(postJSON[it].postid,it,index);
             var aButtonComment=document.createElement("a");
             aButtonComment.setAttribute("href", "post_page.php?post="+postJSON[it].postid);
             var buttonComment = document.createElement("button");
@@ -328,11 +329,33 @@ function createPostLite(container, json, index)
 /**
  * @param elem - this is the element itself
  */
+function setLikesDislikes(postid,it,index){
+    $.post('ajax/db_dealer.php', {type: "get", command: "getLikeUser", postid: postid}, function(data) //we expect data to be: L, D, or N
+        {
+        var likebtn = '#post-like-btn'+(it+index);
+        var unlikebtn = '#post-unlike-btn'+(it+index);
+            switch(data)
+            {
+                case 'N'://Neutral  (+1 for like)                   -> db value is now L
+                   $(likebtn).attr("style","background-color:white;");
+                    $(unlikebtn).attr("style","background-color:white;");
+                break;
+                case 'L'://Liked    (-1 for like)                   -> db value is now N
+                    $(likebtn).attr("style","background-color:darkgreen;color:white;");
+                break;
+                case 'D'://Disliked (+1 for like, -1 for dislike)   -> db value is now L
+                    $(unlikebtn).attr("style","background-color:red;");
+                break;
+            }
+        }); 
+}
+
 function thumbsUp(elem)   //for post @param elem is the button itself
 {
     // alert(id.id);
     if(!isGuest)
     {
+        
         var postRating = elem.children[0]; //element that contains our like post rating
         var postIndex = postRating.getAttribute("id").substr(10); //id is post-likes which is 10 characters
         var thumbdownelem = document.getElementById('post-dislikes'+postIndex);
@@ -377,6 +400,7 @@ function thumbsDown(elem) //for post @param elem is the button itself
         var postRating = elem.children[0]; //element that contains our dislike post rating
         var postIndex = postRating.getAttribute("id").substr(13); //id is post-dislikes which is 13 characters
         var thumbupelem = document.getElementById('post-likes'+postIndex);
+        
 
         $.post('ajax/db_dealer.php', {type:"get", command:"postOpinion", postid: elem.dataset.postid}, function(data) //we expect data to be: L, D, or N
         {

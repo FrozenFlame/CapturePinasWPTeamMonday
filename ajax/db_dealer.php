@@ -168,6 +168,18 @@
                 else                        //means user hasn't given an opinion before
                     echo 'N';
             }
+            else if($commandReceived==='getLikeUser'){
+                $query = $this->db->prepare("SELECT opinion FROM postopinion WHERE postid = ? AND userid = ?");
+                $query->bindparam(1, $_POST['postid']);
+                $query->bindparam(2, $_SESSION['id']);
+                $query->execute();
+                if($query->rowcount()==0){
+                        echo 'N';
+                } else {
+                    echo $query->fetch()['opinion'];
+            }
+                    
+            }
         }
     }
 
