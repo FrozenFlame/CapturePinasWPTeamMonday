@@ -14,6 +14,15 @@ body {
 #upload-div{
     display: none;
 }
+.post-fave-button{
+    border: none;
+    background: none;
+    color: darkred;
+    margin-left: 20px;
+}
+.post-fave-button:hover{
+    color:crimson;
+}
 /* for media */
 .post-user-image {
 margin-top:10px;

@@ -294,6 +294,20 @@ function createPostLite(container, json, index)
                 spanDislike.setAttribute("aria-hidden","true");
             buttonDislike.appendChild(buttonTextDislike);
             buttonDislike.appendChild(spanDislike);
+             
+        var buttonFave = document.createElement("button");
+        buttonFave.setAttribute("class","post-fave-button");
+        buttonFave.setAttribute("id","post-fave-button"+(it+index));
+        buttonFave.setAttribute("data-toggle","tooltip");
+        buttonFave.setAttribute("title","Favorite");
+        buttonFave.setAttribute("onclick","save-fave(this)");
+
+        //data-toggle="tooltip" title="Click to slide up"
+        var giHeart = document.createElement("span");
+        giHeart.setAttribute("id","heart"+(it+index));
+        giHeart.setAttribute("class","glyphicon glyphicon-heart-empty");
+        buttonFave.appendChild(giHeart);
+        
             var pLine2 = document.createElement("p");
             pLine2.setAttribute("id","line");
         setLikesDislikes(postJSON[it].postid,it,index);
@@ -315,6 +329,7 @@ function createPostLite(container, json, index)
         rowDetails.appendChild(pLine);
         rowDetails.appendChild(buttonLike);
         rowDetails.appendChild(buttonDislike);
+        rowDetails.appendChild(buttonFave);
         rowDetails.appendChild(aButtonComment);
         rowDetails.appendChild(pLine2);
         //slapping it onto our container
@@ -354,6 +369,20 @@ function setLikesDislikes(postid,it,index){
     //     }
        
     // });
+     var favebtn = '#post-fave-button'+(it+index);
+    $.post('ajax/db_dealer.php', {type: "get", command: "getFavorites", postid: postid}, function(data) //we expect data to be: L, D, or N
+        {
+            $.post('ajax/db_dealer.php', {type: "get", command: "getUserFavorites", postid: postid}, function(data) //we expect data to be: L, D, or N
+            {
+                
+                if(data==0)
+                    
+                    $(favebtn).append('<span class="glyphicon glyphicon-heart-empty" aria-hidden="true" style="margin-left:5px;"></span>');
+                else 
+                    $(favebtn).append('<span class="glyphicon glyphicon-heart" aria-hidden="true" style="margin-left:5px;"></span>');
+            }); 
+            $(favebtn).text(data);
+        }); 
     
     $.post('ajax/db_dealer.php', {type: "get", command: "getLikeUser", postid: postid}, function(data) //we expect data to be: L, D, or N
         {
