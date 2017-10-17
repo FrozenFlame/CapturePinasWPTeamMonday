@@ -162,6 +162,11 @@ else
 
         $(document).ready(function()
         { 
+            $("button").click(function(event) {
+                var target = event.target || event.srcElement;
+                var id = target.id
+                alert(id);
+            });
             checkSession();
             $("#highest-like-button").click(function(){
                 var mode = "highest";

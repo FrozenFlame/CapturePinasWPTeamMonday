@@ -329,11 +329,17 @@ setLikesDislikes(postJSON[it].postid,it,index);
 /**
  * @param elem - this is the element itself
  */
+
+
+
+
 function setLikesDislikes(postid,it,index){
+    var likebtn = '#post-like-btn'+(it+index);
+    var unlikebtn = '#post-unlike-btn'+(it+index);
+    
     $.post('ajax/db_dealer.php', {type: "get", command: "getLikeUser", postid: postid}, function(data) //we expect data to be: L, D, or N
         {
-        var likebtn = '#post-like-btn'+(it+index);
-        var unlikebtn = '#post-unlike-btn'+(it+index);
+        
             switch(data)
             {
                 case 'N'://Neutral  (+1 for like)                   -> db value is now L
