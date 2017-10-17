@@ -57,6 +57,8 @@ if(!isset($_SESSION['id'])) # if user is already logged in, redirect to logged i
     <link rel="stylesheet" href="css/bootstrap.min.css"> <!-- changed to local files -->
     <script src = "js/jquery-3.2.1.js"></script>
     <script src="js/bootstrap.min.js"></script>
+    <script src="js/navbar.js"></script>
+    <link href="css/navbar.css" rel="stylesheet"> 
     <link href="css/user-settings.css" rel="stylesheet">
 
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -245,31 +247,9 @@ if(!isset($_SESSION['id'])) # if user is already logged in, redirect to logged i
       <script>
         var uploadList; //for avatar
          var postdropdown = document.getElementById("upload-select");
-        $(document).ready(function()
-        { 
-            $("#dropdown-button").click(function(){
-                $("#places-dropdown").slideToggle();
-            });
-            $('#places-dropdown').on('click',function(e)
-            {
-                    $('#topic').val($(e.target).text());
-                    //$('#topic').Text($(e.target).text());
-                    $('#places-form').submit();
-            });
-        });
+        
           
-        window.onload = doSet();
-        function doSet() //actually prepares navbar is what set does
-        {
-            var passed = 'getId';
-
-            $.post('ajax/set.php', {passed: passed}, function(data)  //user is what we're passing in, and usern is what php will reference it with.
-            {                                                               //data there is what php will return or "echo"
-                $('a#nav_name_user').text(data+' ');
-                $('a#nav_name_user').append('<span class="glyphicon glyphicon-triangle-bottom" aria-hidden="true"></span>');
-            });
-           
-        }
+       
           function goToMyProfile(elem)
         {
             var form = document.createElement('form');  

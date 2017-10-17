@@ -17,6 +17,7 @@ $userid = $_POST['userid'];
     <link rel="stylesheet" href="css/bootstrap.min.css"> <!-- changed to local files -->
     <script src = "js/jquery-3.2.1.js"></script>
     <script src="js/bootstrap.min.js"></script>
+      <script src="js/navbar.js"></script>
     <script src= "post/post-user-profile.js"> </script>
     <link href="css/user-profile.css" rel="stylesheet">
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -58,34 +59,13 @@ $userid = $_POST['userid'];
     </div>
 
     <script>
-        $(document).ready(function()
-        { 
-            $("#dropdown-button").click(function(){
-                $("#places-dropdown").slideToggle();
-            });
-            $('#places-dropdown').on('click',function(e)
-            {
-                $('#topic').val($(e.target).text());
-                //$('#topic').Text($(e.target).text());
-                $('#places-form').submit();
-            });
-        });
         var off = 0;
         var mode = "user-profile-id";//this decides how the arrangement of posts appear
         
         //choices are {string} "user-profile", "home" or "highest"
         window.onload = doSet();
         function doSet() //actually prepares navbar is what set does
-        {
-            var passed = 'getId';
-
-            $.post('ajax/set.php', {passed: passed}, function(data)  //user is what we're passing in, and usern is what php will reference it with.
-            {                                                               //data there is what php will return or "echo"
-                // $('b#profile-name').text(data);
-                $('a#nav_name_user').text(data+' ');
-                $('a#nav_name_user').append('<span class="glyphicon glyphicon-triangle-bottom" aria-hidden="true"></span>');
-            });
-
+        {  
             //NOTE offset is 0 because this is the FIRST TIME LOAD of the page. Before the "more" is clicked.
             var _userid = "<?php echo $userid ?>";
             $.post('ajax/db_dealer.php', {type: "search", command: mode, offset: 0 , userid: _userid}, function(data)

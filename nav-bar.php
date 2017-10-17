@@ -11,7 +11,7 @@
             </div>
             <div class="collapse navbar-collapse" id="myNavbar">
                 <ul class="nav navbar-nav">
-                    <li class="active"><a href="index.php">Home</a></li>
+                    <li><a href="index.php">Home</a></li>
                         
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" id="dropdown-button">Places <span class="glyphicon glyphicon-triangle-bottom" aria-hidden="true"></span></a>
@@ -56,7 +56,7 @@
 
                         </ul>
                     </li>
-                    <li><a href="#">About Us</a></li>
+                    <li><a href="#" id="about-us">About Us</a></li>
 
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
@@ -76,9 +76,9 @@
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" id="nav_name_user"></a>
                         <ul class="dropdown-menu" id="user-dropdown">
                     <!--<li><a href="user-profile.php">Profile</a></li> -->
-                        <li><a href="#" onclick="goToMyProfile(this)">Profile</a></li>
-                        <li><a href="user-settings.php">User Settings</a></li>
-                        <li><a href="ajax/logout_process.php">Logout</a></li>
+                        <li><a href="#" onclick="goToMyProfile(this)" id="nav-user-dropdown">Profile</a></li>
+                        <li><a href="user-settings.php" id="nav-user-dropdown">User Settings</a></li>
+                        <li><a href="ajax/logout_process.php" id="nav-user-dropdown">Logout</a></li>
                         </ul>
                     </li>
                 </ul>

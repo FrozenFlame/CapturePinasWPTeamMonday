@@ -17,9 +17,11 @@ $query = $_POST['query'];
     <link rel="stylesheet" href="css/bootstrap.min.css"> <!-- changed to local files -->
     <script src = "js/jquery-3.2.1.js"></script>
     <script src="js/bootstrap.min.js"></script>
+      <script src="js/navbar.js"></script>
     <script src= "post/postfactory.js"> </script>
     <link href="css/home-in.css" rel="stylesheet">
     <link href="css/post.css" rel="stylesheet">
+      <link href="css/navbar.css" rel="stylesheet">
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
       <script src="js/html5shiv.js"></script>
@@ -60,15 +62,6 @@ $query = $_POST['query'];
             // $.post('user_profile.php', {userid: elem.dataset.userid});
         }
         $(document).ready(function(){ 
-            $("#dropdown-button").click(function(){
-                $("#places-dropdown").slideToggle();
-            });
-              $('#places-dropdown').on('click',function(e)
-                   {
-                        $('#topic').val($(e.target).text());
-                        //$('#topic').Text($(e.target).text());
-                        $('#places-form').submit();
-                   });
             if($('#searchby').val()==''){
                 $('#searchby').hide();
             }
@@ -78,12 +71,6 @@ $query = $_POST['query'];
         window.onload = doSet();
         function doSet() //actually prepares navbar is what set does, and for this page, this also initiates search population
         {
-            var passed = 'getId';
-            $.post('ajax/set.php', {passed: passed}, function(data)  //user is what we're passing in, and usern is what php will reference it with.
-            {                                                               //data there is what php will return or "echo"
-                $('a#nav_name_user').text(data+' ');
-                $('a#nav_name_user').append('<span class="glyphicon glyphicon-triangle-bottom" aria-hidden="true"></span>');
-            });
             var searchby;
             switch(mode)
             {

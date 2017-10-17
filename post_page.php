@@ -15,9 +15,12 @@ if(!isset($_SESSION['id'])) # sets variable for guests
     <link rel="stylesheet" href="css/bootstrap.min.css"> <!-- changed to local files -->
     <script src = "js/jquery-3.2.1.js"></script>
     <script src="js/bootstrap.min.js"></script>
+    <script src="js/navbar.js"></script>
     <script src= "post/postfactory.js"> </script>
     <link href="css/home-in.css" rel="stylesheet">
     <link href="css/post.css" rel="stylesheet">
+    <link href="css/navbar.css" rel="stylesheet">
+      
       <!--fake-->
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
@@ -42,33 +45,11 @@ if(!isset($_SESSION['id'])) # sets variable for guests
       
 
     <script>
-        $(document).ready(function(){ 
-            $("#dropdown-button").click(function(){
-                $("#places-dropdown").slideToggle();
-            });
-              $('#places-dropdown').on('click',function(e)
-                   {
-                        $('#topic').val($(e.target).text());
-                        //$('#topic').Text($(e.target).text());
-                        $('#places-form').submit();
-                   });
-        });
         window.onload = doSet();
         var item = "<?php echo $isGuest; ?>"; 
         var isGuest = (item > 0) ? item : 1;//this isGuest stuff is for when the person viewing a particular post is logged in or not, this will urge them to log in if they try to do likes/comment etc related
         var counter;
         
-        function doSet() //actually prepares navbar is what set does
-        {
-            var passed = 'getId';
-            
-            $.post('ajax/set.php', {passed: passed}, function(data)  //user is what we're passing in, and usern is what php will reference it with.
-            {                                                               //data there is what php will return or "echo"
-                $('a#nav_name_user').text(data+' ');
-                $('a#nav_name_user').append('<span class="glyphicon glyphicon-triangle-bottom" aria-hidden="true"></span>');
-            });
-         
-        }
 
         // $("button#navbar-search-button").click(function()
         // {

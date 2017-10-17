@@ -17,8 +17,10 @@ if(!isset($_SESSION['id'])) # if user is already logged in, redirect to logged i
     <script src = "js/jquery-3.2.1.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <script src= "post/postfactory.js"> </script>
+    <script src= "js/navbar.js"> </script>
     <link href="css/home-in.css" rel="stylesheet">
     <link href="css/post.css" rel="stylesheet">
+      <link href="css/navbar.css" rel="stylesheet">
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
       <script src="js/html5shiv.js"></script>
@@ -124,40 +126,18 @@ if(!isset($_SESSION['id'])) # if user is already logged in, redirect to logged i
         var uploadList;
         
         var postdropdown = document.getElementById("upload-select");
-        var placeSelected = "Albay";
-        $(document).ready(function()
-        { 
-            $("#dropdown-button").click(function(){
-                $("#places-dropdown").slideToggle();
-            });
-            $("#nav-name-user").click(function(){
-                $("#user-dropdown").slideToggle();
-            });
-            $('#places-dropdown').on('click',function(e)
-            {
-                    $('#topic').val($(e.target).text());
-                    //$('#topic').Text($(e.target).text());
-                    $('#places-form').submit();
-            });
+        
+        var off = 0;
+        var mode = "home";//this decides how the arrangement of posts appear
+        //choices are {string} "user-profile", "home" or "highest"
+        
+        window.onload = doSet();
+        function doSet() //actually prepares navbar is what set does
+        {
             $('#upload-select').on('change', function(e)
             {
                 placeSelected = postdropdown.options[postdropdown.selectedIndex].value
             });
-        });
-        var off = 0;
-        var mode = "home";//this decides how the arrangement of posts appear
-        //choices are {string} "user-profile", "home" or "highest"
-        window.onload = doSet();
-        function doSet() //actually prepares navbar is what set does
-        {
-            var passed = 'getId';
-
-            $.post('ajax/set.php', {passed: passed}, function(data)  //user is what we're passing in, and usern is what php will reference it with.
-            {                                                               //data there is what php will return or "echo"
-                $('a#nav_name_user').text(data+' ');
-                $('a#nav_name_user').append('<span class="glyphicon glyphicon-triangle-bottom" aria-hidden="true"></span>');
-            });
-
             //NOTE offset is 0 because this is the FIRST TIME LOAD of the page. Before the "more" is clicked.
             $.post('ajax/db_dealer.php', {type: "search", command: mode, offset: 0}, function(data)
             {
@@ -167,20 +147,18 @@ if(!isset($_SESSION['id'])) # if user is already logged in, redirect to logged i
         }
 
         function goToMyProfile(elem)
-        {
-            var form = document.createElement('form');  
-            form.method = 'post';
-            form.action = 'user-profile.php';
-            var input = document.createElement('input');
-            input.type = 'hidden';
-            input.name = 'userid';
-            input.value = "<?php echo $_SESSION['id'] ?>";
-            form.appendChild(input);
-            document.body.appendChild(form);
-
-            form.submit();
-            // $.post('user_profile.php', {userid: elem.dataset.userid});
-        }
+{
+    var form = document.createElement('form');  
+    form.method = 'post';
+    form.action = 'user-profile.php';
+    var input = document.createElement('input');
+    input.type = 'hidden';
+    input.name = 'userid';
+    input.value = "<?php echo $_SESSION['id'] ?>";
+    form.appendChild(input);
+    document.body.appendChild(form);
+    form.submit();
+}
 
         // $("button#navbar-search-button").click(function()
         // {
