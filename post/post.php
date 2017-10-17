@@ -109,6 +109,9 @@
                         $.post('ajax/db_dealer.php', {command: command, type: type, author_id: userid}, function(data)
                         {
                             $('b#post-username').text(data);
+                            var hrf = document.getElementById("post-href");
+                            hrf.setAttribute("onclick","goToProfile(this)");
+                            hrf.setAttribute("data-userid", userid);
                         }); 
                         document.getElementById("user-image").setAttribute("src", post[0].filepath);
                         $('b#post-place').text(post[0].place);
@@ -546,6 +549,21 @@
                     
                 return "(" +diff +" ago)";
             }   
+            function goToProfile(elem)
+            {
+                var form = document.createElement('form');  
+                form.method = 'post';
+                form.action = 'user-profile.php';
+                var input = document.createElement('input');
+                input.type = 'hidden';
+                input.name = 'userid';
+                input.value = elem.dataset.userid;
+                form.appendChild(input);
+                document.body.appendChild(form);
+
+                form.submit();
+                // $.post('user_profile.php', {userid: elem.dataset.userid});
+            }
          </script>
     </body>
 </html>
