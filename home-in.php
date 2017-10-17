@@ -198,8 +198,8 @@ if(!isset($_SESSION['id'])) # if user is already logged in, redirect to logged i
           </div>
             
       </div><!-- Make iterative -->
-        <!-- more posts button -->
-      
+
+    <!-- more posts button -->
     <div class="wrapper">
         <button type="button" class="btn btn-default" onclick="loadPost()" id="load-more-button">Load More Posts</button>
     </div>
