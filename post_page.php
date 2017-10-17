@@ -1,10 +1,15 @@
 <?php
 session_start();
-$isGuest = false;
-if(!isset($_SESSION['id'])) # sets variable for guests
+$isGuest;
+if(!isset($_SESSION['id'])) # if user is a guest.
 {
-    $isGuest = true;
+//   header('Location: index.php');
+    $isGuest = TRUE;
 }
+else
+    $isGuest = FALSE;
+
+
 
 ?>
 <html>
@@ -29,7 +34,11 @@ if(!isset($_SESSION['id'])) # sets variable for guests
   <body>
     <!-- Nav bar -->
     <?php 
-    include 'nav-bar.php'; ?>
+    if($isGuest == FALSE)
+        include 'nav-bar.php';
+    else
+        include 'nav-bar-guest.php'; 
+    ?>
     <!-- End of Nav bar -->
     <br/>
     <br/>

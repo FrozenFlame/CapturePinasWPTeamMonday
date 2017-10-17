@@ -80,6 +80,18 @@ if(isset($_SESSION['id'])) # if user is already logged in, redirect to logged in
                 <li><a href="#">About Us</a></li>
                 </ul> 
                 <ul class="nav navbar-nav navbar-right">
+                   <li>
+                        <div class="col-lg-12">
+                         <form class="navbar-form" role="search" method="POST" action="search_results.php"> <!-- method="<post/get>" action="<location of php>" -->
+                            <div class="input-group">
+                                <input type="text" class="form-control" placeholder="Search" name = "query" id="navbar-search">
+                                <div class="input-group-btn">
+                                <button class="btn btn-default" type="submit" id ='navbar-search-button'><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
+                                </div>
+                            </div>
+                        </form>
+                        </div>
+                    </li>
                     <li><a href="signup.html"><span class="glyphicon glyphicon-user" ></span> Sign Up</a></li>
                     <li><a href="#" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
                 </ul>
@@ -188,7 +200,26 @@ if(isset($_SESSION['id'])) # if user is already logged in, redirect to logged in
       
       
       <script>
-        
+         //search part
+         $(document).ready(function()
+        { 
+            $("#dropdown-button").click(function(){
+                $("#places-dropdown").slideToggle();
+            });
+            $("#nav-name-user").click(function(){
+                $("#user-dropdown").slideToggle();
+            });
+            $('#places-dropdown').on('click',function(e)
+            {
+                    $('#topic').val($(e.target).text());
+                    //$('#topic').Text($(e.target).text());
+                    $('#places-form').submit();
+            });
+            $('#upload-select').on('change', function(e)
+            {
+                placeSelected = postdropdown.options[postdropdown.selectedIndex].value
+            });
+        });
           //LOGIN CODE
         var attemptsRem = 5;
         $(document).ready(function()
