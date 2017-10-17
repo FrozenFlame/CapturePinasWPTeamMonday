@@ -60,6 +60,9 @@ $query = $_POST['query'];
             // $.post('user_profile.php', {userid: elem.dataset.userid});
         }
         $(document).ready(function(){ 
+            $("#dropdown-button").click(function(){
+                $("#places-dropdown").slideToggle();
+            });
               $('#places-dropdown').on('click',function(e)
                    {
                         $('#topic').val($(e.target).text());

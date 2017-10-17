@@ -166,7 +166,6 @@ textarea{
      display: none;/*This is the default state.*/
     z-index: 9999;
     position: absolute;
-    width: 450px;
     max-height:300px;/*The important part*/
     overflow-y:auto;/*Also...*/
     overflow-x:hidden;/*And the end of the important part*/
