@@ -109,10 +109,82 @@
                         $.post('ajax/db_dealer.php', {command: command, type: type, author_id: userid}, function(data)
                         {
                             $('b#post-username').text(data);
+                            var hrf = document.getElementById("post-href");
+                            hrf.setAttribute("onclick","goToProfile(this)");
+                            hrf.setAttribute("data-userid", userid);
                         }); 
                         document.getElementById("user-image").setAttribute("src", post[0].filepath);
                         $('b#post-place').text(post[0].place);
-                        $('p#post-timestamp').text(post[0].timestamp);
+                            /**
+                        * TIME CALCULATION 
+                        */
+                        function formatDateHTML(date) 
+                        {
+                            var months = 
+                            [
+                                "January", "February", "March",
+                                "April", "May", "June", "July",
+                                "August", "September", "October",
+                                "November", "December"
+                            ];
+
+                            var day = date.getDate();
+                            var monthIndex = date.getMonth();
+                            var year = date.getFullYear();
+
+                            var hour = date.getHours();
+                            var min = date.getMinutes();
+
+                            function FormatNumberLength(num, length) 
+                            {
+                                var r = num.toString();
+                                while (r.length < length) 
+                                {
+                                    r = "0" + r;
+                                }
+                                return r;
+                            }
+
+                            return "[" +FormatNumberLength(hour,2) +":" +FormatNumberLength(min,2)+"] " +day + " " + months[monthIndex] + ", " + year;
+                        }
+                        function formatDateStr(date) //returns a string for the Date() object
+                        {
+                            // 2016-08-15 17:56:23 ex.
+                            var dateParts = date.split("-");
+                            var months = 
+                            [
+                                "Jan", "Feb", "Mar",
+                                "Apr", "May", "Jun", "Jul",
+                                "Aug", "Sep", "Oct",
+                                "Nov", "Dec"
+                            ];
+                            
+
+                            var day = dateParts[2].substr(0,2);
+                            var monthIndex = parseInt(dateParts[1])-1;
+                            var year = dateParts[0];
+
+                            // var hour = dateParts[2].substr(3,5);
+                            // var min = dateParts[2].substr(6,8);
+                            // var sec = dateParts[2].substr(9,11);
+                            var time = dateParts[2].substr(3,11);
+
+                            return months[monthIndex] +" " +day +" " +year +" " +time +" GMT+0800 (Taipei Standard Time)" ;
+                        }
+                        var sqlTimestamp = post[0].timestamp;
+                        var str = formatDateStr(sqlTimestamp);
+                        
+                        var currentDate = new Date();
+                        var postDate = new Date(str);
+                        var jsDate = formatDateHTML(new Date(str));
+                        var diffTime = getTimeDiff(currentDate, postDate);
+                        var timeString = jsDate +" " +diffTime;
+                        
+                        console.log(jsDate);
+                        /**
+                        * end of algorithm
+                        */
+                        $('p#post-timestamp').text(timeString);
                         $('p#post-description').text(post[0].description);
                         $('text#post-likes').text(post[0].likes);
                         $('text#post-dislikes').text(post[0].dislikes);
@@ -422,6 +494,75 @@
             function givePostOpinion(postid, opinion)
             {
                 $.post('ajax/db_dealer.php', {type: "set", command: "postOpinion", postid: postid, opinion: opinion});
+            }
+            function getTimeDiff(curDate, posDate) //returns a string of the time difference
+            {
+                /**
+                * milliseconds to other time:
+                * 1 sec = 1000ms
+                * 1 min = 60000ms
+                * 1 hr = 3.6e+6ms
+                * 1 day = 8.64e+7ms
+                * 1 week = 6.048e+8ms
+                * 1 month = 2.628e+9ms
+                * 1 year = 3.154e+10
+                */
+                var diff="";
+                
+                var unixDiff = Math.abs(curDate.getTime() - posDate.getTime());
+
+                if(unixDiff < 60000) //post is just a few seconds old
+                {
+                    var grammar = (Math.ceil(unixDiff/(1000)) > 1) ? "seconds": "second";
+                    var diff = Math.ceil(unixDiff / (1000))+ " seconds";
+                }
+                else if(unixDiff < 3.6e+6) //post is less than an hour old
+                {
+                    var grammar = (Math.ceil(unixDiff/(1000 * 60)) > 1) ? " minutes": " minute";
+                    var diff = Math.ceil(unixDiff/(1000 * 60)) +grammar;
+                }
+                else if(unixDiff < 8.64e+7) //post is less than a day old
+                {
+                    var grammar = (Math.ceil(unixDiff/(1000 * 60 * 60)) > 1) ? " hours": " hour";
+                    var diff = Math.ceil(unixDiff/(1000 * 60 * 60)) +grammar;
+                }
+                else if(unixDiff < 6.048e+8) //post is less than a week old
+                {
+                    var grammar = (Math.ceil(unixDiff/(1000 * 60 * 60 * 24)) > 1) ? " days": " day";
+                    var diff = Math.ceil(unixDiff/(1000 * 60 * 60 * 24)) +grammar;
+                }
+                else if(unixDiff < 2.628e+9) //post is less than a month old
+                {
+                    var grammar = (Math.ceil(unixDiff/(1000 * 60 * 60 * 24 * 7)) > 1) ? " weeks": " week";
+                    var diff = Math.ceil(unixDiff/(1000 * 60 * 60 * 24 * 7)) +grammar;
+                }
+                else if(unixDiff < 3.154e+10) //post is less than a year old
+                {                                                            //lol hax using days instead of weeks       
+                    var grammar = (Math.ceil(unixDiff/(1000 * 60 * 60 * 24 * 30 )) > 1) ? " months": " month";
+                    var diff = Math.ceil(unixDiff/(1000 * 60 * 60 * 24 * 30 )) +grammar;
+                }
+                else //years old ._. 
+                {
+                    var grammar = (Math.ceil(unixDiff/(1000 * 60 * 60 * 24 * 7 * 4 * 12)) > 1) ? " years": " year";
+                    var diff = Math.ceil(unixDiff/(1000 * 60 * 60 * 24 * 7 * 4 * 12)) +grammar;
+                }
+                    
+                return "(" +diff +" ago)";
+            }   
+            function goToProfile(elem)
+            {
+                var form = document.createElement('form');  
+                form.method = 'post';
+                form.action = 'user-profile.php';
+                var input = document.createElement('input');
+                input.type = 'hidden';
+                input.name = 'userid';
+                input.value = elem.dataset.userid;
+                form.appendChild(input);
+                document.body.appendChild(form);
+
+                form.submit();
+                // $.post('user_profile.php', {userid: elem.dataset.userid});
             }
          </script>
     </body>

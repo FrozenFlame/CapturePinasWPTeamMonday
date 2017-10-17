@@ -104,7 +104,8 @@ if(!isset($_SESSION['id'])) # if user is already logged in, redirect to logged i
                     <li class="dropdown" id="profile-dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" id="nav_name_user"></a>
                         <ul class="dropdown-menu">
-                        <li><a href="user-profile.php">Profile</a></li>
+                    <!--<li><a href="user-profile.php">Profile</a></li> -->
+                        <li><a href="#" onclick="goToMyProfile(this)">Profile</a></li>
                         <li><a href="user-settings.php">User Settings</a></li>
                         <li><a href="ajax/logout_process.php">Logout</a></li>
                         </ul>
@@ -180,6 +181,7 @@ if(!isset($_SESSION['id'])) # if user is already logged in, redirect to logged i
                         <input type="text" class="form-control" placeholder="Enter title" id="post-title"></input>
                      </div>
                      <b> Where </b>
+                     <br/>
                      <div class="textarea-div">
                         <input type="text" class="form-control" placeholder="Enter location (optional)" id="post-location"></input>
                      </div>
@@ -189,15 +191,15 @@ if(!isset($_SESSION['id'])) # if user is already logged in, redirect to logged i
                         <div class="textarea-div">
                             <textarea class="form-control" id="upload-textarea" placeholder="Enter description.."></textarea>
                         </div>
-                     <button type="button" class="btn btn-default" id="upload-button" style="float:right;margin-right:35px;" onclick ="upload()">Upload</button>
+                     <button type="button" class="btn btn-default" id="upload-button" style="float:right;margin-right:35px;" onclick ="upload()">+Post</button>
                  
                  </div>
              </div>
           </div>
             
       </div><!-- Make iterative -->
-        <!-- more posts button -->
-      
+
+    <!-- more posts button -->
     <div class="wrapper">
         <button type="button" class="btn btn-default" onclick="loadPost()" id="load-more-button">Load More Posts</button>
     </div>
@@ -209,20 +211,20 @@ if(!isset($_SESSION['id'])) # if user is already logged in, redirect to logged i
         var placeSelected = "Albay";
         $(document).ready(function()
         { 
-              $('#places-dropdown').on('click',function(e)
-                   {
-                        $('#topic').val($(e.target).text());
-                        //$('#topic').Text($(e.target).text());
-                        $('#places-form').submit();
-                   });
-                    $('#upload-select').on('change', function(e)
+            $('#places-dropdown').on('click',function(e)
+            {
+                    $('#topic').val($(e.target).text());
+                    //$('#topic').Text($(e.target).text());
+                    $('#places-form').submit();
+            });
+            $('#upload-select').on('change', function(e)
             {
                 placeSelected = postdropdown.options[postdropdown.selectedIndex].value
             });
         });
         var off = 0;
         var mode = "home";//this decides how the arrangement of posts appear
-        //choices are {string} "home" or "highest"
+        //choices are {string} "user-profile", "home" or "highest"
         window.onload = doSet();
         function doSet() //actually prepares navbar is what set does
         {
@@ -240,6 +242,22 @@ if(!isset($_SESSION['id'])) # if user is already logged in, redirect to logged i
                 // alert(data); //data now contains JSON formatted goods
                 createPostLite(document.getElementById('home-posts'), data, 0);
             });
+        }
+
+        function goToMyProfile(elem)
+        {
+            var form = document.createElement('form');  
+            form.method = 'post';
+            form.action = 'user-profile.php';
+            var input = document.createElement('input');
+            input.type = 'hidden';
+            input.name = 'userid';
+            input.value = "<?php echo $_SESSION['id'] ?>";
+            form.appendChild(input);
+            document.body.appendChild(form);
+
+            form.submit();
+            // $.post('user_profile.php', {userid: elem.dataset.userid});
         }
 
         // $("button#navbar-search-button").click(function()

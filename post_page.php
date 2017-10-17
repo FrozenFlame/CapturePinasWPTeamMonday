@@ -104,7 +104,7 @@ if(!isset($_SESSION['id'])) # sets variable for guests
                     <li class="dropdown" id="profile-dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" id="nav_name_user"></a>
                         <ul class="dropdown-menu">
-                        <li><a href="user-profile.php">Profile</a></li>
+                        <li><a href="#" onclick="goToMyProfile(this)">Profile</a></li>
                         <li><a href="user-settings.php">User Settings</a></li>
                         <li><a href="ajax/logout_process.php">Logout</a></li>
                         </ul>
@@ -160,7 +160,21 @@ if(!isset($_SESSION['id'])) # sets variable for guests
         //     window.location = "search_results.php";
         // });
         
+        function goToMyProfile(elem)
+        {
+            var form = document.createElement('form');  
+            form.method = 'post';
+            form.action = 'user-profile.php';
+            var input = document.createElement('input');
+            input.type = 'hidden';
+            input.name = 'userid';
+            input.value = "<?php echo $_SESSION['id'] ?>";
+            form.appendChild(input);
+            document.body.appendChild(form);
 
+            form.submit();
+            // $.post('user_profile.php', {userid: elem.dataset.userid});
+        }
     </script>      
   </body>
 </html>

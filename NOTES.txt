@@ -142,3 +142,9 @@ THINGS THAT NEED UNIQUE ID :
 * algorithm for appending variable no. of images. 
 
 -DD
+
+16-OCT-17
+Gonna work some some nice date calculations while progress seems to be on hold.
+We'll see
+
+-DD

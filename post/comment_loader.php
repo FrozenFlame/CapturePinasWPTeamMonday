@@ -71,6 +71,8 @@ function getHYPED($hype)
                                 // a.setAttribute("id", comments[0].author); // unintended code, but a good observation on external ID definition
                                 a.setAttribute("href", "#"); //this where we put the user in question.
                                 a.setAttribute("id", "href"+(it+iterator));
+                                a.setAttribute("onclick", "goToProfile(this)");
+                                a.setAttribute("data-userid", commentsJSON[it].userid);
 
                                 var author = document.createElement("b");
                                 author.setAttribute("id", "author"+(it+iterator));

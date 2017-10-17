@@ -6,10 +6,12 @@ class UserProfile
     private $_filepath;
     private $_userid;
     private $_bio;
-    public function __construct($filepath,$bio)
+    private $_fullname;
+    public function __construct($filepath,$bio, $fullname)
     {   
         $this->_filepath = $filepath;
         $this->_bio = $bio;
+        $this->_fullname = $fullname;
     }
     public function getFilepath()
     {
@@ -25,7 +27,8 @@ class UserProfile
         $arr = array
         (
             "filepath" => $this->_filepath,
-            "bio" => $this->_bio
+            "bio" => $this->_bio,
+            "fullname" => $this->_fullname
         );
         return $arr;
     }
