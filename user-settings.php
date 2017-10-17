@@ -136,7 +136,7 @@ if(!isset($_SESSION['id'])) # if user is already logged in, redirect to logged i
                     <li class="dropdown" id="profile-dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" id="nav_name_user"><?php echo $currentFName." ";?><span class="glyphicon glyphicon-triangle-bottom" aria-hidden="true"></span></a>
                         <ul class="dropdown-menu">
-                        <li><a href="user-profile.php">Profile</a></li>
+                        <li><a href="#" onclick="goToMyProfile(this)">Profile</a></li>
                         <li><a href="user-settings.php">User Settings</a></li>
                         <li><a href="ajax/logout_process.php">Logout</a></li>
                         </ul>
@@ -281,6 +281,21 @@ if(!isset($_SESSION['id'])) # if user is already logged in, redirect to logged i
 
           <!-- Sign Up script -->
       <script>
+          function goToMyProfile(elem)
+        {
+            var form = document.createElement('form');  
+            form.method = 'post';
+            form.action = 'user-profile.php';
+            var input = document.createElement('input');
+            input.type = 'hidden';
+            input.name = 'userid';
+            input.value = "<?php echo $_SESSION['id'] ?>";
+            form.appendChild(input);
+            document.body.appendChild(form);
+
+            form.submit();
+            // $.post('user_profile.php', {userid: elem.dataset.userid});
+        }
 
            function capitalize(str)
           { // string with alteast one character
