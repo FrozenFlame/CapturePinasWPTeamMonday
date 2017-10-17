@@ -283,8 +283,35 @@
                     }, 5000); //will call the function after 2 secs.
                 }
                 
+                 
+
+                setLikesDislikes();
+
             });
 
+            function setLikesDislikes()
+            {
+                var likebtn = '#post-like-btn';
+                var unlikebtn = '#post-unlike-btn';
+                
+                $.post('ajax/db_dealer.php', {type: "get", command: "getLikeUser", postid: postid}, function(data) //we expect data to be: L, D, or N
+                    {
+                    
+                        switch(data)
+                        {
+                            case 'N'://Neutral  (+1 for like)                   -> db value is now L
+                                $(likebtn).attr("style","background-color:white;");
+                                $(unlikebtn).attr("style","background-color:white;");
+                            break;
+                            case 'L'://Liked    (-1 for like)                   -> db value is now N
+                                $(likebtn).attr("style","background-color:darkgreen;color:white;");
+                            break;
+                            case 'D'://Disliked (+1 for like, -1 for dislike)   -> db value is now L
+                                $(unlikebtn).attr("style","background-color:darkred;color:white;");
+                            break;
+                        }
+                    }); 
+            }
             function revealAllComments()
             {
                 // alert("fale");
@@ -504,6 +531,7 @@
                 
 
             }
+            
             function givePostOpinion(postid, opinion)
             {
                 $.post('ajax/db_dealer.php', {type: "set", command: "postOpinion", postid: postid, opinion: opinion});

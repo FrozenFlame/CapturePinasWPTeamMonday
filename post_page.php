@@ -66,7 +66,6 @@ else
                 $('#searchby').hide();
             }
         });
-        window.onload = doSet();
         var isGuest= "<?php echo $isGuest; ?>"; 
        // var isGuest = (item > 0) ? item : 1;//this isGuest stuff is for when the person viewing a particular post is logged in or not, this will urge them to log in if they try to do likes/comment etc related
         var counter;
