@@ -60,7 +60,6 @@
       else
       {
          move_uploaded_file($file["tmp_name"], $target); 
-         $items++;
          $ftype = $imageFileType;
          $remarks .= " - OK";
       }
@@ -68,20 +67,23 @@
    
    $echoitems = array(); //0 is the message, 1 is the number of successful file uploads
 
-   if($success)
-   {
-      array_push($echoitems, "All files uploaded successfully!");
-      array_push($echoitems, $items);
-      array_push($echoitems, json_encode($ftype)); //this is the filetype;
-      echo json_encode($echoitems);
-   }
-   else
-   {
-      array_push($echoitems, "Sorry, one or more files failed to upload:\n" .$remarks);
-      array_push($echoitems, $items);
-      array_push($echoitems, json_encode($ftype)); //this is the filetype;
-      echo json_encode($echoitems);
-   }
+   // if($success)
+   // {
+   //    array_push($echoitems, "All files uploaded successfully!");
+   //    array_push($echoitems, $items);
+   //    array_push($echoitems, $ftype); //this is the filetype;
+   //    echo json_encode($echoitems);
+   // }
+   // else
+   // {
+   //    array_push($echoitems, "Sorry, one or more files failed to upload:\n" .$remarks);
+   //    array_push($echoitems, $items);
+   //    array_push($echoitems, $ftype); //this is the filetype;
+   //    echo json_encode($echoitems);
+   // }
+
+      echo (string)$ftype;
+   
 
    // echo json_encode($file) . " " . $qty;
    

@@ -229,6 +229,14 @@
                     $query2->execute(); //holding trigger for now
                 }                
             }
+            else if($commandReceived === 'userAvatar')
+            {
+                $path = $_POST['path'];
+                $query = $this->db->prepare("UPDATE userinfo SET filepath = ?  WHERE id = ?");
+                $query->bindparam(1, $path);
+                $query->bindparam(2, $_SESSION['id']);
+                $query->execute();
+            }
             else if($commandReceived === 'postOpinion')
             {
                 /**

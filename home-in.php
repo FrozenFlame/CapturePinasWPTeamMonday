@@ -194,7 +194,9 @@ if(!isset($_SESSION['id'])) # if user is already logged in, redirect to logged i
                 createPostLite(document.getElementById('home-posts'), data, off);
             });
         }
-        
+        /**
+        *     @author Jarvis  
+        */
         $(function() //btn btn-default runs this
         {
             // We can attach the `fileselect` event to all file inputs on the page
@@ -244,7 +246,9 @@ if(!isset($_SESSION['id'])) # if user is already logged in, redirect to logged i
         {   
             //variables found above:
             // var uploadList;
-            
+            /**
+            *   @author Denzel
+            */
             var numOfSuccessfulUploads;
             var pID;
             
