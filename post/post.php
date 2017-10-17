@@ -127,14 +127,11 @@
                                 "August", "September", "October",
                                 "November", "December"
                             ];
-
                             var day = date.getDate();
                             var monthIndex = date.getMonth();
                             var year = date.getFullYear();
-
                             var hour = date.getHours();
                             var min = date.getMinutes();
-
                             function FormatNumberLength(num, length) 
                             {
                                 var r = num.toString();
@@ -144,7 +141,6 @@
                                 }
                                 return r;
                             }
-
                             return "[" +FormatNumberLength(hour,2) +":" +FormatNumberLength(min,2)+"] " +day + " " + months[monthIndex] + ", " + year;
                         }
                         function formatDateStr(date) //returns a string for the Date() object
@@ -159,16 +155,13 @@
                                 "Nov", "Dec"
                             ];
                             
-
                             var day = dateParts[2].substr(0,2);
                             var monthIndex = parseInt(dateParts[1])-1;
                             var year = dateParts[0];
-
                             // var hour = dateParts[2].substr(3,5);
                             // var min = dateParts[2].substr(6,8);
                             // var sec = dateParts[2].substr(9,11);
                             var time = dateParts[2].substr(3,11);
-
                             return months[monthIndex] +" " +day +" " +year +" " +time +" GMT+0800 (Taipei Standard Time)" ;
                         }
                         var sqlTimestamp = post[0].timestamp;
@@ -220,21 +213,18 @@
                         }
                         divItem[0].setAttribute("class","item active");
                     }); 
-
                     // $("#post-like-btn").click(function()
                     // {
                     //     var likes = parseInt($(this).text());
                     //     $(this).text(likes+1+' ');
                     //     $(this).append('<span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span>');
                     // });
-
                     // $("#post-unlike-btn").click(function()
                     // {
                     //     var likes = parseInt($(this).text());
                     //     $(this).text(likes+1+' ');
                     //     $(this).append('<span class="glyphicon glyphicon-thumbs-down" aria-hidden="true"></span>');
                     // });
-
                     //comment button
                     $("#textarea-button").click(function()
                     {
@@ -259,13 +249,11 @@
                         }
                        
                     });
-
                     //prepares username
                     $.post('ajax/db_dealer.php', {type: "get", command: "getPostAuthor", author_id: "<?php echo $_SESSION['id']; ?>"}, function(data)
                     {
                        loggedUsername = data;
                     });
-
                 }
                 else
                 {
@@ -283,8 +271,32 @@
                     }, 5000); //will call the function after 2 secs.
                 }
                 
+                 
+                setLikesDislikes();
             });
-
+            function setLikesDislikes()
+            {
+                var likebtn = '#post-like-btn';
+                var unlikebtn = '#post-unlike-btn';
+                
+                $.post('ajax/db_dealer.php', {type: "get", command: "getLikeUser", postid: postid}, function(data) //we expect data to be: L, D, or N
+                    {
+                    
+                        switch(data)
+                        {
+                            case 'N'://Neutral  (+1 for like)                   -> db value is now L
+                                $(likebtn).attr("style","background-color:white;");
+                                $(unlikebtn).attr("style","background-color:white;");
+                            break;
+                            case 'L'://Liked    (-1 for like)                   -> db value is now N
+                                $(likebtn).attr("style","background-color:darkgreen;color:white;");
+                            break;
+                            case 'D'://Disliked (+1 for like, -1 for dislike)   -> db value is now L
+                                $(unlikebtn).attr("style","background-color:darkred;color:white;");
+                            break;
+                        }
+                    }); 
+            }
             function revealAllComments()
             {
                 // alert("fale");
@@ -296,7 +308,6 @@
                 }
                 // commentIterator = document.getElementById("comments_sec").children.length;
                 commentIterator++;
-
             }
             function postComment(comment, postID)
             {
@@ -329,18 +340,14 @@
                                     var a = document.createElement("a");//Author of comment
                                     a.setAttribute("href", "#"); //this where we put the user in question.
                                     a.setAttribute("id", "href"+(commentIterator+1));
-
                                     var author = document.createElement("b");
                                     author.setAttribute("id", "author"+(commentIterator+1));
                                     author.innerHTML = loggedUsername;
                                     a.appendChild(author);
-
                                     var a2 = document.createElement("text"); //comment
                                     a2.setAttribute("id","comment"+(commentIterator+1));    
                                     a2.innerHTML = comment;
-
                                     
-
                                     var a3b = document.createElement("button");
                                     a3b.setAttribute("type", "button");
                                     a3b.setAttribute("class", "btn btn-default");
@@ -374,17 +381,14 @@
                                     /*var a4 = document.createElement("b"); //actual likes value
                                     a4.innerHTML = 0 +" ";
                                     a4.setAttribute("id","likes"+(commentIterator+1));
-
                                     var a5 = document.createElement("text"); //dislikes
                                     a5.innerHTML = "Dislikes: ";
-
                                     var a6 = document.createElement("b"); //actual dislike value
                                     a6.innerHTML = 0 +" ";
                                     a6.setAttribute("id","dislikes"+(commentIterator+1));*/
                                     
                                     var pLine = document.createElement("p");
                                     pLine.setAttribute("id","line");
-
                         //adding to comments section
                         media.appendChild(img);
                         mediaBody.appendChild(a);
@@ -403,7 +407,6 @@
                         media.appendChild(pLine);
                         commsec.appendChild(media);
                         list.appendChild(media);
-
                         var cid; //data-commentid application
                         $.post('ajax/db_dealer.php', {type:"get", command:"getLastCommentId"}, function(data)
                         {
@@ -421,9 +424,6 @@
                 
                
             }
-
-
-
             //thumbs up and down
             function thumbsUp(elem)   //for post @param elem is the button itself
             {
@@ -432,7 +432,6 @@
                     // alert(id.id);
                     var postRating = elem.children[0]; //element that contains our like post rating
                     var thumbdownelem = document.getElementById('post-dislikes');
-
                     $.post('ajax/db_dealer.php', {type: "get", command: "postOpinion", postid: postid}, function(data) //we expect data to be: L, D, or N
                     {
                         // alert(data +" prev opinion");
@@ -463,7 +462,6 @@
                 else
                     alert("You must be logged in to perform that action.");
                 
-
             }
             function thumbsDown(elem) //for post @param elem is the button itself
             {
@@ -472,7 +470,6 @@
                     // alert(id);
                     var postRating = elem.children[0]; //element that contains our dislike post rating
                     var thumbupelem = document.getElementById('post-likes');
-
                     $.post('ajax/db_dealer.php', {type:"get", command:"postOpinion", postid: postid}, function(data) //we expect data to be: L, D, or N
                     {
                         switch(data)
@@ -502,8 +499,8 @@
                 else
                     alert("You must be logged in to perform that action.");
                 
-
             }
+            
             function givePostOpinion(postid, opinion)
             {
                 $.post('ajax/db_dealer.php', {type: "set", command: "postOpinion", postid: postid, opinion: opinion});
@@ -523,7 +520,6 @@
                 var diff="";
                 
                 var unixDiff = Math.abs(curDate.getTime() - posDate.getTime());
-
                 if(unixDiff < 60000) //post is just a few seconds old
                 {
                     var grammar = (Math.ceil(unixDiff/(1000)) > 1) ? "seconds": "second";
@@ -573,7 +569,6 @@
                 input.value = elem.dataset.userid;
                 form.appendChild(input);
                 document.body.appendChild(form);
-
                 form.submit();
                 // $.post('user_profile.php', {userid: elem.dataset.userid});
             }

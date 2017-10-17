@@ -51,7 +51,6 @@ else
       
 
     <script>
-
         $(document).ready(function(){ 
             $("#dropdown-button").click(function(){
                 $("#places-dropdown").slideToggle();
@@ -66,12 +65,10 @@ else
                 $('#searchby').hide();
             }
         });
-        window.onload = doSet();
         var isGuest= "<?php echo $isGuest; ?>"; 
        // var isGuest = (item > 0) ? item : 1;//this isGuest stuff is for when the person viewing a particular post is logged in or not, this will urge them to log in if they try to do likes/comment etc related
         var counter;
         
-
         // $("button#navbar-search-button").click(function()
         // {
         //     //this is the basic search function, not advanced search
@@ -100,7 +97,6 @@ else
                 ?>";
                 form.appendChild(input);
                 document.body.appendChild(form);
-
                 form.submit();
                 // $.post('user_profile.php', {userid: elem.dataset.userid});
             }

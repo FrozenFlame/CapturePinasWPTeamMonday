@@ -486,13 +486,20 @@ function thumbsUpComment(elem)
         /*
         <input type="text" id="foo" data-something="something" value="bar">
         and the javascript.
-
         var el = document.getElementById("foo"); 
-
         console.log(el.value) // bar
         console.log(el.getAttribute("id")) // foo
         console.log(el.dataset.something) //something
         */ 
+
+        
+        // $(likebtn).attr("style","background-color:white;");
+        //  $(unlikebtn).attr("style","background-color:white;");        
+        //  $(likebtn).attr("style","background-color:#6ec62b;color:white;");
+        //         break;
+        //         case 'D'://Disliked (+1 for like, -1 for dislike)   -> db value is now L
+        //             $(unlikebtn).attr("style","background-color:#f44141;color:white;");
+
         $.post('ajax/db_dealer.php', {type:"get", command:"commentOpinion", commentid: commentRating.dataset.commentid}, function(data) //we expect data to be: L, D, or N
         {
             // alert(data +" prev opinion");
@@ -501,15 +508,21 @@ function thumbsUpComment(elem)
                 case 'N'://Neutral  (+1 for like)                   -> db value is now L
                     commentRating.innerHTML = parseInt(commentRating.innerHTML) +1 +" ";
                     giveCommentOpinion(commentRating.dataset.commentid, "L");
+                    elem.setAttribute("style","background-color:#6ec62b;color:white;");
+                    thumbdownelem.setAttribute("style","background-color:white;");
                 break;
                 case 'L'://Liked    (-1 for like)                -> db value is now N
                     commentRating.innerHTML = parseInt(commentRating.innerHTML) -1 +" ";
                     giveCommentOpinion(commentRating.dataset.commentid, "N");
+                    elem.setAttribute("style","background-color:white;");
+                    thumbdownelem.setAttribute("style","background-color:white;");
                 break;
                 case 'D'://Disliked (+1 for like, -1 for dislike)   -> db value is now L
                     commentRating.innerHTML = parseInt(commentRating.innerHTML) +1 +" ";
                     thumbdownelem.children[0].innerHTML = parseInt(thumbdownelem.children[0].innerHTML) -1 +" ";
                     giveCommentOpinion(commentRating.dataset.commentid, "L");
+                    elem.setAttribute("style","background-color:#6ec62b;color:white;");
+                    thumbdownelem.setAttribute("style","background-color:white;");
                 break;
             }
         }); 
@@ -533,7 +546,8 @@ function thumbsDownComment(elem)
         var thumbupelem = document.getElementById('comment-like-btn'+commentIndex);
         // alert("hey " +commentIndex);
         // alert(document.getElementById('comment-dislike-btn'+commentIndex).children[0].innerHTML +" complexshiz");
-
+        
+        
         $.post('ajax/db_dealer.php', {type:"get", command:"commentOpinion", commentid: commentRating.dataset.commentid}, function(data) //we expect data to be: L, D, or N
         {
             // alert(data +" prev opinion");
@@ -542,15 +556,21 @@ function thumbsDownComment(elem)
                 case 'N'://Neutral  (+1 for dislike)                -> db value is now D
                     commentRating.innerHTML = parseInt(commentRating.innerHTML) +1 +" ";
                     giveCommentOpinion(commentRating.dataset.commentid, "D");
+                    elem.setAttribute("style","background-color:#f44141;color:white;");
+                    thumbupelem.setAttribute("style","background-color:white;");
                 break;
                 case 'L'://Liked    (+1 for dislike, -1 for like)   -> db value is now D
                     commentRating.innerHTML = parseInt(commentRating.innerHTML) +1 +" ";
                     thumbupelem.children[0].innerHTML = parseInt(thumbupelem.children[0].innerHTML) -1 +" ";
                     giveCommentOpinion(commentRating.dataset.commentid, "D");
+                    elem.setAttribute("style","background-color:#f44141;color:white;");
+                    thumbupelem.setAttribute("style","background-color:white;");
                 break;
                 case 'D'://Disliked (-1 for dislike)                -> db value is now N
                     commentRating.innerHTML = parseInt(commentRating.innerHTML) -1 +" ";
                     giveCommentOpinion(commentRating.dataset.commentid, "N");
+                    elem.setAttribute("style","background-color:white;");
+                    thumbupelem.setAttribute("style","background-color:white;");
                 break;
             }
         });

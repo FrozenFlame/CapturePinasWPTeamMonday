@@ -19,7 +19,6 @@ function getHYPED($hype)
 </body>
 
 <script> 
-
     var commsec = document.getElementById("comments_sec");
     var commentIterator = 0;    
     var postID = "<?php echo $postID;?>";
@@ -35,7 +34,6 @@ function getHYPED($hype)
             getComment(postID, commentIterator);
             //ren(c++); //THIS IS CAUSING THE LINE TO SAY FAKE, it's just a thing to test out the adaptive IDs
         });
-
     }); 
     function ren(c)
     {
@@ -44,7 +42,6 @@ function getHYPED($hype)
     function getComment(postid, iterator)
     {
         var commentsJSON;
-
         var commsec = document.getElementById("comments_sec");
         var list = document.getElementById("comment-list");
         
@@ -73,12 +70,10 @@ function getHYPED($hype)
                                 a.setAttribute("id", "href"+(it+iterator));
                                 a.setAttribute("onclick", "goToProfile(this)");
                                 a.setAttribute("data-userid", commentsJSON[it].userid);
-
                                 var author = document.createElement("b");
                                 author.setAttribute("id", "author"+(it+iterator));
                                 author.innerHTML = commentsJSON[it].username;
                                 a.appendChild(author);
-
                                 var a2 = document.createElement("text"); //comment
                                 a2.setAttribute("id","comment"+(it+iterator));
                                 a2.innerHTML = commentsJSON[it].content;
@@ -105,7 +100,6 @@ function getHYPED($hype)
                                     <text id = "post-likes">0</text> 
                                     <span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span>
                                 </button>
-
                                 <button class="btn btn-default" type="button" id="post-unlike-btn">
                                     <text id = "post-dislikes">0</text>  
                                     <span class="glyphicon glyphicon-thumbs-down" aria-hidden="true"></span>
@@ -125,14 +119,11 @@ function getHYPED($hype)
                                     a4bspan.setAttribute("aria-hidden","true");
                                 a4b.appendChild(a4btext);
                                 a4b.appendChild(a4bspan);
-
                                 // var a4 = document.createElement("b"); //actual likes value
                                 // a4.innerHTML = commentsJSON[it].likes+" ";
                                 // a4.setAttribute("id","likes"+(it+iterator));
-
                                 // var a5 = document.createElement("text"); //dislikes
                                 // a5.innerHTML = "Dislikes: ";
-
                                 // var a6 = document.createElement("b"); //actual dislike value
                                 // a6.innerHTML = commentsJSON[it].dislikes+" ";
                                 // a6.setAttribute("id","dislikes"+(it+iterator));
@@ -160,6 +151,7 @@ function getHYPED($hype)
                     //media.appendChild(document.createElement("br"));
                     list.appendChild(media);
                     // alert("id iterator current: " +(it+iterator)); //debug thing
+                    setLikesDislikesComment(commentsJSON[it].commentid,it,iterator);
                 }
             }
             else
@@ -168,7 +160,7 @@ function getHYPED($hype)
                 // alert("Sorry, no more comments to load");
             } //this is just a bad way to do it. let's have it show directly on the webpage instead.
         });
-
+       
         
     }
     function createDefaultComment()
@@ -176,7 +168,27 @@ function getHYPED($hype)
         var cs = document.getElementById("comments_sec");
         /* cs.innerHTML = "<a href = \"#\"><b id = \"authorDefault\"> Author </b></a>    <br/>    <text id = \"commentDefault\">My Comment lol.</text>    <br/>    <text>Likes: </text>    <b id = \"likesDefault\">3</b>    <text>Dislikes: </text>    <b id = \"dislikesDefault\">4</b>    <br/>    <br/>";*/ //this is jawot to the next level, no way this is the only solution
     }
-
+    function setLikesDislikesComment(cid, it,index)
+    {
+        var likebtn = '#comment-like-btn'+(it+index);
+        var unlikebtn = '#comment-dislike-btn'+(it+index);
+        $.post('ajax/db_dealer.php', {type: "get", command: "commentOpinion", commentid: cid}, function(data) //we expect data to be: L, D, or N
+        {
+            switch(data)
+            {
+                case 'N'://Neutral  (+1 for like)                   -> db value is now L
+                    $(likebtn).attr("style","background-color:white;");
+                    $(unlikebtn).attr("style","background-color:white;");
+                break;
+                case 'L'://Liked    (-1 for like)                   -> db value is now N
+                    $(likebtn).attr("style","background-color:#6ec62b;color:white;");
+                break;
+                case 'D'://Disliked (+1 for like, -1 for dislike)   -> db value is now L
+                    $(unlikebtn).attr("style","background-color:#f44141;color:white;");
+                break;
+            }
+        }); 
+    }
     function getRemComment(postid, iterator)
     {
         var commentsJSON;
@@ -185,29 +197,22 @@ function getHYPED($hype)
             commentsJSON = JSON.parse(data);
             //no format file for this one, just focusing on the database yanking
             var commsec = document.getElementById("comments_sec");
-
             for(var it = 0; it < commentsJSON.length; it++)
             {
                 console.log("hope");
                 var a = document.createElement("b");//Author of comment
             // a.setAttribute("id", comments[0].author); // unintended code, but a good observation on external ID definition
             a.innerHTML = commentsJSON[it].username;
-
             var a2 = document.createElement("a"); //Likes static text
             a2.innerHTML = "Likes: ";
-
             var a3 = document.createElement("b"); //actual likes value
             a3.innerHTML = commentsJSON[it].likes+" ";
-
             var a4 = document.createElement("a"); //dislikes
             a4.innerHTML = "Dislikes: ";
-
             var a5 = document.createElement("b"); //actual dislike value
             a5.innerHTML = commentsJSON[it].dislikes+" ";
-
             var a6 = document.createElement("p"); //the comment
             a6.innerHTML = commentsJSON[it].content;
-
             //adding to comments section
             commsec.appendChild(a);
             commsec.appendChild(a6);
@@ -217,7 +222,6 @@ function getHYPED($hype)
             commsec.appendChild(a5);
             commsec.appendChild(document.createElement("br"));
             commsec.appendChild(document.createElement("br"));
-
             }
         });
     }
@@ -228,11 +232,9 @@ function getHYPED($hype)
 <script>
 var comments = document.getElementById("comments");
 var postID = "<?php echo $postID;?>";
-
 // comments.innerHTML = postID;
  
 var commentIterator = 0;    
-
     $(document).ready(function()
     {
         // initial loading of comments (at most 2)
@@ -245,9 +247,7 @@ var commentIterator = 0;
             commentIterator += 2; 
             getComment2(postID, commentIterator);
         });
-
     }); 
-
 function getComment(postid, iterator)
 {
     var commentsJSON;
@@ -259,7 +259,6 @@ function getComment(postid, iterator)
             commentsJSON = JSON.parse(data);
             
            
-
         }
         else
         {
@@ -267,7 +266,6 @@ function getComment(postid, iterator)
         }
     });
 }
-
 function getComment2(postid, iterator)
         {
             var commentsJSON;
@@ -279,22 +277,16 @@ function getComment2(postid, iterator)
                 var a = document.createElement("b");//Author of comment
                 // a.setAttribute("id", comments[0].author); // unintended code, but a good observation on external ID definition
                 a.innerHTML = commentsJSON[0].username;
-
                 var a2 = document.createElement("a"); //Likes static text
                 a2.innerHTML = "Likes: ";
-
                 var a3 = document.createElement("b"); //actual likes value
                 a3.innerHTML = commentsJSON[0].likes+" ";
-
                 var a4 = document.createElement("a"); //dislikes
                 a4.innerHTML = "Dislikes: ";
-
                 var a5 = document.createElement("b"); //actual dislike value
                 a5.innerHTML = commentsJSON[0].dislikes+" ";
-
                 var a6 = document.createElement("p"); //the comment
                 a6.innerHTML = commentsJSON[0].content;
-
                 //adding to comments section
                 commsec.appendChild(a);
                 commsec.appendChild(a6);
@@ -320,7 +312,6 @@ function getComment2(postid, iterator)
                     b5.innerHTML = commentsJSON[1].dislikes+" ";
                     var b6 = document.createElement("p");
                     b6.innerHTML = commentsJSON[1].content;
-
                     commsec.appendChild(b);
                     commsec.appendChild(b6);
                     commsec.appendChild(b2);
@@ -330,10 +321,8 @@ function getComment2(postid, iterator)
                     commsec.appendChild(document.createElement("br"));
                     commsec.appendChild(document.createElement("br"));
               // }
-
                 // alert("Iteration: " +iterator);
             });
             
         }
-
 </script>-->
