@@ -110,7 +110,7 @@ if(!isset($_SESSION['id'])) # if user is already logged in, redirect to logged i
                         <div class="textarea-div">
                             <textarea class="form-control" id="upload-textarea" placeholder="Enter description.."></textarea>
                         </div>
-                    <button type="button" class="btn btn-default" id="slide-up-button"><span class="glyphicon glyphicon-chevron-up"></span></button>
+                    <button type="button" class="btn btn-default" id="slide-up-button" data-toggle="tooltip" title="Slide up"><span class="glyphicon glyphicon-chevron-up"></span></button>
                      <button type="button" class="btn btn-default" id="upload-button" style="float:right;margin-right:35px;" onclick ="upload()">+Post</button>
                     
                  </div>
