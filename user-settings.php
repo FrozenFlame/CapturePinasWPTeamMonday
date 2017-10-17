@@ -109,7 +109,42 @@ if(!isset($_SESSION['id'])) # if user is already logged in, redirect to logged i
                   <div class="col-lg-offset-4 col-md-offset-4 col-xs-offset-4 col-lg-12"><h2>User Settings</h2></div>
 
               </div>
-            <form class = "form-horizontal" role = "form">
+              <!--<div class="row"> 
+                  
+                        <div class="input-group">
+                            <h4 class="col-lg-offset-8">Change profile picture</h4>
+                            <label class="input-group-btn">
+                                <span class="btn btn-default" type = "submit">
+                                    Browse photos&hellip; <input type="file" id="img" style="display: none" multiple></input>                             
+                                </span>
+                            </label>
+                            <input type="text" class="form-control" readonly style="width:15%;margin-top:14px;" id = "place-text">
+                        </div>       
+                </div> -->
+        <form class = "form-horizontal" role = "form">
+                <div class = "form-group">
+                    <label for = "yeah" class = "col-sm-4 col-lg-5 control-label">Change profile picture</label>
+                    <div class="input-group col-sm-6 col-md-6 col-lg-3">
+                           
+                            <label class="input-group-btn" style="padding-left:15px;">
+                                <span class="btn btn-default" type = "submit">
+                                    Browse photos&hellip; <input type="file" id="img" style="display: none"></input>                             
+                                </span>
+                            </label>
+                            <input type="text" class="form-control" readonly style="width:92%;" id = "place-text">
+                    </div>   
+                </div>
+              
+              <div class = "form-group">
+                    <label for = "bio" class = "col-sm-4 col-lg-5 control-label">Change bio</label>
+
+                    <div class = "textarea-div col-sm-6 col-md-6 col-lg-3">
+                        <textarea class="form-control" id="bio" placeholder="Enter new bio.."></textarea>
+                    </div>
+                </div>
+    
+              
+           
                 <div class = "form-group">
                     <label for = "Username" class = "col-sm-4 col-lg-5 control-label">Username</label>
                     <div class = "col-sm-6 col-md-6 col-lg-3">
@@ -394,6 +429,7 @@ if(!isset($_SESSION['id'])) # if user is already logged in, redirect to logged i
 
 
         });
+          
 
       </script>
   </body>

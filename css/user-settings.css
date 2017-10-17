@@ -4,13 +4,12 @@ body{
 
 
 .login-block {
-    padding-top: 100px;
-    //background-color:bisque ;
-    
+    padding-top: 10px;
     background-image: url(../images/1.jpg) ;
     background-size: cover;
     background-position:top;
-    height: 1000px;
+    height:94%;
+    width: auto;
 } 
 
 .dropdown-menu {
@@ -32,7 +31,7 @@ body{
 .form-block{
     background-image: url(../images/dark-bg.png);
     background-size:auto;
-    height: 350px;
+    height: 510px;
 }
 
 .places-li{
