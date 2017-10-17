@@ -177,18 +177,8 @@
                         echo 'N';
                 } else {
                     echo $query->fetch()['opinion'];
-                }   
-            } else if($commandReceived==='getFavorites') {
-                $query = $this->db->prepare("SELECT * FROM userfav WHERE postid=?");
-                $query->bindparam(1, $_POST['postid']);
-                $query->execute();
-                echo $query->rowcount();
-            } else if($commandReceived==='getUserFavorites') {
-                $query = $this->db->prepare("SELECT * FROM userfav WHERE postid=? AND id = ?");
-                $query->bindparam(1, $_POST['postid']);
-                $query->bindparam(2, $_SESSION['id']);
-                $query->execute();
-                echo $query->rowcount();
+            }
+                    
             }
         }
     }
