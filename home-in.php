@@ -217,19 +217,19 @@ else
         function checkSession(){
             var sessionMode = "<?php echo $_SESSION['mode'] ?>";
                 if(sessionMode=="home"){
-                    $("#latest-time-button").attr("style","background-color:#0b2b10;color:white;margin-right:10px;");
-                    $("#latest-time-button").attr("class","btn btn-default col-lg-2 disabled");
+                    $("#latest-time-button").attr("style","background-color:#0b9101;color:white;margin-right:10px;");
+                    $("#latest-time-button").attr("class","btn btn-default col-lg-2 ");
                 } else if(sessionMode=="highest") {
-                    $("#highest-like-button").attr("style","background-color:#0b2b10;color:white;margin-right:10px;");
-                    $("#highest-like-button").attr("class","btn btn-default col-lg-2 disabled");
+                    $("#highest-like-button").attr("style","background-color:#efba1a;color:white;margin-right:10px;");
+                    $("#highest-like-button").attr("class","btn btn-default col-lg-2 ");
                 }
                 else if(sessionMode=="oldest") {
                     $("#oldest-time-button").attr("style","background-color:#0b2b10;color:white;margin-right:10px;");
-                    $("#oldest-time-button").attr("class","btn btn-default col-lg-2 disabled");
+                    $("#oldest-time-button").attr("class","btn btn-default col-lg-2 ");
                 }
                 else if(sessionMode=="favorites") {
-                    $("#most-fave-button").attr("style","background-color:#0b2b10;color:white;margin-right:10px;");
-                    $("#most-fave-button").attr("class","btn btn-default col-lg-2 disabled");
+                    $("#most-fave-button").attr("style","background-color:#db4c69;color:white;margin-right:10px;");
+                    $("#most-fave-button").attr("class","btn btn-default col-lg-2");
                 }
         }
         

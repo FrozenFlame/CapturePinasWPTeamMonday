@@ -160,6 +160,7 @@ function getHYPED($hype)
                     //media.appendChild(document.createElement("br"));
                     list.appendChild(media);
                     // alert("id iterator current: " +(it+iterator)); //debug thing
+                    setLikesDislikesComment(commentsJSON[it].commentid,it,iterator);
                 }
             }
             else
@@ -169,12 +170,35 @@ function getHYPED($hype)
             } //this is just a bad way to do it. let's have it show directly on the webpage instead.
         });
 
+       
         
     }
     function createDefaultComment()
     {
         var cs = document.getElementById("comments_sec");
         /* cs.innerHTML = "<a href = \"#\"><b id = \"authorDefault\"> Author </b></a>    <br/>    <text id = \"commentDefault\">My Comment lol.</text>    <br/>    <text>Likes: </text>    <b id = \"likesDefault\">3</b>    <text>Dislikes: </text>    <b id = \"dislikesDefault\">4</b>    <br/>    <br/>";*/ //this is jawot to the next level, no way this is the only solution
+    }
+
+    function setLikesDislikesComment(cid, it,index)
+    {
+        var likebtn = '#comment-like-btn'+(it+index);
+        var unlikebtn = '#comment-dislike-btn'+(it+index);
+        $.post('ajax/db_dealer.php', {type: "get", command: "commentOpinion", commentid: cid}, function(data) //we expect data to be: L, D, or N
+        {
+            switch(data)
+            {
+                case 'N'://Neutral  (+1 for like)                   -> db value is now L
+                    $(likebtn).attr("style","background-color:white;");
+                    $(unlikebtn).attr("style","background-color:white;");
+                break;
+                case 'L'://Liked    (-1 for like)                   -> db value is now N
+                    $(likebtn).attr("style","background-color:#6ec62b;color:white;");
+                break;
+                case 'D'://Disliked (+1 for like, -1 for dislike)   -> db value is now L
+                    $(unlikebtn).attr("style","background-color:#f44141;color:white;");
+                break;
+            }
+        }); 
     }
 
     function getRemComment(postid, iterator)
