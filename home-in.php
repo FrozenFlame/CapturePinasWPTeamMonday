@@ -133,8 +133,10 @@ else
               <div class="post" style="padding-bottom:10px;padding-top:10px;">
                   <div class="row">
                       <p class="col-lg-2" style="width:15%;"><b>Sort by:</b><p>
-                  <button type="button" class="btn btn-default col-lg-2" style="margin-right:10px;" id="latest-time-button">Latest time</button>
-                  <button type="button" class="btn btn-default col-lg-2" id="highest-like-button">Highest likes</button>
+                  <button type="button" class="btn btn-default col-lg-2" style="margin-right:10px;" id="latest-time-button">Newest</button>
+                  <button type="button" class="btn btn-default col-lg-2" style="margin-right:10px;" id="oldest-time-button">Oldest</button>
+                  <button type="button" class="btn btn-default col-lg-2" style="margin-right:10px;" id="highest-like-button">Highest Ratings</button>
+                  <button type="button" class="btn btn-default col-lg-2" style="margin-right:10px;" id="most-fave-button">Most Favorites</button>
                   </div>
               </div>
           </div>
@@ -162,13 +164,23 @@ else
         { 
             checkSession();
             $("#highest-like-button").click(function(){
-                var mode = "likes";
+                var mode = "highest";
                 $.post("php/sessionSetter.php", {"modePassed": mode});
                 window.location = "home-in.php";
                 
             });
             $("#latest-time-button").click(function(){
                 var mode = "home";
+                $.post("php/sessionSetter.php", {"modePassed": mode});
+                window.location = "home-in.php";
+            });
+            $("#oldest-time-button").click(function(){
+                var mode = "oldest";
+                $.post("php/sessionSetter.php", {"modePassed": mode});
+                window.location = "home-in.php";
+            });
+             $("#most-fave-button").click(function(){
+                var mode = "favorites";
                 $.post("php/sessionSetter.php", {"modePassed": mode});
                 window.location = "home-in.php";
             });
@@ -206,9 +218,17 @@ else
                 if(sessionMode=="home"){
                     $("#latest-time-button").attr("style","background-color:#0b2b10;color:white;margin-right:10px;");
                     $("#latest-time-button").attr("class","btn btn-default col-lg-2 disabled");
-                } else if(sessionMode=="likes") {
-                    $("#highest-like-button").attr("style","background-color:#0b2b10;color:white;");
+                } else if(sessionMode=="highest") {
+                    $("#highest-like-button").attr("style","background-color:#0b2b10;color:white;margin-right:10px;");
                     $("#highest-like-button").attr("class","btn btn-default col-lg-2 disabled");
+                }
+                else if(sessionMode=="oldest") {
+                    $("#oldest-time-button").attr("style","background-color:#0b2b10;color:white;margin-right:10px;");
+                    $("#oldest-time-button").attr("class","btn btn-default col-lg-2 disabled");
+                }
+                else if(sessionMode=="favorites") {
+                    $("#most-fave-button").attr("style","background-color:#0b2b10;color:white;margin-right:10px;");
+                    $("#most-fave-button").attr("class","btn btn-default col-lg-2 disabled");
                 }
         }
         
@@ -217,9 +237,9 @@ else
         var postdropdown = document.getElementById("upload-select");
         
         var off = 0;
-        var mode = "home";//this decides how the arrangement of posts appear
+        // var mode = "home";//this decides how the arrangement of posts appear
         //choices are {string} "user-profile", "home" or "highest"
-        
+        var mode = "<?php echo $_SESSION['mode']; ?>";
         window.onload = doSet();
         function doSet() //actually prepares navbar is what set does
         {
