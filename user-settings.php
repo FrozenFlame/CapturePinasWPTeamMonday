@@ -105,7 +105,7 @@ if(!isset($_SESSION['id'])) # if user is already logged in, redirect to logged i
 
       <div class="login-block" >
           <div class="form-block">
-              <div class="row" style="padding: 0px 50px 20px">
+              <div class="row">
                   <div class="col-lg-offset-4 col-md-offset-4 col-xs-offset-4 col-lg-12"><h2>User Settings</h2></div>
 
               </div>
