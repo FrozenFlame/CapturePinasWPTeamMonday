@@ -1,11 +1,13 @@
 <?php
 session_start();
-$isGuest = false;
-if(!isset($_SESSION['id'])) # sets variable for guests
+$isGuest;
+if(!isset($_SESSION['id'])) # if user is a guest.
 {
-    $isGuest = true;
+//   header('Location: index.php');
+    $isGuest = TRUE;
 }
-
+else
+    $isGuest = FALSE;
 ?>
 <html>
   <head>
@@ -32,7 +34,11 @@ if(!isset($_SESSION['id'])) # sets variable for guests
   <body>
     <!-- Nav bar -->
     <?php 
-    include 'nav-bar.php'; ?>
+    if($isGuest == FALSE)
+        include 'nav-bar.php';
+    else
+        include 'nav-bar-guest.php'; 
+    ?>
     <!-- End of Nav bar -->
     <br/>
     <br/>
@@ -45,9 +51,24 @@ if(!isset($_SESSION['id'])) # sets variable for guests
       
 
     <script>
+
+        $(document).ready(function(){ 
+            $("#dropdown-button").click(function(){
+                $("#places-dropdown").slideToggle();
+            });
+              $('#places-dropdown').on('click',function(e)
+                   {
+                        $('#topic').val($(e.target).text());
+                        //$('#topic').Text($(e.target).text());
+                        $('#places-form').submit();
+                   });
+                   if($('#searchby').val()==''){
+                $('#searchby').hide();
+            }
+        });
         window.onload = doSet();
-        var item = "<?php echo $isGuest; ?>"; 
-        var isGuest = (item > 0) ? item : 1;//this isGuest stuff is for when the person viewing a particular post is logged in or not, this will urge them to log in if they try to do likes/comment etc related
+        var isGuest= "<?php echo $isGuest; ?>"; 
+       // var isGuest = (item > 0) ? item : 1;//this isGuest stuff is for when the person viewing a particular post is logged in or not, this will urge them to log in if they try to do likes/comment etc related
         var counter;
         
 
@@ -63,18 +84,26 @@ if(!isset($_SESSION['id'])) # sets variable for guests
         
         function goToMyProfile(elem)
         {
-            var form = document.createElement('form');  
-            form.method = 'post';
-            form.action = 'user-profile.php';
-            var input = document.createElement('input');
-            input.type = 'hidden';
-            input.name = 'userid';
-            input.value = "<?php echo $_SESSION['id'] ?>";
-            form.appendChild(input);
-            document.body.appendChild(form);
+            if(!isGuest)
+            {
+                var form = document.createElement('form');  
+                form.method = 'post';
+                form.action = 'user-profile.php';
+                var input = document.createElement('input');
+                input.type = 'hidden';
+                input.name = 'userid';
+                input.value = 
+                "<?php  if($isGuest == FALSE)
+                            echo $_SESSION['id'];
+                        else 
+                            echo 0;
+                ?>";
+                form.appendChild(input);
+                document.body.appendChild(form);
 
-            form.submit();
-            // $.post('user_profile.php', {userid: elem.dataset.userid});
+                form.submit();
+                // $.post('user_profile.php', {userid: elem.dataset.userid});
+            }
         }
     </script>      
   </body>

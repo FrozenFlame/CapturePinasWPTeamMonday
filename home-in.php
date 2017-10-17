@@ -1,11 +1,14 @@
 <!-- Team Monday -->
 <?php
 session_start();
-
-if(!isset($_SESSION['id'])) # if user is already logged in, redirect to logged in page.
+$isGuest;
+if(!isset($_SESSION['id'])) # if user is a guest.
 {
-  header('Location: index.php');
+//   header('Location: index.php');
+    $isGuest = TRUE;
 }
+else
+    $isGuest = FALSE;
 
 ?>
 <html>
@@ -31,7 +34,11 @@ if(!isset($_SESSION['id'])) # if user is already logged in, redirect to logged i
   <body>
     <!-- Nav bar -->
     <?php 
-    include 'nav-bar.php'; ?>
+    if($isGuest == FALSE)
+        include 'nav-bar.php';
+    else
+        include 'nav-bar-guest.php';
+    ?>
     <!-- End of Nav bar -->
       <br>
       <div class="container" id ="home-posts">
@@ -126,6 +133,13 @@ if(!isset($_SESSION['id'])) # if user is already logged in, redirect to logged i
     </div>
 
     <script>
+
+        var isGuest = "<?php echo $isGuest ?>";
+        var uploadList;
+        
+        var postdropdown = document.getElementById("upload-select");
+        var placeSelected = "Albay";
+
         $(document).ready(function()
         { 
             $("#make-post-button").click(function(){

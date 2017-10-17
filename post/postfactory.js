@@ -13,6 +13,8 @@
  */
 var postJSON;
 var _userid = "<?php echo $_SESSION['id']; ?>";
+var isGuest = "<?php echo $isGuest; ?>";
+
 function createPostLite(container, json, index)
 {
     // setting of JSON content will be synced
@@ -329,70 +331,81 @@ function createPostLite(container, json, index)
 function thumbsUp(elem)   //for post @param elem is the button itself
 {
     // alert(id.id);
-    var postRating = elem.children[0]; //element that contains our like post rating
-    var postIndex = postRating.getAttribute("id").substr(10); //id is post-likes which is 10 characters
-    var thumbdownelem = document.getElementById('post-dislikes'+postIndex);
+    if(!isGuest)
+    {
+        var postRating = elem.children[0]; //element that contains our like post rating
+        var postIndex = postRating.getAttribute("id").substr(10); //id is post-likes which is 10 characters
+        var thumbdownelem = document.getElementById('post-dislikes'+postIndex);
 
-    $.post('ajax/db_dealer.php', {type: "get", command: "postOpinion", postid: elem.dataset.postid}, function(data) //we expect data to be: L, D, or N
-    {
-        // alert(data +" prev opinion");
-        switch(data)
+        $.post('ajax/db_dealer.php', {type: "get", command: "postOpinion", postid: elem.dataset.postid}, function(data) //we expect data to be: L, D, or N
         {
-            case 'N'://Neutral  (+1 for like)                   -> db value is now L
-                postRating.innerHTML = parseInt(postRating.innerHTML) +1 +" ";
-                givePostOpinion(elem.dataset.postid, "L");
-            break;
-            case 'L'://Liked    (-1 for like)                   -> db value is now N
-                postRating.innerHTML = parseInt(postRating.innerHTML) -1 +" ";
-                givePostOpinion(elem.dataset.postid, "N");
-            break;
-            case 'D'://Disliked (+1 for like, -1 for dislike)   -> db value is now L
-                postRating.innerHTML = parseInt(postRating.innerHTML) +1 +" ";
-                thumbdownelem.innerHTML = parseInt(thumbdownelem.innerHTML) -1 +" ";
-                givePostOpinion(elem.dataset.postid, "L");
-            break;
-        }
-    }); 
-    //cooldown
-    elem.disabled = true;
-    setTimeout(function()
-    {
-        elem.disabled = false;
-    },1000);
+            // alert(data +" prev opinion");
+            switch(data)
+            {
+                case 'N'://Neutral  (+1 for like)                   -> db value is now L
+                    postRating.innerHTML = parseInt(postRating.innerHTML) +1 +" ";
+                    givePostOpinion(elem.dataset.postid, "L");
+                break;
+                case 'L'://Liked    (-1 for like)                   -> db value is now N
+                    postRating.innerHTML = parseInt(postRating.innerHTML) -1 +" ";
+                    givePostOpinion(elem.dataset.postid, "N");
+                break;
+                case 'D'://Disliked (+1 for like, -1 for dislike)   -> db value is now L
+                    postRating.innerHTML = parseInt(postRating.innerHTML) +1 +" ";
+                    thumbdownelem.innerHTML = parseInt(thumbdownelem.innerHTML) -1 +" ";
+                    givePostOpinion(elem.dataset.postid, "L");
+                break;
+            }
+        }); 
+        //cooldown
+        elem.disabled = true;
+        setTimeout(function()
+        {
+            elem.disabled = false;
+        },1000);
+    }
+    else
+        alert("You must be logged in to perform that action.");
+    
 
 }
 function thumbsDown(elem) //for post @param elem is the button itself
 {
-    // alert(id);
-    var postRating = elem.children[0]; //element that contains our dislike post rating
-    var postIndex = postRating.getAttribute("id").substr(13); //id is post-dislikes which is 13 characters
-    var thumbupelem = document.getElementById('post-likes'+postIndex);
+    if(!isGuest)
+    {
+        // alert(id);
+        var postRating = elem.children[0]; //element that contains our dislike post rating
+        var postIndex = postRating.getAttribute("id").substr(13); //id is post-dislikes which is 13 characters
+        var thumbupelem = document.getElementById('post-likes'+postIndex);
 
-    $.post('ajax/db_dealer.php', {type:"get", command:"postOpinion", postid: elem.dataset.postid}, function(data) //we expect data to be: L, D, or N
-    {
-        switch(data)
+        $.post('ajax/db_dealer.php', {type:"get", command:"postOpinion", postid: elem.dataset.postid}, function(data) //we expect data to be: L, D, or N
         {
-            case 'N'://Neutral  (+1 for dislike)                -> db value is now D
-                postRating.innerHTML = parseInt(postRating.innerHTML) +1 +" ";
-                givePostOpinion(elem.dataset.postid, "D");
-            break;
-            case 'L'://Liked    (+1 for dislike, -1 for like)   -> db value is now D
-                postRating.innerHTML = parseInt(postRating.innerHTML) +1 +" ";
-                thumbupelem.innerHTML = parseInt(thumbupelem.innerHTML) -1 +" ";
-                givePostOpinion(elem.dataset.postid, "D");
-            break;
-            case 'D'://Disliked (-1 for dislike)                -> db value is now N
-                postRating.innerHTML = parseInt(postRating.innerHTML) -1 +" ";
-                givePostOpinion(elem.dataset.postid, "N");
-            break;
-        }
-    });
-    //cooldown
-    elem.disabled = true;
-    setTimeout(function()
-    {
-        elem.disabled = false;
-    },1000);
+            switch(data)
+            {
+                case 'N'://Neutral  (+1 for dislike)                -> db value is now D
+                    postRating.innerHTML = parseInt(postRating.innerHTML) +1 +" ";
+                    givePostOpinion(elem.dataset.postid, "D");
+                break;
+                case 'L'://Liked    (+1 for dislike, -1 for like)   -> db value is now D
+                    postRating.innerHTML = parseInt(postRating.innerHTML) +1 +" ";
+                    thumbupelem.innerHTML = parseInt(thumbupelem.innerHTML) -1 +" ";
+                    givePostOpinion(elem.dataset.postid, "D");
+                break;
+                case 'D'://Disliked (-1 for dislike)                -> db value is now N
+                    postRating.innerHTML = parseInt(postRating.innerHTML) -1 +" ";
+                    givePostOpinion(elem.dataset.postid, "N");
+                break;
+            }
+        });
+        //cooldown
+        elem.disabled = true;
+        setTimeout(function()
+        {
+            elem.disabled = false;
+        },1000);
+    }
+    else
+        alert("You must be logged in to perform that action.");
 
 }
 function givePostOpinion(postid, opinion)
@@ -402,81 +415,93 @@ function givePostOpinion(postid, opinion)
 
 function thumbsUpComment(elem)
 {
-    var commentRating = elem.children[0]; //index 0 because the first child of this element contains our commentid  
-    var commentIndex = elem.getAttribute("id").substr(16); //id is comment-like-btn which is 16 characters
-    var thumbdownelem = document.getElementById('comment-dislike-btn'+commentIndex);
-    //first we check what status the user has with the comment
-    /*
-    <input type="text" id="foo" data-something="something" value="bar">
-    and the javascript.
-
-    var el = document.getElementById("foo"); 
-
-    console.log(el.value) // bar
-    console.log(el.getAttribute("id")) // foo
-    console.log(el.dataset.something) //something
-    */ 
-    $.post('ajax/db_dealer.php', {type:"get", command:"commentOpinion", commentid: commentRating.dataset.commentid}, function(data) //we expect data to be: L, D, or N
+    if(!isGuest)
     {
-        // alert(data +" prev opinion");
-        switch(data)
+        var commentRating = elem.children[0]; //index 0 because the first child of this element contains our commentid  
+        var commentIndex = elem.getAttribute("id").substr(16); //id is comment-like-btn which is 16 characters
+        var thumbdownelem = document.getElementById('comment-dislike-btn'+commentIndex);
+        //first we check what status the user has with the comment
+        /*
+        <input type="text" id="foo" data-something="something" value="bar">
+        and the javascript.
+
+        var el = document.getElementById("foo"); 
+
+        console.log(el.value) // bar
+        console.log(el.getAttribute("id")) // foo
+        console.log(el.dataset.something) //something
+        */ 
+        $.post('ajax/db_dealer.php', {type:"get", command:"commentOpinion", commentid: commentRating.dataset.commentid}, function(data) //we expect data to be: L, D, or N
         {
-            case 'N'://Neutral  (+1 for like)                   -> db value is now L
-                commentRating.innerHTML = parseInt(commentRating.innerHTML) +1 +" ";
-                giveCommentOpinion(commentRating.dataset.commentid, "L");
-            break;
-            case 'L'://Liked    (-1 for like)                -> db value is now N
-                commentRating.innerHTML = parseInt(commentRating.innerHTML) -1 +" ";
-                giveCommentOpinion(commentRating.dataset.commentid, "N");
-            break;
-            case 'D'://Disliked (+1 for like, -1 for dislike)   -> db value is now L
-                commentRating.innerHTML = parseInt(commentRating.innerHTML) +1 +" ";
-                thumbdownelem.children[0].innerHTML = parseInt(thumbdownelem.children[0].innerHTML) -1 +" ";
-                giveCommentOpinion(commentRating.dataset.commentid, "L");
-            break;
-        }
-    }); 
-    //cooldown
-    elem.disabled = true;
-    setTimeout(function()
-    {
-        elem.disabled = false;
-    },1000);
+            // alert(data +" prev opinion");
+            switch(data)
+            {
+                case 'N'://Neutral  (+1 for like)                   -> db value is now L
+                    commentRating.innerHTML = parseInt(commentRating.innerHTML) +1 +" ";
+                    giveCommentOpinion(commentRating.dataset.commentid, "L");
+                break;
+                case 'L'://Liked    (-1 for like)                -> db value is now N
+                    commentRating.innerHTML = parseInt(commentRating.innerHTML) -1 +" ";
+                    giveCommentOpinion(commentRating.dataset.commentid, "N");
+                break;
+                case 'D'://Disliked (+1 for like, -1 for dislike)   -> db value is now L
+                    commentRating.innerHTML = parseInt(commentRating.innerHTML) +1 +" ";
+                    thumbdownelem.children[0].innerHTML = parseInt(thumbdownelem.children[0].innerHTML) -1 +" ";
+                    giveCommentOpinion(commentRating.dataset.commentid, "L");
+                break;
+            }
+        }); 
+        //cooldown
+        elem.disabled = true;
+        setTimeout(function()
+        {
+            elem.disabled = false;
+        },1000);
+    }
+    else
+         alert("You must be logged in to perform that action.");
+    
 }
 function thumbsDownComment(elem)
 {
-    var commentRating = elem.children[0];
-    var commentIndex = elem.getAttribute("id").substr(19); //id is comment-dislike-btn which is 19 characters
-    var thumbupelem = document.getElementById('comment-like-btn'+commentIndex);
-    // alert("hey " +commentIndex);
-    // alert(document.getElementById('comment-dislike-btn'+commentIndex).children[0].innerHTML +" complexshiz");
+    if(!isGuest)
+    {
+        var commentRating = elem.children[0];
+        var commentIndex = elem.getAttribute("id").substr(19); //id is comment-dislike-btn which is 19 characters
+        var thumbupelem = document.getElementById('comment-like-btn'+commentIndex);
+        // alert("hey " +commentIndex);
+        // alert(document.getElementById('comment-dislike-btn'+commentIndex).children[0].innerHTML +" complexshiz");
 
-    $.post('ajax/db_dealer.php', {type:"get", command:"commentOpinion", commentid: commentRating.dataset.commentid}, function(data) //we expect data to be: L, D, or N
-    {
-        // alert(data +" prev opinion");
-        switch(data)
+        $.post('ajax/db_dealer.php', {type:"get", command:"commentOpinion", commentid: commentRating.dataset.commentid}, function(data) //we expect data to be: L, D, or N
         {
-            case 'N'://Neutral  (+1 for dislike)                -> db value is now D
-                commentRating.innerHTML = parseInt(commentRating.innerHTML) +1 +" ";
-                giveCommentOpinion(commentRating.dataset.commentid, "D");
-            break;
-            case 'L'://Liked    (+1 for dislike, -1 for like)   -> db value is now D
-                commentRating.innerHTML = parseInt(commentRating.innerHTML) +1 +" ";
-                thumbupelem.children[0].innerHTML = parseInt(thumbupelem.children[0].innerHTML) -1 +" ";
-                giveCommentOpinion(commentRating.dataset.commentid, "D");
-            break;
-            case 'D'://Disliked (-1 for dislike)                -> db value is now N
-                commentRating.innerHTML = parseInt(commentRating.innerHTML) -1 +" ";
-                giveCommentOpinion(commentRating.dataset.commentid, "N");
-            break;
-        }
-    });
-    //cooldown
-    elem.disabled = true;
-    setTimeout(function()
-    {
-        elem.disabled = false;
-    },1000);
+            // alert(data +" prev opinion");
+            switch(data)
+            {
+                case 'N'://Neutral  (+1 for dislike)                -> db value is now D
+                    commentRating.innerHTML = parseInt(commentRating.innerHTML) +1 +" ";
+                    giveCommentOpinion(commentRating.dataset.commentid, "D");
+                break;
+                case 'L'://Liked    (+1 for dislike, -1 for like)   -> db value is now D
+                    commentRating.innerHTML = parseInt(commentRating.innerHTML) +1 +" ";
+                    thumbupelem.children[0].innerHTML = parseInt(thumbupelem.children[0].innerHTML) -1 +" ";
+                    giveCommentOpinion(commentRating.dataset.commentid, "D");
+                break;
+                case 'D'://Disliked (-1 for dislike)                -> db value is now N
+                    commentRating.innerHTML = parseInt(commentRating.innerHTML) -1 +" ";
+                    giveCommentOpinion(commentRating.dataset.commentid, "N");
+                break;
+            }
+        });
+        //cooldown
+        elem.disabled = true;
+        setTimeout(function()
+        {
+            elem.disabled = false;
+        },1000);
+    }
+    else
+        alert("You must be logged in to perform that action.");
+    
 }
 function giveCommentOpinion(commentid, opinion)
 {

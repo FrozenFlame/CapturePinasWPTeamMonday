@@ -2,10 +2,15 @@
 <!-- NO DESIGN YET -->
 <?php
 session_start();
-if(!isset($_SESSION['id'])) # if user is already logged in, redirect to logged in page.
+$isGuest = TRUE;
+if(!isset($_SESSION['id'])) # if user is a guest.
 {
-  header('Location: index.php');
+//   header('Location: index.php');
+    $isGuest = TRUE;
 }
+else
+    $isGuest = FALSE;
+
 
 $query = $_POST['query'];
 ?>
@@ -32,7 +37,11 @@ $query = $_POST['query'];
   <body>
     <!-- Nav bar -->
     <?php 
-    include 'nav-bar.php'; ?>
+    if($isGuest == FALSE)
+        include 'nav-bar.php';
+    else
+        include 'nav-bar-guest.php';
+    ?>
     <!-- End of Nav bar -->
     <br/>
     <br/>
@@ -46,20 +55,29 @@ $query = $_POST['query'];
     </div>
 
     <script>
+        var isGuest = "<?php echo $isGuest ?>";
         function goToMyProfile(elem)
         {
+            if(!isGuest)
+            {
             var form = document.createElement('form');  
             form.method = 'post';
             form.action = 'user-profile.php';
             var input = document.createElement('input');
             input.type = 'hidden';
             input.name = 'userid';
-            input.value = "<?php echo $_SESSION['id'] ?>";
+            input.value = 
+            "<?php  if($isGuest == FALSE)
+                        echo $_SESSION['id'];
+                    else 
+                        echo 0;
+            ?>";
             form.appendChild(input);
             document.body.appendChild(form);
 
             form.submit();
             // $.post('user_profile.php', {userid: elem.dataset.userid});
+            }
         }
         $(document).ready(function(){ 
             if($('#searchby').val()==''){
@@ -71,6 +89,15 @@ $query = $_POST['query'];
         window.onload = doSet();
         function doSet() //actually prepares navbar is what set does, and for this page, this also initiates search population
         {
+            if(!isGuest)
+            {
+                var passed = 'getId';
+                $.post('ajax/set.php', {passed: passed}, function(data)  //user is what we're passing in, and usern is what php will reference it with.
+                {                                                               //data there is what php will return or "echo"
+                    $('a#nav_name_user').text(data+' ');
+                    $('a#nav_name_user').append('<span class="glyphicon glyphicon-triangle-bottom" aria-hidden="true"></span>');
+                });
+            }
             var searchby;
             switch(mode)
             {
@@ -81,7 +108,6 @@ $query = $_POST['query'];
             
             var search = "<?php echo $query; ?>";
             document.getElementById("h1-search").innerHTML = "Results for: \"" +search +"\"";
-
             $.post('ajax/db_dealer.php', {type:"search", command:mode, searchplace: search, offset: 0}, function(data)
             {
                 // alert(data);

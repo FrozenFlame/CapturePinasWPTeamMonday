@@ -11,7 +11,7 @@
             </div>
             <div class="collapse navbar-collapse" id="myNavbar">
                 <ul class="nav navbar-nav">
-                    <li><a href="index.php">Home</a></li>
+                    <li class="active"><a href="index.php">Home</a></li>
                         
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" id="dropdown-button">Places <span class="glyphicon glyphicon-triangle-bottom" aria-hidden="true"></span></a>
@@ -56,12 +56,11 @@
 
                         </ul>
                     </li>
-
                     <li><a href="about_us.php">About Us</a></li>
 
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
-                    <li>
+                   <li>
                         <div class="col-lg-12">
                          <form class="navbar-form" role="search" method="POST" action="search_results.php"> <!-- method="<post/get>" action="<location of php>" -->
                             <div class="input-group">
@@ -73,13 +72,8 @@
                         </form>
                         </div>
                     </li>
-                    <li class="dropdown" id="profile-dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" id="nav_name_user"></a>
-                        <ul class="dropdown-menu" id="user-dropdown">
-                    <!--<li><a href="user-profile.php">Profile</a></li> -->
-                        <li><a href="#" onclick="goToMyProfile(this)" id="nav-user-dropdown">Profile</a></li>
-                        <li><a href="user-settings.php" id="nav-user-dropdown">User Settings</a></li>
-                        <li><a href="ajax/logout_process.php" id="nav-user-dropdown">Logout</a></li>
+                    <li><a href="signup.html"><span class="glyphicon glyphicon-user" ></span> Sign Up</a></li>
+                    <li><a href="#" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
                         </ul>
                     </li>
                 </ul>
@@ -87,3 +81,56 @@
         </div>
     </nav>
 </body>
+
+<script>
+    var isGuest = true;
+ //LOGIN CODE
+        var attemptsRem = 5;
+        $(document).ready(function()
+        {
+            $("#Password-modal").keyup(function(event){
+                if(event.keyCode == 13){
+                    $("#bloginmdl").click();
+                }
+            });
+            
+            $("#seePwdBtnModal").click(function()
+            {
+                var password = document.getElementById('Password-modal');
+                var seePwdBtn = document.getElementById('seePwdBtnModal');
+                if(password.type=='password')
+                    {
+                        password.type='text';
+                        $(seePwdBtn).find(".glyphicon").removeClass("glyphicon-eye-close").addClass("glyphicon-eye-open");
+                    }
+                else{
+                    password.type='password';
+                    $(seePwdBtn).find(".glyphicon").removeClass("glyphicon-eye-open").addClass("glyphicon-eye-close");
+                }
+            })
+          $("#bloginmdl").click(function()
+          {
+            console.log("You clicked me");
+            var user = $('input#Username-modal').val(); // $ jquery. input from id 'Username', then the method val() for its value.
+            var pass = $('input#Password-modal').val();
+            if($.trim(user) != '' && pass != '') //ignores empty fields
+            { 
+              $.post('ajax/login_process.php', {usern: user, passw: pass}, function(data)  //user is what we're passing in, and usern is what php will reference it with.
+              {                                                               //data there is what php will return or "echo"
+                if(data)
+                {  
+                  $('label#wrongusr').text("");
+                  window.location.href = 'home-in.php'; //moves us in as an example page.
+                }
+                else
+                {
+                  $('label#wrongusr').css("color","red");
+                  $('label#wrongusr').text("Incorrect login details.");
+                  attemptsRem--;
+                }                         
+              });         
+            }
+            
+          });
+        });
+</script>

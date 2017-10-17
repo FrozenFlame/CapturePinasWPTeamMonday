@@ -1,11 +1,14 @@
 <!-- Team Monday -->
 <?php
 session_start();
-
-if(!isset($_SESSION['id'])) # if user is already logged in, redirect to logged in page.
+$isGuest;
+if(!isset($_SESSION['id'])) # if user is a guest.
 {
-  header('Location: index.php');
+//   header('Location: index.php');
+    $isGuest = TRUE;
 }
+else
+    $isGuest = FALSE;
 
 $userid = $_POST['userid'];
 ?>
@@ -31,7 +34,10 @@ $userid = $_POST['userid'];
   <body>
     <!-- Nav bar -->
     <?php 
-    include 'nav-bar.php'; ?>
+    if($isGuest == FALSE)
+        include 'nav-bar.php';
+    else
+        include 'nav-bar-guest.php'; ?>
     <!-- End of Nav bar -->
       <br>
       <div class="container-fluid container-user-profile row">
