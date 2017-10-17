@@ -7,7 +7,7 @@
     cursor: pointer;
     padding-top: 3px;
     padding-bottom: 3px;
-    color: black;
+    color:dimgrey;
 }
 .places-li:hover {
     background-color: whitesmoke;
