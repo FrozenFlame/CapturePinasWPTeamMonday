@@ -56,7 +56,7 @@
 
                         </ul>
                     </li>
-                    <li><a href="#">About Us</a></li>
+                    <li><a href="about_us.php">About Us</a></li>
 
                 </ul>
                 <ul class="nav navbar-nav navbar-right">

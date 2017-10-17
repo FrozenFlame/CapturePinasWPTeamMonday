@@ -58,6 +58,9 @@ else
                         //$('#topic').Text($(e.target).text());
                         $('#places-form').submit();
                    });
+                   if($('#searchby').val()==''){
+                $('#searchby').hide();
+            }
         });
         window.onload = doSet();
         var isGuest= "<?php echo $isGuest; ?>"; 
