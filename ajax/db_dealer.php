@@ -530,6 +530,51 @@
                     } else
                         echo "false";
                 break;
+                case "oldest": 
+                    include_once('../post/postObject.php');
+                    $query = $this->db->prepare("SELECT u.username, p.*, i.filepath FROM post p LEFT JOIN users u ON p.userid = u.id LEFT JOIN userinfo i ON u.id = i.id ORDER BY timestamp ASC LIMIT 4 OFFSET :off");
+                    /*
+                    "SELECT u.username, p.* FROM post p RIGHT JOIN users u ON p.userid = u.id WHERE postid = :postid");
+                    $postid = $_POST['postid'];
+                    $query->bindparam(':postid', $postid, PDO::PARAM_INT);
+                    */
+                    //"SELECT * FROM postcomments WHERE postid = :postid LIMIT :lim OFFSET :offset"
+                    $offset = (int)$_POST['offset'];
+                    $query->bindparam(':off', $offset, PDO::PARAM_INT);
+                    $query->execute();
+                    $posts = array();
+                    if($query->rowcount() != 0) 
+                    {
+                        foreach($query as $result)
+                        {
+                            $post= new Post
+                            (
+                                $result['postid'],
+                                $result['userid'],
+                                $result['title'],
+                                $result['place'],
+                                $result['description'],
+                                $result['likes'],
+                                $result['dislikes'],
+                                $result['timestamp'],
+                                $result['username'],
+                                $result['filepath'] //this is the path to their avatar
+                            );
+                            /*adding of file paths*/
+                            $query2 = $this->db->prepare("SELECT * FROM `postmedia` WHERE postid = ?");
+                            $query2->bindparam(1, $result['postid']);
+                            $query2->execute();
+                            foreach($query2 as $result2)
+                            {
+                                // echo json_encode($result2[1]);
+                                $post->pushToPathList($result2[1]);
+                            }
+                            array_push($posts, $post->toArray());
+                        }
+                    echo json_encode($posts);
+                    } else
+                        echo "false";
+                break;
                     
                 case "user-profile": 
                     include_once('../post/postObject.php');
@@ -630,6 +675,51 @@
                 case "highest": # arrange by highest rated
                     include_once('../post/postObject.php');
                     $query = $this->db->prepare("SELECT u.username, p.*, i.filepath FROM post p LEFT JOIN users u ON p.userid = u.id LEFT JOIN userinfo i ON u.id = i.id ORDER BY likes DESC LIMIT 4 OFFSET :off");
+                    /*
+                    "SELECT u.username, p.* FROM post p RIGHT JOIN users u ON p.userid = u.id WHERE postid = :postid");
+                    $postid = $_POST['postid'];
+                    $query->bindparam(':postid', $postid, PDO::PARAM_INT);
+                    */
+                    //"SELECT * FROM postcomments WHERE postid = :postid LIMIT :lim OFFSET :offset"
+                    $offset = (int)$_POST['offset'];
+                    $query->bindparam(':off', $offset, PDO::PARAM_INT);
+                    $query->execute();
+                    $posts = array();
+                    if($query->rowcount() != 0) 
+                    {
+                        foreach($query as $result)
+                        {
+                            $post= new Post
+                            (
+                                $result['postid'],
+                                $result['userid'],
+                                $result['title'],
+                                $result['place'],
+                                $result['description'],
+                                $result['likes'],
+                                $result['dislikes'],
+                                $result['timestamp'],
+                                $result['username'],
+                                $result['filepath'] //this is the path to their avatar
+                            );
+                            /*adding of file paths*/
+                            $query2 = $this->db->prepare("SELECT * FROM `postmedia` WHERE postid = ?");
+                            $query2->bindparam(1, $result['postid']);
+                            $query2->execute();
+                            foreach($query2 as $result2)
+                            {
+                                // echo json_encode($result2[1]);
+                                $post->pushToPathList($result2[1]);
+                            }
+                            array_push($posts, $post->toArray());
+                        }
+                    echo json_encode($posts);
+                    } else
+                        echo "false";
+                break;
+                case "favorites": # arrange by  most favorites
+                    include_once('../post/postObject.php');
+                    $query = $this->db->prepare("SELECT u.username, p.*, i.filepath FROM post p LEFT JOIN users u ON p.userid = u.id LEFT JOIN userinfo i ON u.id = i.id ORDER BY favnum DESC LIMIT 4 OFFSET :off");
                     /*
                     "SELECT u.username, p.* FROM post p RIGHT JOIN users u ON p.userid = u.id WHERE postid = :postid");
                     $postid = $_POST['postid'];
