@@ -535,7 +535,7 @@ function getTimeDiff(curDate, posDate) //returns a string of the time difference
         var diff = Math.ceil(unixDiff/(1000 * 60 * 60 * 24 * 7 * 4 * 12)) +grammar;
     }
         
-    return "(" +diff +" ago)";
+    return "(about " +diff +" ago)";
 }
 
 function goToProfile(elem)

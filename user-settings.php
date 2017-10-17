@@ -17,7 +17,7 @@ if(!isset($_SESSION['id'])) # if user is already logged in, redirect to logged i
             $currentEmail1;
             GLOBAL $currentEmail2;
             $emailPointer = 0;
-
+            
         
             $query = $db->prepare("SELECT * FROM users WHERE id = ?"); #BINARY makes the password search case-sensitive.
             $query->bindparam(1, $_SESSION['id']);
@@ -39,6 +39,13 @@ if(!isset($_SESSION['id'])) # if user is already logged in, redirect to logged i
               $currentEmail2 = $currentEmail2.$currentEmailFull{$emailPointer};
               $emailPointer++;
             }
+
+            $currentBio;
+            $query2 = $db->prepare("SELECT bio FROM userinfo WHERE id = ?"); #BINARY makes the password search case-sensitive.
+            $query2->bindparam(1, $_SESSION['id']);
+            $query2->execute();
+            $currentBio = $query2->fetch()['bio'];
+
 /*****************************************************************************************************************************************/
 
 ?>
@@ -122,27 +129,7 @@ if(!isset($_SESSION['id'])) # if user is already logged in, redirect to logged i
                         </div>       
                 </div> -->
         <form class = "form-horizontal" role = "form">
-                <div class = "form-group">
-                    <label for = "yeah" class = "col-sm-4 col-lg-5 control-label">Change profile picture</label>
-                    <div class="input-group col-sm-6 col-md-6 col-lg-3">
-                           
-                            <label class="input-group-btn" style="padding-left:15px;">
-                                <span class="btn btn-default" type = "submit">
-                                    Browse photos&hellip; <input type="file" id="img" style="display: none"></input>                             
-                                </span>
-                            </label>
-                            <input type="text" class="form-control" readonly style="width:92%;" id = "place-text">
-                    </div>   
-                </div>
-              
-              <div class = "form-group">
-                    <label for = "bio" class = "col-sm-4 col-lg-5 control-label">Change bio</label>
-
-                    <div class = "textarea-div col-sm-6 col-md-6 col-lg-3">
-                        <textarea class="form-control" id="bio" placeholder="Enter new bio.."></textarea>
-                    </div>
-                </div>
-    
+                
               
            
                 <div class = "form-group">
@@ -220,7 +207,29 @@ if(!isset($_SESSION['id'])) # if user is already logged in, redirect to logged i
                     </div>
                 </div>
 
+                <div class = "form-group">
+                    <label for = "yeah" class = "col-sm-4 col-lg-5 control-label">Change profile picture</label>
+                    <div class="input-group col-sm-6 col-md-6 col-lg-3">
+                           
+                            <label class="input-group-btn" style="padding-left:15px;">
+                                <span class="btn btn-default" type = "submit">
+                                    Browse photos&hellip; <input type="file" id="img" style="display: none"></input>                             
+                                </span>
+                            </label>
+                            <input type="text" class="form-control" readonly style="width:92%;" id = "place-text">
+                    </div>   
+                </div>
+              
+              <div class = "form-group">
+                    <label for = "bio" class = "col-sm-4 col-lg-5 control-label">Change bio</label>
 
+                    <div class = "textarea-div col-sm-6 col-md-6 col-lg-3">
+                        <textarea class="form-control" id="bio" placeholder="<?php echo $currentBio; ?>"></textarea>
+                         
+                    </div>
+                    
+                </div>
+    
 
                 <div class = "form-group">
                     <div class = "col-xs-offset-8 col-sm-offset-8 col-md-offset-8 col-lg-offset-7 col-sm-2 col-md-2 col-lg-1 col-xs-4">
@@ -234,8 +243,8 @@ if(!isset($_SESSION['id'])) # if user is already logged in, redirect to logged i
 
           <!-- Sign Up script -->
       <script>
-          var postdropdown = document.getElementById("upload-select");
-        var placeSelected = "Albay";
+        var uploadList; //for avatar
+         var postdropdown = document.getElementById("upload-select");
         $(document).ready(function()
         { 
             $("#dropdown-button").click(function(){
@@ -246,10 +255,6 @@ if(!isset($_SESSION['id'])) # if user is already logged in, redirect to logged i
                     $('#topic').val($(e.target).text());
                     //$('#topic').Text($(e.target).text());
                     $('#places-form').submit();
-            });
-            $('#upload-select').on('change', function(e)
-            {
-                placeSelected = postdropdown.options[postdropdown.selectedIndex].value
             });
         });
           
@@ -263,13 +268,7 @@ if(!isset($_SESSION['id'])) # if user is already logged in, redirect to logged i
                 $('a#nav_name_user').text(data+' ');
                 $('a#nav_name_user').append('<span class="glyphicon glyphicon-triangle-bottom" aria-hidden="true"></span>');
             });
-
-            //NOTE offset is 0 because this is the FIRST TIME LOAD of the page. Before the "more" is clicked.
-            $.post('ajax/db_dealer.php', {type: "search", command: mode, offset: 0}, function(data)
-            {
-                // alert(data); //data now contains JSON formatted goods
-                createPostLite(document.getElementById('home-posts'), data, 0);
-            });
+           
         }
           function goToMyProfile(elem)
         {
@@ -297,6 +296,49 @@ if(!isset($_SESSION['id'])) # if user is already logged in, redirect to logged i
                }
               return str;
            }
+        $(function() //btn btn-default runs this
+        {
+            // We can attach the `fileselect` event to all file inputs on the page
+            $(document).on('change', ':file', function() 
+            {
+                var input = $(this);
+                var numFiles = input.get(0).files ? input.get(0).files.length : 1; //get(0) is the input child of the span parent
+                var label = input.val().replace(/\\/g, '/').replace(/.*\//, ''); //string escapes
+                input.trigger('fileselect', [numFiles, label]); // 'fileselect' is what the identifier of our following jquery will see it as
+                // alert(input.val().get(1));
+                // alert(input); // [object Object]
+                // alert(input.get(0)); // [object HTMLInputElement]
+                // alert(input.get(0).getAttribute("id")); //file
+                //alert(input.get(0).getAttribute("style")); //display: none
+                // alert(input.get(0).files); //filelist
+                // alert(input.get(0).files[0]); //file
+                uploadList = new FormData();
+                for(var i = 0; i < input.get(0).files.length; i++)
+                {
+                    // alert((input.get(0).files[i]).name +" content " +i); //displays all filenames
+                    uploadList.append('file-'+i, input.get(0).files[i]);
+                }
+
+            });
+
+            // We can watch for our custom `fileselect` event like this
+            $(document).ready( function() 
+            {
+                $(':file').on('fileselect', function(event, numFiles, label) 
+                {
+                    var input = $(this).parents('.input-group').find(':text'),
+                    log = numFiles > 1 ? numFiles + ' files selected' : label;
+                    if( input.length ) 
+                    {
+                        input.val(log);
+                    } 
+                    else 
+                    {
+                        if( log ) alert("file select error" +log);
+                    }
+                });
+            });
+        });
 
         $(document).ready(function()
         {
@@ -380,26 +422,52 @@ if(!isset($_SESSION['id'])) # if user is already logged in, redirect to logged i
             fullname = $.trim(fullname);
               //end of making 1st letters capital            
 
+              var bio = $('#bio').val();
+
               if(password != password2)  {
                   $('label#wrongusrPassword2').css("color","red");
                   $('label#wrongusrPassword2').text("Error, both password fields must match.");
               } else{
-
-                    $.post('ajax/savechanges_process.php', {password: password, email:emailFinal, fullname: fullname}, function(data)  //user is what we're passing in, and usern is what php will reference it with.
+                    var hasFiles = document.getElementById("place-text").value != '';
+                    $.post('ajax/savechanges_process.php', {password: password, email:emailFinal, fullname: fullname, bio:bio, avatarchanged: hasFiles}, function(data)  //user is what we're passing in, and usern is what php will reference it with.
                     {             //data there is what php will return or "echo"
                         if(data) // is true
                         {
                             console.log(data);
-                            alert("Successful");
+                            alert("Profile info saved.");
                             // window.location.href = 'user-settings.php'; //basically refreshes the page.
                             // let's make it so that when we save our changes, we get "Your Settings have been Saved."
+                            if(hasFiles) //user decided to change his avatar
+                            {
+                                $.ajax( 
+                                { 
+                                    url: 'php/uploadAvatar.php',
+                                    data: uploadList,
+                                    cache: false,
+                                    contentType: false,
+                                    processData: false,
+                                    method: 'POST',
+                                    type: 'POST',
+                                    success: function(data)
+                                    {
+                                        
+                                        var ext = data;
+                                        var uid = "<?php echo $_SESSION['id']; ?>";
+                                        var path = "/CapturePinasWPTeamMonday/images/userimages/u" +uid +"." +ext;
+
+                                        $.post('ajax/db_dealer.php', {type:"set", command:"userAvatar", path: path});
+                                    }
+                                });
+                            }
+
+                            window.location.href = 'user-settings.php'; //moves us in
                         }
                         else
                         {
-                           alert("Failed");
+                           alert("No info changed.");
                         }
                     });
-                    window.location.href = 'user-settings.php'; //moves us in
+                    
                   }
 
             });
