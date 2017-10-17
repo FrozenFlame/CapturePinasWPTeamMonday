@@ -341,7 +341,7 @@ else
             //variables found above:
             // var uploadList;
             /**
-            *   @author Denzel
+            *   @author DD_
             */
             var numOfSuccessfulUploads;
             var pID;
