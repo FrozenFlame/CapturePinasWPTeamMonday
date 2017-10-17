@@ -20,7 +20,7 @@ $userid = $_POST['userid'];
     <link rel="stylesheet" href="css/bootstrap.min.css"> <!-- changed to local files -->
     <script src = "js/jquery-3.2.1.js"></script>
     <script src="js/bootstrap.min.js"></script>
-      <script src="js/navbar.js"></script>
+    <script src="js/navbar.js"></script>
     <script src= "post/post-user-profile.js"> </script>
     <link href="css/user-profile.css" rel="stylesheet">
     <link href="css/navbar.css" rel="stylesheet">
@@ -68,7 +68,7 @@ $userid = $_POST['userid'];
     <script>
         var off = 0;
         var mode = "user-profile-id";//this decides how the arrangement of posts appear
-        
+        // alert(isGuest+" USERISGUEST");
         //choices are {string} "user-profile", "home" or "highest"
         window.onload = doSet();
         function doSet() //actually prepares navbar is what set does

@@ -1,7 +1,7 @@
 <!-- Team Monday -->
 <?php
 session_start();
-$isGuest;
+$isGuest = TRUE;
 if(!isset($_SESSION['id'])) # if user is a guest.
 {
 //   header('Location: index.php');

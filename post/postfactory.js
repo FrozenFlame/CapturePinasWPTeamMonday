@@ -616,7 +616,11 @@ function thumbsDownComment(elem)
 }
 function giveCommentOpinion(commentid, opinion)
 {
-    $.post('ajax/db_dealer.php', {type: "set", command: "commentOpinion", commentid: commentid, opinion: opinion});
+    if(!isGuest)// last level check
+    {
+        $.post('ajax/db_dealer.php', {type: "set", command: "commentOpinion", commentid: commentid, opinion: opinion});
+    }
+    
 }
 
 function getTimeDiff(curDate, posDate) //returns a string of the time difference

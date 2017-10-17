@@ -259,7 +259,9 @@ function createPostLite(container, json, index)
  */
 function thumbsUp(elem)   //for post @param elem is the button itself
 {
-    // alert(id.id);
+    if(!isGuest)
+    {
+        // alert(id.id);
     var postRating = elem.children[0]; //element that contains our like post rating
     var postIndex = postRating.getAttribute("id").substr(10); //id is post-likes which is 10 characters
     var thumbdownelem = document.getElementById('post-dislikes'+postIndex);
@@ -290,40 +292,48 @@ function thumbsUp(elem)   //for post @param elem is the button itself
     {
         elem.disabled = false;
     },1000);
+    }
+     else
+         alert("You must be logged in to perform that action.");
 
 }
 function thumbsDown(elem) //for post @param elem is the button itself
 {
-    // alert(id);
-    var postRating = elem.children[0]; //element that contains our dislike post rating
-    var postIndex = postRating.getAttribute("id").substr(13); //id is post-dislikes which is 13 characters
-    var thumbupelem = document.getElementById('post-likes'+postIndex);
+    if(!isGuest)
+    {
+        // alert(id);
+        var postRating = elem.children[0]; //element that contains our dislike post rating
+        var postIndex = postRating.getAttribute("id").substr(13); //id is post-dislikes which is 13 characters
+        var thumbupelem = document.getElementById('post-likes'+postIndex);
 
-    $.post('ajax/db_dealer.php', {type:"get", command:"postOpinion", postid: elem.dataset.postid}, function(data) //we expect data to be: L, D, or N
-    {
-        switch(data)
+        $.post('ajax/db_dealer.php', {type:"get", command:"postOpinion", postid: elem.dataset.postid}, function(data) //we expect data to be: L, D, or N
         {
-            case 'N'://Neutral  (+1 for dislike)                -> db value is now D
-                postRating.innerHTML = parseInt(postRating.innerHTML) +1 +" ";
-                givePostOpinion(elem.dataset.postid, "D");
-            break;
-            case 'L'://Liked    (+1 for dislike, -1 for like)   -> db value is now D
-                postRating.innerHTML = parseInt(postRating.innerHTML) +1 +" ";
-                thumbupelem.innerHTML = parseInt(thumbupelem.innerHTML) -1 +" ";
-                givePostOpinion(elem.dataset.postid, "D");
-            break;
-            case 'D'://Disliked (-1 for dislike)                -> db value is now N
-                postRating.innerHTML = parseInt(postRating.innerHTML) -1 +" ";
-                givePostOpinion(elem.dataset.postid, "N");
-            break;
-        }
-    });
-    //cooldown
-    elem.disabled = true;
-    setTimeout(function()
-    {
-        elem.disabled = false;
-    },1000);
+            switch(data)
+            {
+                case 'N'://Neutral  (+1 for dislike)                -> db value is now D
+                    postRating.innerHTML = parseInt(postRating.innerHTML) +1 +" ";
+                    givePostOpinion(elem.dataset.postid, "D");
+                break;
+                case 'L'://Liked    (+1 for dislike, -1 for like)   -> db value is now D
+                    postRating.innerHTML = parseInt(postRating.innerHTML) +1 +" ";
+                    thumbupelem.innerHTML = parseInt(thumbupelem.innerHTML) -1 +" ";
+                    givePostOpinion(elem.dataset.postid, "D");
+                break;
+                case 'D'://Disliked (-1 for dislike)                -> db value is now N
+                    postRating.innerHTML = parseInt(postRating.innerHTML) -1 +" ";
+                    givePostOpinion(elem.dataset.postid, "N");
+                break;
+            }
+        });
+        //cooldown
+        elem.disabled = true;
+        setTimeout(function()
+        {
+            elem.disabled = false;
+        },1000);
+    }
+     else
+         alert("You must be logged in to perform that action.");
 
 }
 function givePostOpinion(postid, opinion)
