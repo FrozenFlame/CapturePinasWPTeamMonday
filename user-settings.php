@@ -61,90 +61,8 @@ if(!isset($_SESSION['id'])) # if user is already logged in, redirect to logged i
   </head>
   <body>
     <!-- Nav bar -->
-    <nav class="navbar navbar-default navbar-fixed-top">
-        <div class="container-fluid">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="index.php">CapturePinas</a>
-            </div>
-            <div class="collapse navbar-collapse" id="myNavbar">
-                <ul class="nav navbar-nav">
-                    <li><a href="index.php">Home</a></li>
-
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Places <span class="glyphicon glyphicon-triangle-bottom" aria-hidden="true"></span></a>
-                        <ul class="dropdown-menu">
-                            <li><a href="#">Albay</a></li>
-                            <li><a href="#">Banaue</a></li>
-                            <li><a href="#">Bataan</a></li>
-                            <li><a href="#">Batanes</a></li>
-                            <li><a href="#">Batangas</a></li>
-                            <li><a href="#">Benguet</a></li>
-                            <li><a href="#">Bohol</a></li>
-                            <li><a href="#">Bulacan</a></li>
-                            <li><a href="#">Camarines Norte</a></li>
-                            <li><a href="#">Camarines Sur</a></li>
-                            <li><a href="#">Capiz</a></li>
-                            <li><a href="#">Cavite</a></li>
-                            <li><a href="#">Cebu</a></li>
-                            <li><a href="#">Davao</a></li>
-                            <li><a href="#">Ilocos Norte</a></li>
-                            <li><a href="#">Ilocos Sur</a></li>
-                            <li><a href="#">Laguna</a></li>
-                            <li><a href="#">Leyte</a></li>
-                            <li><a href="#">Marinduque</a></li>
-                            <li><a href="#">Negros Occidental</a></li>
-                            <li><a href="#">Negros Oriental</a></li>
-                            <li><a href="#">Nueva Ecija</a></li>
-                            <li><a href="#">Palawan</a></li>
-                            <li><a href="#">Pampanga</a></li>
-                            <li><a href="#">Pangasinan</a></li>
-                            <li><a href="#">Quezon</a></li>
-                            <li><a href="#">Romblon</a></li>
-                            <li><a href="#">Sarangani</a></li>
-                            <li><a href="#">Sultan Kudarat</a></li>
-                            <li><a href="#">Surigao del Norte</a></li>
-                            <li><a href="#">Surigao del Sur</a></li>
-                            <li><a href="#">Tawi tawi</a></li>
-                            <li><a href="#">Zambales</a></li>
-                            <li><a href="#">Zamboanga</a></li>
-
-
-                        </ul>
-                    </li>
-                    <li><a href="#">About Us</a></li>
-
-                </ul>
-                <ul class="nav navbar-nav navbar-right">
-                    <li>
-                        <div class="col-lg-12">
-                         <form class="navbar-form" role="search">
-                            <div class="input-group">
-
-                                <input type="text" class="form-control" placeholder="Search" id="navbar-search">
-                                <div class="input-group-btn">
-                                <button class="btn btn-default" type="submit"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
-                                </div>
-                            </div>
-                        </form>
-                        </div>
-                    </li>
-                    <li class="dropdown" id="profile-dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" id="nav_name_user"><?php echo $currentFName." ";?><span class="glyphicon glyphicon-triangle-bottom" aria-hidden="true"></span></a>
-                        <ul class="dropdown-menu">
-                        <li><a href="#" onclick="goToMyProfile(this)">Profile</a></li>
-                        <li><a href="user-settings.php">User Settings</a></li>
-                        <li><a href="ajax/logout_process.php">Logout</a></li>
-                        </ul>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
+    <?php 
+    include 'nav-bar.php'; ?>
     <!-- End of Nav bar -->
 
       <!-- Start of Modal -->
@@ -281,6 +199,40 @@ if(!isset($_SESSION['id'])) # if user is already logged in, redirect to logged i
 
           <!-- Sign Up script -->
       <script>
+          var postdropdown = document.getElementById("upload-select");
+        var placeSelected = "Albay";
+        $(document).ready(function()
+        { 
+            $('#places-dropdown').on('click',function(e)
+            {
+                    $('#topic').val($(e.target).text());
+                    //$('#topic').Text($(e.target).text());
+                    $('#places-form').submit();
+            });
+            $('#upload-select').on('change', function(e)
+            {
+                placeSelected = postdropdown.options[postdropdown.selectedIndex].value
+            });
+        });
+          
+        window.onload = doSet();
+        function doSet() //actually prepares navbar is what set does
+        {
+            var passed = 'getId';
+
+            $.post('ajax/set.php', {passed: passed}, function(data)  //user is what we're passing in, and usern is what php will reference it with.
+            {                                                               //data there is what php will return or "echo"
+                $('a#nav_name_user').text(data+' ');
+                $('a#nav_name_user').append('<span class="glyphicon glyphicon-triangle-bottom" aria-hidden="true"></span>');
+            });
+
+            //NOTE offset is 0 because this is the FIRST TIME LOAD of the page. Before the "more" is clicked.
+            $.post('ajax/db_dealer.php', {type: "search", command: mode, offset: 0}, function(data)
+            {
+                // alert(data); //data now contains JSON formatted goods
+                createPostLite(document.getElementById('home-posts'), data, 0);
+            });
+        }
           function goToMyProfile(elem)
         {
             var form = document.createElement('form');  
