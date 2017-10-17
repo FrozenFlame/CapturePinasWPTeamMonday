@@ -7,6 +7,10 @@ if(!isset($_SESSION['id'])) # if user is a guest.
 //   header('Location: index.php');
     $isGuest = TRUE;
 }
+if(!isset($_SESSION['mode']))
+{
+    $_SESSION['mode']='home';
+}
 else
     $isGuest = FALSE;
 
@@ -117,16 +121,30 @@ else
                         <div class="textarea-div">
                             <textarea class="form-control" id="upload-textarea" placeholder="Enter description.."></textarea>
                         </div>
-                    <button type="button" class="btn btn-default" id="slide-up-button"><span class="glyphicon glyphicon-chevron-up"></span></button>
+                    <button type="button" class="btn btn-default" id="slide-up-button"><span class="glyphicon glyphicon-chevron-up"
+                                                data-toggle="tooltip" title="Click to slide up"></span></button>
                      <button type="button" class="btn btn-default" id="upload-button" style="float:right;margin-right:35px;" onclick ="upload()">+Post</button>
                     
                  </div>
           </div>
              </div>
           </div>
-            
-      </div><!-- Make iterative -->
+        <div class="col-lg-offset-2 col-offset-xs-0 col-sm-8 col-xs-12" >
+              <div class="post" style="padding-bottom:10px;padding-top:10px;">
+                  <div class="row">
+                      <p class="col-lg-2" style="width:15%;"><b>Sort by:</b><p>
+                  <button type="button" class="btn btn-default col-lg-2" style="margin-right:10px;" id="latest-time-button">Latest time</button>
+                  <button type="button" class="btn btn-default col-lg-2" id="highest-like-button">Highest likes</button>
+                  </div>
+              </div>
+          </div>
 
+      </div>
+
+            
+      <!-- Make iterative -->
+
+    
     <!-- more posts button -->
     <div class="wrapper">
         <button type="button" class="btn btn-default" onclick="loadPost()" id="load-more-button">Load More Posts</button>
@@ -142,6 +160,31 @@ else
 
         $(document).ready(function()
         { 
+            checkSession();
+            $("#highest-like-button").click(function(){
+                var mode = "likes";
+                $.post("php/sessionSetter.php", {"modePassed": mode});
+                window.location = "home-in.php";
+                
+            });
+            $("#latest-time-button").click(function(){
+                var mode = "home";
+                $.post("php/sessionSetter.php", {"modePassed": mode});
+                window.location = "home-in.php";
+            });
+            
+            /*$("#latest-time-button").click(function(){
+                
+            });*/
+            
+           
+            $("#example").popover({
+                placement: 'bottom',
+                html: 'true',
+                title : '<span class="text-info"><strong>title</strong></span>'+
+                        '<button type="button" id="close" class="close" onclick="$(&quot;#example&quot;).popover(&quot;hide&quot;);">&times;</button>',
+                content : 'test'
+            });
             $("#make-post-button").click(function(){
                 $("#upload-div").slideDown();
                 var div = document.getElementById("div-upload-header");
@@ -157,6 +200,18 @@ else
                 container.setAttribute("style","cursor:pointer;");
             });
         });
+        
+        function checkSession(){
+            var sessionMode = "<?php echo $_SESSION['mode'] ?>";
+                if(sessionMode=="home"){
+                    $("#latest-time-button").attr("style","background-color:#0b2b10;color:white;margin-right:10px;");
+                    $("#latest-time-button").attr("class","btn btn-default col-lg-2 disabled");
+                } else if(sessionMode=="likes") {
+                    $("#highest-like-button").attr("style","background-color:#0b2b10;color:white;");
+                    $("#highest-like-button").attr("class","btn btn-default col-lg-2 disabled");
+                }
+        }
+        
         var uploadList;
         
         var postdropdown = document.getElementById("upload-select");
