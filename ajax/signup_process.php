@@ -44,10 +44,17 @@
             $query->bindparam(3,$e_mail);
             $query->bindparam(4,$pass);
             $result = $query->execute();
-        
-            if($result)
-            {                
-                $successful=TRUE;                                
+            
+            if($result){
+                
+                $query2 = $this->db->prepare("SELECT id FROM users ORDER BY id DESC LIMIT 1");
+                $query2->execute();
+                $result2 = $query2->fetch()['id'];
+                
+                $query3 = $this->db->prepare("INSERT INTO userinfo VALUES(?,'/CapturePinasWPTeamMonday/images/userimages/default.png','')");
+                $query3->bindparam(1,$result2);
+                $query3->execute();
+                $successful=TRUE;                                   
             }else{
                 $successful=FALSE;
             }            
