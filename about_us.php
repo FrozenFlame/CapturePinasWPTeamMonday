@@ -28,6 +28,12 @@ else
          <script src="js/html5shiv.js"></script>
          <script src="js/respond.min.js"></script>
       <![endif]-->
+      <style>
+      body
+      {
+          background-image: url('\\CapturePinasWPTeamMonday\\images\\assets\\cropped-neu.jpg');
+      }
+      </style>
       
    </head>     
    
@@ -41,8 +47,38 @@ else
     ?>
     <br/>
      <div class="container">
-      <h1> Meet the Team Monday Crew </h1>
-
+      <h1 id ="header-text"><b> Meet the Team Monday Crew </b></h1>
+      <br>
+      <div class="row">
+          <div class="col-sm-6 col-md-3 col-lg-offset-1 col-lg-2" id="div1">
+                <img src="images/assets/TheCrew/jarvis.png">
+                <h3>Reymark Arsenio</h3>
+                <p>Say what you want here guys</p>
+              </div>    
+              
+              <div class="col-sm-6 col-md-3 col-lg-2">
+                <img src="images/assets/TheCrew/cat.png">
+                <h3>Celine Yu Catalan</h3>
+                <p>Say what you want here guys</p>
+              </div>
+              
+              <div class="col-sm-6 col-md-3 col-lg-2">
+                <img src="images/assets/TheCrew/greek.png">
+                <h3>Greg Marvin Adversario</h3>
+                <p>Say what you want here guys</p>
+              </div>
+              
+              <div class="col-sm-6 col-md-3 col-lg-2">
+                <img src="images/assets/TheCrew/kyuzee.png">
+                <h3>Joshua Cabangon</h3>
+                <p>Say what you want here guys</p>
+              </div>
+            <div class="col-sm-6 col-md-3 col-lg-2">
+            <img src="images/assets/TheCrew/DD_.png">
+            <h3>Denzel Marcu Deogracias</h3>
+            <p>Say what you want here guys</p>
+            </div>
+        </div>
       
      </div>
    

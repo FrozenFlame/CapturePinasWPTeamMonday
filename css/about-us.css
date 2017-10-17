@@ -4,8 +4,7 @@ body
     background-color: #3c3f42;
 }
 
-.container
+#header-text
 {
-    background-image: url("images/assets/cropped-neu.jpg");
-    background-color: #3c3f42;
+    color: white;
 }
