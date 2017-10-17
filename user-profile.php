@@ -51,7 +51,7 @@ $userid = $_POST['userid'];
                                 
                             </div>
                     </div>
-                  <p id="line" style="margin-bottom:auto;"></p>
+                  <p class="line" id="line-bio" style="margin-bottom:auto;"></p>
                   <p id="bio" style="padding-top:5px;"></p>
               </div>
               <div id="home-posts" class="col-lg-6">
@@ -92,6 +92,10 @@ $userid = $_POST['userid'];
                 img.setAttribute("src",profile.filepath);
                 var name = document.getElementById("profile-name");
                 $('p#bio').text(profile.bio);
+                
+                if(profile.bio==""){
+                    $('#line-bio').hide();
+                }
                  
                 //alert(data);
                 // alert(data); //data now contains JSON formatted goods

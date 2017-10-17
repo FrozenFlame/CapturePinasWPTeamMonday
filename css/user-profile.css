@@ -74,6 +74,14 @@ padding-right:20px;
 img {
     width: 100%;
 }
+.line {
+    padding-top: 10px;
+    width: 96%;
+    border-width: 1px;
+    border-bottom: solid;
+    border-bottom-width: thin;
+    border-color: lightgray;
+}
 #line{
     padding-top: 10px;
     width: 96%;
