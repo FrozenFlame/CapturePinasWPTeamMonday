@@ -92,7 +92,7 @@
       <script>
             var loggedUsername;
             var postid = "<?php echo $postID ?>"; //this postid is what will show up, just for testing purposes
-          
+            var isGuest = "<?php echo $isGuest; ?>";
           $(document).ready(function()
             {
                 var passed = 'getPostInfo';
@@ -426,69 +426,81 @@
             //thumbs up and down
             function thumbsUp(elem)   //for post @param elem is the button itself
             {
-                // alert(id.id);
-                var postRating = elem.children[0]; //element that contains our like post rating
-                var thumbdownelem = document.getElementById('post-dislikes');
+                if(!isGuest)
+                {
+                    // alert(id.id);
+                    var postRating = elem.children[0]; //element that contains our like post rating
+                    var thumbdownelem = document.getElementById('post-dislikes');
 
-                $.post('ajax/db_dealer.php', {type: "get", command: "postOpinion", postid: postid}, function(data) //we expect data to be: L, D, or N
-                {
-                    // alert(data +" prev opinion");
-                    switch(data)
+                    $.post('ajax/db_dealer.php', {type: "get", command: "postOpinion", postid: postid}, function(data) //we expect data to be: L, D, or N
                     {
-                        case 'N'://Neutral  (+1 for like)                   -> db value is now L
-                            postRating.innerHTML = parseInt(postRating.innerHTML) +1 +" ";
-                            givePostOpinion(postid, "L");
-                        break;
-                        case 'L'://Liked    (-1 for like)                   -> db value is now N
-                            postRating.innerHTML = parseInt(postRating.innerHTML) -1 +" ";
-                            givePostOpinion(postid, "N");
-                        break;
-                        case 'D'://Disliked (+1 for like, -1 for dislike)   -> db value is now L
-                            postRating.innerHTML = parseInt(postRating.innerHTML) +1 +" ";
-                            thumbdownelem.innerHTML = parseInt(thumbdownelem.innerHTML) -1 +" ";
-                            givePostOpinion(postid, "L");
-                        break;
-                    }
-                }); 
-                //cooldown
-                elem.disabled = true;
-                setTimeout(function()
-                {
-                    elem.disabled = false;
-                },1000);
+                        // alert(data +" prev opinion");
+                        switch(data)
+                        {
+                            case 'N'://Neutral  (+1 for like)                   -> db value is now L
+                                postRating.innerHTML = parseInt(postRating.innerHTML) +1 +" ";
+                                givePostOpinion(postid, "L");
+                            break;
+                            case 'L'://Liked    (-1 for like)                   -> db value is now N
+                                postRating.innerHTML = parseInt(postRating.innerHTML) -1 +" ";
+                                givePostOpinion(postid, "N");
+                            break;
+                            case 'D'://Disliked (+1 for like, -1 for dislike)   -> db value is now L
+                                postRating.innerHTML = parseInt(postRating.innerHTML) +1 +" ";
+                                thumbdownelem.innerHTML = parseInt(thumbdownelem.innerHTML) -1 +" ";
+                                givePostOpinion(postid, "L");
+                            break;
+                        }
+                    }); 
+                    //cooldown
+                    elem.disabled = true;
+                    setTimeout(function()
+                    {
+                        elem.disabled = false;
+                    },1000);
+                }
+                else
+                    alert("You must be logged in to perform that action.");
+                
 
             }
             function thumbsDown(elem) //for post @param elem is the button itself
             {
-                // alert(id);
-                var postRating = elem.children[0]; //element that contains our dislike post rating
-                var thumbupelem = document.getElementById('post-likes');
+                if(!isGuest)
+                {
+                    // alert(id);
+                    var postRating = elem.children[0]; //element that contains our dislike post rating
+                    var thumbupelem = document.getElementById('post-likes');
 
-                $.post('ajax/db_dealer.php', {type:"get", command:"postOpinion", postid: postid}, function(data) //we expect data to be: L, D, or N
-                {
-                    switch(data)
+                    $.post('ajax/db_dealer.php', {type:"get", command:"postOpinion", postid: postid}, function(data) //we expect data to be: L, D, or N
                     {
-                        case 'N'://Neutral  (+1 for dislike)                -> db value is now D
-                            postRating.innerHTML = parseInt(postRating.innerHTML) +1 +" ";
-                            givePostOpinion(postid, "D");
-                        break;
-                        case 'L'://Liked    (+1 for dislike, -1 for like)   -> db value is now D
-                            postRating.innerHTML = parseInt(postRating.innerHTML) +1 +" ";
-                            thumbupelem.innerHTML = parseInt(thumbupelem.innerHTML) -1 +" ";
-                            givePostOpinion(postid, "D");
-                        break;
-                        case 'D'://Disliked (-1 for dislike)                -> db value is now N
-                            postRating.innerHTML = parseInt(postRating.innerHTML) -1 +" ";
-                            givePostOpinion(postid, "N");
-                        break;
-                    }
-                });
-                //cooldown
-                elem.disabled = true;
-                setTimeout(function()
-                {
-                    elem.disabled = false;
-                },1000);
+                        switch(data)
+                        {
+                            case 'N'://Neutral  (+1 for dislike)                -> db value is now D
+                                postRating.innerHTML = parseInt(postRating.innerHTML) +1 +" ";
+                                givePostOpinion(postid, "D");
+                            break;
+                            case 'L'://Liked    (+1 for dislike, -1 for like)   -> db value is now D
+                                postRating.innerHTML = parseInt(postRating.innerHTML) +1 +" ";
+                                thumbupelem.innerHTML = parseInt(thumbupelem.innerHTML) -1 +" ";
+                                givePostOpinion(postid, "D");
+                            break;
+                            case 'D'://Disliked (-1 for dislike)                -> db value is now N
+                                postRating.innerHTML = parseInt(postRating.innerHTML) -1 +" ";
+                                givePostOpinion(postid, "N");
+                            break;
+                        }
+                    });
+                    //cooldown
+                    elem.disabled = true;
+                    setTimeout(function()
+                    {
+                        elem.disabled = false;
+                    },1000);
+                }
+                else
+                    alert("You must be logged in to perform that action.");
+                
 
             }
             function givePostOpinion(postid, opinion)

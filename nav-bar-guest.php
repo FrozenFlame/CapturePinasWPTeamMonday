@@ -83,6 +83,7 @@
 </body>
 
 <script>
+    var isGuest = true;
  //LOGIN CODE
         var attemptsRem = 5;
         $(document).ready(function()

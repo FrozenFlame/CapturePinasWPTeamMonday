@@ -8,9 +8,6 @@ if(!isset($_SESSION['id'])) # if user is a guest.
 }
 else
     $isGuest = FALSE;
-
-
-
 ?>
 <html>
   <head>
@@ -63,8 +60,8 @@ else
                    });
         });
         window.onload = doSet();
-        var item = "<?php echo $isGuest; ?>"; 
-        var isGuest = (item > 0) ? item : 1;//this isGuest stuff is for when the person viewing a particular post is logged in or not, this will urge them to log in if they try to do likes/comment etc related
+        var isGuest= "<?php echo $isGuest; ?>"; 
+       // var isGuest = (item > 0) ? item : 1;//this isGuest stuff is for when the person viewing a particular post is logged in or not, this will urge them to log in if they try to do likes/comment etc related
         var counter;
         
         function doSet() //actually prepares navbar is what set does
@@ -91,18 +88,26 @@ else
         
         function goToMyProfile(elem)
         {
-            var form = document.createElement('form');  
-            form.method = 'post';
-            form.action = 'user-profile.php';
-            var input = document.createElement('input');
-            input.type = 'hidden';
-            input.name = 'userid';
-            input.value = "<?php echo $_SESSION['id'] ?>";
-            form.appendChild(input);
-            document.body.appendChild(form);
+            if(!isGuest)
+            {
+                var form = document.createElement('form');  
+                form.method = 'post';
+                form.action = 'user-profile.php';
+                var input = document.createElement('input');
+                input.type = 'hidden';
+                input.name = 'userid';
+                input.value = 
+                "<?php  if($isGuest == FALSE)
+                            echo $_SESSION['id'];
+                        else 
+                            echo 0;
+                ?>";
+                form.appendChild(input);
+                document.body.appendChild(form);
 
-            form.submit();
-            // $.post('user_profile.php', {userid: elem.dataset.userid});
+                form.submit();
+                // $.post('user_profile.php', {userid: elem.dataset.userid});
+            }
         }
     </script>      
   </body>

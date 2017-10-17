@@ -13,7 +13,7 @@ if(isset($_SESSION['id'])) # if user is already logged in, redirect to logged in
     <link rel="stylesheet" href="css/bootstrap.min.css"> <!-- changed to local files -->
     <script src = "js/jquery-3.2.1.js"></script>
     <script src="js/bootstrap.min.js"></script>
-    <link href="css/home-out.css" rel="stylesheet">
+    <link href="css/home-in.css" rel="stylesheet">
 
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
@@ -23,81 +23,7 @@ if(isset($_SESSION['id'])) # if user is already logged in, redirect to logged in
   </head>
   <body>
     <!-- Nav bar -->
-    <nav class="navbar navbar-default navbar-fixed-top">
-        <div class="container-fluid">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="index.php">CapturePinas</a>
-            </div>
-            <div class="collapse navbar-collapse" id="myNavbar">
-                <ul class="nav navbar-nav">
-                    <li class="active"><a href="index.php">Home</a></li>
-                    
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Places <b class="caret"></b></a>
-                        <ul class="dropdown-menu">
-                            <li><a href="#">Albay</a></li>
-                            <li><a href="#">Banaue</a></li>
-                            <li><a href="#">Bataan</a></li>
-                            <li><a href="#">Batanes</a></li>
-                            <li><a href="#">Batangas</a></li>
-                            <li><a href="#">Benguet</a></li>
-                            <li><a href="#">Bohol</a></li>
-                            <li><a href="#">Bulacan</a></li>
-                            <li><a href="#">Camarines Norte</a></li>
-                            <li><a href="#">Camarines Sur</a></li>
-                            <li><a href="#">Capiz</a></li>
-                            <li><a href="#">Cavite</a></li>
-                            <li><a href="#">Cebu</a></li>
-                            <li><a href="#">Davao</a></li>
-                            <li><a href="#">Ilocos Norte</a></li>
-                            <li><a href="#">Ilocos Sur</a></li>
-                            <li><a href="#">Laguna</a></li>
-                            <li><a href="#">Leyte</a></li>
-                            <li><a href="#">Marinduque</a></li>
-                            <li><a href="#">Negros Occidental</a></li>
-                            <li><a href="#">Negros Oriental</a></li>
-                            <li><a href="#">Nueva Ecija</a></li>
-                            <li><a href="#">Palawan</a></li>
-                            <li><a href="#">Pampanga</a></li>
-                            <li><a href="#">Pangasinan</a></li>
-                            <li><a href="#">Quezon</a></li>
-                            <li><a href="#">Romblon</a></li>
-                            <li><a href="#">Sarangani</a></li>
-                            <li><a href="#">Sultan Kudarat</a></li>
-                            <li><a href="#">Surigao del Norte</a></li>
-                            <li><a href="#">Surigao del Sur</a></li>
-                            <li><a href="#">Tawi tawi</a></li>
-                            <li><a href="#">Zambales</a></li>
-                            <li><a href="#">Zamboanga</a></li>
-                            
-                        </ul>
-                    </li>
-                <li><a href="#">About Us</a></li>
-                </ul> 
-                <ul class="nav navbar-nav navbar-right">
-                   <li>
-                        <div class="col-lg-12">
-                         <form class="navbar-form" role="search" method="POST" action="search_results.php"> <!-- method="<post/get>" action="<location of php>" -->
-                            <div class="input-group">
-                                <input type="text" class="form-control" placeholder="Search" name = "query" id="navbar-search">
-                                <div class="input-group-btn">
-                                <button class="btn btn-default" type="submit" id ='navbar-search-button'><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
-                                </div>
-                            </div>
-                        </form>
-                        </div>
-                    </li>
-                    <li><a href="signup.html"><span class="glyphicon glyphicon-user" ></span> Sign Up</a></li>
-                    <li><a href="#" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
-                </ul>
-            </div>
-        </div>
-    </nav>
+    <?php include 'nav-bar-guest.php' ?>
     <!-- End of Nav bar -->
       
       <!-- Start of Modal -->
@@ -220,6 +146,7 @@ if(isset($_SESSION['id'])) # if user is already logged in, redirect to logged in
                 placeSelected = postdropdown.options[postdropdown.selectedIndex].value
             });
         });
+        
           //LOGIN CODE
         var attemptsRem = 5;
         $(document).ready(function()
@@ -269,6 +196,7 @@ if(isset($_SESSION['id'])) # if user is already logged in, redirect to logged in
             
           });
         });
+        
         
       </script>
   </body>

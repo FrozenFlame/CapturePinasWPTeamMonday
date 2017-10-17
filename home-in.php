@@ -128,6 +128,7 @@ else
     </div>
 
     <script>
+        
         var uploadList;
         
         var postdropdown = document.getElementById("upload-select");
