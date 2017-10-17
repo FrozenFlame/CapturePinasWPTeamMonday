@@ -162,7 +162,7 @@ else
         { 
             checkSession();
             $("#highest-like-button").click(function(){
-                var mode = "likes";
+                var mode = "highest";
                 $.post("php/sessionSetter.php", {"modePassed": mode});
                 window.location = "home-in.php";
                 
@@ -217,9 +217,9 @@ else
         var postdropdown = document.getElementById("upload-select");
         
         var off = 0;
-        var mode = "home";//this decides how the arrangement of posts appear
+        // var mode = "home";//this decides how the arrangement of posts appear
         //choices are {string} "user-profile", "home" or "highest"
-        
+        var mode = "<?php echo $_SESSION['mode']; ?>";
         window.onload = doSet();
         function doSet() //actually prepares navbar is what set does
         {
