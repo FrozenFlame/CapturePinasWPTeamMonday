@@ -149,9 +149,11 @@ function createPostLite(container, json, index)
                 var divMediaBody = document.createElement("div");
                 divMediaBody.setAttribute("class","media-body");
                     //post name
-                    var aPostName = document.createElement("a");
+                    var aPostName = document.createElement("a"); //author of the post
                     aPostName.setAttribute("href", "#"); //painful... this needs yet another algorithm
                     aPostName.setAttribute("id","post-href");
+                    aPostName.setAttribute("data-userid", postJSON[it].userid);
+                    aPostName.setAttribute("onclick", "goToProfile(this)");
                     /*aPostName-children*/
                     var pPostName = document.createElement("p");
                     pPostName.setAttribute("class","post-username");
@@ -534,6 +536,22 @@ function getTimeDiff(curDate, posDate) //returns a string of the time difference
     }
         
     return "(" +diff +" ago)";
+}
+
+function goToProfile(elem)
+{
+    var form = document.createElement('form');  
+    form.method = 'post';
+    form.action = 'user-profile.php';
+    var input = document.createElement('input');
+    input.type = 'hidden';
+    input.name = 'userid';
+    input.value = elem.dataset.userid;
+    form.appendChild(input);
+    document.body.appendChild(form);
+
+    form.submit();
+    // $.post('user_profile.php', {userid: elem.dataset.userid});
 }
 
 function setChildren() //unused method.

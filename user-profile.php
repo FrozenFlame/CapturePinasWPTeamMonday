@@ -7,6 +7,7 @@ if(!isset($_SESSION['id'])) # if user is already logged in, redirect to logged i
   header('Location: index.php');
 }
 
+$userid = $_POST['userid'];
 ?>
 <html>
   <head>
@@ -140,19 +141,19 @@ if(!isset($_SESSION['id'])) # if user is already logged in, redirect to logged i
     </div>
 
     <script>
-        $(document).ready(function(){ 
-               
-              $('#places-dropdown').on('click',function(e)
-                   {
-                        $('#topic').val($(e.target).text());
-                        //$('#topic').Text($(e.target).text());
-                        $('#places-form').submit();
-                   });
+        $(document).ready(function()
+        { 
+            $('#places-dropdown').on('click',function(e)
+            {
+                $('#topic').val($(e.target).text());
+                //$('#topic').Text($(e.target).text());
+                $('#places-form').submit();
+            });
         });
         var off = 0;
-        var mode = "user-profile";//this decides how the arrangement of posts appear
+        var mode = "user-profile-id";//this decides how the arrangement of posts appear
         
-        //choices are {string} "home" or "highest"
+        //choices are {string} "user-profile", "home" or "highest"
         window.onload = doSet();
         function doSet() //actually prepares navbar is what set does
         {
@@ -160,23 +161,26 @@ if(!isset($_SESSION['id'])) # if user is already logged in, redirect to logged i
 
             $.post('ajax/set.php', {passed: passed}, function(data)  //user is what we're passing in, and usern is what php will reference it with.
             {                                                               //data there is what php will return or "echo"
-                $('b#profile-name').text(data);
+                // $('b#profile-name').text(data);
                 $('a#nav_name_user').text(data+' ');
                 $('a#nav_name_user').append('<span class="glyphicon glyphicon-triangle-bottom" aria-hidden="true"></span>');
             });
 
             //NOTE offset is 0 because this is the FIRST TIME LOAD of the page. Before the "more" is clicked.
-            $.post('ajax/db_dealer.php', {type: "search", command: mode, offset: 0 }, function(data)
+            var _userid = "<?php echo $userid ?>";
+            $.post('ajax/db_dealer.php', {type: "search", command: mode, offset: 0 , userid: _userid}, function(data)
             {
                 //alert(data);
                 // alert(data); //data now contains JSON formatted goods
                 createPostLite(document.getElementById('home-posts'), data, 0);
             });
-            $.post('ajax/db_dealer.php', {type: "get", command: "getUserProfile"}, function(data)
+            $.post('ajax/db_dealer.php', {type: "get", command: "getUserProfileById", userid: _userid}, function(data)
             {
                 //alert(data);
                 //var profile;
+               
                 profile = JSON.parse(data);
+                $('b#profile-name').text(profile.fullname);
                 var img = document.getElementById("user-image");
                 img.setAttribute("src",profile.filepath);
                 var name = document.getElementById("profile-name");
