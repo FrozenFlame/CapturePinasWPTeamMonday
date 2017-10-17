@@ -43,6 +43,7 @@ function createPostLite(container, json, index)
         rowCarousel.setAttribute("class", "row");
         var rowDetails = document.createElement("div");
         rowDetails.setAttribute("class", "row");
+        rowDetails.setAttribute("id", "like-dislike-div");
         postDiv.appendChild(rowTitle);
         postDiv.appendChild(rowCarousel);
         postDiv.appendChild(rowDetails);
@@ -295,7 +296,7 @@ function createPostLite(container, json, index)
             buttonDislike.appendChild(spanDislike);
             var pLine2 = document.createElement("p");
             pLine2.setAttribute("id","line");
-setLikesDislikes(postJSON[it].postid,it,index);
+
             var aButtonComment=document.createElement("a");
             aButtonComment.setAttribute("href", "post_page.php?post="+postJSON[it].postid);
             var buttonComment = document.createElement("button");
@@ -318,7 +319,7 @@ setLikesDislikes(postJSON[it].postid,it,index);
         //slapping it onto our container
         outerDiv.appendChild(postDiv);
         container.appendChild(outerDiv);
-        
+        setLikesDislikes(postJSON[it].postid,it,index);
     }
 
 }
@@ -336,6 +337,23 @@ setLikesDislikes(postJSON[it].postid,it,index);
 function setLikesDislikes(postid,it,index){
     var likebtn = '#post-like-btn'+(it+index);
     var unlikebtn = '#post-unlike-btn'+(it+index);
+    $(likebtn).on('click', function(){
+        if($(likebtn).attr("style")=="background-color:darkgreen;color:white;"){
+            $(likebtn).attr("style","background-color:white;");
+        } else if($(likebtn).attr("style")=="background-color:white;"){
+            $(likebtn).attr("style","background-color:darkgreen;color:white;");
+        }
+       
+    });
+    
+    $(unlikebtn).on('click', function(){
+        if($(unlikebtn).attr("style")=="background-color:darkred;color:white;"){
+            $(unlikebtn).attr("style","background-color:white;");
+        } else if($(unlikebtn).attr("style")=="background-color:white;"){
+            $(unlikebtn).attr("style","background-color:darkred;color:white;");
+        }
+       
+    });
     
     $.post('ajax/db_dealer.php', {type: "get", command: "getLikeUser", postid: postid}, function(data) //we expect data to be: L, D, or N
         {
@@ -350,7 +368,7 @@ function setLikesDislikes(postid,it,index){
                     $(likebtn).attr("style","background-color:darkgreen;color:white;");
                 break;
                 case 'D'://Disliked (+1 for like, -1 for dislike)   -> db value is now L
-                    $(unlikebtn).attr("style","background-color:red;");
+                    $(unlikebtn).attr("style","background-color:darkred;color:white;");
                 break;
             }
         }); 
