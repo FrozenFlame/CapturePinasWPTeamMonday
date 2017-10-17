@@ -14,6 +14,7 @@
 var postJSON;
 var _userid = "<?php echo $_SESSION['id']; ?>";
 var isGuest = "<?php echo $isGuest; ?>";
+
 function createPostLite(container, json, index)
 {
     // setting of JSON content will be synced

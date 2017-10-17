@@ -128,7 +128,7 @@ else
     </div>
 
     <script>
-        
+        var isGuest = "<?php echo $isGuest ?>";
         var uploadList;
         
         var postdropdown = document.getElementById("upload-select");
