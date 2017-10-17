@@ -6,6 +6,9 @@ body {
     text-align: center;
     padding-bottom: 15px;
 }
+#upload-div{
+    display: none;
+}
 /* for media */
 .post-user-image {
 margin-top:10px;

@@ -35,13 +35,14 @@ if(!isset($_SESSION['id'])) # if user is already logged in, redirect to logged i
     <!-- End of Nav bar -->
       <br>
       <div class="container" id ="home-posts">
-          <div class="col-sm-offset-2 col-offset-xs-0 col-sm-8 col-xs-12 post-container">
-             <div class="post" style="padding-bottom:10px;">  
+          <div class="col-sm-offset-2 col-offset-xs-0 col-sm-8 col-xs-12 post-container" id="upload-container" style="cursor:pointer;">
+             <div class="post" id="div-upload-header">  
                 <div class="row">
-                    <p style="margin-top:5px;"><b>Make a post</b></p>
-                    <p id="line-1"></p>
+                    <p style="margin-top:5px;" id="make-post-button"><b>Make a post</b></p>
                 </div>
+            <div id="upload-div">
                 <div class="row">  
+                    <p id="line-1"></p>
                         <div class="input-group">
                             
                             <label class="input-group-btn">
@@ -109,9 +110,11 @@ if(!isset($_SESSION['id'])) # if user is already logged in, redirect to logged i
                         <div class="textarea-div">
                             <textarea class="form-control" id="upload-textarea" placeholder="Enter description.."></textarea>
                         </div>
+                    <button type="button" class="btn btn-default" id="slide-up-button">Back</button>
                      <button type="button" class="btn btn-default" id="upload-button" style="float:right;margin-right:35px;" onclick ="upload()">+Post</button>
-                 
+                    
                  </div>
+          </div>
              </div>
           </div>
             
@@ -123,6 +126,23 @@ if(!isset($_SESSION['id'])) # if user is already logged in, redirect to logged i
     </div>
 
     <script>
+        $(document).ready(function()
+        { 
+            $("#make-post-button").click(function(){
+                $("#upload-div").slideDown();
+                var div = document.getElementById("div-upload-header");
+                div.setAttribute("style","padding-bottom:10px;");
+                var container = document.getElementById("upload-container");
+                container.removeAttribute("style");
+            });
+            $("#slide-up-button").click(function(){
+                $("#upload-div").slideUp();
+                var div = document.getElementById("div-upload-header");
+                div.removeAttribute("style");
+                var container = document.getElementById("upload-container");
+                container.setAttribute("style","cursor:pointer;");
+            });
+        });
         var uploadList;
         
         var postdropdown = document.getElementById("upload-select");
