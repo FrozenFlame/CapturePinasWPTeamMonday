@@ -60,6 +60,9 @@ $userid = $_POST['userid'];
     <script>
         $(document).ready(function()
         { 
+            $("#dropdown-button").click(function(){
+                $("#places-dropdown").slideToggle();
+            });
             $('#places-dropdown').on('click',function(e)
             {
                 $('#topic').val($(e.target).text());

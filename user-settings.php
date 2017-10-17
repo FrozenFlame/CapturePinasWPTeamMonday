@@ -238,6 +238,9 @@ if(!isset($_SESSION['id'])) # if user is already logged in, redirect to logged i
         var placeSelected = "Albay";
         $(document).ready(function()
         { 
+            $("#dropdown-button").click(function(){
+                $("#places-dropdown").slideToggle();
+            });
             $('#places-dropdown').on('click',function(e)
             {
                     $('#topic').val($(e.target).text());

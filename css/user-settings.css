@@ -2,7 +2,9 @@ body{
     color:white;
     background-color: black;
 }
-
+.navbar-dropdown{
+    display: none;
+}
 
 .login-block {
     padding-top: 10px;

@@ -14,7 +14,7 @@
                     <li class="active"><a href="index.php">Home</a></li>
                         
                     <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Places <span class="glyphicon glyphicon-triangle-bottom" aria-hidden="true"></span></a>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" id="dropdown-button">Places <span class="glyphicon glyphicon-triangle-bottom" aria-hidden="true"></span></a>
                         <ul class="dropdown-menu" id="places-dropdown">
                             <form action="search_results.php" method="POST" id="places-form">
                             <input type="hidden" name="query" id="topic">
@@ -74,7 +74,7 @@
                     </li>
                     <li class="dropdown" id="profile-dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" id="nav_name_user"></a>
-                        <ul class="dropdown-menu">
+                        <ul class="dropdown-menu" id="user-dropdown">
                     <!--<li><a href="user-profile.php">Profile</a></li> -->
                         <li><a href="#" onclick="goToMyProfile(this)">Profile</a></li>
                         <li><a href="user-settings.php">User Settings</a></li>
