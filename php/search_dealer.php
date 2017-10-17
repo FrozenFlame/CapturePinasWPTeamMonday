@@ -1,7 +1,7 @@
 <?php
     # Team Monday #
     /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
-        @author Denzel
+        @author DD_
         This search module is for the multitude of searches including: user search, title search, and place search.
      * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
     include_once('../php/connection.php');

@@ -9,7 +9,7 @@
     $agent = $broker->getAgent();
     $agent->performCommand($command);
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
- *       @author Denzel
+ *       @author DD_
  *      - Inner Classes -
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
     class Broker //creates a getter or setter class
@@ -216,7 +216,7 @@
             else if($commandReceived === 'post') //post some content to CapturePinas!
             {
                 /**
-                *   @author Denzel
+                *   @author DD_
                 */
                 //post columns are: postid, userid, title, place, description, likes, dislikes, favnum, timestamp
                 $postJSON = $_POST['postJSON'];
@@ -252,7 +252,7 @@
             else if($commandReceived === 'postOpinion')
             {
                 /**
-                *   @author Denzel
+                *   @author DD_
                 */
                 //First time opinion checker
                 $query = $this->db->prepare("SELECT opinion FROM postopinion WHERE postid = ? AND userid = ?");
@@ -344,7 +344,7 @@
             else if($commandReceived === 'commentOpinion') //first time opinion is taken care of here
             {
                 /**
-                *    @author Denzel
+                *    @author DD_
                 */
                 //First time opinion checker
                 
