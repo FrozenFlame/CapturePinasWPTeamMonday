@@ -1,7 +1,12 @@
 body {
     background-color: ghostwhite;
 }
-
+#slide-up-button{
+    margin-left:45%;
+    border: none;
+    background: none;
+    margin-top:15px;
+}
 .wrapper {
     text-align: center;
     padding-bottom: 15px;
