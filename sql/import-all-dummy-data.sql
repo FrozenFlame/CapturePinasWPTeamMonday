@@ -193,5 +193,5 @@ INSERT INTO commentopinion (commentid, userid, opinion) VALUES
     (21, 2, 'L'),
     (21, 4, 'L'),
 
-    (26, 5, 'L')
+    (25, 5, 'L')
 ;
