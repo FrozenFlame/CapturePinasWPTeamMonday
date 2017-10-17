@@ -296,6 +296,7 @@ function createPostLite(container, json, index)
             buttonDislike.appendChild(spanDislike);
             var pLine2 = document.createElement("p");
             pLine2.setAttribute("id","line");
+        setLikesDislikes(postJSON[it].postid,it,index);
 
             var aButtonComment=document.createElement("a");
             aButtonComment.setAttribute("href", "post_page.php?post="+postJSON[it].postid);
@@ -319,7 +320,6 @@ function createPostLite(container, json, index)
         //slapping it onto our container
         outerDiv.appendChild(postDiv);
         container.appendChild(outerDiv);
-        setLikesDislikes(postJSON[it].postid,it,index);
     }
 
 }
@@ -337,23 +337,23 @@ function createPostLite(container, json, index)
 function setLikesDislikes(postid,it,index){
     var likebtn = '#post-like-btn'+(it+index);
     var unlikebtn = '#post-unlike-btn'+(it+index);
-    $(likebtn).on('click', function(){
-        if($(likebtn).attr("style")=="background-color:darkgreen;color:white;"){
-            $(likebtn).attr("style","background-color:white;");
-        } else if($(likebtn).attr("style")=="background-color:white;"){
-            $(likebtn).attr("style","background-color:darkgreen;color:white;");
-        }
+    // $(likebtn).on('click', function(){
+    //     if($(likebtn).attr("style")=="background-color:darkgreen;color:white;"){
+    //         $(likebtn).attr("style","background-color:white;");
+    //     } else if($(likebtn).attr("style")=="background-color:white;"){
+    //         $(likebtn).attr("style","background-color:darkgreen;color:white;");
+    //     }
        
-    });
+    // });
     
-    $(unlikebtn).on('click', function(){
-        if($(unlikebtn).attr("style")=="background-color:darkred;color:white;"){
-            $(unlikebtn).attr("style","background-color:white;");
-        } else if($(unlikebtn).attr("style")=="background-color:white;"){
-            $(unlikebtn).attr("style","background-color:darkred;color:white;");
-        }
+    // $(unlikebtn).on('click', function(){
+    //     if($(unlikebtn).attr("style")=="background-color:darkred;color:white;"){
+    //         $(unlikebtn).attr("style","background-color:white;");
+    //     } else if($(unlikebtn).attr("style")=="background-color:white;"){
+    //         $(unlikebtn).attr("style","background-color:darkred;color:white;");
+    //     }
        
-    });
+    // });
     
     $.post('ajax/db_dealer.php', {type: "get", command: "getLikeUser", postid: postid}, function(data) //we expect data to be: L, D, or N
         {
@@ -361,7 +361,7 @@ function setLikesDislikes(postid,it,index){
             switch(data)
             {
                 case 'N'://Neutral  (+1 for like)                   -> db value is now L
-                   $(likebtn).attr("style","background-color:white;");
+                    $(likebtn).attr("style","background-color:white;");
                     $(unlikebtn).attr("style","background-color:white;");
                 break;
                 case 'L'://Liked    (-1 for like)                   -> db value is now N
@@ -383,6 +383,7 @@ function thumbsUp(elem)   //for post @param elem is the button itself
         var postRating = elem.children[0]; //element that contains our like post rating
         var postIndex = postRating.getAttribute("id").substr(10); //id is post-likes which is 10 characters
         var thumbdownelem = document.getElementById('post-dislikes'+postIndex);
+        var thumbdownbutton = document.getElementById('post-unlike-btn'+postIndex);
 
         $.post('ajax/db_dealer.php', {type: "get", command: "postOpinion", postid: elem.dataset.postid}, function(data) //we expect data to be: L, D, or N
         {
@@ -392,15 +393,21 @@ function thumbsUp(elem)   //for post @param elem is the button itself
                 case 'N'://Neutral  (+1 for like)                   -> db value is now L
                     postRating.innerHTML = parseInt(postRating.innerHTML) +1 +" ";
                     givePostOpinion(elem.dataset.postid, "L");
+                    $("#"+elem.getAttribute("id")).attr("style","background-color:darkgreen;color:white;");
+                    $("#"+thumbdownbutton.getAttribute("id")).attr("style","background-color:white;");
                 break;
                 case 'L'://Liked    (-1 for like)                   -> db value is now N
                     postRating.innerHTML = parseInt(postRating.innerHTML) -1 +" ";
                     givePostOpinion(elem.dataset.postid, "N");
+                    $("#"+elem.getAttribute("id")).attr("style","background-color:white;");
+                    $("#"+thumbdownbutton.getAttribute("id")).attr("style","background-color:white;");
                 break;
                 case 'D'://Disliked (+1 for like, -1 for dislike)   -> db value is now L
                     postRating.innerHTML = parseInt(postRating.innerHTML) +1 +" ";
                     thumbdownelem.innerHTML = parseInt(thumbdownelem.innerHTML) -1 +" ";
                     givePostOpinion(elem.dataset.postid, "L");
+                    $("#"+elem.getAttribute("id")).attr("style","background-color:darkgreen;color:white;");
+                    $("#"+thumbdownbutton.getAttribute("id")).attr("style","background-color:white;");
                 break;
             }
         }); 
@@ -424,7 +431,7 @@ function thumbsDown(elem) //for post @param elem is the button itself
         var postRating = elem.children[0]; //element that contains our dislike post rating
         var postIndex = postRating.getAttribute("id").substr(13); //id is post-dislikes which is 13 characters
         var thumbupelem = document.getElementById('post-likes'+postIndex);
-        
+        var thumbupbutton = document.getElementById('post-like-btn'+postIndex);
 
         $.post('ajax/db_dealer.php', {type:"get", command:"postOpinion", postid: elem.dataset.postid}, function(data) //we expect data to be: L, D, or N
         {
@@ -433,15 +440,22 @@ function thumbsDown(elem) //for post @param elem is the button itself
                 case 'N'://Neutral  (+1 for dislike)                -> db value is now D
                     postRating.innerHTML = parseInt(postRating.innerHTML) +1 +" ";
                     givePostOpinion(elem.dataset.postid, "D");
+                    $("#"+elem.getAttribute("id")).attr("style","background-color:darkred;color:white;");
+                    $("#"+thumbupbutton.getAttribute("id")).attr("style","background-color:white;");
                 break;
                 case 'L'://Liked    (+1 for dislike, -1 for like)   -> db value is now D
                     postRating.innerHTML = parseInt(postRating.innerHTML) +1 +" ";
                     thumbupelem.innerHTML = parseInt(thumbupelem.innerHTML) -1 +" ";
                     givePostOpinion(elem.dataset.postid, "D");
+                    $("#"+elem.getAttribute("id")).attr("style","background-color:darkred;color:white;");
+                    $("#"+thumbupbutton.getAttribute("id")).attr("style","background-color:white;");
                 break;
                 case 'D'://Disliked (-1 for dislike)                -> db value is now N
                     postRating.innerHTML = parseInt(postRating.innerHTML) -1 +" ";
                     givePostOpinion(elem.dataset.postid, "N");
+                    $("#"+elem.getAttribute("id")).attr("style","background-color:white;");
+                    $("#"+thumbupbutton.getAttribute("id")).attr("style","background-color:white;");
+                    
                 break;
             }
         });
