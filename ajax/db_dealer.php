@@ -392,6 +392,13 @@
                         $query3->execute();
                     }
                 }
+                else if($commandReceived === "save-fave")
+                {
+                    $query = $this->db->prepare("SELECT  FROM commentopinion WHERE commentid = ? AND userid = ?");
+                    $query->bindparam(1, $_POST['id']);
+                    $query->bindparam(2, $_SESSION['id']);
+                    $query->execute();   
+                }
                 else //user has given opinion before
                 {
                     $previousOpinion = $query->fetch()['opinion']; //gets the user's opinion before the change
@@ -447,7 +454,10 @@
                         break;
                     }
 
+
+
                 }
+                
                 
             }
         }

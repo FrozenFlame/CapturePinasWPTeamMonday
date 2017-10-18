@@ -299,8 +299,9 @@ function createPostLite(container, json, index)
         buttonFave.setAttribute("class","post-fave-button");
         buttonFave.setAttribute("id","post-fave-button"+(it+index));
         buttonFave.setAttribute("data-toggle","tooltip");
+        // buttonFave.setAttribute("data-fave", 0);
         buttonFave.setAttribute("title","Favorite");
-        buttonFave.setAttribute("onclick","save-fave(this)");
+        buttonFave.setAttribute("onclick","save_fave(this)");
 
         //data-toggle="tooltip" title="Click to slide up"
         var giHeart = document.createElement("span");
@@ -329,7 +330,7 @@ function createPostLite(container, json, index)
         rowDetails.appendChild(pLine);
         rowDetails.appendChild(buttonLike);
         rowDetails.appendChild(buttonDislike);
-        rowDetails.appendChild(buttonFave);
+        // rowDetails.appendChild(buttonFave);
         rowDetails.appendChild(aButtonComment);
         rowDetails.appendChild(pLine2);
         //slapping it onto our container
@@ -376,10 +377,16 @@ function setLikesDislikes(postid,it,index){
             {
                 
                 if(data==0)
-                    
+                    {
                     $(favebtn).append('<span class="glyphicon glyphicon-heart-empty" aria-hidden="true" style="margin-left:5px;"></span>');
-                else 
+                    var buttonFave = document.getElementById("post-fave-button"+(it+index));
+                    buttonFave.setAttribute("data-fave", 0);
+                    }
+                else {
                     $(favebtn).append('<span class="glyphicon glyphicon-heart" aria-hidden="true" style="margin-left:5px;"></span>');
+                    var buttonFave = document.getElementById("post-fave-button"+(it+index));
+                    buttonFave.setAttribute("data-fave", 1);
+                    }
             }); 
             $(favebtn).text(data);
         }); 
@@ -621,6 +628,27 @@ function giveCommentOpinion(commentid, opinion)
         $.post('ajax/db_dealer.php', {type: "set", command: "commentOpinion", commentid: commentid, opinion: opinion});
     }
     
+}
+function save_fave(elem)
+{
+    // alert(elem);
+    // $.post('ajax/db_dealer.php',{type: "get", command:"getUserFavorites"},function(data)
+    // {   
+        
+    // });
+    
+    
+                // if(elem.dataset.fave == 1)
+                // {
+                //     $("#"+elem.getAttribute("id")). =" ";
+                //     $("#"+elem.getAttribute("id")).append('<span class="glyphicon glyphicon-heart-empty" aria-hidden="true" style="margin-left:5px;"></span>');
+                // }                    
+                    
+                //     // elem.setAttribute("style", '<span class="glyphicon glyphicon-heart-empty" aria-hidden="true" style="margin-left:5px;"></span>');
+                // else 
+                //     // elem.setAttribute("style",'<span class="glyphicon glyphicon-heart" aria-hidden="true" style="margin-left:5px;"></span>');
+                //     $("#"+elem.getAttribute("id")).append('<span class="glyphicon glyphicon-heart" aria-hidden="true" style="margin-left:5px;"></span>');
+    // elem.setAttribute("style");
 }
 
 function getTimeDiff(curDate, posDate) //returns a string of the time difference

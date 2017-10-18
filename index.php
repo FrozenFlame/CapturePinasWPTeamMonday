@@ -13,7 +13,8 @@ if(isset($_SESSION['id'])) # if user is already logged in, redirect to logged in
     <link rel="stylesheet" href="css/bootstrap.min.css"> <!-- changed to local files -->
     <script src = "js/jquery-3.2.1.js"></script>
     <script src="js/bootstrap.min.js"></script>
-    <link href="css/home-in.css" rel="stylesheet">
+    
+    <link href="css/nav-bar.css" rel="stylesheet">
 
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>

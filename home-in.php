@@ -7,12 +7,13 @@ if(!isset($_SESSION['id'])) # if user is a guest.
 //   header('Location: index.php');
     $isGuest = TRUE;
 }
+else
+    $isGuest = FALSE;
+
 if(!isset($_SESSION['mode']))
 {
     $_SESSION['mode']='home';
 }
-else
-    $isGuest = FALSE;
 ?>
 <html>
   <head>
@@ -216,7 +217,8 @@ else
                 if(sessionMode=="home"){
                     $("#latest-time-button").attr("style","background-color:#0b9101;color:white;margin-right:10px;");
                     $("#latest-time-button").attr("class","btn btn-default col-lg-2 ");
-                } else if(sessionMode=="highest") {
+                } 
+                else if(sessionMode=="highest") {
                     $("#highest-like-button").attr("style","background-color:#efba1a;color:white;margin-right:10px;");
                     $("#highest-like-button").attr("class","btn btn-default col-lg-2 ");
                 }
