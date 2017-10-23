@@ -299,7 +299,6 @@ function createPostLite(container, json, index)
         buttonFave.setAttribute("class","post-fave-button");
         buttonFave.setAttribute("id","post-fave-button"+(it+index));
         buttonFave.setAttribute("data-toggle","tooltip");
-        // buttonFave.setAttribute("data-fave", 0);
         buttonFave.setAttribute("title","Favorite");
         buttonFave.setAttribute("onclick","save_fave(this)");
 
@@ -377,16 +376,15 @@ function setLikesDislikes(postid,it,index){
             {
                 
                 if(data==0)
-                    {
+                {
                     $(favebtn).append('<span class="glyphicon glyphicon-heart-empty" aria-hidden="true" style="margin-left:5px;"></span>');
                     var buttonFave = document.getElementById("post-fave-button"+(it+index));
-                    buttonFave.setAttribute("data-fave", 0);
-                    }
-                else {
+                }
+                else 
+                {
                     $(favebtn).append('<span class="glyphicon glyphicon-heart" aria-hidden="true" style="margin-left:5px;"></span>');
                     var buttonFave = document.getElementById("post-fave-button"+(it+index));
-                    buttonFave.setAttribute("data-fave", 1);
-                    }
+                }
             }); 
             $(favebtn).text(data);
         }); 
