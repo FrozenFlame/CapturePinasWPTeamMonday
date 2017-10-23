@@ -285,17 +285,10 @@ if(!isset($_SESSION['id'])) # if user is already logged in, redirect to logged i
                 var numFiles = input.get(0).files ? input.get(0).files.length : 1; //get(0) is the input child of the span parent
                 var label = input.val().replace(/\\/g, '/').replace(/.*\//, ''); //string escapes
                 input.trigger('fileselect', [numFiles, label]); // 'fileselect' is what the identifier of our following jquery will see it as
-                // alert(input.val().get(1));
-                // alert(input); // [object Object]
-                // alert(input.get(0)); // [object HTMLInputElement]
-                // alert(input.get(0).getAttribute("id")); //file
-                //alert(input.get(0).getAttribute("style")); //display: none
-                // alert(input.get(0).files); //filelist
-                // alert(input.get(0).files[0]); //file
+              
                 uploadList = new FormData();
                 for(var i = 0; i < input.get(0).files.length; i++)
                 {
-                    // alert((input.get(0).files[i]).name +" content " +i); //displays all filenames
                     uploadList.append('file-'+i, input.get(0).files[i]);
                 }
 
@@ -425,7 +418,6 @@ if(!isset($_SESSION['id'])) # if user is already logged in, redirect to logged i
                         {
                             console.log(data);
                             alert("Profile info saved.");
-                            // window.location.href = 'user-settings.php'; //basically refreshes the page.
                             // let's make it so that when we save our changes, we get "Your Settings have been Saved."
                             if(hasFiles) //user decided to change his avatar
                             {
@@ -496,8 +488,3 @@ if(!isset($_SESSION['id'])) # if user is already logged in, redirect to logged i
   </body>
 </html>
 
-<!--
-    THINGS TO DO
-        >password field condition if empty
-        >maybe add a pre-edit stage to this webpage.
--->

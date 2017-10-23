@@ -1,11 +1,9 @@
 <!-- Team Monday -->
-<!-- NO DESIGN YET -->
 <?php
 session_start();
 $isGuest = TRUE;
 if(!isset($_SESSION['id'])) # if user is a guest.
 {
-//   header('Location: index.php');
     $isGuest = TRUE;
 }
 else
@@ -76,7 +74,6 @@ $query = $_POST['query'];
             document.body.appendChild(form);
 
             form.submit();
-            // $.post('user_profile.php', {userid: elem.dataset.userid});
             }
         }
         $(document).ready(function(){ 
@@ -103,14 +100,12 @@ $query = $_POST['query'];
             {
                 case 'searchPlace': searchby = "place"; break;
             }
-            // document.getElementById('searchby').innerHTML = "Searching by <i>" +searchby +"</i>";
             // post population
             
             var search = "<?php echo $query; ?>";
             document.getElementById("h1-search").innerHTML = "Results for: \"" +search +"\"";
             $.post('ajax/db_dealer.php', {type:"search", command:mode, searchplace: search, offset: 0}, function(data)
             {
-                // alert(data);
                 if(data)
                 {
                     createPostLite(document.getElementById('result-posts'), data, 0);
@@ -120,19 +115,7 @@ $query = $_POST['query'];
             });
         }
 
-        // $("button#navbar-search-button").click(function()
-        // {
-        //     //this is the basic search function, not advanced search
-        //     //Plaintext could mean either place or title text, likely to be place text
-        //     //@ means user search ex: @Reymark
-        //     var navSearchText = $("input#navbar-search").val();
-        //     var command = "search";
-        //     $.post('php/search_dealer.php', {query: navSearchText, command: command}, function(data)
-        //     {
-        //         alert(data);
-        //     }); 
-        // });
-        
+      
           
         </script>   
     </body>

@@ -4,7 +4,6 @@ session_start();
 $isGuest;
 if(!isset($_SESSION['id'])) # if user is a guest.
 {
-//   header('Location: index.php');
     $isGuest = TRUE;
 }
 else
@@ -68,7 +67,6 @@ $userid = $_POST['userid'];
     <script>
         var off = 0;
         var mode = "user-profile-id";//this decides how the arrangement of posts appear
-        // alert(isGuest+" USERISGUEST");
         //choices are {string} "user-profile", "home" or "highest"
         window.onload = doSet();
         function doSet() //actually prepares navbar is what set does
@@ -77,14 +75,10 @@ $userid = $_POST['userid'];
             var _userid = "<?php echo $userid ?>";
             $.post('ajax/db_dealer.php', {type: "search", command: mode, offset: 0 , userid: _userid}, function(data)
             {
-                //alert(data);
-                // alert(data); //data now contains JSON formatted goods
                 createPostLite(document.getElementById('home-posts'), data, 0);
             });
             $.post('ajax/db_dealer.php', {type: "get", command: "getUserProfileById", userid: _userid}, function(data)
             {
-                //alert(data);
-                //var profile;
                
                 profile = JSON.parse(data);
                 $('b#profile-name').text(profile.fullname);
@@ -97,27 +91,16 @@ $userid = $_POST['userid'];
                     $('#line-bio').hide();
                 }
                  
-                //alert(data);
-                // alert(data); //data now contains JSON formatted goods
             });
             
         }
 
-        // $("button#navbar-search-button").click(function()
-        // {
-        //     //this is the basic search function, not advanced search
-        //     //Plaintext could mean either place or title text, likely to be place text
-        //     //@ means user search ex: @Reymark
-        //     var navSearchText = $("input#navbar-search").val();
-        //     var command = "search";
-        //     window.location = "search_results.php";
-        // });
+       
         function loadPost()
         {
             off+=4;
             $.post('ajax/db_dealer.php', {type: "search", command: mode, offset: off}, function(data)
             {
-                // alert(data); //data now contains JSON formatted goods, debugging tool
                 createPostLite(document.getElementById('home-posts'), data, off);
             });
         }
@@ -134,7 +117,6 @@ $userid = $_POST['userid'];
             document.body.appendChild(form);
 
             form.submit();
-            // $.post('user_profile.php', {userid: elem.dataset.userid});
         }
     </script>      
 

@@ -66,18 +66,7 @@
             $query->bindparam(2, $password);
             $result = $query->execute();
             
-            
-            
-            /*if($query->rowcount() == 1) #checks if it at least found a user with such credentials.
-            {    
-                $successful = TRUE;
-                $_SESSION['id'] = $query->fetch()['id'];  //this will give us the id
-            }
-            else
-            {
-                 $successful = FALSE; #the credentials were wrong.
-            }*/
-               
+        
             
            return $successful;
         }

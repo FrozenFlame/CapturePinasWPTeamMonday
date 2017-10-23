@@ -10,7 +10,6 @@ $(document).ready(function()
     $('#places-dropdown').on('click',function(e)
     {
             $('#topic').val($(e.target).text());
-            //$('#topic').Text($(e.target).text());
             $('#places-form').submit();
     });
     

@@ -21,10 +21,7 @@
     $attempt = new Signup();
     echo $attempt->signup($username, $hash, $email, $fullname); 
     $attempt->getUserId($username);
-    /*if(isset($user) === TRUE && empty($user) === FALSE 
-    && isset($pass) === TRUE && empty($pass) === FALSE) #this is to check if our reference is valid.
-    {                
-    } */
+    
 
     class Signup #inner class
     {
@@ -69,7 +66,6 @@
             if($query->rowcount() == 1) #checks if it at least found a user with such credentials.
             {    
                 $_SESSION['id'] = $query->fetch()['id'];
-                //$_SESSION['fullname'] = $query->fetch()['fullname'];//this will give us the id
                 
             }
         }

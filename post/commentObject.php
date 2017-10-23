@@ -22,7 +22,6 @@ class Comment
         $this->_likes = $likes;
         $this->_dislikes = $dislikes;
         $this->_filepath = $filepath;
-        //setAuthor(); //just learned php doesnt like userdefined functions UNLESS YOU CLAIM IT AS YOUR OWN OMG PHP SUCKS
         $this->setAuthor(); //gotta be super explicit jeez...
     }
     

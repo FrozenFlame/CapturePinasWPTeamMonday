@@ -46,25 +46,7 @@
             {
                 $successful = FALSE;
             }
-            // if($query->rowcount() == 1) #checks if it at least found a user with such credentials.
-            // {    
-            //    /* $successful = TRUE;
-                
-            //     $_SESSION['id'] = $query->fetch()['id']; //setting of userid in $_SESSION*/
-            //     if(password_verify($password, $query->fetch()['password']))#pass check
-            //     {
-            //         $successful = TRUE;
-            //         $_SESSION['id'] = $query->fetch()['id'];
-            //     }
-            //     else
-            //     {
-            //         $successful = FALSE;
-            //     }
-            // }
-            // else
-            // {
-            //      $successful = FALSE; #the credentials were wrong.
-            // }
+          
                
            return $successful;
         }

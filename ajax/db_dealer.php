@@ -56,7 +56,6 @@
                 */
                 include_once('../post/postObject.php');
                 $query = $this->db->prepare("SELECT u.username, p.*, i.filepath FROM post p LEFT JOIN users u ON p.userid = u.id LEFT JOIN userinfo i ON u.id = i.id WHERE postid = ?");
-                // SELECT u.username, p.*, i.filepath FROM post p LEFT JOIN users u ON p.userid = u.id LEFT JOIN userinfo i ON u.id = i.id 
                 $postid = $_POST['postid'];
                 $query->bindparam(1, $postid);
                 $query->execute();
@@ -86,7 +85,6 @@
                         $query2->execute();
                         foreach($query2 as $result2)
                         {
-                            // echo json_encode($result2[1]);
                             $post->pushToPathList($result2[1]);
                         }
                         array_push($posts, $post->toArray());
@@ -95,7 +93,7 @@
                 } else
                     echo "false";
             }
-            else if($commandReceived==='getId') //we should rename this method one day. We're not getting the ID here, we're getting the full name            {
+            else if($commandReceived==='getId') 
             {
                 $query = $this->db->prepare("SELECT fullName FROM users WHERE id = ?"); #retrieves fullname and other info based on users
                 $query->bindparam(1, $_SESSION['id']);
@@ -111,7 +109,6 @@
                 $query->execute();
                 $result = $query->fetch(PDO::FETCH_ASSOC);
                 $profile = new UserProfile($result['filepath'],$result['bio']);
-                //$profile->toArray();
                 echo json_encode($profile->toArray());
             }
             else if($commandReceived==='getUserProfileById')
@@ -122,7 +119,6 @@
                 $query->execute();
                 $result = $query->fetch(PDO::FETCH_ASSOC);
                 $profile = new UserProfile($result['filepath'],$result['bio'],$result['fullname']);
-                //$profile->toArray();
                 echo json_encode($profile->toArray());
             }
             else if($commandReceived==='getPostAuthor')
@@ -214,7 +210,6 @@
         {
             if($commandReceived === 'postComment')
             {
-                // do placeholder things
                 $commentJSON = $_POST['comment'];
                 $comment = json_decode($commentJSON);
                 $query = $this->db->prepare("INSERT INTO postcomments VALUES(?,NULL,?,?,0,0,NULL)");
@@ -242,7 +237,7 @@
                 $query->bindparam(2, $post->title);
                 $query->bindparam(3, $post->place);
                 $query->bindparam(4, $post->description);
-                $query->execute(); //holding trigger for now
+                $query->execute();
                 
                 //now to add filepaths;
                 //postmedia columns are: postid, filepath
@@ -254,7 +249,7 @@
                 foreach($post->path as $filepath) //$post->path is an array
                 {
                     $query2->bindparam(2, $filepath);
-                    $query2->execute(); //holding trigger for now
+                    $query2->execute(); 
                 }                
             }
             else if($commandReceived === 'userAvatar')
@@ -512,7 +507,6 @@
                             $query2->execute();
                             foreach($query2 as $result2)
                             {
-                                // echo json_encode($result2[1]);
                                 $post->pushToPathList($result2[1]);
                             }
                             array_push($posts, $post->toArray());
@@ -526,12 +520,7 @@
                 case "home": 
                     include_once('../post/postObject.php');
                     $query = $this->db->prepare("SELECT u.username, p.*, i.filepath FROM post p LEFT JOIN users u ON p.userid = u.id LEFT JOIN userinfo i ON u.id = i.id ORDER BY timestamp DESC LIMIT 4 OFFSET :off");
-                    /*
-                    "SELECT u.username, p.* FROM post p RIGHT JOIN users u ON p.userid = u.id WHERE postid = :postid");
-                    $postid = $_POST['postid'];
-                    $query->bindparam(':postid', $postid, PDO::PARAM_INT);
-                    */
-                    //"SELECT * FROM postcomments WHERE postid = :postid LIMIT :lim OFFSET :offset"
+                  
                     $offset = (int)$_POST['offset'];
                     $query->bindparam(':off', $offset, PDO::PARAM_INT);
                     $query->execute();
@@ -559,7 +548,6 @@
                             $query2->execute();
                             foreach($query2 as $result2)
                             {
-                                // echo json_encode($result2[1]);
                                 $post->pushToPathList($result2[1]);
                             }
                             array_push($posts, $post->toArray());
@@ -571,12 +559,7 @@
                 case "oldest": 
                     include_once('../post/postObject.php');
                     $query = $this->db->prepare("SELECT u.username, p.*, i.filepath FROM post p LEFT JOIN users u ON p.userid = u.id LEFT JOIN userinfo i ON u.id = i.id ORDER BY timestamp ASC LIMIT 4 OFFSET :off");
-                    /*
-                    "SELECT u.username, p.* FROM post p RIGHT JOIN users u ON p.userid = u.id WHERE postid = :postid");
-                    $postid = $_POST['postid'];
-                    $query->bindparam(':postid', $postid, PDO::PARAM_INT);
-                    */
-                    //"SELECT * FROM postcomments WHERE postid = :postid LIMIT :lim OFFSET :offset"
+                   
                     $offset = (int)$_POST['offset'];
                     $query->bindparam(':off', $offset, PDO::PARAM_INT);
                     $query->execute();
@@ -604,7 +587,6 @@
                             $query2->execute();
                             foreach($query2 as $result2)
                             {
-                                // echo json_encode($result2[1]);
                                 $post->pushToPathList($result2[1]);
                             }
                             array_push($posts, $post->toArray());
@@ -617,13 +599,7 @@
                 case "user-profile": 
                     include_once('../post/postObject.php');
                     $query = $this->db->prepare("SELECT u.username, p.*, i.filepath FROM post p LEFT JOIN users u ON p.userid = u.id LEFT JOIN userinfo i ON u.id = i.id WHERE u.id=:userid ORDER BY timestamp DESC LIMIT 4 OFFSET :off");
-                    /*
-                    "SELECT u.username, p.* FROM post p RIGHT JOIN users u ON p.userid = u.id WHERE postid = :postid");
-                    $postid = $_POST['postid'];
-                    $query->bindparam(':postid', $postid, PDO::PARAM_INT);
-                    */
-                    //"S   ELECT * FROM postcomments WHERE postid = :postid LIMIT :lim OFFSET :offset"
-                    //$query2->bindparam(1, $result['postid']);
+                  
                     $query->bindparam(':userid',$_SESSION['id']);
                     $offset = (int)$_POST['offset'];
                     $query->bindparam(':off', $offset, PDO::PARAM_INT);
@@ -652,7 +628,6 @@
                             $query2->execute();
                             foreach($query2 as $result2)
                             {
-                                // echo json_encode($result2[1]);
                                 $post->pushToPathList($result2[1]);
                             }
                             array_push($posts, $post->toArray());
@@ -665,13 +640,7 @@
                 case "user-profile-id": 
                     include_once('../post/postObject.php');
                     $query = $this->db->prepare("SELECT u.username, p.*, i.filepath FROM post p LEFT JOIN users u ON p.userid = u.id LEFT JOIN userinfo i ON u.id = i.id WHERE u.id=:userid ORDER BY timestamp DESC LIMIT 4 OFFSET :off");
-                    /*
-                    "SELECT u.username, p.* FROM post p RIGHT JOIN users u ON p.userid = u.id WHERE postid = :postid");
-                    $postid = $_POST['postid'];
-                    $query->bindparam(':postid', $postid, PDO::PARAM_INT);
-                    */
-                    //"S   ELECT * FROM postcomments WHERE postid = :postid LIMIT :lim OFFSET :offset"
-                    //$query2->bindparam(1, $result['postid']);
+                    
                     $query->bindparam(':userid',$_POST['userid']);
                     $offset = (int)$_POST['offset'];
                     $query->bindparam(':off', $offset, PDO::PARAM_INT);
@@ -700,7 +669,6 @@
                             $query2->execute();
                             foreach($query2 as $result2)
                             {
-                                // echo json_encode($result2[1]);
                                 $post->pushToPathList($result2[1]);
                             }
                             array_push($posts, $post->toArray());
@@ -713,12 +681,7 @@
                 case "highest": # arrange by highest rated
                     include_once('../post/postObject.php');
                     $query = $this->db->prepare("SELECT u.username, p.*, i.filepath FROM post p LEFT JOIN users u ON p.userid = u.id LEFT JOIN userinfo i ON u.id = i.id ORDER BY likes DESC LIMIT 4 OFFSET :off");
-                    /*
-                    "SELECT u.username, p.* FROM post p RIGHT JOIN users u ON p.userid = u.id WHERE postid = :postid");
-                    $postid = $_POST['postid'];
-                    $query->bindparam(':postid', $postid, PDO::PARAM_INT);
-                    */
-                    //"SELECT * FROM postcomments WHERE postid = :postid LIMIT :lim OFFSET :offset"
+                 
                     $offset = (int)$_POST['offset'];
                     $query->bindparam(':off', $offset, PDO::PARAM_INT);
                     $query->execute();
@@ -746,7 +709,6 @@
                             $query2->execute();
                             foreach($query2 as $result2)
                             {
-                                // echo json_encode($result2[1]);
                                 $post->pushToPathList($result2[1]);
                             }
                             array_push($posts, $post->toArray());
@@ -758,12 +720,7 @@
                 case "favorites": # arrange by  most favorites
                     include_once('../post/postObject.php');
                     $query = $this->db->prepare("SELECT u.username, p.*, i.filepath FROM post p LEFT JOIN users u ON p.userid = u.id LEFT JOIN userinfo i ON u.id = i.id ORDER BY favnum DESC LIMIT 4 OFFSET :off");
-                    /*
-                    "SELECT u.username, p.* FROM post p RIGHT JOIN users u ON p.userid = u.id WHERE postid = :postid");
-                    $postid = $_POST['postid'];
-                    $query->bindparam(':postid', $postid, PDO::PARAM_INT);
-                    */
-                    //"SELECT * FROM postcomments WHERE postid = :postid LIMIT :lim OFFSET :offset"
+                   
                     $offset = (int)$_POST['offset'];
                     $query->bindparam(':off', $offset, PDO::PARAM_INT);
                     $query->execute();
@@ -791,7 +748,6 @@
                             $query2->execute();
                             foreach($query2 as $result2)
                             {
-                                // echo json_encode($result2[1]);
                                 $post->pushToPathList($result2[1]);
                             }
                             array_push($posts, $post->toArray());

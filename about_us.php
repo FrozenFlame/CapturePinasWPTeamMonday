@@ -4,7 +4,6 @@ session_start();
 $isGuest = TRUE;
 if(!isset($_SESSION['id'])) # if user is a guest.
 {
-//   header('Location: index.php');
     $isGuest = TRUE;
 }
 else

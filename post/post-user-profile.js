@@ -134,11 +134,7 @@ function createPostLite(container, json, index)
             divCarousel.appendChild(aLeftControl);
         rowCarousel.appendChild(divCarousel);
         //rowDetails
-        // var divDetails = document.createElement("div");
-        // divDetails.setAttribute("class","row");
             /*divDetails-children*/
-            
-        
             //post-media
             var divMedia = document.createElement("div");
             divMedia.setAttribute("class","media");
@@ -151,7 +147,7 @@ function createPostLite(container, json, index)
                 divMediaBody.setAttribute("class","media-body");
                     //post name
                     var aPostName = document.createElement("a");
-                    aPostName.setAttribute("href", "#"); //painful... this needs yet another algorithm
+                    aPostName.setAttribute("href", "#"); 
                     aPostName.setAttribute("id","post-href");
                     /*aPostName-children*/
                     var pPostName = document.createElement("p");
@@ -234,9 +230,6 @@ function createPostLite(container, json, index)
             
         //adding all that back to our row
          rowDetails.appendChild(divMedia);
-        // rowDetails.appendChild(aPostName);
-        // rowDetails.appendChild(pPostPlace);
-        // rowDetails.appendChild(pPostTimeStamp);
         rowDetails.appendChild(pPostDescription);
         rowDetails.appendChild(pLine);
         rowDetails.appendChild(buttonLike);
@@ -253,7 +246,6 @@ function createPostLite(container, json, index)
 
 
 //WARNING: Every function below is what you should be editing if you wanna play around with some post things
-
 /**
  * @param elem - this is the element itself
  */
@@ -261,14 +253,12 @@ function thumbsUp(elem)   //for post @param elem is the button itself
 {
     if(!isGuest)
     {
-        // alert(id.id);
     var postRating = elem.children[0]; //element that contains our like post rating
     var postIndex = postRating.getAttribute("id").substr(10); //id is post-likes which is 10 characters
     var thumbdownelem = document.getElementById('post-dislikes'+postIndex);
 
     $.post('ajax/db_dealer.php', {type: "get", command: "postOpinion", postid: elem.dataset.postid}, function(data) //we expect data to be: L, D, or N
     {
-        // alert(data +" prev opinion");
         switch(data)
         {
             case 'N'://Neutral  (+1 for like)                   -> db value is now L
@@ -301,7 +291,6 @@ function thumbsDown(elem) //for post @param elem is the button itself
 {
     if(!isGuest)
     {
-        // alert(id);
         var postRating = elem.children[0]; //element that contains our dislike post rating
         var postIndex = postRating.getAttribute("id").substr(13); //id is post-dislikes which is 13 characters
         var thumbupelem = document.getElementById('post-likes'+postIndex);
@@ -347,19 +336,9 @@ function thumbsUpComment(elem)
     var commentIndex = elem.getAttribute("id").substr(16); //id is comment-like-btn which is 16 characters
     var thumbdownelem = document.getElementById('comment-dislike-btn'+commentIndex);
     //first we check what status the user has with the comment
-    /*
-    <input type="text" id="foo" data-something="something" value="bar">
-    and the javascript.
-
-    var el = document.getElementById("foo"); 
-
-    console.log(el.value) // bar
-    console.log(el.getAttribute("id")) // foo
-    console.log(el.dataset.something) //something
-    */ 
+    
     $.post('ajax/db_dealer.php', {type:"get", command:"commentOpinion", commentid: commentRating.dataset.commentid}, function(data) //we expect data to be: L, D, or N
     {
-        // alert(data +" prev opinion");
         switch(data)
         {
             case 'N'://Neutral  (+1 for like)                   -> db value is now L
@@ -389,12 +368,9 @@ function thumbsDownComment(elem)
     var commentRating = elem.children[0];
     var commentIndex = elem.getAttribute("id").substr(19); //id is comment-dislike-btn which is 19 characters
     var thumbupelem = document.getElementById('comment-like-btn'+commentIndex);
-    // alert("hey " +commentIndex);
-    // alert(document.getElementById('comment-dislike-btn'+commentIndex).children[0].innerHTML +" complexshiz");
 
     $.post('ajax/db_dealer.php', {type:"get", command:"commentOpinion", commentid: commentRating.dataset.commentid}, function(data) //we expect data to be: L, D, or N
     {
-        // alert(data +" prev opinion");
         switch(data)
         {
             case 'N'://Neutral  (+1 for dislike)                -> db value is now D

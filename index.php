@@ -139,7 +139,6 @@ if(isset($_SESSION['id'])) # if user is already logged in, redirect to logged in
             $('#places-dropdown').on('click',function(e)
             {
                     $('#topic').val($(e.target).text());
-                    //$('#topic').Text($(e.target).text());
                     $('#places-form').submit();
             });
             $('#upload-select').on('change', function(e)

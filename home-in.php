@@ -4,7 +4,6 @@ session_start();
 $isGuest = TRUE;
 if(!isset($_SESSION['id'])) # if user is a guest.
 {
-//   header('Location: index.php');
     $isGuest = TRUE;
 }
 else
@@ -184,9 +183,6 @@ if(!isset($_SESSION['mode']))
                 window.location = "home-in.php";
             });
             
-            /*$("#latest-time-button").click(function(){
-                
-            });*/
             
            
             $("#example").popover({
@@ -237,7 +233,6 @@ if(!isset($_SESSION['mode']))
         var postdropdown = document.getElementById("upload-select");
         
         var off = 0;
-        // var mode = "home";//this decides how the arrangement of posts appear
         //choices are {string} "user-profile", "home" or "highest"
         var mode = "<?php echo $_SESSION['mode']; ?>";
         window.onload = doSet();
@@ -250,7 +245,6 @@ if(!isset($_SESSION['mode']))
             //NOTE offset is 0 because this is the FIRST TIME LOAD of the page. Before the "more" is clicked.
             $.post('ajax/db_dealer.php', {type: "search", command: mode, offset: 0}, function(data)
             {
-                // alert(data); //data now contains JSON formatted goods
                 createPostLite(document.getElementById('home-posts'), data, 0);
             });
         }
@@ -267,21 +261,12 @@ if(!isset($_SESSION['mode']))
     document.body.appendChild(form);
     form.submit();
 }
-        // $("button#navbar-search-button").click(function()
-        // {
-        //     //this is the basic search function, not advanced search
-        //     //Plaintext could mean either place or title text, likely to be place text
-        //     //@ means user search ex: @Reymark
-        //     var navSearchText = $("input#navbar-search").val();
-        //     var command = "search";
-        //     window.location = "search_results.php";
-        // });
+      
         function loadPost()
         {
             off+=4;
             $.post('ajax/db_dealer.php', {type: "search", command: mode, offset: off}, function(data)
             {
-                // alert(data); //data now contains JSON formatted goods, debugging tool
                 createPostLite(document.getElementById('home-posts'), data, off);
             });
         }
@@ -297,17 +282,10 @@ if(!isset($_SESSION['mode']))
                 var numFiles = input.get(0).files ? input.get(0).files.length : 1; //get(0) is the input child of the span parent
                 var label = input.val().replace(/\\/g, '/').replace(/.*\//, ''); //string escapes
                 input.trigger('fileselect', [numFiles, label]); // 'fileselect' is what the identifier of our following jquery will see it as
-                // alert(input.val().get(1));
-                // alert(input); // [object Object]
-                // alert(input.get(0)); // [object HTMLInputElement]
-                // alert(input.get(0).getAttribute("id")); //file
-                //alert(input.get(0).getAttribute("style")); //display: none
-                // alert(input.get(0).files); //filelist
-                // alert(input.get(0).files[0]); //file
+             
                 uploadList = new FormData();
                 for(var i = 0; i < input.get(0).files.length; i++)
                 {
-                    // alert((input.get(0).files[i]).name +" content " +i); //displays all filenames
                     uploadList.append('file-'+i, input.get(0).files[i]);
                 }
                 uploadList.append('qty', input.get(0).files.length);
@@ -332,8 +310,6 @@ if(!isset($_SESSION['mode']))
         });
         function upload()
         {   
-            //variables found above:
-            // var uploadList;
             /**
             *   @author DD_
             */
@@ -354,17 +330,10 @@ if(!isset($_SESSION['mode']))
                 
                 $.post('ajax/db_dealer.php', {type:"get", command:"getLastPostId"}, function(data)
                 {
-                    // var lastpostid = ;
                     pID = 0;
                     pID = parseInt(data)+1;
                     uploadList.append('pid', pID);
-                    // for (var pair of uploadList.entries()) {
-                    // console.log(pair[0]+ ', PUSANG ' + pair[1]); 
-                    // }
-                    /*I kid ye not my friends. I suspected this too late
-                        I knew that the $.ajax was running earlier than this $.post method despite their positioning in the code.
-                        Now that I moved the $.ajax function in here, it guarantees our $.post must complete BEFORE this piece of... nanites executes
-                    */
+                   
                     $.ajax( 
                     { 
                         url: 'php/uploadFile.php',
@@ -377,15 +346,10 @@ if(!isset($_SESSION['mode']))
                         success: function(data)
                         {
                             result = JSON.parse(data);
-                            /*alert(result[0]);
-                            alert(result[1]);
-                            alert(result[2]);*/
+                           
                             alert(result[0]);
-                            // alert(result[2]);
                             numOfSuccessfulUploads = result[1];
-                            //AND then this is where I discover the rest of the code must be shoved into this function. this is great.
-                            //fun fact I just recently shoved it even deeper from the $.post to this $.ajax async gaming
-                            //OKAY LAST TIME. Hopefully this is the last time. now I had to go inside the success: function
+                         
                             var post = new Object();
                             post.userid = "<?php echo $_SESSION['id']; ?>";
                             post.title = document.getElementById("post-title").value.trim();
@@ -402,42 +366,18 @@ if(!isset($_SESSION['mode']))
                             
                             for(var c = 0; c < numOfSuccessfulUploads; c++)
                                 post.path.push("/CapturePinasWPTeamMonday/images/postimages/" +pID+"img" +(c+1) +"." +exts[c]);
-                            // var c = 0;
-                            // for(var extension of result[2])
-                            // {
-                            //     post.path.push("/CapturePinasWPTeamMonday/images/postimages/" +pID+"img" +(c++ +1) +"." +extension);
-                            // }
-                            
-                            // alert(JSON.stringify(post) +" \n-post content");
+                          
                             $.post('ajax/db_dealer.php', 
                             {type:"set", command:"post",
                             postJSON: JSON.stringify(post)},
                             function(data)
                             {
-                                //redirect to the post_page
-                                // alert(data+"fake");
                                 window.location = "post_page.php?post=" +pID;
                             });
                         }
                         
                     });
                 });
-                //  $.ajax( damn you inventor of jQuery. This slow and inefficient heap of trash won't last any longer 
-                //     { 
-                //         url: 'php/uploadFile.php',
-                //         data: uploadList,
-                //         cache: false,
-                //         contentType: false,
-                //         processData: false,
-                //         method: 'POST',
-                //         type: 'POST',
-                //         success: function(data)
-                //         {
-                //             // result = JSON.parse(data);
-                //             alert(data);
-                //         }
-                //     });
-                
                 
             }
         }

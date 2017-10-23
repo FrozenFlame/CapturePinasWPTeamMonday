@@ -2,11 +2,6 @@
   Made By Jarvis
   This page is what happens if you select a specific post to show.
 -->
-<?php
-  #variable declaration
-  $hype = "HYYYYPE"; # THIS IS IT
-   #just a test, the value we put here should come from the post that was selected, which will have its own logic some other time
-?>
 
   <body>
       <div class="container-post">
@@ -78,7 +73,6 @@
                             <textarea class="form-control" id="post-comment" placeholder="Enter a comment.."></textarea>
                             <button type="button" class="btn btn-default" id="textarea-button" >Comment</button>
                         </div>
-                        <!-- <p id="line"></p> -->
                         <!-- passing postID value to comment loader -->
                         <?php include("comment_loader.php"); ?>
                     </div>
@@ -115,7 +109,7 @@
                         }); 
                         document.getElementById("user-image").setAttribute("src", post[0].filepath);
                         $('b#post-place').text(post[0].place);
-                            /**
+                        /**
                         * TIME CALCULATION 
                         */
                         function formatDateHTML(date) 
@@ -158,9 +152,7 @@
                             var day = dateParts[2].substr(0,2);
                             var monthIndex = parseInt(dateParts[1])-1;
                             var year = dateParts[0];
-                            // var hour = dateParts[2].substr(3,5);
-                            // var min = dateParts[2].substr(6,8);
-                            // var sec = dateParts[2].substr(9,11);
+                            
                             var time = dateParts[2].substr(3,11);
                             return months[monthIndex] +" " +day +" " +year +" " +time +" GMT+0800 (Taipei Standard Time)" ;
                         }
@@ -189,8 +181,6 @@
                             var li = document.createElement("li");
                             li.setAttribute("data-target","#post-carousel");
                             li.setAttribute("data-slide-to", i);
-                            // if(i == 0)
-                            //     li.setAttribute("class","active");
                             liCar.push(li);
                         
                             (olCarousel);
@@ -213,19 +203,7 @@
                         }
                         divItem[0].setAttribute("class","item active");
                     }); 
-                    // $("#post-like-btn").click(function()
-                    // {
-                    //     var likes = parseInt($(this).text());
-                    //     $(this).text(likes+1+' ');
-                    //     $(this).append('<span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span>');
-                    // });
-                    // $("#post-unlike-btn").click(function()
-                    // {
-                    //     var likes = parseInt($(this).text());
-                    //     $(this).text(likes+1+' ');
-                    //     $(this).append('<span class="glyphicon glyphicon-thumbs-down" aria-hidden="true"></span>');
-                    // });
-                    //comment button
+                  
                     $("#textarea-button").click(function()
                     {
                         if(document.getElementById("post-comment").value.trim() != '')
@@ -299,21 +277,17 @@
             }
             function revealAllComments()
             {
-                // alert("fale");
-                // getRemComment(postid, iterator);
                 for(var iter = 0; iter < 33; iter++) //sad brute force way to do this
                 {
                     commentIterator += 2;
                     getComment(postid, commentIterator);
                 }
-                // commentIterator = document.getElementById("comments_sec").children.length;
                 commentIterator++;
             }
             function postComment(comment, postID)
             {
                 if(!isGuest)
                 {
-                    // alert(comment);  
                     //delay gaming for arrangement purposes
                     if(comment.trim() != '')
                     {
@@ -324,7 +298,6 @@
                             comment_.userid = "<?php echo $_SESSION['id']; ?>";
                             comment_.content = comment;
                             var commentJSON =  JSON.stringify(comment_);
-                            // alert("post.php says: " +commentJSON);
                             $.post('ajax/db_dealer.php', {type:"set", command:"postComment", comment: commentJSON, userid: comment_.userid}, function(filepath)
                             {
                                 var list = document.getElementById("comment-list");
@@ -351,12 +324,11 @@
                                     var a3b = document.createElement("button");
                                     a3b.setAttribute("type", "button");
                                     a3b.setAttribute("class", "btn btn-default");
-                                    var commentind = document.getElementById('comment-list').children.length;//(document.getElementById('comment-list').children.length) is to get the amount of comments and apply it here
+                                    var commentind = document.getElementById('comment-list').children.length;
                                     a3b.setAttribute("id", "comment-like-btn"+commentind); 
                                     a3b.setAttribute("onclick","thumbsUpComment(this)");
                                         var a3btext = document.createElement("text");
                                         a3btext.setAttribute("id","comment-likes");
-                                        // a3btext.setAttribute("data-commentid", cid+"");//cid will now be applied later in the code.
                                         a3btext.innerHTML = 0 +" ";
                                         var a3bspan = document.createElement("span");
                                         a3bspan.setAttribute("class", "glyphicon glyphicon-thumbs-up");
@@ -371,21 +343,13 @@
                                     a4b.setAttribute("onclick","thumbsDownComment(this)");
                                     var a4btext = document.createElement("text");
                                     a4btext.setAttribute("id","comment-dislikes");
-                                    // a4btext.setAttribute("data-commentid", cid); //cid will now be applied later in the code.
                                     a4btext.innerHTML = 0 +" ";
                                     var a4bspan = document.createElement("span");
                                     a4bspan.setAttribute("class", "glyphicon glyphicon-thumbs-down");
                                     a4bspan.setAttribute("aria-hidden","true");
                                     a4b.appendChild(a4btext);
                                     a4b.appendChild(a4bspan);
-                                    /*var a4 = document.createElement("b"); //actual likes value
-                                    a4.innerHTML = 0 +" ";
-                                    a4.setAttribute("id","likes"+(commentIterator+1));
-                                    var a5 = document.createElement("text"); //dislikes
-                                    a5.innerHTML = "Dislikes: ";
-                                    var a6 = document.createElement("b"); //actual dislike value
-                                    a6.innerHTML = 0 +" ";
-                                    a6.setAttribute("id","dislikes"+(commentIterator+1));*/
+                                  
                                     
                                     var pLine = document.createElement("p");
                                     pLine.setAttribute("id","line");
@@ -400,9 +364,6 @@
                         space.innerHTML = " ";
                         mediaBody.appendChild(space);
                         mediaBody.appendChild(a4b);
-                        // mediaBody.appendChild(a4);
-                        // mediaBody.appendChild(a5);
-                        // mediaBody.appendChild(a6);
                         media.appendChild(mediaBody);
                         media.appendChild(pLine);
                         commsec.appendChild(media);

@@ -87,10 +87,8 @@
             if($result && $result2 && $result3 && $result4)
             {
                 $successful=TRUE;
-                //alert('Password changed!');
             }else{
                 $successful=FALSE;
-                //echo "alert('Error changing E-mail')";
             }
 
             return $successful;
