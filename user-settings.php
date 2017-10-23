@@ -319,9 +319,18 @@ if(!isset($_SESSION['id'])) # if user is already logged in, redirect to logged i
                 });
             });
         });
-
+        function filter()
+        {
+            var field = document.getElementById('Fullname');
+            field.value = field.value.replace(/[^a-zA-Z ]/g,"");
+        }
+        
         $(document).ready(function()
         {
+            $('input#Fullname').keyup(function()
+            {
+                filter();
+            });
             $("#seePwdBtnModal").click(function()
             {
                 var password = document.getElementById('Password-modal');
@@ -381,6 +390,7 @@ if(!isset($_SESSION['id'])) # if user is already logged in, redirect to logged i
             })
           $("#bSaveChanges").click(function()
           {
+            filter();
             var password = $('input#Password').val();
             var password2 = $('input#Password2').val();
 

@@ -61,7 +61,7 @@ INSERT INTO postcomments (postid, userid, content, likes, dislikes, timestamp) V
     (6, 2, "Gege pwede! hahaahha", 2, 0, "2017-02-03 23:14:32"),
     (6, 5, "I have no idea what you folks are talking about. Nice pics tho", 3, 0, "2017-02-04 09:34:26"),
 
-    (7, 1, "I got hacked wth", 1, 0, "2017-10-16 23:39:49")
+    (7, 1, "I got hacked come on.", 1, 0, "2017-10-16 23:39:49")
 ;
 
 
