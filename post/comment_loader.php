@@ -30,7 +30,7 @@ function getHYPED($hype)
         var c = 0;
         $("button#showmore_b").click(function()
         {
-            commentIterator += 2; 
+            commentIterator += 2;
             getComment(postID, commentIterator);
             //ren(c++); //THIS IS CAUSING THE LINE TO SAY FAKE, it's just a thing to test out the adaptive IDs
         });
